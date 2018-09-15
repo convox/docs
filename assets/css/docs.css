@@ -17,6 +17,7 @@ main {
 	border-right: 1px #ccc solid;
 	margin-top: 10px;
 	padding-top: 2.0rem !important;
+	min-width: 0 !important;
 	max-width: 1000px !important;
 }
 
@@ -75,6 +76,7 @@ pre {
 	background-color: #eee;
 	border: 1px #ccc solid;
 	border-radius: 4px;
+	min-width: 0;
 	padding: 16px;
 }
 
