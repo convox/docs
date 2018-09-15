@@ -50,7 +50,7 @@ func helpers(c *stdapi.Context) template.FuncMap {
 }
 
 func index(c *stdapi.Context) error {
-	return c.RenderTemplate("doc", nil)
+	return c.Redirect(302, "/introduction/overview")
 }
 
 func doc(c *stdapi.Context) error {
