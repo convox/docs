@@ -157,6 +157,16 @@ func LoadCategory(slug string) error {
 	return nil
 }
 
+func (cs Categories) Find(slug string) (*Category, bool) {
+	for _, c := range cs {
+		if c.Slug == slug {
+			return &c, true
+		}
+	}
+
+	return nil, false
+}
+
 func (ds Documents) Find(slug string) (*Document, bool) {
 	for _, d := range ds {
 		if d.Slug == slug {

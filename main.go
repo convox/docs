@@ -54,15 +54,21 @@ func index(c *stdapi.Context) error {
 }
 
 func doc(c *stdapi.Context) error {
-	d, ok := docs.Find(c.Var("slug"))
+	cc, ok := categories.Find(c.Var("category"))
+	if !ok {
+		return stdapi.Errorf(404, "not found")
+	}
+
+	d, ok := cc.Documents.Find(c.Var("slug"))
 	if !ok {
 		return stdapi.Errorf(404, "not found")
 	}
 
 	params := map[string]interface{}{
 		"Categories": categories,
+		"Category":   cc.Slug,
 		"Document":   template.HTML(d.Body),
-		"Slug":       c.Var("slug"),
+		"Slug":       d.Slug,
 		"Title":      d.Title,
 	}
 
@@ -70,5 +76,11 @@ func doc(c *stdapi.Context) error {
 }
 
 func redirect(c *stdapi.Context) error {
-	return nil
+	for _, cc := range categories {
+		if d, ok := cc.Documents.Find(c.Var("slug")); ok {
+			return c.Redirect(301, fmt.Sprintf("/%s/%s", cc.Slug, d.Slug))
+		}
+	}
+
+	return stdapi.Errorf(404, "not found")
 }

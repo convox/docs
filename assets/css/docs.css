@@ -1,5 +1,5 @@
 body {
-	background-color: #e3e6e9;
+	background-color: rgb(48,55,62);
   padding-top: 3.0rem;
 }
 
@@ -15,9 +15,9 @@ main {
 	background-color: #fff;
 	border-left: 1px #ccc solid;
 	border-right: 1px #ccc solid;
-	margin-top: 10px;
 	padding: 2.0rem !important;
-	padding-top: 1.6rem !important;
+	padding-top: 1.8rem !important;
+	padding-bottom: 1.2rem !important;
 	min-width: 0 !important;
 	max-width: 1000px !important;
 }
@@ -27,7 +27,9 @@ a, a:hover {
 }
 
 #toc {
+	background-color: #e3e6e9;
 	padding: 0px;
+	padding-top: 10px;
 }
 
 #toc > ul {
@@ -53,8 +55,11 @@ a, a:hover {
 
 #toc ul.documents li a {
 	display: block;
+	margin-left: -4px;
+	margin-right: -10px;
 	padding: 4px 10px;
-	padding-right: 10px;
+	padding-left: 14px;
+	padding-right: 30px;
 	white-space: nowrap;
 	width: 100%;
 }
@@ -74,6 +79,12 @@ a, a:hover {
 	font-weight: bold;
 	padding-bottom: 4px;
 	margin-left: 10px;
+}
+
+#footer {
+	border-top: 1px #ccc solid;
+	padding-top: 10px;
+	margin-top: 30px;
 }
 
 pre {
@@ -146,7 +157,9 @@ h4 {
   \-moz-transition: opacity 0.2s ease-in-out 0.1s;
   \-ms-transition: opacity 0.2s ease-in-out 0.1s;
   \-webkit-transition: opacity 0.2s ease-in-out 0.1s;
-	left: 0.6em;
+	margin-top: 4px;
+	left: 0.58em;
+	font-size: 0.8em;
   opacity: 0;
   position: absolute;
 }
@@ -167,7 +180,7 @@ h5:before,
 h6:before {
   content: " "; 
 	display: block;
-  margin-top: -90px; 
-  height: 90px; 
+  margin-top: -80px; 
+  height: 80px; 
   visibility: hidden; 
 }

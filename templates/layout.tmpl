@@ -31,14 +31,14 @@
         </nav>
       </header>
 
-      <div class="d-flex flex-row row">
+      <div class="d-flex flex-row row justify-content-center">
         <nav id="toc" class="sidebar">
           <ul class="nav nav-pills flex-column">
             {{ range $c := .Categories }}
               <div class="category">{{.Name}}</div>
               <ul class="documents">
                 {{ range .Documents }}
-                  <li><a {{ if eq $.Slug .Slug }}class="active"{{ end }} href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a></li>
+                  <li><a {{ if and (eq $.Slug .Slug) (eq $.Category $c.Slug) }}class="active"{{ end }} href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a></li>
                 {{ end }}
               </ul>
             {{ end }}
