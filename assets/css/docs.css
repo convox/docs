@@ -16,7 +16,8 @@ main {
 	border-left: 1px #ccc solid;
 	border-right: 1px #ccc solid;
 	margin-top: 10px;
-	padding-top: 2.0rem !important;
+	padding: 2.0rem !important;
+	padding-top: 1.6rem !important;
 	min-width: 0 !important;
 	max-width: 1000px !important;
 }
@@ -26,10 +27,12 @@ a, a:hover {
 }
 
 #toc {
-	padding: 30px;
+	padding: 0px;
 }
 
 #toc > ul {
+	margin-left: 30px;
+	margin-top: 26px;
 	float: right;
 }
 
@@ -45,12 +48,13 @@ a, a:hover {
 }
 
 #toc ul.documents li {
+	padding-right: 20px;
 }
 
 #toc ul.documents li a {
 	display: block;
 	padding: 4px 10px;
-	padding-right: 30px;
+	padding-right: 10px;
 	white-space: nowrap;
 	width: 100%;
 }
