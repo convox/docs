@@ -81,6 +81,28 @@ a, a:hover {
 	margin-left: 10px;
 }
 
+#toc-small {
+	padding-top: 16px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+#toc-small .dropdown {
+	margin-bottom: 8px;
+	width: 100%;
+}
+
+#toc-small .dropdown-menu {
+	background-color: #e3e6e9;
+	margin-top: 110px;
+	width: 100%;
+}
+
+#toc-small button {
+	width: 100%;
+}
+
+
 #footer {
 	border-top: 1px #ccc solid;
 	padding-top: 10px;

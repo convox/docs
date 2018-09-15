@@ -31,8 +31,23 @@
         </nav>
       </header>
 
+      <div id="toc-small" class="d-lg-none">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{.Title}}
+          </button>
+          <div class="dropdown-menu">
+            {{ range $c := .Categories }}
+              <h6 class="dropdown-header">{{.Name}}</h6>
+              {{ range .Documents }}
+                <a class="dropdown-item" href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a>
+              {{ end }}
+            {{ end }}
+          </div>
+      </div>
+
       <div class="d-flex flex-row row justify-content-center">
-        <nav id="toc" class="sidebar">
+        <nav id="toc" class="sidebar d-none d-lg-block">
           <ul class="nav nav-pills flex-column">
             {{ range $c := .Categories }}
               <div class="category">{{.Name}}</div>
