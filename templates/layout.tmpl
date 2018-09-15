@@ -1,0 +1,69 @@
+{{ define "main" }}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <title>Convox Docs</title>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/assets/css/docs.css">
+      <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
+
+      <script src="/assets/js/jquery-3.3.1.min.js"></script>
+      <script src="/assets/js/jquery-ui.min.js"></script>
+      <script src="/assets/js/popper.min.js"></script>
+      <script src="/assets/js/bootstrap.min.js"></script>
+      <script src="/assets/js/moment.min.js"></script>
+      <script src="/assets/js/jquery.timeago.js"></script>
+      <script src="/assets/js/clipboard.min.js"></script>
+
+      {{ block "head" . }}{{ end }}
+    </head>
+    <body>
+      <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+          <a class="navbar-brand" href="/">
+            <img src="/assets/img/logo.png">
+          </a>
+        </nav>
+      </header>
+
+      <div class="d-flex flex-row row">
+        <nav id="toc" class="sidebar">
+          <ul class="nav nav-pills flex-column">
+            {{ range $c := .Categories }}
+              <div class="category">{{.Name}}</div>
+              <ul class="documents">
+                {{ range .Documents }}
+                  <li><a {{ if eq $.Slug .Slug }}class="active"{{ end }} href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a></li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </ul>
+        </nav>
+
+        <main role="main" class="pt-4 pl-5 pr-5 pb-4 col-5">
+          {{ template "content" . }}
+        </main>
+      </div>
+
+      <script>
+        $(function() {
+          return $("h2, h3, h4, h5, h6").each(function(i, el) {
+            var $el, icon, id;
+            $el = $(el);
+            id = $el.attr('id');
+            icon = '<i class="fa fa-link"></i>';
+            if (id) {
+              return $el.prepend($("<a />").addClass("heading-link").attr("href", "#" + id).html(icon));
+            }
+          });
+        });
+      </script>
+
+    </body>
+  </html>
+{{ end }}

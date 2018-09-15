@@ -1,0 +1,165 @@
+body {
+	background-color: #e3e6e9;
+  padding-top: 3.0rem;
+}
+
+.navbar {
+	background-color: rgb(16,25,33);
+}
+
+.navbar-brand img {
+	height: 26px;
+}
+
+main {
+	background-color: #fff;
+	border-left: 1px #ccc solid;
+	border-right: 1px #ccc solid;
+	margin-top: 10px;
+}
+
+a, a:hover {
+	color: #428ff4;
+}
+
+#toc {
+	padding: 30px;
+}
+
+#toc > ul {
+	float: right;
+}
+
+#toc ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin-bottom: 20px;
+}
+
+#toc li {
+	margin-left: 0;
+	width: 100%;
+}
+
+#toc ul.documents li {
+}
+
+#toc ul.documents li a {
+	display: block;
+	padding: 4px 10px;
+	padding-right: 30px;
+	white-space: nowrap;
+	width: 100%;
+}
+
+#toc ul.documents li a:hover {
+	background-color: #f3f6f9;
+	text-decoration: none;
+}
+
+#toc ul.documents li a.active {
+	color: #244d82;
+	font-weight: bold;
+}
+
+#toc .category {
+	font-size: 1.3em;
+	font-weight: bold;
+	padding-bottom: 4px;
+	margin-left: 10px;
+}
+
+pre {
+	background-color: #eee;
+	border: 1px #ccc solid;
+	border-radius: 4px;
+	padding: 16px;
+}
+
+table {
+	background-color: #eee;
+	margin-bottom: 16px;
+}
+
+th {
+	background-color: #ddd;
+}
+
+td, th {
+	border: 1px #ccc solid;
+	padding: 8px 12px;
+}
+
+main ul {
+	margin-top: 12px;
+	padding-left: 22px;
+}
+
+main li {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+main img {
+	max-width: 100%;
+	height: auto;
+}
+
+h1 {
+	font-size: 2.0em;
+	font-weight: bold;
+	border-bottom: 1px #ccc solid;
+	margin-bottom: 20px;
+	padding-bottom: 6px;
+}
+
+h2 {
+	color: #333;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-top: 40px;
+}
+
+h3 {
+	color: #555;
+	font-size: 1.4em;
+	font-weight: bold;
+	margin-top: 30px;
+}
+
+h4 {
+	color: #777;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin-top: 30px;
+}
+
+.heading-link {
+  \-moz-transition: opacity 0.2s ease-in-out 0.1s;
+  \-ms-transition: opacity 0.2s ease-in-out 0.1s;
+  \-webkit-transition: opacity 0.2s ease-in-out 0.1s;
+	left: 0.6em;
+  opacity: 0;
+  position: absolute;
+}
+
+h2:hover .heading-link,
+h3:hover .heading-link,
+h4:hover .heading-link,
+h5:hover .heading-link,
+h6:hover .heading-link {
+  opacity: 1;
+}
+
+/* margin on top of anchor */
+h2:before,
+h3:before,
+h4:before,
+h5:before,
+h6:before {
+  content: " "; 
+	display: block;
+  margin-top: -90px; 
+  height: 90px; 
+  visibility: hidden; 
+}

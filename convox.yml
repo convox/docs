@@ -1,0 +1,6 @@
+services:
+  web:
+    build: .
+    environment:
+      - DEVELOPMENT=false
+    port: https:3000
