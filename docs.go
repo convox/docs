@@ -88,7 +88,6 @@ func LoadCategory(slug string) error {
 			return nil
 		}
 
-		// category := filepath.Dir(rel)
 		name := filepath.Base(rel)
 		name = strings.TrimSuffix(name, ".md")
 
@@ -133,9 +132,7 @@ func LoadCategory(slug string) error {
 
 		parsed := blackfriday.Run(m[3],
 			blackfriday.WithExtensions(blackfriday.CommonExtensions|blackfriday.AutoHeadingIDs),
-			blackfriday.WithRenderer(blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{Flags: blackfriday.CommonHTMLFlags})),
 		)
-		// blackfriday.WithExtensions(blackfriday.LaxHTMLBlocks),
 
 		d.Body = parsed
 
@@ -172,10 +169,3 @@ func (ds Documents) Less(i, j int) bool {
 	}
 	return ds[i].Order < ds[j].Order
 }
-
-// func loadDocs() error {
-//   root := filepath.Join(wd, "docs")
-
-//   fmt.Printf("root = %+v\n", root)
-
-// }
