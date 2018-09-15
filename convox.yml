@@ -1,6 +1,7 @@
 services:
   web:
     build: .
+    domain: ${DOMAIN}
     environment:
       - DEVELOPMENT=false
     port: https:3000
