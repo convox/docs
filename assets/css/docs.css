@@ -16,7 +16,7 @@ main {
 	border-left: 1px #ccc solid;
 	border-right: 1px #ccc solid;
 	padding: 2.0rem !important;
-	padding-top: 1.8rem !important;
+	padding-top: 1.0rem !important;
 	padding-bottom: 1.2rem !important;
 	min-width: 0 !important;
 	max-width: 1000px !important;
@@ -81,26 +81,69 @@ a, a:hover {
 }
 
 #toc-small {
-	padding-top: 16px;
-	padding-left: 8px;
-	padding-right: 8px;
+	padding-top: 8px;
 }
 
 #toc-small .dropdown {
-	margin-bottom: 8px;
 	width: 100%;
 }
 
 #toc-small .dropdown-menu {
 	background-color: #e3e6e9;
 	margin-top: 110px;
-	width: 100%;
+	padding: 20px;
+	width: calc(100% + 10px);
+}
+
+#toc-small .dropdown-menu {
+	columns: 3;
+}
+
+#toc-small .dropdown-menu .category {
+	display: inline-block;
+	margin-bottom: 40px;
+}
+
+#toc-small .dropdown-menu .category h6 {
+	margin-left: -14px;
+}
+
+#toc-small .dropdown-menu .category a {
+	padding-left: 10px;
+}
+
+@media screen and (max-width: 700px) {
+	#toc-small .dropdown-menu {
+		columns: 2;
+	}
+
+	#toc-small .dropdown-menu .category {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 470px) {
+	#toc-small .dropdown-menu {
+		columns: 1;
+	}
+
+	#toc-small .dropdown-menu .category {
+		width: 100%;
+	}
 }
 
 #toc-small button {
+	background-color: #e3e6e9;
+	border-bottom: 2px #ccc solid;
+	border-radius: 0;
+	font-size: 1.6em;
+	font-weight: bold;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-top: 10px;
+	text-align: left;
 	width: 100%;
 }
-
 
 #footer {
 	border-top: 1px #ccc solid;
@@ -150,6 +193,7 @@ h1 {
 	font-weight: bold;
 	border-bottom: 1px #ccc solid;
 	margin-bottom: 20px;
+	margin-top: 16px;
 	padding-bottom: 6px;
 }
 
