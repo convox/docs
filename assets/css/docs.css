@@ -17,6 +17,7 @@ main {
 	border-right: 1px #ccc solid;
 	margin-top: 10px;
 	padding-top: 2.0rem !important;
+	max-width: 1000px !important;
 }
 
 a, a:hover {
