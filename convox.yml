@@ -4,4 +4,7 @@ services:
     domain: ${DOMAIN}
     environment:
       - DEVELOPMENT=false
+    health:
+      path: /introduction/overview
+      interval: 30
     port: https:3000
