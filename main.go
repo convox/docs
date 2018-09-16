@@ -50,6 +50,7 @@ func main() {
 	s.Route("GET", "/", index)
 	s.Route("GET", "/{category}/{slug}", doc)
 	s.Route("GET", "/{slug}", redirect)
+	s.Route("GET", "/{slug}/", redirect)
 
 	stdapi.LoadTemplates("./templates", helpers)
 
