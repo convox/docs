@@ -230,8 +230,8 @@ h4 {
   \-ms-transition: opacity 0.2s ease-in-out 0.1s;
   \-webkit-transition: opacity 0.2s ease-in-out 0.1s;
 	margin-top: 4px;
-	left: 0.58em;
-	font-size: 0.8em;
+	left: 0.42em;
+	font-size: 0.7em;
   opacity: 0;
   position: absolute;
 }
