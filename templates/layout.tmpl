@@ -21,6 +21,10 @@
       <script src="/assets/js/jquery.timeago.js"></script>
       <script src="/assets/js/clipboard.min.js"></script>
 
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch-theme-algolia.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2"></script>
+
       {{ block "head" . }}{{ end }}
     </head>
     <body>
@@ -68,6 +72,11 @@
       <div class="d-flex flex-row justify-content-center">
         <nav id="toc" class="sidebar d-none d-lg-block">
           <ul class="nav nav-pills flex-column">
+            <div id="search">
+              <input type="text" class="form-control" placeholder="Search" id="search-query" oninput="queryChange();" onpropertychange="queryChange();">
+              <div id="search-hits" class="d-none">
+              </div>
+            </div>
             {{ range $c := .Categories }}
               <div class="category">{{.Name}}</div>
               <ul class="documents">
@@ -83,6 +92,48 @@
           {{ template "content" . }}
         </main>
       </div>
+
+      <script>
+        function queryChange() {
+          var query = $('#search-query');
+          var hits = $('#search-hits');
+
+          console.log('val', query.val());
+
+          if (query.val() == '') {
+            hits.addClass('d-none');
+          } else {
+            hits.removeClass('d-none');
+          }
+        }
+
+        const search = instantsearch({
+          appId: '{{ env "ALGOLIA_APP" }}',
+          apiKey: '{{ env "ALGOLIA_KEY_SEARCH" }}',
+          indexName: '{{ env "ALGOLIA_INDEX" }}'
+        });
+
+        search.addWidget(
+          instantsearch.widgets.searchBox({
+            container: '#search-query',
+            placeholder: 'Search',
+            reset: false,
+          })
+        );
+
+        search.addWidget(
+          instantsearch.widgets.hits({
+            container: '#search-hits',
+            cssClasses: { root: 'd-block' },
+            templates: {
+              empty: 'No results',
+              item: '{{ "<a href=\"{{url}}\">{{title}}</a>" }}'
+            }
+          })
+        );
+
+        search.start();
+      </script>
 
       <script>
         Popper.Defaults.modifiers.computeStyle.enabled = false;

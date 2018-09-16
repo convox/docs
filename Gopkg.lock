@@ -2,6 +2,17 @@
 
 
 [[projects]]
+  digest = "1:838c693b8a6ddcccf45e7c25db5998916cecc3ff4bdb81c4eaaf5a0d57b83025"
+  name = "github.com/algolia/algoliasearch-client-go"
+  packages = [
+    "algoliasearch",
+    "algoliasearch/call",
+  ]
+  pruneopts = "UT"
+  revision = "68149ecd478242b4323aa535fe0fadca0d98912e"
+  version = "2.25.0"
+
+[[projects]]
   branch = "master"
   digest = "1:3f1de8a66a5145cf5d58707ec1cb5108fe85c7bfdf4f480b4515d9ee58f4524a"
   name = "github.com/convox/logger"
@@ -93,6 +104,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/algolia/algoliasearch-client-go/algoliasearch",
     "github.com/convox/stdapi",
     "github.com/go-yaml/yaml",
     "github.com/russross/blackfriday",

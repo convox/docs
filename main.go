@@ -27,6 +27,10 @@ func init() {
 	if err := docs.LoadCategories(categorySlugs...); err != nil {
 		log.Fatal(err)
 	}
+
+	if err := docs.UploadIndex(); err != nil {
+		log.Printf("error: %s", err)
+	}
 }
 
 func main() {
@@ -61,7 +65,11 @@ func main() {
 }
 
 func helpers(c *stdapi.Context) template.FuncMap {
-	return template.FuncMap{}
+	return template.FuncMap{
+		"env": func(s string) string {
+			return os.Getenv(s)
+		},
+	}
 }
 
 func index(c *stdapi.Context) error {

@@ -2,6 +2,7 @@ package docs
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -10,11 +11,13 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/algolia/algoliasearch-client-go/algoliasearch"
 	"github.com/go-yaml/yaml"
 	"github.com/russross/blackfriday"
 )
 
 var (
+	algolia    algoliasearch.Index
 	categories = Categories{}
 	documents  = Documents{}
 )
@@ -26,6 +29,7 @@ var categoryNames = map[string]string{
 var (
 	reDocument    = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
 	reMarkdownDiv = regexp.MustCompile(`(?ms)(<div.*?markdown="1".*?>(.*?)</div>)`)
+	reTag         = regexp.MustCompile(`(?ms)(<[\w]+.*?>(.*?)</[\w]+>)`)
 )
 
 type Category struct {
@@ -45,6 +49,14 @@ type Document struct {
 
 type Documents []Document
 
+func init() {
+	algolia = algoliasearch.NewClient(os.Getenv("ALGOLIA_APP"), os.Getenv("ALGOLIA_KEY_ADMIN")).InitIndex(os.Getenv("ALGOLIA_INDEX"))
+}
+
+func CategoryList() Categories {
+	return categories
+}
+
 func LoadCategories(slugs ...string) error {
 	for _, slug := range slugs {
 		if err := LoadCategory(slug); err != nil {
@@ -53,10 +65,6 @@ func LoadCategories(slugs ...string) error {
 	}
 
 	return nil
-}
-
-func CategoryList() Categories {
-	return categories
 }
 
 func LoadCategory(slug string) error {
@@ -169,6 +177,42 @@ func LoadCategory(slug string) error {
 	sort.Slice(c.Documents, c.Documents.Less)
 
 	categories = append(categories, c)
+
+	return nil
+}
+
+func UploadIndex() error {
+	algolia.Clear()
+
+	os := []algoliasearch.Object{}
+
+	for _, c := range categories {
+		for _, d := range c.Documents {
+			body := d.Body
+
+			for {
+				stripped := reTag.ReplaceAll(body, []byte("$2"))
+				if bytes.Equal(body, stripped) {
+					break
+				}
+				body = stripped
+			}
+
+			os = append(os, algoliasearch.Object{
+				"objectID":       fmt.Sprintf("%s:%s", c.Slug, d.Slug),
+				"category_slug":  c.Slug,
+				"category_title": c.Name,
+				"body":           string(body),
+				"slug":           string(d.Slug),
+				"title":          string(d.Title),
+				"url":            fmt.Sprintf("/%s/%s", c.Slug, d.Slug),
+			})
+		}
+	}
+
+	if _, err := algolia.AddObjects(os); err != nil {
+		return err
+	}
 
 	return nil
 }
