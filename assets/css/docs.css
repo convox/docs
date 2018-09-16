@@ -11,11 +11,15 @@ body {
 	height: 26px;
 }
 
+.navbar-nav {
+	flex-direction: row;
+}
+
 main {
 	background-color: #fff;
 	border-left: 1px #ccc solid;
 	border-right: 1px #ccc solid;
-	padding: 2.0rem !important;
+	padding: 1.4rem !important;
 	padding-top: 1.0rem !important;
 	padding-bottom: 1.2rem !important;
 	min-width: 0 !important;
@@ -90,9 +94,12 @@ a, a:hover {
 
 #toc-small .dropdown-menu {
 	background-color: #e3e6e9;
-	margin-top: 110px;
+	border: 0;
+	border-radius: 0;
+	border-top: 1px #ccc solid;
+	margin-top: -1px;
 	padding: 20px;
-	width: calc(100% + 10px);
+	width: 100%;
 }
 
 #toc-small .dropdown-menu {
@@ -193,7 +200,7 @@ h1 {
 	font-weight: bold;
 	border-bottom: 1px #ccc solid;
 	margin-bottom: 20px;
-	margin-top: 16px;
+	margin-top: 10px;
 	padding-bottom: 6px;
 }
 

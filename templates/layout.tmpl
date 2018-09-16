@@ -32,10 +32,10 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active ml-4"><a class="nav-link" href="https://docs.convox.com">Documentation</a></li>
-              <li class="nav-item active ml-4"><a class="nav-link" href="https://convox.com/pricing">Pricing</a></li>
-              <li class="nav-item active ml-4 mt-1">
+            <ul class="navbar-nav ml-auto flex-row">
+              <li class="nav-item active ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://docs.convox.com">Documentation</a></li>
+              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/pricing">Pricing</a></li>
+              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0 mt-1">
                 <a class="btn btn-primary btn-sm" href="https://console.convox.com/login">
                   <i class="fa fa-user mr-1"></i>
                   Login
@@ -84,6 +84,8 @@
       </div>
 
       <script>
+        Popper.Defaults.modifiers.computeStyle.enabled = false;
+
         $(function() {
           return $("h2, h3, h4, h5, h6").each(function(i, el) {
             var $el, icon, id;
