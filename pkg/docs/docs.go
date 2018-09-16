@@ -2,7 +2,6 @@ package docs
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -144,10 +143,6 @@ func LoadCategory(slug string) error {
 		markdown := m[3]
 
 		for _, n := range reMarkdownDiv.FindAllSubmatch(markdown, -1) {
-			fmt.Printf("d.Slug = %+v\n", d.Slug)
-			fmt.Printf("len(n) = %+v\n", len(n))
-			fmt.Printf("string(n[2]) = %+v\n", string(n[2]))
-
 			np := blackfriday.Run(n[2],
 				blackfriday.WithExtensions(blackfriday.CommonExtensions|blackfriday.AutoHeadingIDs|blackfriday.LaxHTMLBlocks),
 			)
