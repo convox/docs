@@ -23,7 +23,7 @@ var categoryNames = map[string]string{
 }
 
 var (
-	reDocument = regexp.MustCompile(`(?ms)(---([^-]*)---)?(.*)$`)
+	reDocument = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
 )
 
 type Category struct {
