@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/convox/docs/pkg/docs"
 	"github.com/convox/stdapi"
 )
 
@@ -23,7 +24,7 @@ var categorySlugs = []string{
 }
 
 func init() {
-	if err := LoadCategories(categorySlugs...); err != nil {
+	if err := docs.LoadCategories(categorySlugs...); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -67,7 +68,7 @@ func index(c *stdapi.Context) error {
 }
 
 func doc(c *stdapi.Context) error {
-	cc, ok := categories.Find(c.Var("category"))
+	cc, ok := docs.CategoryList().Find(c.Var("category"))
 	if !ok {
 		return stdapi.Errorf(404, "not found")
 	}
@@ -78,7 +79,7 @@ func doc(c *stdapi.Context) error {
 	}
 
 	params := map[string]interface{}{
-		"Categories": categories,
+		"Categories": docs.CategoryList(),
 		"Category":   cc.Slug,
 		"Document":   template.HTML(d.Body),
 		"Slug":       d.Slug,
@@ -89,7 +90,7 @@ func doc(c *stdapi.Context) error {
 }
 
 func redirect(c *stdapi.Context) error {
-	for _, cc := range categories {
+	for _, cc := range docs.CategoryList() {
 		if d, ok := cc.Documents.Find(c.Var("slug")); ok {
 			return c.Redirect(301, fmt.Sprintf("/%s/%s", cc.Slug, d.Slug))
 		}

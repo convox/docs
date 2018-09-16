@@ -1,4 +1,4 @@
-package main
+package docs
 
 import (
 	"io/ioutil"
@@ -15,7 +15,7 @@ import (
 
 var (
 	categories = Categories{}
-	docs       = Documents{}
+	documents  = Documents{}
 )
 
 var categoryNames = map[string]string{
@@ -51,6 +51,10 @@ func LoadCategories(slugs ...string) error {
 	}
 
 	return nil
+}
+
+func CategoryList() Categories {
+	return categories
 }
 
 func LoadCategory(slug string) error {
@@ -142,7 +146,7 @@ func LoadCategory(slug string) error {
 
 		c.Documents = append(c.Documents, d)
 
-		docs = append(docs, d)
+		documents = append(documents, d)
 
 		return nil
 	})
