@@ -31,6 +31,19 @@ func init() {
 func main() {
 	s := stdapi.New("docs", "docs.convox")
 
+	s.Use(func(fn stdapi.HandlerFunc) stdapi.HandlerFunc {
+		return func(c *stdapi.Context) error {
+			if c.Request().Header.Get("X-Forwarded-Proto") == "http" {
+				fmt.Printf("c.Request().Host = %+v\n", c.Request().Host)
+				u := *(c.Request().URL)
+				u.Host = c.Request().Host
+				u.Scheme = "https"
+				return c.Redirect(301, u.String())
+			}
+			return fn(c)
+		}
+	})
+
 	s.Router.Static("/assets/", "./assets")
 
 	s.Route("GET", "/", index)
