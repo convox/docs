@@ -280,7 +280,10 @@ h6:before {
 	margin-bottom: 20px;
 }
 
-.block-callout h2 {
+.block-callout h2:first-child,
+.block-callout h3:first-child,
+.block-callout h4:first-child,
+.block-callout h5:first-child {
 	margin-top: 0;
 }
 
