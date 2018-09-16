@@ -127,7 +127,7 @@
             cssClasses: { root: 'd-block' },
             templates: {
               empty: 'No results',
-              item: '{{ "<a href=\"{{url}}\">{{title}}</a>" }}'
+              item: '{{ "<div class=\"hit-item\"><div class=\"category-title\">{{category_title}}</div><a href=\"{{url}}\">{{title}}</a></div>" }}'
             }
           })
         );
