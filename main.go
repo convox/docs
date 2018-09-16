@@ -69,23 +69,26 @@ func index(c *stdapi.Context) error {
 }
 
 func doc(c *stdapi.Context) error {
+	params := map[string]interface{}{
+		"Categories": docs.CategoryList(),
+		"Slug":       "",
+	}
+
 	cc, ok := docs.CategoryList().Find(c.Var("category"))
 	if !ok {
-		return stdapi.Errorf(404, "not found")
+		return c.RenderTemplate("404", params)
 	}
+
+	params["Category"] = cc.Slug
 
 	d, ok := cc.Documents.Find(c.Var("slug"))
 	if !ok {
-		return stdapi.Errorf(404, "not found")
+		return c.RenderTemplate("404", params)
 	}
 
-	params := map[string]interface{}{
-		"Categories": docs.CategoryList(),
-		"Category":   cc.Slug,
-		"Document":   template.HTML(d.Body),
-		"Slug":       d.Slug,
-		"Title":      d.Title,
-	}
+	params["Document"] = template.HTML(d.Body)
+	params["Slug"] = d.Slug
+	params["Title"] = d.Title
 
 	return c.RenderTemplate("doc", params)
 }
