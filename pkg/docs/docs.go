@@ -1,6 +1,8 @@
 package docs
 
 import (
+	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -23,7 +25,8 @@ var categoryNames = map[string]string{
 }
 
 var (
-	reDocument = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
+	reDocument    = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
+	reMarkdownDiv = regexp.MustCompile(`(?ms)(<div.*?markdown="1".*?>(.*?)</div>)`)
 )
 
 type Category struct {
@@ -138,8 +141,22 @@ func LoadCategory(slug string) error {
 			d.Order = o
 		}
 
-		parsed := blackfriday.Run(m[3],
-			blackfriday.WithExtensions(blackfriday.CommonExtensions|blackfriday.AutoHeadingIDs),
+		markdown := m[3]
+
+		for _, n := range reMarkdownDiv.FindAllSubmatch(markdown, -1) {
+			fmt.Printf("d.Slug = %+v\n", d.Slug)
+			fmt.Printf("len(n) = %+v\n", len(n))
+			fmt.Printf("string(n[2]) = %+v\n", string(n[2]))
+
+			np := blackfriday.Run(n[2],
+				blackfriday.WithExtensions(blackfriday.CommonExtensions|blackfriday.AutoHeadingIDs|blackfriday.LaxHTMLBlocks),
+			)
+
+			markdown = bytes.Replace(markdown, n[2], np, -1)
+		}
+
+		parsed := blackfriday.Run(markdown,
+			blackfriday.WithExtensions(blackfriday.CommonExtensions|blackfriday.AutoHeadingIDs|blackfriday.LaxHTMLBlocks),
 		)
 
 		d.Body = parsed
