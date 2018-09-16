@@ -71,25 +71,30 @@ a, a:hover {
 	background-color: #eee;
 }
 
+#toc #search #search-hits .hit-item:hover a {
+	color: #000;
+	text-decoration: none;
+}
+
 #toc #search #search-hits .category-title {
 	color: #999;
-	display: block;
+	display: inline-block;
 	float: right;
 	font-size: 0.7em;
 	margin-left: 40px;
 	margin-top: 4px;
+	text-align: right;
 	white-space: nowrap;
+}
+
+#toc #search #search-hits .document-title {
+	display: inline-block;
 }
 
 #toc #search #search-hits a {
 	display: inline-block;
-	width: 200px;
+	width: 100%;
 	white-space: nowrap;
-}
-
-#toc #search #search-hits a:hover {
-	color: #000;
-	text-decoration: none;
 }
 
 #toc > ul {
