@@ -21,6 +21,7 @@ var categorySlugs = []string{
 	"console",
 	"reference",
 	"gen1",
+	"help",
 }
 
 func init() {
