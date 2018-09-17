@@ -35,7 +35,7 @@ You can tell Convox to build from a remote git repository rather than shipping y
 $ convox build https://github.com/myuser/myproject.git
 ```
 
-This is the manual way to build from a git repository. For info on automated builds based on git actions please refer to [Deploying to Convox](/docs/deploying-to-convox).
+This is the manual way to build from a git repository. For info on automated builds based on git actions please refer to [Deploying to Convox](/deployment/deploying-to-convox).
 
 ## Inspecting Builds
 
