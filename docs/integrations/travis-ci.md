@@ -11,9 +11,12 @@ First you need to tell Travis CI to install the Convox CLI by adding this to you
 
 ```
 before_install: |
-  curl -O https://bin.equinox.io/c/jewmwFCp7w9/convox-stable-linux-amd64.tgz &&\
-  tar zxvf convox-stable-linux-amd64.tgz -C /tmp
+  curl -L https://convox.com/cli/linux/convox -o /tmp/convox &&\
+  mv /tmp/convox /usr/local/bin/convox &&\
+  chmod 755 /usr/local/bin/convox
 ```
+
+If you are using other OS than Linux, see [Installing the Convox CLI](https://docs.convox.com/development/installation).
 
 
 The [after_success section](https://docs.travis-ci.com/user/deployment/custom/) of `.travis.yml` lets you specify commands to run after a successful build. In the example below, a successful build would trigger a deployment of `example-app` to the `org/staging` Rack.
