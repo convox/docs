@@ -17,7 +17,7 @@ There are a few ways to create this role and policy.
 3. Click the **Enable** button for the AWS provider
 4. Drag a `credentials.csv` file or enter your Access Key ID and Secret Access Key into the access key form and click **Integrate AWS**
 
-That's it! Your AWS account now has a `convox/ConvoxRole-$ID` IAM role (where `$ID` is your Console Organization ID) and a `convox/ConvoxPolicy` IAM policy. Convox has permission to use it to [install Racks](/docs/installing-a-rack/).
+That's it! Your AWS account now has a `convox/ConvoxRole-$ID` IAM role (where `$ID` is your Console Organization ID) and a `convox/ConvoxPolicy` IAM policy. Convox has permission to use it to [install Racks](/deployment/installing-a-rack).
 
 <div class="block-callout block-show-callout type-info" markdown="1">
 ### Note on `credentials.csv` format

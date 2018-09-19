@@ -36,7 +36,7 @@ If you're logged into `console.convox.com`, you can `convox switch` between all 
 
 This file contains the organization and name of the active Rack. Its contents are used as if passed to the `--rack` flag for Convox commands.
 
-It can be overridden by the [`RACK` environment variable](http://localhost/docs/cli-environment-variables/#rack) or with the `--rack` flag.
+It can be overridden by the [`RACK` environment variable](/reference/cli-environment-variables#rack) or with the `--rack` flag.
 
 Under the hood, this file is how `convox rack` determines which Rack you want to know about:
 
@@ -102,5 +102,5 @@ $ echo "myorg/staging" > .convox/rack
 
 ## See also
 
-- [CLI environment variables](/docs/cli-environment-variables/)
-- [Login and authentication](/docs/login-and-authentication/)
+- [CLI environment variables](/reference/cli-environment-variables)
+- [Login and authentication](/reference/login-and-authentication)

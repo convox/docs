@@ -4,9 +4,9 @@ title: "Deploy Keys"
 
 Deploy keys are special, limited scope API keys that allow you to run the `build` and `deploy` commands from remote servers for the purposes of continuous integration.
 
-You should give a deploy key to a CI service like [Travis CI](/docs/travis-ci/), [Circle CI](/docs/circle-ci/) or [Datadog](/docs/datadog/) so it can deploy code but not access or modify any other Rack resources. For details, see the **Integrations** section in the list of topics on the left.
+You should give a deploy key to a CI service like [Travis CI](/integrations/travis-ci), [Circle CI](/integrations/circle-ci) or [Datadog](/integrations/datadog) so it can deploy code but not access or modify any other Rack resources. For details, see the **Integrations** section in the list of topics on the left.
 
-![Deploy Keys](/assets/images/docs/rbac/deploy-keys.png){: .screenshot } *List of deploy keys*
+![Deploy Keys](/assets/images/docs/rbac/deploy-keys.png)
 
 
 ## Creating deploy keys

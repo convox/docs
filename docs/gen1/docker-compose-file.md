@@ -2,7 +2,7 @@
 title: "Docker Compose File"
 ---
 
-[Docker Compose](https://docs.docker.com/compose/overview/) makes it easier to configure and run applications made up of multiple containers. For the uninitiated, imagine being able to define three containers&mdash;one running a web app, another running postgres, and a third running redis&mdash;all in one YAML file and then running those three connected containers with a single command. That file is `docker-compose.yml`, and when using Convox locally, the command is `convox start`.
+[Docker Compose](https://docs.docker.com/compose/overview/) makes it easier to configure and run applications made up of multiple containers. For the uninitiated, imagine being able to define three containers -one running a web app, another running postgres, and a third running redis- all in one YAML file and then running those three connected containers with a single command. That file is `docker-compose.yml`, and when using Convox locally, the command is `convox start`.
 
 ## Service Names
 
@@ -118,7 +118,7 @@ This can be specified for the initial deployment in `docker-compose.yml`:
 
     cpu_shares: 512
 
-Or by running `convox scale` (see also [Scaling](/docs/gen1/scaling/)):
+Or by running `convox scale` (see also [Scaling](/gen1/scaling)):
 
     convox scale <process> --cpu=512
 
@@ -126,7 +126,7 @@ The default Convox value is `0`. When set to `0`, Docker will ignore the value a
 
 Note:
 
-- With `convox deploy`: `cpu_shares` is read and taken into account from `docker-compose.yml` only during the initial deployment. If you need to change it after deploying for the first time, use [`convox scale`](/docs/gen1/scaling/).
+- With `convox deploy`: `cpu_shares` is read and taken into account from `docker-compose.yml` only during the initial deployment. If you need to change it after deploying for the first time, use [`convox scale`](/gen1/scaling).
 - With `convox start`: When running locally via `convox start`, `cpu_shares` is always read from `docker-compose.yml`.
 
 You can view the current CPU shares allocation with either of the following commands:
@@ -172,7 +172,7 @@ Variables can be:
 - **required, but not defined** in the Compose file, as `SECRET_KEY` above (must therefore be defined in `.env`)
 - **set to an empty value**, as `FOO` above (can be optionally overridden by `.env`)
 
-See our [environment documentation](/docs/gen1/environment) for more.
+See our [environment documentation](/gen1/environment) for more.
 
 ### Image
 
@@ -199,7 +199,7 @@ Add metadata to containers using Docker labels. Convox has several custom labels
       - convox.port.<number>.secure
       - convox.start.shift
 
-For more details about how to use these labels, visit our [Docker Compose Labels doc](/docs/gen1/docker-compose-labels).
+For more details about how to use these labels, visit our [Docker Compose Labels doc](/gen1/docker-compose-labels).
 
 ### Links
 
@@ -213,7 +213,7 @@ Specifying a link to another container instructs Convox to provide the linking c
       database:
         image: convox/postgres
 
-See our [linking documentation](/docs/gen1/linking) for more.
+See our [linking documentation](/gen1/linking) for more.
 
 ### Networks
 
@@ -232,7 +232,7 @@ This can be specified for the initial deployment in `docker-compose.yml`:
 
     mem_limit: 256MB
 
-Or by running `convox scale` (see also [Scaling](/docs/gen1/scaling/)):
+Or by running `convox scale` (see also [Scaling](/gen1/scaling)):
 
     convox scale <process> --memory=256
 
@@ -240,7 +240,7 @@ Minimum is 4 MB. If no unit label (e.g. `MB`) is provided, the amount is interpr
 
 Note:
 
-- With `convox deploy`: `mem_limit` is read and taken into account from `docker-compose.yml` only during the initial deployment. If you need to change it after deploying for the first time, use [`convox scale`](/docs/gen1/scaling/).
+- With `convox deploy`: `mem_limit` is read and taken into account from `docker-compose.yml` only during the initial deployment. If you need to change it after deploying for the first time, use [`convox scale`](/gen1/scaling).
 - With `convox start`: When running locally via `convox start`, `mem_limit` is always read from `docker-compose.yml`.
 
 You can view the current memory limit with either of the following commands:
@@ -256,7 +256,7 @@ Define the ports on which the process should listen.
       - 5000
       - 80:5000
 
-See our [port mapping documentation](/docs/gen1/port-mapping) for more.
+See our [port mapping documentation](/gen1/port-mapping) for more.
 
 ### Privileged
 
@@ -271,7 +271,7 @@ Share data between Processes of the same type by mounting volumes from the host 
     volumes:
       - /var/lib/postgresql/data
 
-See our [volumes documentation](/docs/volumes) for more.
+See our [volumes documentation](/deployment/volumes) for more.
 
 ## Missing Configuration Options
 

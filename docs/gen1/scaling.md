@@ -87,7 +87,7 @@ $ convox rack logs --filter="autoscaleRack change="
 
 Every minute, your Rack runs an autoscale calculation to determine how many instances you need in your cluster. This calculation involves ports, memory, and CPU required by your services. When appropriate, autoscale will update your Rack instance count via a CloudFormation stack update. Autoscale will not change your instance type.
 
-During a deployment, the calculation gets more nuanced, since processes from an old release and a new release will temporarily run at the same time. This is known as a rolling deployment or [rolling update](/docs/gen1/rolling-updates). In ECS terms, this translates to having tasks from both the primary (new) deployment of each service and the active deployment (the one being replaced) of each service running at the same time. Autoscaling will take into account the number of instances needed to run the processes from both releases, i.e. the tasks in both primary and active ECS service deployments.
+During a deployment, the calculation gets more nuanced, since processes from an old release and a new release will temporarily run at the same time. This is known as a rolling deployment or [rolling update](/gen1/rolling-updates). In ECS terms, this translates to having tasks from both the primary (new) deployment of each service and the active deployment (the one being replaced) of each service running at the same time. Autoscaling will take into account the number of instances needed to run the processes from both releases, i.e. the tasks in both primary and active ECS service deployments.
 
 When a deployment finishes, the old ECS tasks get terminated, and autoscale scales the Rack back down to the original instance count. This scaling down happens gradually--one instance at a time, every 5 minutes--to give ECS time to rebalance tasks across the instances in your cluster.
 
@@ -97,6 +97,6 @@ If your Rack shows more autoscaling activity than expected, there are a few poss
 
 First, note that any services with open ports you have running at scale of `n` will result in `n+1` instances. This is to allow for rolling deployments.
 
-Autoscaling does not yet take the subtleties of [deployment minimum/maximum](/docs/gen1/docker-compose-labels/#convoxdeployment) into account. For example: a `web` service listening on port 80 with a scale count of 3 will still require 4 instances, even if it has `convox.deployment.minimum=50` set.
+Autoscaling does not yet take the subtleties of [deployment minimum/maximum](/gen1/docker-compose-labels#convoxdeployment) into account. For example: a `web` service listening on port 80 with a scale count of 3 will still require 4 instances, even if it has `convox.deployment.minimum=50` set.
 
 You can also look for anomalies in the Rack's autoscaling log events with `convox rack logs --filter=autoscale`.

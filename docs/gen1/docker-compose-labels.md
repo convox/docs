@@ -6,21 +6,21 @@ Convox uses [Docker Compose Labels](https://docs.docker.com/compose/compose-file
 
 <pre>
 labels:
-  - <a href="#convoxagent">convox.agent</a>
-  - <a href="#convoxbalancer">convox.balancer</a>
-  - <a href="#convoxcron">convox.cron.&lt;task name&gt;</a>
-  - <a href="#convoxdeployment">convox.deployment.maximum</a>
-  - <a href="#convoxdeployment">convox.deployment.minimum</a>
-  - <a href="#convoxdrainingtimeout">convox.draining.timeout</a>
-  - <a href="#convoxenvironmentsecure">convox.environment.secure</a>
-  - <a href="#convoxhealth">convox.health.path</a>
-  - <a href="#convoxhealth">convox.health.port</a>
-  - <a href="#convoxhealth">convox.health.timeout</a>
-  - <a href="#convoxidle">convox.idle.timeout</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.protocol</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.proxy</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.secure</a>
-  - <a href="#convoxstart">convox.start.shift</a>
+  - <a href="#convox-agent">convox.agent</a>
+  - <a href="#convox-balancer">convox.balancer</a>
+  - <a href="#convox-cron">convox.cron.&lt;task name&gt;</a>
+  - <a href="#convox-deployment">convox.deployment.maximum</a>
+  - <a href="#convox-deployment">convox.deployment.minimum</a>
+  - <a href="#convox-drainingtimeout">convox.draining.timeout</a>
+  - <a href="#convox-environmentsecure">convox.environment.secure</a>
+  - <a href="#convox-health">convox.health.path</a>
+  - <a href="#convox-health">convox.health.port</a>
+  - <a href="#convox-health">convox.health.timeout</a>
+  - <a href="#convox-idle">convox.idle.timeout</a>
+  - <a href="#convox-port">convox.port.&lt;number&gt;.protocol</a>
+  - <a href="#convox-port">convox.port.&lt;number&gt;.proxy</a>
+  - <a href="#convox-port">convox.port.&lt;number&gt;.secure</a>
+  - <a href="#convox-start-shift">convox.start.shift</a>
 </pre>
 
 ## convox.agent
@@ -45,7 +45,7 @@ The `convox.cron` label allows you to schedule recurring tasks for any of your a
     labels:
       - convox.cron.myjob=30 18 ? * MON-FRI bin/myjob
 
-See our [scheduled tasks documentation](/docs/gen1/scheduled-tasks) for more.
+See our [scheduled tasks documentation](/gen1/scheduled-tasks) for more.
 
 ## convox.deployment
 
@@ -68,14 +68,14 @@ The `convox.draining.timeout` label allows you to specify the amount of time in 
 
 ## convox.environment.secure
 
-Setting this label to `true` for a specific service prevents environment variables from being stored in cleartext on that service's ECS Task Definition. This means that your application itself will need to download the environment variables file from S3, decrypt it using the Rack's KMS key, and (if desired) source the variables into the container environment. Please see the [Environment documentation](/docs/gen1/environment/#additional-security) for more info, examples, and tools.
+Setting this label to `true` for a specific service prevents environment variables from being stored in cleartext on that service's ECS Task Definition. This means that your application itself will need to download the environment variables file from S3, decrypt it using the Rack's KMS key, and (if desired) source the variables into the container environment. Please see the [Environment documentation](/gen1/environment/#additional-security) for more info, examples, and tools.
 
     labels:
       - convox.environment.secure=true
 
 ## convox.health
 
-During [rolling updates](/docs/gen1/rolling-updates), Convox will attempt to start a new process and check its health before stopping an old process. These labels allow you to customize the path on your app that will respond to the health checks, the port on which the app will listen for the health check, the number of seconds Convox should wait for a health check response before giving up and trying again, the number of seconds between health checks, and the number of successful or failed health checks before a process is considered healthy or unhealthy.
+During [rolling updates](/gen1/rolling-updates), Convox will attempt to start a new process and check its health before stopping an old process. These labels allow you to customize the path on your app that will respond to the health checks, the port on which the app will listen for the health check, the number of seconds Convox should wait for a health check response before giving up and trying again, the number of seconds between health checks, and the number of successful or failed health checks before a process is considered healthy or unhealthy.
 
     labels:
       - convox.health.interval=10
@@ -101,11 +101,11 @@ Use these labels to configure load balancer behavior on specific ports.
       - convox.port.<number>.proxy=true
       - convox.port.<number>.secure=true
 
-See our [load balancer documentation](/docs/gen1/load-balancers) for more.
+See our [load balancer documentation](/gen1/load-balancers) for more.
 
 ## convox.start.shift
 
-_See also: [the `--shift` flag](/docs/gen1/running-locally/#shifting-ports)_
+_See also: [the `--shift` flag](/gen1/running-locally/#shifting-ports)_
 
 Use the `convox.start.shift` label to offset the external ports of processes run by `convox start` by a given number. This allows multiple applications to run on one host without conflicts. A container configured to listen on host ports 80 and 443 could be shifted to listen on ports 1080 and 1443 with the following configuration:
 

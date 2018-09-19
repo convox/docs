@@ -11,4 +11,4 @@ Convox is an [open-source project](https://github.com/convox). You can report bu
 
 ### Commercial Support
 
-[Commercial Support](/docs/support-plans) is available through [Convox Console](https://console.convox.com).
+[Commercial Support](/console/support-plans) is available through [Convox Console](https://console.convox.com).
