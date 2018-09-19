@@ -35,13 +35,13 @@ Use `convox start` to build and run your application locally.
     web    | == Sinatra (v1.4.6) has taken the stage on 3000 for development with backup from WEBrick
     web    | [2015-09-18 06:16:53] INFO  WEBrick::HTTPServer#start: pid=7 port=3000
 
-This will read your `docker-compose.yml` and use the information found there to boot all of your app's processes and apply configured [links](/docs/gen1/linking). Local code changes will be [synced](/docs/code-sync) with your running processes in real time.
+This will read your `docker-compose.yml` and use the information found there to boot all of your app's processes and apply configured [links](/gen1/linking). Local code changes will be [synced](/development/code-sync) with your running processes in real time.
 
 To exit `convox start` gracefully, press `Ctrl+C`. To force-quit, press `Ctrl+C` again.
 
 ### File syncing
 
-Local code changes will be [synced](/docs/code-sync) with your running processes in real time. To disable this, pass the `--no-sync` flag to `convox start`.
+Local code changes will be [synced](/development/code-sync) with your running processes in real time. To disable this, pass the `--no-sync` flag to `convox start`.
 
 ### Caching
 
@@ -78,7 +78,7 @@ web    │   Server running... press ctrl-c to stop.
 
 #### `convox.start.shift` label
 
-You can make this port shifting more persistent on a per-service basis with the [convox.start.shift](/docs/gen1/docker-compose-labels/#convoxstart) label in `docker-compose.yml`:
+You can make this port shifting more persistent on a per-service basis with the [convox.start.shift](/gen1/docker-compose-labels#convoxstart) label in `docker-compose.yml`:
 
 ```
   labels:
@@ -101,7 +101,7 @@ Note: The `--shift` and `convox.start.shift` label values are cumulative. If you
 
 ### Environment
 
-`convox start` will read variables defined in a file called `.env` in the project root directory. For more information, see the [Environment](/docs/gen1/environment/#local) documentation.
+`convox start` will read variables defined in a file called `.env` in the project root directory. For more information, see the [Environment](/gen1/environment#local) documentation.
 
 ## Data persistence
 
@@ -116,7 +116,7 @@ database:
     - /var/lib/postgresql/data
 ```
 
-Convox does not recommend running datastores as containers in your Rack. Instead, you should use a hosted service, such as the [Postgres](/docs/postgresql) resource that Convox configures using Amazon RDS, or externally-hosted resources like [Compose.io's MongoDB](https://www.compose.com/mongodb). For more information, see [Resources](/docs/about-resources/).
+Convox does not recommend running datastores as containers in your Rack. Instead, you should use a hosted service, such as the [Postgres](/resources/postgresql) resource that Convox configures using Amazon RDS, or externally-hosted resources like [Compose.io's MongoDB](https://www.compose.com/mongodb). For more information, see [Resources](/resources/about-resources).
 
 ## Interacting with remote resources during development
 
@@ -126,16 +126,16 @@ You have several options:
 
 ### Tunnel to remote databases
 
-You can use `convox resources proxy` to tunnel to the remote production (or staging, or any) database as described [here](/docs/remote-resources). This will allow your app to interact with the remote resource as if it were running on your own machine.
+You can use `convox resources proxy` to tunnel to the remote production (or staging, or any) database as described [here](/development/remote-resources). This will allow your app to interact with the remote resource as if it were running on your own machine.
 
 ### Use local containers
 
-You can also use local containers as defined via the services in `docker-compose.yml`. The environment variables your app should use to communicate between containers will be automatic for linked services as described [here](/docs/gen1/environment#linking).
+You can also use local containers as defined via the services in `docker-compose.yml`. The environment variables your app should use to communicate between containers will be automatic for linked services as described [here](/gen1/environment#linking).
 
-You'll want to [scale the remote services to `-1`](/docs/gen1/scaling/#scaling-down-unused-services) to avoid creating unnecessary containers and load balancers in production.
+You'll want to [scale the remote services to `-1`](/gen1/scaling#scaling-down-unused-services) to avoid creating unnecessary containers and load balancers in production.
 
 ## Local Volumes
 
 If your `docker-compose.yml` specifies volumes, they will be created on your local machine at `~/.convox/volumes`.
 
-For more information, see [Persistence for local containers](/docs/volumes/#persistence-for-local-containers).
+For more information, see [Persistence for local containers](/deployment/volumes#persistence-for-local-containers).

@@ -39,4 +39,4 @@ This example configuration would listen to ports `80` and `443` **on an Internet
 
 ## See also
 
-- [Load balancers](/docs/gen1/load-balancers)
+- [Load balancers](/gen1/load-balancers)

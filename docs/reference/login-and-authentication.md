@@ -6,7 +6,7 @@ title: "Login and Authentication"
 
 ### What's the difference between `convox login` and `convox switch`?
 
-`convox login` tells your CLI what hostname to send requests to. The target can be Console or a Rack. This is stored in [`~/.convox/host`](/docs/cli-config-files/#configuration-files).
+`convox login` tells your CLI what hostname to send requests to. The target can be Console or a Rack. This is stored in [`~/.convox/host`](/reference/cli-config-files#configuration-files).
 
 When the CLI is logged into Console, `convox switch` tells Console which Rack to proxy your commands to. `convox switch` is only available with Racks that have been installed via Console, or which have been installed via CLI and manually added to the Console web interface.
 
@@ -28,5 +28,5 @@ To switch accounts, run `convox login console.convox.com --password=CONVOX_API_K
 
 ## See also
 
-- [CLI configuration files](/docs/cli-config-files/)
-- [CLI environment variables](/docs/cli-environment-variables/)
+- [CLI configuration files](/reference/cli-config-files)
+- [CLI environment variables](/reference/cli-environment-variables)

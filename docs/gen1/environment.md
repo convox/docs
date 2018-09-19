@@ -17,9 +17,9 @@ Convox applications are configured using environment variables. Environment mana
 <div class="block-callout block-show-callout type-info" markdown="1">
 The priority for evaluating env values is:
 
-1. [`.env`](/docs/gen1/environment/#env)
-2. [host environment](/docs/gen1/environment/#host-environment)
-3. [`docker-compose.yml`](/docs/gen1/environment/#docker-composeyml)
+1. [`.env`](/gen1/environment#env)
+2. [host environment](/gen1/environment#host-environment)
+3. [`docker-compose.yml`](/gen1/environment#docker-compose.yml)
 </div>
 
 ### `.env`
@@ -109,7 +109,7 @@ services:
 
 ## Linking
 
-Convox links containers by injecting environment variables. For example, if your `docker-compose.yml` links a service named `web` to a service named `database`, Convox will add environment variables in the form `DATABASE_URL`, `DATABASE_SCHEME`, etc to the `web` container environment. **This will override any environment variables you may have previously defined by the same name.** For details, see [Defining links](/docs/gen1/linking#defining-links).
+Convox links containers by injecting environment variables. For example, if your `docker-compose.yml` links a service named `web` to a service named `database`, Convox will add environment variables in the form `DATABASE_URL`, `DATABASE_SCHEME`, etc to the `web` container environment. **This will override any environment variables you may have previously defined by the same name.** For details, see [Defining links](/gen1/linking#defining-links).
 
 ## Scope
 
@@ -117,7 +117,7 @@ Environment variables set via `convox env` are considered app-level configuratio
 
 There isn't currently a way to set an environment variable for a whole cluster rather than just a single app.
 
-You can set environment variables at the [service](/docs/definitions/#service) level in `docker-compose.yml`.
+You can set environment variables at the [service](/reference/definitions#service) level in `docker-compose.yml`.
 
 ## Sensitive Information
 

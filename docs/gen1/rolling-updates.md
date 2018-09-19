@@ -4,7 +4,7 @@ title: "Rolling Updates"
 
 When a Release is promoted, new processes are gracefully rolled out into production.
 
-If there are errors starting new processes, new processes are not [verified as healthy](/docs/gen1/health-checks), or the rollout doesn't complete in 10 minutes, an automatic rollback is performed.
+If there are errors starting new processes, new processes are not [verified as healthy](/gen1/health-checks), or the rollout doesn't complete in 10 minutes, an automatic rollback is performed.
 
 The number of new processes started at a time is configurable so large apps can be fully rolled out in 10 minutes.
 
@@ -15,13 +15,13 @@ Rollouts and rollbacks do not cause any service downtime.
 A rollout coordinates starting new processes in a way that maintains service uptime and capacity. The basic flow is:
 
 * Start 1 new process
-* Verify new process is [healthy](/docs/gen1/health-checks)
+* Verify new process is [healthy](/gen1/health-checks)
 * Stop 1 old process
 * Repeat for all processes in the formation
 
 #### Automatic Rollback
 
-If there are errors starting new processes, new processes are not verified as healthy, or the rollout doesn't complete in 10 minutes, an automatic rollback is performed. This will result in a [`rollback`](/docs/rack-statuses/#rollback) or `failed` state for the app:
+If there are errors starting new processes, new processes are not verified as healthy, or the rollout doesn't complete in 10 minutes, an automatic rollback is performed. This will result in a [`rollback`](/reference/rack-statuses#rollback) or `failed` state for the app:
 
 ```
 $ convox apps info
@@ -35,11 +35,11 @@ Status     failed
 
 #### Health Checks
 
-For a rolling update to succeed, certain criteria must be met. For more information, see [Health Checks](/docs/gen1/health-checks).
+For a rolling update to succeed, certain criteria must be met. For more information, see [Health Checks](/gen1/health-checks).
 
 #### Configuring Deployment Parameters
 
-By default, a process must boot and pass the network health check in 3 seconds. (See the [Health Check](/docs/gen1/health-checks) doc for more information about configuring the timeout as well as setting a custom health check port and HTTP path.)
+By default, a process must boot and pass the network health check in 3 seconds. (See the [Health Check](/gen1/health-checks) doc for more information about configuring the timeout as well as setting a custom health check port and HTTP path.)
 
 By default, 100% of the processes on the old release stay running and the same number of processes on the new release will attempt to start at once. As new processes are deemed healthy, old ones will be stopped.
 
@@ -61,6 +61,6 @@ version: '2'
         - convox.deployment.minimum=50
 ```
 
-See the [deployment labels](/docs/gen1/docker-compose-labels/#convoxdeployment) doc for more information about setting a deployment minimum.
+See the [deployment labels](/gen1/docker-compose-labels#convoxdeployment) doc for more information about setting a deployment minimum.
 
 Most apps will not need to configure any of these settings to gracefully roll out.
