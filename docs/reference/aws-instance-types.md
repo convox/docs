@@ -4,7 +4,7 @@ title: AWS Instance Types
 
 ### Rack instance and build instance types
 
-You can specify your Rack's instance type and build instance type via the [InstanceType](/reference/rack-parameters#instancetype) and [BuildInstance](/reference/rack-parameters#buildinstance) Rack parameters.
+You can specify your Rack's instance type and build instance type via the [InstanceType](/docs/rack-parameters#instancetype) and [BuildInstance](/docs/rack-parameters#buildinstance) Rack parameters.
 
 ### Reserved Instances
 
@@ -22,18 +22,14 @@ For instructions, see [How to Purchase Reserved Instances](https://aws.amazon.co
 
 You can utilize [Spot Instances](https://aws.amazon.com/ec2/spot/) to greatly reduce the cost of a cluster.
 
-- Turn off Rack [AutoScale](/reference/rack-parameters#autoscale)
-- Configure the Rack to use an [InstanceType](/reference/rack-parameters#instancetype) with spot instance availability
-- Configure the Rack for the desired total [InstanceCount](/reference/rack-parameters#instancecount) and the desired minimum guaranteed on demand capacity by [OnDemandMinCount](/reference/rack-parameters#ondemandmincount)
-- Set a [SpotInstanceBid](/reference/rack-parameters#spotinstancebid) in dollars
+- Configure the Rack to use an [InstanceType](/docs/rack-parameters#instancetype) with spot instance availability
+- Set a [SpotInstanceBid](/docs/rack-parameters#spotinstancebid) in dollars
 
 ```
-$ convox rack params set AutoScale=No
-$ convox rack params set InstanceType=m3.medium InstanceCount=6 OnDemandMinCount=3
-$ convox rack params set SpotInstanceBid=0.10
+$ convox rack params set InstanceType=m3.medium SpotInstanceBid=0.10
 ```
 
-To disable spot instances, say to quickly return to using all on demand instances because spots are not available, remove the `SpotInstanceBid` value:
+To disable spot instances remove the `SpotInstanceBid` value:
 
 ```
 $ convox rack params set SpotInstanceBid=
