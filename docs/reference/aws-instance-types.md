@@ -29,7 +29,7 @@ You can utilize [Spot Instances](https://aws.amazon.com/ec2/spot/) to greatly re
 $ convox rack params set InstanceType=m3.medium SpotInstanceBid=0.10
 ```
 
-To disable spot instances, say to quickly return to using all on demand instances because spots are not available, remove the `SpotInstanceBid` value:
+To disable spot instances remove the `SpotInstanceBid` value:
 
 ```
 $ convox rack params set SpotInstanceBid=
