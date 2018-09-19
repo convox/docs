@@ -13,7 +13,7 @@ This will provision postgres database on the Amazon RDS service. Creation can ta
 
 ### Additional Options
 
-See `convox resources options postgresql` for a list of available options.
+See `convox resources options postgres` for a list of available options.
 
 ## Resource Information
 
