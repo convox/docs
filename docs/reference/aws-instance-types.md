@@ -23,13 +23,10 @@ For instructions, see [How to Purchase Reserved Instances](https://aws.amazon.co
 You can utilize [Spot Instances](https://aws.amazon.com/ec2/spot/) to greatly reduce the cost of a cluster.
 
 - Configure the Rack to use an [InstanceType](/docs/rack-parameters#instancetype) with spot instance availability
-- Configure the Rack for the desired total [InstanceCount](/docs/rack-parameters#instancecount) and the desired minimum guaranteed on demand capacity by [OnDemandMinCount](/docs/rack-parameters#ondemandmincount)
 - Set a [SpotInstanceBid](/docs/rack-parameters#spotinstancebid) in dollars
 
 ```
-$ convox rack params set AutoScale=No
-$ convox rack params set InstanceType=m3.medium InstanceCount=6 OnDemandMinCount=3
-$ convox rack params set SpotInstanceBid=0.10
+$ convox rack params set InstanceType=m3.medium SpotInstanceBid=0.10
 ```
 
 To disable spot instances, say to quickly return to using all on demand instances because spots are not available, remove the `SpotInstanceBid` value:
