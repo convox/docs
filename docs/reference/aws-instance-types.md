@@ -4,7 +4,7 @@ title: AWS Instance Types
 
 ### Rack instance and build instance types
 
-You can specify your Rack's instance type and build instance type via the [InstanceType](/docs/rack-parameters#instancetype) and [BuildInstance](/docs/rack-parameters#buildinstance) Rack parameters.
+You can specify your Rack's instance type and build instance type via the [InstanceType](/reference/rack-parameters#instancetype) and [BuildInstance](/reference/rack-parameters#buildinstance) Rack parameters.
 
 ### Reserved Instances
 
@@ -22,10 +22,10 @@ For instructions, see [How to Purchase Reserved Instances](https://aws.amazon.co
 
 You can utilize [Spot Instances](https://aws.amazon.com/ec2/spot/) to greatly reduce the cost of a cluster.
 
-- Turn off Rack [AutoScale](/docs/rack-parameters#autoscale)
-- Configure the Rack to use an [InstanceType](/docs/rack-parameters#instancetype) with spot instance availability
-- Configure the Rack for the desired total [InstanceCount](/docs/rack-parameters#instancecount) and the desired minimum guaranteed on demand capacity by [OnDemandMinCount](/docs/rack-parameters#ondemandmincount)
-- Set a [SpotInstanceBid](/docs/rack-parameters#spotinstancebid) in dollars
+- Turn off Rack [AutoScale](/reference/rack-parameters#autoscale)
+- Configure the Rack to use an [InstanceType](/reference/rack-parameters#instancetype) with spot instance availability
+- Configure the Rack for the desired total [InstanceCount](/reference/rack-parameters#instancecount) and the desired minimum guaranteed on demand capacity by [OnDemandMinCount](/reference/rack-parameters#ondemandmincount)
+- Set a [SpotInstanceBid](/reference/rack-parameters#spotinstancebid) in dollars
 
 ```
 $ convox rack params set AutoScale=No
