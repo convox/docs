@@ -54,6 +54,7 @@ func main() {
 
 	s.Route("GET", "/", index)
 	s.Route("GET", "/docs/{slug}", redirect)
+	s.Route("GET", "/docs/{slug}/", redirect)
 	s.Route("GET", "/{category}/{slug}", doc)
 	s.Route("GET", "/{slug}", redirect)
 	s.Route("GET", "/{slug}/", redirect)
