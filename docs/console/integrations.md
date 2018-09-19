@@ -8,11 +8,11 @@ To enable these integrations, click the Enable button on the Integrations page i
 
 ## GitLab
 
-The GitLab integration can be used to create triggers for [Workflows](/docs/workflows).
+The GitLab integration can be used to create triggers for [Workflows](/console/workflows).
 
 ## GitHub
 
-The GitHub integration can be used to create triggers for [Workflows](/docs/workflows).
+The GitHub integration can be used to create triggers for [Workflows](/console/workflows).
 
 When enabling the integration, please note that there are OAuth settings for each GitHub organization. If you want to use a repository to trigger Workflows, its organization must be authorized.
 
@@ -34,8 +34,8 @@ Unfortunately, `repo` scope also includes write permissions, but Convox does not
 
 ## Slack
 
-The Slack integration can be used to recieve notifications of Rack events in your team's chat. See the [Notifications](/docs/notifications) doc for details about the types of notifications that are sent.
+The Slack integration can be used to recieve notifications of Rack events in your team's chat. See the [Notifications](/monitoring/notifications) doc for details about the types of notifications that are sent.
 
 ## See also
 
-- [Integrations Overview](/docs/integrations-overview/)
+- [Integrations Overview](/integrations/integrations-overview)

@@ -16,7 +16,7 @@ Use [EC2 Dedicated Instances](https://aws.amazon.com/ec2/purchasing-options/dedi
 convox rack install aws Private=Yes Tenancy=dedicated
 ```
 
-See our [Private Networking doc](/docs/private-networking/) for more details.
+See our [Private Networking doc](/management/private-networking) for more details.
 
 ### Run a private Convox console
 

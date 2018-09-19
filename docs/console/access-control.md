@@ -16,7 +16,7 @@ On this page you can manage which users have access to your team and Racks.
 
 When users join your organization, each will be assigned a unique API Key that grants access the org's Racks.
 
-![Organization Members](/assets/images/docs/rbac/rbac.png){: .screenshot }
+![Organization Members](/assets/images/docs/rbac/rbac.png)
 
 ## Deploy Keys
 
@@ -24,9 +24,9 @@ Deploy keys are special, limited-scope API keys that allow you to run the `build
 
 You should give a Deploy Key to a CI service like CircleCI or Travis CI so it can deploy code but not access or modify any other Rack resources.
 
-For more details, see [Deploy Keys](/docs/deploy-keys).
+For more details, see [Deploy Keys](/console/deploy-keys).
 
-![Deploy Keys](/assets/images/docs/rbac/deploy-keys.png){: .screenshot }
+![Deploy Keys](/assets/images/docs/rbac/deploy-keys.png)
 
 ## Permissions
 

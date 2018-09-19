@@ -91,4 +91,4 @@ When multiple ports are specified, the first one in the list of ports is used to
 
 ## See also
 
-- [Environment](/docs/gen1/environment/)
+- [Environment](/gen1/environment)

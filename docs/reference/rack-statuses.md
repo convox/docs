@@ -10,13 +10,13 @@ Your Rack is running, but it is rearranging itself. For example, you might see t
 
 ## deleting
 
-When you [uninstall a Rack](/docs/uninstalling-convox/), you'll see the _deleting_ status as the script deletes all of the underlying AWS resources.
+When you [uninstall a Rack](/reference/uninstalling-convox), you'll see the _deleting_ status as the script deletes all of the underlying AWS resources.
 
 This can correspond to `DELETE_IN_PROGRESS` in the AWS CloudFormation console.
 
 ## installing
 
-After [installing a Rack](/docs/installing-a-rack/) from the Console web interface or the CLI via `convox rack install`, the Rack will remain in the _installing_ status while resources are created and configured in your AWS account.
+After [installing a Rack](/deployment/installing-a-rack) from the Console web interface or the CLI via `convox rack install`, the Rack will remain in the _installing_ status while resources are created and configured in your AWS account.
 
 ## rollback
 
@@ -36,10 +36,10 @@ When Console or your CLI are unable to communicate with a Rack, that Rack will h
 
 ## updating
 
-When you [update a Rack](/docs/rack-updates/), the Rack will display a status of _updating_ until the update completes and transitions to a _running_ status or fails and transitions to a _rollback_ status.
+When you [update a Rack](/management/rack-updates), the Rack will display a status of _updating_ until the update completes and transitions to a _running_ status or fails and transitions to a _rollback_ status.
 
 This can correspond to `UPDATE_IN_PROGRESS` or `UPDATE_COMPLETE_CLEANUP_IN_PROGRESS` in the AWS CloudFormation console.
 
 ## See also
 
-* [Rolling Updates](/docs/rolling-updates/)
+* [Rolling Updates](/deployment/rolling-updates)
