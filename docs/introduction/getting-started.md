@@ -46,7 +46,13 @@ If you already have a [dockerized](https://docs.docker.com/engine/examples/) app
 * If you are starting from scratch, clone one of our [demo applications](https://github.com/convox-examples) to get started
 
 ## Run your application locally
-If your application is ready to go, then running locally is as easy as typing `convox start` 
+To ensure your production deployments behave exactly the same as your local development environment Convox installs a local [rack](/introduction/rack) for development that mimics your production racks.
+If you already have Docker installed, [Installing your local rack](/development/running-locally) is as simple as:
+    
+    $ sudo convox rack install local
+    $ convox switch local
+
+If your application is ready to go, you run it locally with `convox start` 
 Once your application is up and running you just need to point your browser at it.
 
 
@@ -68,7 +74,7 @@ Here is an example using one of our sample apps:
   
 Now if you point your browser at `https://web.rails.convox` you can see your first app in action!
 
-Once you have had a chance to play around with local development it's time to deploy to production! First you will need to connect your AWS account
+Once you have had a chance to play around with local development it's time to deploy to production. First you will need to connect your AWS account
     
 
 ## Connect an AWS Account
