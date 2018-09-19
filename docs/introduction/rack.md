@@ -1,6 +1,6 @@
 ---
 title: "Convox Rack"
-order: 200
+order: 300
 ---
 
 Convox Rack is an [open source](https://github.com/convox/rack) deployment platform that is installed into your AWS account. A Rack creates and manages all of the underlying infrastructure needed to run and monitor your applications. A Rack is the unit of network isolation -- applications and services on a Rack can only communicate with other applications and services on the same Rack.

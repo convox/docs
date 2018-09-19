@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-order: 100
+order: 200
 ---
 
 Convox is an open-source tool for deploying, managing, and monitoring applications on cloud infrastructure.
