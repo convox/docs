@@ -22,7 +22,6 @@ For instructions, see [How to Purchase Reserved Instances](https://aws.amazon.co
 
 You can utilize [Spot Instances](https://aws.amazon.com/ec2/spot/) to greatly reduce the cost of a cluster.
 
-- Turn off Rack [AutoScale](/docs/rack-parameters#autoscale)
 - Configure the Rack to use an [InstanceType](/docs/rack-parameters#instancetype) with spot instance availability
 - Configure the Rack for the desired total [InstanceCount](/docs/rack-parameters#instancecount) and the desired minimum guaranteed on demand capacity by [OnDemandMinCount](/docs/rack-parameters#ondemandmincount)
 - Set a [SpotInstanceBid](/docs/rack-parameters#spotinstancebid) in dollars
