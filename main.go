@@ -76,7 +76,7 @@ func helpers(c *stdapi.Context) template.FuncMap {
 }
 
 func index(c *stdapi.Context) error {
-	return c.Redirect(302, "/introduction/overview")
+	return c.Redirect(302, "/introduction/getting-started")
 }
 
 func doc(c *stdapi.Context) error {
