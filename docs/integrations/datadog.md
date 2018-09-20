@@ -34,3 +34,9 @@ services:
       - /proc/:/host/proc/
       - /var/run/docker.sock:/var/run/docker.sock
 ```
+
+### Application Metrics
+
+To forward application metrics to Datadog you'll need the host IP address. You can get it with:
+
+    $ ip route list match 0/0 | awk '{print $3}'
