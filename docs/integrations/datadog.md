@@ -16,14 +16,21 @@ You can deploy the datadog agent as a Convox app with a very simple `convox.yml`
 
 ```
 services:
-  datadog:
-    agent: true
+  agent:
+    agent:
+      ports:
+        - 8125/udp
+        - 8126/tcp
+    image: datadog/agent:latest
     environment:
-      - API_KEY=${DATADOG_API_KEY}
+      - DD_API_KEY
       - DD_APM_ENABLED=true
-    image: datadog/docker-dd-agent
+    privileged: true
+    scale:
+      cpu: 128
+      memory: 128
     volumes:
+      - /cgroup/:/host/sys/fs/cgroup/
+      - /proc/:/host/proc/
       - /var/run/docker.sock:/var/run/docker.sock
-      - /proc/:/host/proc
-      - /cgroup:/host/sys/fs/cgroup
 ```
