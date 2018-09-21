@@ -83,8 +83,7 @@ Since [ECR authorization tokens expire every 12 hours](http://docs.aws.amazon.co
 
 Now pass the access key info to `convox registries add`:
 
-    $ convox registries add 901416387788.dkr.ecr.us-east-1.amazonaws.com \
-      AKIAJ7GE3UMOANV37YNQ 2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f
+    $ convox registries add 901416387788.dkr.ecr.us-east-1.amazonaws.com AKIAJ7GE3UMOANV37YNQ 2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f
     Adding registry... OK
 
 You can revoke Convox access by deleting the IAM user and removing the registry:
