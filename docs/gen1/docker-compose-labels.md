@@ -30,7 +30,7 @@ The `convox.agent` label allows you to run one process of a service per instance
     labels:
       - convox.agent=true
 
-See [github.com/convox-examples/dd-agent](https://github.com/convox-examples/dd-agent) for an example of an app you might run as an agent.
+See [github.com/convox-examples/datadog](https://github.com/convox-examples/datadog) for an example of an app you might run as an agent.
 
 ## convox.balancer
 
