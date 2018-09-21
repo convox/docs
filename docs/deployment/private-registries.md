@@ -29,10 +29,8 @@ In order to deploy from a private registry you will need to add credentials via 
 
 Continuing with our Docker Hub example, the command would be:
 
-    $ convox registries add https://index.docker.io/v1/
-    Username: yourname
-    Password:
-    Done.
+    $ convox registries add https://index.docker.io/v1/ username password
+    Adding registry... OK
 
 You will be prompted for your username and password. Once the registry has been added, you can pull private images:
 
@@ -48,7 +46,7 @@ You will be prompted for your username and password. Once the registry has been 
 To remove private registry info, use the `convox registries remove` command. To remove Docker Hub in our example the command would be:
 
     $ convox registries remove https://index.docker.io/v1/
-    Done.
+    Removing registry... OK
 
 ## Adding an Amazon EC2 Container Registry (ECR) from a different account
 
@@ -85,10 +83,9 @@ Since [ECR authorization tokens expire every 12 hours](http://docs.aws.amazon.co
 
 Now pass the access key info to `convox registries add`:
 
-    $ convox registries add 901416387788.dkr.ecr.us-east-1.amazonaws.com
-    Username: AKIAJ7GE3UMOANV37YNQ
-    Password: 2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f
-    Done.
+    $ convox registries add 901416387788.dkr.ecr.us-east-1.amazonaws.com \
+      AKIAJ7GE3UMOANV37YNQ 2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f
+    Adding registry... OK
 
 You can revoke Convox access by deleting the IAM user and removing the registry:
 
