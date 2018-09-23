@@ -81,13 +81,13 @@ You can make changes to your local directory and refresh to see those changes re
 
 ## Run on AWS for production
 
-#### Connect an AWS Account
+### Connect an AWS Account
 
 Click the **[Setup](https://console.convox.com/grid/user/welcome)** button then **Connect an AWS account**, and give Convox an AWS [access key](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys). This grants Convox access and permission to help manage resources in your AWS account.
 
 See [AWS Integration](/console/aws-integration) for more details.
 
-#### Install an AWS Rack
+### Install an AWS Rack
 
 Next, click on the <img src="/assets/images/docs/add-rack.png" alt="Add Rack" style="height: 1.5em;"> button and then **Install New**, in the top navigation bar. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
 
@@ -103,7 +103,7 @@ You can now switch your CLI to point at your new Rack.
     $ convox switch acme/production
     Switched to acme/production
 
-#### Deploy your application
+### Deploy your application
 
 Before deploying, create a new app in your Rack.
 
