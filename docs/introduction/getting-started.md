@@ -117,7 +117,7 @@ Once complete, run `convox services` to find the load balancer hostnames for the
 
     $ convox services
     SERVICE  DOMAIN                                     PORTS
-    web      web-rails-123456789.us-east-1.convox.site  80:3000 443:3000
+    web      rails-web-123456789.us-east-1.convox.site  80:3000 443:3000
 
 <div class="block-callout block-show-callout type-info" markdown="1">
 When a load balancer is first created it can take a few minutes for its hostname to become available in DNS.
