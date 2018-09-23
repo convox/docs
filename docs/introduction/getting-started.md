@@ -93,9 +93,7 @@ Next, click on the <img src="/assets/images/docs/add-rack.png" alt="Add Rack" st
 
 See [Installing a Rack](/deployment/installing-a-rack) for more details.
 
-#### Deploy your application
-
-Assuming in the step above you created a Rack called `production` we need to point your Convox CLI at that Rack instead of your local Rack so your commands are executed against the staging Rack.
+You can now switch your CLI to point at your new Rack.
 
     $ convox racks
     NAME             STATUS
@@ -104,6 +102,8 @@ Assuming in the step above you created a Rack called `production` we need to poi
 
     $ convox switch acme/production
     Switched to acme/production
+
+#### Deploy your application
 
 Before deploying, create a new app in your Rack.
 
