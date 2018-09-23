@@ -95,21 +95,21 @@ See [Installing a Rack](/deployment/installing-a-rack) for more details.
 
 ### Deploy your application
 
-#### Switch to your production Rack
+#### Switch to your new Rack
 
 Assuming in the step above you created a Rack called `production` we need to point your Convox CLI at that Rack instead of your local Rack so your commands are executed against the staging Rack.
 
     $ convox racks
-    NAME                  STATUS
-    local/convox          running
-    MyCompany/production  running
+    NAME             STATUS
+    local/convox     running
+    acme/production  running
 
-    $ convox switch MyCompany/production
-    Switched to MyCompany/production
+    $ convox switch acme/production
+    Switched to acme/production
 
 Don't forget when you want to go back to local development to switch Racks with `convox switch local`
 
-#### Create an app in your Rack
+#### Create an application
 
 Before deploying, create a new app in your Rack.
 
