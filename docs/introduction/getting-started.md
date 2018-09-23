@@ -107,11 +107,7 @@ You can now switch your CLI to point at your new Rack.
 
 Before deploying, create a new app in your Rack.
 
-    $ convox apps create
-
-Wait for the underlying components to be created:
-
-    $ convox apps wait
+    $ convox apps create --wait
 
 Deploy the application
 
@@ -120,6 +116,8 @@ Deploy the application
 Once complete, run `convox services` to find the load balancer hostnames for the application.
 
     $ convox services
+    SERVICE  DOMAIN                                     PORTS
+    web      web-rails-123456789.us-east-1.convox.site  80:3000 443:3000
 
 <div class="block-callout block-show-callout type-info" markdown="1">
 When a load balancer is first created it can take a few minutes for its hostname to become available in DNS.
