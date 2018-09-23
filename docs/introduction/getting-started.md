@@ -33,8 +33,8 @@ along with numerous other commands that make configuring, scaling, and securing 
 
 <pre id="login">
 $ convox login
-Password: ********-****-****-****-************
-Authenticating with console.convox.com... OK.
+Password: ********************
+Authenticating with console.convox.com... OK
 </pre>
 
 ## Prepare your application
