@@ -18,12 +18,12 @@ First you will need to [sign up for a Convox account](https://convox.com/signup)
 
 ## Install the CLI
 
-The `convox` [CLI](/reference/cli) offers:
+The `convox` [command line tool](/reference/cli) offers:
 
-* `convox start` - A single command to start a development environment
-* `convox deploy` - A single command to deploy your application
+* `convox start` - Start an application in development mode
+* `convox deploy` - Deploy an application
 
-along with numerous other utilities that make building, configuring, scaling and securing your apps easy.
+along with numerous other commands that make configuring, scaling, and securing your apps simple.
 
 * [Install the Convox CLI](/development/installation) for your platform.
 
@@ -33,8 +33,8 @@ along with numerous other utilities that make building, configuring, scaling and
 
 <pre id="login">
 $ convox login
-API Key: ********-****-****-****-************
-Logged in successfully.
+Password: ********-****-****-****-************
+Authenticating with console.convox.com... OK.
 </pre>
 
 ## Prepare your application
@@ -48,14 +48,14 @@ If you already have a [Dockerized](https://docs.docker.com/engine/examples/) app
 
 ### Install a local Rack
 
-To ensure your production deployments behave exactly the same as your local development environment Convox installs a local [Rack](/introduction/rack) for development that mimics your production racks.
+To ensure your production deployments behave exactly the same as your local development environment Convox installs a local [Rack](/introduction/rack) for development that mimics your production Racks.
 
-If you already have Docker installed, [Installing your local rack](/development/running-locally) is as simple as:
+If you already have Docker installed, [Installing your local Rack](/development/running-locally) is as simple as:
 
     $ sudo convox rack install local
     $ convox switch local
 
-### Start your application
+### Start your application in development mode
 
 If your application is ready to go, you run it locally with `convox start`.
 
@@ -107,7 +107,7 @@ Assuming in the step above you created a Rack called `production` we need to poi
     $ convox switch MyCompany/production
     Switched to MyCompany/production
 
-Don't forget when you want to go back to local development to switch racks with `convox switch local`
+Don't forget when you want to go back to local development to switch Racks with `convox switch local`
 
 #### Create an app in your Rack
 
