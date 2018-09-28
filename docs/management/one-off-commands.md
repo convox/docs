@@ -103,3 +103,25 @@ FOO=bar
 BAZ=qux
 [snip]
 ```
+
+## convox cp
+
+**Syntax:** `convox cp [relative local file path] [container ID]:[remote absolute file path]`
+**Use:** Copies from a local machine to a remote machine
+<div class="block-callout block-show-callout type-info" markdown="1">
+
+Use `convox ps` to get the container ID:
+ ```
+$ convox ps
+ID            NAME  RELEASE      SIZE  STARTED     COMMAND
+310481bf223f  web   RSPZQWVWGOP  256   5 days ago  bin/web
+5e3c8576b942  web   RSPZQWVWGOP  256   4 days ago  bin/web
+```
+</div>
+
+ **Examples:**
+Copy a file from a local machine to a remote container:
+
+ ```
+$ convox cp foo/bar.txt 5e3c8576b942:/app/foo/bar.txt
+```
