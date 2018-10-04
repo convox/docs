@@ -15,6 +15,8 @@ timers:
     service: web
 ```
 
+You can think of a timer as issuing a `convox run` on the defined schedule. This timer would be equivalent to running `convox run web bin/cleanup` at 3AM every day.
+
 #### Cron expression format
 
 Cron expressions use the following format. All times are UTC.
@@ -72,3 +74,47 @@ Some example expressions:
 </table>
 
 See the [Scheduled Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) AWS documentation for more details.
+
+#### Examples
+
+Two services, `web` is normally running, `timers` is not (scaled to 0). The `cleanup` timer will spawn a new process using the configuration of `timers` once per minute, run the command `bin/cleanup` inside it, and terminate on completion.
+
+    services:
+      web:
+        build: .
+        command: bin/webserver
+      timers:
+        build: ./timers
+        scale: 0
+    timers:
+      cleanup:
+        command: bin/cleanup
+        schedule: */1 * * * ?
+        service: timers
+
+One service `web` is normally running. The `cleanup` timer will spawn a new process using the configuration of `web` one per minute, run the command `bin/cleanup` inside it, and terminate on completion.
+
+    services:
+      web:
+        build: .
+        command: bin/webserver
+    timers:
+      cleanup:
+        command: bin/cleanup
+        schedule: */1 * * * ?
+        service: web
+
+Two services `web` and `workers` that are both normally running. The `cleanup` timer will spawn a new process using the configuration of `workers` one per minute, run the command `bin/cleanup` inside it, and terminate on completion.
+
+    services:
+      web:
+        build: .
+        command: bin/webserver
+      workers:
+        build: .
+        command: bin/workers
+    timers:
+      cleanup:
+        command: bin/cleanup
+        schedule: */1 * * * ?
+        service: workers
