@@ -75,7 +75,7 @@ Some example expressions:
 
 See the [Scheduled Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) AWS documentation for more details.
 
-#### Examples
+### Examples
 
 Two services, `web` is normally running, `timers` is not (scaled to 0). The `cleanup` timer will spawn a new process using the configuration of `timers` once per minute, run the command `bin/cleanup` inside it, and terminate on completion.
 
