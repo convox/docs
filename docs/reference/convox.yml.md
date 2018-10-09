@@ -159,8 +159,6 @@ services:
         - 8126/tcp
 ```
 
-Set to `true` to run one copy of this container on every instance.
-
 ### build
 
 Configuration options that define the build context and Dockerfile used.
