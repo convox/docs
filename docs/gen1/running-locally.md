@@ -12,7 +12,7 @@ Install [Docker for Mac](https://docs.docker.com/engine/installation/mac/#/docke
 
 #### Linux
 
-Install Docker from your distributions's default package manager.
+Install Docker from your distribution's default package manager.
 
 ## Starting the Application
 
