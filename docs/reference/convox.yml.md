@@ -20,6 +20,7 @@ services:
     port: 3000
     resources:
       - database
+    test: make test
   worker:
     build: ./worker
     command: bin/worker
@@ -278,6 +279,10 @@ Controls deployment behavior. When set to true existing containers for this serv
 ### sticky
 
 Toggle load balancer stickiness (using a cookie to keep a user associated with a single container) which helps some applications maintain consistency during rolling deploys. Defaults to `true`.
+
+### test
+
+Defines a command to be used when running `convox test` against an application.
 
 ## Timers
 
