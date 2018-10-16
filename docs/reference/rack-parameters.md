@@ -80,6 +80,16 @@ Getting build errors like <b>Starting build... ERROR: not enough memory availabl
 Note: If you set BuildMemory to an amount that's more than half of the total memory available to the build instance, you'll only be able to run one build at a time. If this value is too high, builds may fail.
 </div>
 
+### BuildVolumeSize
+
+<div class="alert alert-info">
+Getting errors like <b>No space left on device</b> on your builds (not your running applications)? You can extend the space on the device by increasing this parameter.
+</div>
+
+Default container disk size in GB.
+
+| Default value | `100` |
+
 ### ClientId
 
 Anonymous identifier.
@@ -89,7 +99,7 @@ Anonymous identifier.
 ### ContainerDisk
 
 <div class="alert alert-info">
-Getting errors like <b>No space left on device</b>? You can extend the space on the device by increasing this parameter.
+Getting errors like <b>No space left on device</b> on your running applications (not builds)? You can extend the space on the device by increasing this parameter.
 </div>
 
 Default container disk size in GB.
