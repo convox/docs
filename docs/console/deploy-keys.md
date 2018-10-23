@@ -12,3 +12,11 @@ You should give a deploy key to a CI service like [Travis CI](/integrations/trav
 ## Creating deploy keys
 
 To generate a **deploy key**, log into your account at [console.convox.com](https://console.convox.com) and click on the **Organization** section on the left. Click on the **Deploy Keys** tab to create a new key.
+
+## Using deploy keys
+
+To use your deploy key from a CI solution, run something like:
+
+```
+env CONVOX_PASSWORD=deploykey convox deploy ...
+```
