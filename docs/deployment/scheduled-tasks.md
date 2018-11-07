@@ -91,7 +91,7 @@ Two services, `web` is normally running, `timers` is not (scaled to 0). The `cle
     timers:
       cleanup:
         command: bin/cleanup
-        schedule: */1 * * * ?
+        schedule: "*/1 * * * ?"
         service: timers
 
 #### Existing Service
@@ -105,5 +105,5 @@ One service `web` is normally running. The `cleanup` timer will spawn a new proc
     timers:
       cleanup:
         command: bin/cleanup
-        schedule: */1 * * * ?
+        schedule: "*/1 * * * ?"
         service: web
