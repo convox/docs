@@ -204,6 +204,10 @@ service:
     domain: bar.example.org, *.bar.example.org
 ```
 
+### drain
+
+Specifies the timeout in seconds during which connections are allowed to drain for a service before terminating during a rolling deploy.
+
 ### environment
 
 A list of strings that define the service's environment variables.
