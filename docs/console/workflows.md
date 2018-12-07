@@ -18,7 +18,7 @@ Convox has two types of workflows:
 ## Review Workflows
 A review workflow allows you to review a new version of your application based on a pull request. When you define a review workflow for a connected Github or Gitlab repository, Convox will build your application whenever a pull request is created for that repository. If selected, Convox will also run your tests against that build and can even create a running review application so you can test your latest changes before you merge the pull request.
 
-### Creating a review workflow
+### Creating a Review Workflow
 
 ![](/assets/images/docs/workflows/review-workflow.png)
 
@@ -34,7 +34,7 @@ A review workflow allows you to review a new version of your application based o
 ## Deployment Workflows
 A deployment workflow is how you can manage the regular deployment of your applications to staging and production. A deployment workflow is triggered whenever code is merged into the specified repository/branch on either Github or Gitlab
 
-### Creating a deployment workflow
+### Creating a Deployment Workflow
 
 
 ![](/assets/images/docs/workflows/deployment-workflow.png)
@@ -50,7 +50,7 @@ A deployment workflow is how you can manage the regular deployment of your appli
 
 While deployment workflows are triggered by merges to the specified repository/branch you can also run a deployment workflow manually by clicking the play button <img src="/assets/images/docs/workflows/workflow-play.png"  style="height: 1.5em;">
 
-### Workflow jobs
+### Workflow Jobs
 
 Whenever a workflow is triggered it creates a job. You can view the jobs history by clicking on the jobs link in the navigation bar
 
@@ -60,11 +60,11 @@ Here you can see a complete history of all your review and deployment workflow j
 
 ![](/assets/images/docs/workflows/job-detail.png)
 
-## Example workflows
+## Example Workflows
 
 The flexibility of Convox workflows should meet the needs of almost any team but here are a few popular workflow examples:
 
-### Review workflow for testing 
+### Review Workflow for Testing 
 
 1. Create a review workflow for your repository
 2. Assign the workflow to your staging rack
@@ -76,17 +76,17 @@ Now whenever a developer on your team opens a pull request a demo application wi
 
 ![](/assets/images/docs/workflows/review-app.png)
 
-### A Gitflow deployment strategy
+### A Gitflow Deployment Strategy
 
 If your team practices [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) where you have a staging environment which is automatically built whenever a commit is made to your dev branch and you do production deploys by either merging your dev branch to your master branch, or by committing a hotfix directly to master, then you will want to do something like:
 
-#### Staging deployment
+#### Staging Deployment
 1. Create a deployment workflow for your repository specifying your dev branch
 2. Add your staging application and choose automatic promotion
 3. Choose whether or not you want to run tests 
 4. Add whatever before and after promotion commands you might need for staging
 
-#### Production deployment
+#### Production Deployment
 1. Create a deployment workflow for your repository specifying your master branch
 2. Add your production application and decide whether you want to promote automatically or manually
 3. Choose whether or not you want to run tests 
@@ -94,7 +94,7 @@ If your team practices [Gitflow](https://nvie.com/posts/a-successful-git-branchi
 
 Now whenever you merge to dev your staging application will be built and whenever you merge to master your production application will be built.   
 
-### A double build deployment strategy
+### A Double Build Deployment Strategy
 
 We are particularly fond of this strategy at Convox. With a double build, whenever code is merged into your master branch your staging application is automatically built and deployed and your production application is automatically built and ready to be deployed. With this strategy, once you are satisfied with your testing on staging all you need to do is click promote to move your code into production.
 
