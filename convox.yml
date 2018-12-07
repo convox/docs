@@ -7,7 +7,7 @@ services:
       - ALGOLIA_INDEX
       - ALGOLIA_KEY_ADMIN
       - ALGOLIA_KEY_SEARCH
-      - DEVELOPMENT=false
+      - DEVELOPMENT=true
     health:
       path: /introduction/overview
       interval: 30
