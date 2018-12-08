@@ -79,17 +79,21 @@ Now if you point your browser at `https://web.rails.convox` you can see your app
 
 You can make changes to your local directory and refresh to see those changes reflected in your browser.
 
-## Run on AWS for production
+## Run on AWS for Production
 
 ### Connect an AWS Account
 
-Click the **[Setup](https://console.convox.com/grid/user/welcome)** button then **Connect an AWS account**, and give Convox an AWS [access key](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys). This grants Convox access and permission to help manage resources in your AWS account.
+Click on the integrations link in the main navigation button then click the plus sign on the runtime integration section. 
+
+![](/assets/images/docs/console/integrations.png)
+
+This grants Convox access and permission to help manage resources in your AWS account.
 
 See [AWS Integration](/console/aws-integration) for more details.
 
 ### Install an AWS Rack
 
-Next, click on the <img src="/assets/images/docs/add-rack.png" alt="Add Rack" style="height: 1.5em;"> button and then **Install New**, in the top navigation bar. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
+Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
 
 See [Installing a Rack](/deployment/installing-a-rack) for more details.
 
