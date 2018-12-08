@@ -17,6 +17,6 @@ Then click on the plus sign in the Runtime section and select Amazon Web Service
 
 If you are not already logged into your AWS account you will be prompted to do so. Once you complete this step it will take approximately 10 minutes for Convox to create the necessary infrastructure in your AWS account. 
 
-You can remove the AWS integration at anytime by clicking the gear icon next to your AWS account on the integrations screen and selecting ***Remove*** just make sure you delete any Racks you have created before removing the integration.
+You can remove the AWS integration at any time by clicking the gear icon next to your AWS account on the integrations screen and selecting ***Remove*** just make sure you delete any Racks you have created before removing the integration.
 
 
