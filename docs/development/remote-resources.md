@@ -54,9 +54,9 @@ Now you can indirect with your remote redis resource:
 <div class="block-callout block-show-callout type-info" markdown="1">
 **Tip: Alternate ports** 
 
-To avoid local port conflicts (for example, if you already have Postgres running on 5432), you can specify a different local port with `--listen`:
+To avoid local port conflicts (for example, if you already have Postgres running on 5432), you can specify a different local port with `--port`:
 
-`$ convox resources proxy postgres-6525 --listen 5433`
+`$ convox resources proxy postgres-6525 --port 5433`
 
 When you run the command above, you should see output like:
 
