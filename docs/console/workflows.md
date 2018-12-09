@@ -1,99 +1,110 @@
 ---
 title: "Workflows"
 ---
+***
+***Please note this document refers to the new workflows available as of the December 2018 update of the Convox Console. Legacy workflows created prior to this update will still work, however they can no longer be created or edited. The new workflows provide much improved functionality over the legacy workflows and we highly encourage everyone to migrate to the new workflows.***
+***
 
-[Convox Console](https://console.convox.com) supports the creation of Workflows. A Workflow is a list of tasks executed in response to a trigger. You can use Workflows to build automation--like deploying when you push to GitHub--into an organization.
 
-1. [Creating a Workflow](#creating-a-workflow)
-  - [Defining the Trigger](#defining-the-trigger)
-  - [Defining Tasks](#defining-tasks)
-1. [Managing Workflows](#managing-workflows)
-1. [Workflow History](#workflow-history)
-1. [Example Workflows](#example-workflows)
+Convox allows you to manage continuous integration and continuous delivery using workflows.  You can use workflows to build automation such as deploying when you push to GitHub. You can create workflows by clicking on the workflow link in the navigation bar
 
-## Creating a Workflow
+![](/assets/images/docs/workflows/workflows-start.png)
 
-In [Console](https://console.convox.com/), click the Workflows tab. Click the "Create Workflow" button to get started.
+Convox has two types of workflows:
 
-![](/assets/images/docs/workflows/tab.png)
+* [Review Workflows](#review-workflows)
+* [Deployment Workflows](#deployment-workflows)
 
-### Defining the Trigger
+## Review Workflows
+A review workflow allows you to review a new version of your application based on a pull request. When you define a review workflow for a connected Github or Gitlab repository, Convox will build your application whenever a pull request is created for that repository. If selected, Convox will also run your tests against that build and can even create a running review application so you can test your latest changes before you merge the pull request.
 
-First, choose a trigger for the Workflow. This is the action that will kick off execution of the Workflow tasks.
+### Creating a Review Workflow
 
-![](/assets/images/docs/workflows/trigger.png)
+![](/assets/images/docs/workflows/review-workflow.png)
 
-Choose either GitHub or GitLab as your integration, then choose a repository and a branch.
+* Repository - This is the linked source control repository from either Github or Gitlab from which creating pull requests will trigger your review workflow
+* Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/reference/convox-yml) however, if you have custom needs for your review workflows you can specify a custom manifest
+* Rack - This specifies what Rack the demo application will be deployed in 
+* Run tests - Checking this box will run whatever command is in the test directive in your [convox.yml](/reference/convox-yml). One thing to note is when run tests is enabled, two releases are created for every build and both releases will appear in the release list for your application.
+* Deploy Demo - Checking this box will instruct Convox to create a demo application as part of the review workflow. The demo application will be deployed in the specified rack and will be deleted automatically once the pull request is merged
+* Before Promote - Here you can specify a service and a command to be run before your application is promoted. This is useful for things like database migrations
+* After Promote - Here you can specify a service and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts
+* Demo Environment - Here you can specify any environment variables you want set or overridden for your demo application
 
-When changes are pushed to the specified repository branch, Workflow tasks will be triggered.
+## Deployment Workflows
+A deployment workflow is how you can manage the regular deployment of your applications to staging and production. A deployment workflow is triggered whenever code is merged into the specified repository/branch on either Github or Gitlab
 
-### Defining Tasks
+### Creating a Deployment Workflow
 
-Next, define the tasks to be executed once the trigger fires. Tasks are actions that can be executed for any app in your organization. You can currently choose from the following task types:
 
-- **Build**: create a Build from the specified branch.
-- **Promote**: take a Build and promote its corresponding Release.
-- **Run**: execute a command against a particular Service of a Build.
-- **Copy**: export a Build from one App and import it to another, even across Racks.
+![](/assets/images/docs/workflows/deployment-workflow.png)
 
-Add additional tasks to your Workflow by clicking the green "Add Task" button. Once you've defined all of your tasks, click "Create Workflow".
+* Repository - This is the linked source control repository from either Github or Gitlab 
+* Workflow Name - A name for your workflow ex: staging deploy
+* Branch - The branch which merging code into will cause this workflow to trigger
+* Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/reference/convox-yml) however if you have custom needs for a specific deployment workflow you can specify a custom manifest
+* App - Deployment workflows allow you to specify multiple applications to deploy to and you can specify whether or not to automatically promote each application. For example on a merge to your master branch you might choose to deploy to a staging application with automatic promotion and simultaneously deploy to a production application with manual promotion.
+* Run tests - Checking this box will run whatever command is in the test directive in your [convox.yml](/reference/convox-yml). One thing to note is when run tests is enabled, two releases are created for every build and both releases will appear in the release list for your application.
+* After Promote - Here you can specify a service and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts.
+* Demo Environment - Here you can specify any environment variables you want set or overridden for your demo application.
 
-### Naming the Workflow
+While deployment workflows are triggered by merges to the specified repository/branch you can also run a deployment workflow manually by clicking the play button <img src="/assets/images/docs/workflows/workflow-play.png"  style="height: 1.5em;">
 
-Finally, give the Workflow a unique, recognizable name.
+### Workflow Jobs
 
-![Assign workflow name](/assets/images/docs/workflows/name.png) *This is the name that will be used to identify the overall purpose of the workflow.*
+Whenever a workflow is triggered it creates a job. You can view the jobs history by clicking on the jobs link in the navigation bar
 
-#### An Example
+![](/assets/images/docs/workflows/workflow-jobs.png)
 
-Here is an example Build. It promotes the Release corresponding to the resulting Build to complete the automated deployment.
+Here you can see a complete history of all your review and deployment workflow jobs. You can also re-run any job. You can click on any job in the history list to review all steps and output from that job run.
 
-![](/assets/images/docs/workflows/task.png)
-
-## Managing Workflows
-
-Existing Workflows can be managed via the main Workflows tab. Use the buttons to the right if you wish to edit or remove a Workflow.
-
-![](/assets/images/docs/workflows/manage.png)
-
-## Workflow History
-
-The execution of a Workflow is referred to as a "job." From the main Workflows page, click the Jobs button in the right-side column to view a list of previously executed Workflows. A red or green indicator will tell you whether the job completed successfully.
-
-![](/assets/images/docs/workflows/jobs.png)
-
-Click the timestamp link associated with a job to see more detailed information including logs and the Build and Release IDs involved in each task.
+![](/assets/images/docs/workflows/job-detail.png)
 
 ## Example Workflows
 
-As mentioned above, Workflows can be used along with other tools that set commit statuses to build Continuous Integration pipelines. Here are a few Workflows you might try with your team.
+The flexibility of Convox workflows should meet the needs of almost any team but here are a few popular workflow examples:
 
-### Double Build
+### Review Workflow for Testing 
 
-1. Create a Workflow that triggers on your repo's master branch
-2. Define a task to build and promote your staging app
-3. Define a second task to build (but not promote) your production app
+1. Create a review workflow for your repository
+2. Assign the workflow to your staging rack
+3. Select "run tests" and "deploy demo"
+4. Specify any commands such as running migrations that you might need for your application to work
+5. Specify any specific environment variables you might need set or overridden for demo applications
 
-With this setup, a merge into your master branch will automatically execute everything needed right up to going live in production. If you are satisfied with the state of your staging app when the Workflow completes, you can simply click "Promote" on your production app in Console to complete the process.
+Now whenever a developer on your team opens a pull request a demo application will be created and deployed in your staging rack. You can access the url for the demo application by going to racks, expanding the staging rack, and then clicking on the application name which should look something like "repository name - 1".
 
-For a fully automated production pipeline, enable promotion in step 3. Since a failure of any task in a Workflow halts execution for remaining tasks, you can be sure that your production app will only be promoted if the staging app was successfully promoted (i.e. all containers were rolled out and passed [health checks](/docs/health-checks)).
+![](/assets/images/docs/workflows/review-app.png)
 
-### CI for Pull Requests
+### A Gitflow Deployment Strategy
 
-1. Create a Workflow that triggers on a Pull Request event
-2. Define a task to create a build based on the PR
-3. Define a second task to run your test suite against that Build
+If your team practices [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) where you have a staging environment which is automatically built whenever a commit is made to your dev branch and you do production deploys by either merging your dev branch to your master branch, or by committing a hotfix directly to master, then you will want to do something like:
 
-With this setup, each PR in your repo would be tested automatically upon submission.
+#### Staging Deployment
+1. Create a deployment workflow for your repository specifying your dev branch
+2. Add your staging application and choose automatic promotion
+3. Choose whether or not you want to run tests 
+4. Add whatever before and after promotion commands you might need for staging
 
-### Single Build with CI
+#### Production Deployment
+1. Create a deployment workflow for your repository specifying your master branch
+2. Add your production application and decide whether you want to promote automatically or manually
+3. Choose whether or not you want to run tests 
+4. Add whatever before and after promotion commands you might need for production
 
-1. Create a Workflow that triggers when the master branch has been pushed
-2. Define a task to create a Build in your staging Rack
-3. Define a second task to run your test suite against that Build (Workflow aborts if tests fail)
-4. Define a third task to promote that Build's release in the staging Rack
-5. Define a fourth task to copy that passing Build from the staging to the production Rack
-6. After completing QA on the staging app, promote the release in production, or...
-   Define a final task to promote the Build automatically in production
+Now whenever you merge to dev your staging application will be built and whenever you merge to master your production application will be built.   
 
-With this setup, merging changes to your master branch and pushing them to your GitHub or GitLab remote would trigger a new Build in your staging Rack. If that Build were to pass your test suite, its changes would go live (i.e. its Release would be promoted) for that app in your staging Rack. That same Build would be copied to your production Rack in anticipation of wanting to promote its Release as well. You could then manually promote the Release corresponding to that build at any time to complete the deployment to production, allowing your team to complete QA on the staging app first.
+### A Double Build Deployment Strategy
+
+We are particularly fond of this strategy at Convox. With a double build, whenever code is merged into your master branch your staging application is automatically built and deployed and your production application is automatically built and ready to be deployed. With this strategy, once you are satisfied with your testing on staging all you need to do is click promote to move your code into production.
+
+1. Create a deployment workflow for your repository specifying your master branch
+2. Add your staging application and choose automatic promotion
+3. Choose whether or not you want to run tests
+4. Add whatever before and after promotion commands you might need for staging
+5. Add your production application and choose manual promotion
+6. Add whatever before and after promotion commands you might need for production
+
+Now whenever your merge to master your staging application will be automatically built and your production application will be built and ready to promote. Once you are satisfied with your testing on staging you can click on your production rack, select your application, find the latest release and click promote.
+
+![](/assets/images/docs/workflows/promote-release.png)

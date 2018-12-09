@@ -2,15 +2,7 @@
 title: "Rack Updates"
 ---
 
-As Convox is in active development, new Rack releases are frequently available. There are two ways to update a Rack: [via Console](#via-console) and [via the CLI](#via-the-cli). Also keep in mind that some Rack releases are [required](#required-updates), i.e. cannot be skipped even if there is a newer release available.
-
-## Updating via Console
-
-After logging into [the Convox Console](https://console.convox.com/), you can see your list of Racks in the Racks section:
-
-![List of Racks](/assets/images/docs/what-is-a-rack/list-of-racks.png)
-
-If any of the Racks in the list are outdated, you can click the `Update` button to update to the next version. If the Rack is very outdated, you may need to update more than once (see [Required Updates](#required-updates) below).
+As Convox is in active development, new Rack releases are frequently available. Rack updates will typically by applied automatically but you can manually trigger an update [via the CLI](#via-the-cli). Also keep in mind that some Rack releases are [required](#required-updates), i.e. cannot be skipped even if there is a newer release available.
 
 ## Updating via the CLI
 
