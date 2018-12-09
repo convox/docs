@@ -86,7 +86,7 @@ A resource is a network-attached dependency of your application. This example co
 
 | Option    | Default          | Description                             |
 |-----------|------------------|-----------------------------------------|
-| `class`   | `cache.t2.micro` | Instance class                          |
+| `class`   | `db.t2.micro` | Instance class                          |
 | `durable` | `false`          | Automatic failover                      |
 | `iops`    |                  | Provisioned IOPS for database disks     |
 | `storage` | `20`             | GB of storage to provision              |
@@ -106,7 +106,7 @@ A resource is a network-attached dependency of your application. This example co
 
 | Option    | Default          | Description                             |
 |-----------|------------------|-----------------------------------------|
-| `class`   | `cache.t2.micro` | Instance class                          |
+| `class`   | `db.t2.micro`    | Instance class                          |
 | `durable` | `false`          | Automatic failover                      |
 | `iops`    |                  | Provisioned IOPS for database disks     |
 | `storage` | `20`             | GB of storage to provision              |
