@@ -34,4 +34,4 @@ services:
 
 ## Configuring DNS
 
-Run `convox rack` and find the `Domain` value. Configure your custom domain as a `CNAME` or `ALIAS` pointer to this domain.
+Run `convox rack` and find the `Router` value. Configure your custom domain as a `CNAME` or `ALIAS` pointer to this domain.
