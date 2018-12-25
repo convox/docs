@@ -19,6 +19,11 @@ To install a Rack into an existing VPC, you'll need to provide:
 * the CIDRs of the subnets into which Convox should be installed
 * the Internet Gateway ID
 
+Also, make sure about your existing VPC:
+
+* Internet Gateway is attached
+* `DNS resolution` and `DNS hostnames` options are enabled
+
 The [advanced Rack installer](/docs/advanced-installer-options) in Convox Console will help you choose these values.
 
 ### Choosing suitable CIDR blocks
