@@ -201,6 +201,12 @@ Enable the internal load balancer for this Rack. See [Internal Services](/docs/i
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
+### InternetGateway
+
+If installing rack on existing VPC, you need to pass existing InternetGateway ID attached to the VPC. See [ExistingVPC](/reference/rack-parameters#existingvpc).
+
+| Default value | *<blank>* |
+
 ### OnDemandMinCount
 
 If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availbility.
