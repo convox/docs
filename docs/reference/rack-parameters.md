@@ -232,6 +232,12 @@ Put Rack API Load Balancer in a private network, i.e. have the Rack API use an I
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
+### PrivateApiSecurityGroup
+
+Specify a custom security group that can connect to the Rack API when `PrivateApi=Yes`.
+
+| Default value  | *<blank>* |
+
 ### RouterSecurityGroup
 
 Specify a custom security group to use for the Rack's router.
