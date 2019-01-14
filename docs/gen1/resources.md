@@ -17,14 +17,14 @@ The following resources are available at the Rack level:
 ## Creating a Resource
 
 ```
-$ convox resources create postgres
+$ convox rack resources create postgres
 Creating resource... OK, postgres-8458
 ```
 
 #### Options
 
 ```
-$ convox resources create postgres Encrypted=true MultiAZ=true
+$ convox rack resources create postgres Encrypted=true MultiAZ=true
 ```
 
 You can see the available options for an instance type:
@@ -47,17 +47,12 @@ Username                    postgres     Server username
 ## Updating a Resource
 
 ```
-$ convox resources update postgres-8458 MultiAZ=true
+$ convox rack resources update postgres-8458 MultiAZ=true
 ```
 
 ## Deleting a Resource
 
 ```
-$ convox resources create postgres
-Creating resource... OK, postgres-8458
+$ convox rack resources delete postgres-8458
+Deleting postgres-8458... OK
 ```
-
-
-
-resources at the Rack level
-## Rack-Level
