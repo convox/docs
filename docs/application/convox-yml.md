@@ -3,7 +3,7 @@ title: convox.yml
 order: 50
 ---
 
-The `convox.yml` file is a configuration file used to describe your application and all of its infrastructure needs.
+The `convox.yml` file is a manifest used to describe your application and all of its infrastructure needs.
 
 <pre>
 <a href="/application/environment">environment</a>:
