@@ -13,8 +13,6 @@ Files edited or created in the container will also get synced back into the host
 
 By default, `convox start` will synchronize all files or directories that appear in a `COPY` or `ADD` directive in your `Dockerfile`, ignoring any of those files or directories that appear in `.dockerignore`. It watches these locations on your host and uses the Docker API to copy changed files to the relevant container.
 
-The `convox start` command also places a small [Linux binary](https://github.com/convox/changes) onto relevant containers to watch for file changes in the container. The binary logs changes to `STDOUT`, where `convox start` is listening. Changed files are then copied from the container to the host using the Docker API.
-
 ## Why not volumes?
 
 Volumes are useful in many scenarios, but are not ideal for code syncing.
