@@ -27,7 +27,7 @@ Creating resource... OK, postgres-8458
 $ convox rack resources create postgres Encrypted=true MultiAZ=true
 ```
 
-You can see the available options for an instance type:
+You can see the available options for a resource type using the CLI:
 
 ```
 $ convox resources options postgres
