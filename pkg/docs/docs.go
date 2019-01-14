@@ -23,7 +23,8 @@ var (
 )
 
 var categoryNames = map[string]string{
-	"gen1": "Generation 1",
+	"application": "Application Setup",
+	"gen1":        "Generation 1",
 }
 
 var (

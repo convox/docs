@@ -64,7 +64,7 @@ Note: the build instance will also use the [`InstanceBootCommand`](/docs/rack-pa
 | Default value  | *<blank>*                                                        |
 | Allowed values | [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/) |
 
-See also the [InstanceType](#instancetype) Rack parameter and our page on [AWS Instance Types](/docs/aws-instance-types/).
+See also the [InstanceType](#instancetype) Rack parameter.
 
 ### BuildMemory
 
@@ -185,7 +185,7 @@ The type of EC2 instance to run in your Rack cluster.
 | Default value  | `t2.small`                                                       |
 | Allowed values | [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/) |
 
-See also the [BuildInstance](#buildinstance) Rack parameter and our page on [AWS Instance Types](/docs/aws-instance-types/).
+See also the [BuildInstance](#buildinstance) Rack parameter.
 
 ### InstanceUpdateBatchSize
 

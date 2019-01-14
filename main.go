@@ -12,14 +12,13 @@ import (
 
 var categorySlugs = []string{
 	"introduction",
-	"deployment",
+	"application",
 	"development",
+	"deployment",
 	"management",
-	"monitoring",
-	"resources",
-	"integrations",
 	"console",
 	"reference",
+	"external-services",
 	"gen1",
 	"help",
 }
@@ -101,6 +100,10 @@ func doc(c *stdapi.Context) error {
 	params["Document"] = template.HTML(d.Body)
 	params["Slug"] = d.Slug
 	params["Title"] = d.Title
+
+	if cc.Slug == "gen1" {
+		params["Deprecation"] = "Generation 1 has been deprecated and is not recommended for new applications."
+	}
 
 	return c.RenderTemplate("doc", params)
 }

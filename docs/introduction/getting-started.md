@@ -18,7 +18,7 @@ First you will need to [sign up for a Convox account](https://convox.com/signup)
 
 ## Install the CLI
 
-The `convox` [command line tool](/reference/cli) offers:
+The `convox` CLI offers:
 
 * `convox start` - Start an application in development mode
 * `convox deploy` - Deploy an application
@@ -41,7 +41,7 @@ Authenticating with console.convox.com... OK
 
 If you already have a [Dockerized](https://docs.docker.com/engine/examples/) application, running on Convox is as easy as adding one small file that describes your application. If you are not already using Docker, don't worry we have sample applications for all popular frameworks that will make it easy to get started.
 
-* If you have an existing application follow these easy steps [here](/development/preparing-an-application).
+* If you have an existing application see the **Application Setup** section of these docs.
 * If you are starting from scratch you can clone a [demo application](https://github.com/convox-examples) to get started.
 
 ## Run locally for development
@@ -131,7 +131,7 @@ When a load balancer is first created it can take a few minutes for its hostname
 
 Now that you've deployed your first application you can:
 
-* Create a production database like [Postgres](/resources/postgresql) and link it to your app
+* Add a database like [Postgres](/application/resources)
 * [Prepare and deploy more of your own apps](/development/preparing-an-application)
 * Grant your team members [access](/console/access-control) to your organization
 * Set up Continuous Delivery [Workflows](/console/workflows)

@@ -116,7 +116,7 @@ database:
     - /var/lib/postgresql/data
 ```
 
-Convox does not recommend running datastores as containers in your Rack. Instead, you should use a hosted service, such as the [Postgres](/resources/postgresql) resource that Convox configures using Amazon RDS, or externally-hosted resources like [Compose.io's MongoDB](https://www.compose.com/mongodb). For more information, see [Resources](/resources/about-resources).
+Convox does not recommend running datastores as containers in your Rack. Instead, you should use a hosted service, such as the [Postgres](/gen1/resources) resource that Convox configures using Amazon RDS, or externally-hosted resources like [Compose.io's MongoDB](https://www.compose.com/mongodb). For more information, see [Resources](/gen1/resources).
 
 ## Interacting with remote resources during development
 
@@ -126,7 +126,7 @@ You have several options:
 
 ### Tunnel to remote databases
 
-You can use `convox resources proxy` to tunnel to the remote production (or staging, or any) database as described [here](/development/remote-resources). This will allow your app to interact with the remote resource as if it were running on your own machine.
+You can use `convox rack resources proxy` to tunnel to the remote production (or staging, or any) databas.
 
 ### Use local containers
 

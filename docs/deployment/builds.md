@@ -35,8 +35,6 @@ You can tell Convox to build from a remote git repository rather than shipping y
 $ convox build https://github.com/myuser/myproject.git
 ```
 
-This is the manual way to build from a git repository. For info on automated builds based on git actions please refer to [Deploying to Convox](/deployment/deploying-to-convox).
-
 ## Inspecting Builds
 
 Run `convox builds` to see a list of builds for your application.
@@ -44,10 +42,6 @@ Run `convox builds` to see a list of builds for your application.
 Run `convox builds info <build ID>` to view metadata for a particular build.
 
 Run `convox builds logs <build ID>` to view the logs for a particular build.
-
-## Automatic Builds
-
-You can configure Convox Console to automatically build or deploy your app when it detects changes to your code repo. See [Deploying to Convox](/docs/deploying-to-convox) for more info.
 
 ## Moving Builds
 

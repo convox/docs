@@ -1,11 +1,10 @@
 ---
-title: "Scheduled Tasks"
-order: 450
+title: "Timers"
 ---
 
 Convox can set up `cron`-like recurring tasks on any of your application processes. This can be useful for background work like data dumps, batch jobs, or even queueing other background jobs for a worker.
 
-#### Configuring timers
+## Definition
 
 ```yaml
 timers:
@@ -75,7 +74,7 @@ Some example expressions:
 
 See the [Scheduled Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html) AWS documentation for more details.
 
-### Examples
+## Examples
 
 #### Dedicated Service
 

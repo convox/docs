@@ -7,19 +7,39 @@ Convox can boot your application locally using Docker in an environment identica
 
 ## Installing Docker
 
-#### OS X
+#### MacOS
 
-Install [Docker for Mac](https://docs.docker.com/engine/installation/mac/#/docker-for-mac) to get a local Docker environment.
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for MacOS.
+
+Under Docker's preferences, change the following configuration:
+
+* On the **Advanced** tab, increase CPUs to the halfway mark and Memory as high as you are comfortable with on your environment.
+* On the **Kubernetes** tab check **Enable Kubernetes**.
 
 #### Linux
 
-Install Docker from your application's default package manager.
+Install the `microk8s` snap:
 
-## Installing the Local Rack
+```
+$ sudo snap install microk8s --classic
+```
+
+#### Windows
+
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows.
+
+Under Docker's preferences, change the following configuration:
+
+* On the **Advanced** tab, increase CPUs to the halfway mark and Memory as high as you are comfortable with on your environment.
+* On the **Kubernetes** tab check **Enable Kubernetes**.
+
+## Local Rack
+
+#### Installation
 
     $ sudo convox rack install local
 
-## Running applications locally
+#### Running Applications
 
 Use `convox start` to run applications against your local Rack.
 

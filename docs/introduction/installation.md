@@ -1,6 +1,6 @@
 ---
-title: "Installing the Convox CLI"
-order: 50
+title: "CLI Installation"
+order: 200
 ---
 
 The `convox` command line tool makes building, configuring, scaling, and securing your apps easy.
@@ -51,7 +51,3 @@ To update the CLI you can run `convox update`:
 
     $ convox update
     Updating convox to 20211231000000: OK
-
-## Further reading
-
-For details about how to use `convox` on the command line, see the [CLI reference](/docs/cli/).

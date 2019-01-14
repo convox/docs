@@ -34,8 +34,4 @@ Unfortunately, `repo` scope also includes write permissions, but Convox does not
 
 ## Slack
 
-The Slack integration can be used to recieve notifications of Rack events in your team's chat. See the [Notifications](/monitoring/notifications) doc for details about the types of notifications that are sent.
-
-## See also
-
-- [Integrations Overview](/integrations/integrations-overview)
+The Slack integration can be used to recieve notifications of Rack events in your team's chat. See the [Notifications](/console/notifications) doc for details about the types of notifications that are sent.

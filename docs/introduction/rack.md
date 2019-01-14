@@ -14,7 +14,3 @@ A Rack will start multiple identical servers on which it will containerize and r
 ### Private Network
 
 Each Rack creates a private network inside which it runs its servers and services. All access from the internet comes through load balancers which are specifically configured to route traffic to your containers.
-
-### Resources
-
-Backing resources such as [Postgres](/docs/postgresql), [MySQL](/docs/mysql), or [Redis](/docs/redis) can be easily installed into your Rack. Once installed, these resources are only accessible to applications running on that Rack. Convox resources are backed by powerful primitives in the underlying infrastructure such as [RDS](https://aws.amazon.com/rds/) and [ElastiCache](https://aws.amazon.com/elasticache/).

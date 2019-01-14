@@ -1,5 +1,5 @@
 ---
-title: "Monitoring an App"
+title: "Application Monitoring"
 ---
 
 Once you've got an app running on Convox, setting up monitoring can help you keep it running smoothly. As a starting point, we'd recommend the following baseline monitoring coverage when using Convox:
