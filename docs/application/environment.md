@@ -2,7 +2,7 @@
 title: "Environment"
 ---
 
-Convox applications are configured using environment variables. 
+Convox applications are configured using environment variables.
 
 <div class="block-callout block-show-callout type-warning" markdown="1">
   Environment variables must be specified to be available to your running application.
@@ -39,6 +39,8 @@ services:
       - BAZ
 ```
 
+In this example the `FOO` variable has a default value of `bar` and the `BAZ` variable must be defined before the application will start.
+
 #### Wildcard
 
 You can use the wildcard syntax to provide all available environment variables to a service:
@@ -50,5 +52,3 @@ services:
     environment:
       - "*"
 ```
-
-In this example the `FOO` variable has a default value of `bar` and the `BAZ` variable must be defined before the application will start.
