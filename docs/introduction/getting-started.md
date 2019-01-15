@@ -25,7 +25,7 @@ The `convox` CLI offers:
 
 along with numerous other commands that make configuring, scaling, and securing your apps simple.
 
-* [Install the Convox CLI](/development/installation) for your platform.
+* [Install the Convox CLI](/introduction/installation) for your platform.
 
 * Next, click the **[Setup](https://console.convox.com/grid/user/welcome)** button then **[Connect the Convox CLI](https://console.convox.com/grid/user/api_key)** to get your API key.
 
@@ -95,7 +95,6 @@ See [AWS Integration](/console/aws-integration) for more details.
 
 Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
 
-See [Installing a Rack](/deployment/installing-a-rack) for more details.
 
 You can now switch your CLI to point at your new Rack.
 
@@ -132,7 +131,6 @@ When a load balancer is first created it can take a few minutes for its hostname
 Now that you've deployed your first application you can:
 
 * Add a database like [Postgres](/application/resources)
-* [Prepare and deploy more of your own apps](/development/preparing-an-application)
 * Grant your team members [access](/console/access-control) to your organization
 * Set up Continuous Delivery [Workflows](/console/workflows)
 * Install another Rack for a staging environment
