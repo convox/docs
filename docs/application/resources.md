@@ -46,13 +46,14 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 
 #### mysql
 
-| Option    | Default          | Description                             |
-|-----------|------------------|-----------------------------------------|
-| `class`   | `db.t2.micro` | Instance class                          |
-| `durable` | `false`          | Automatic failover                      |
-| `iops`    |                  | Provisioned IOPS for database disks     |
-| `storage` | `20`             | GB of storage to provision              |
-| `version` | `5.7.22`         | MySQL version                           |
+| Option      | Default          | Description                             |
+|-------------|------------------|-----------------------------------------|
+| `class`     | `db.t2.micro`    | Instance class                          |
+| `encrypted` | `false`          | Encrypt data at rest                    |
+| `durable`   | `false`          | Automatic failover                      |
+| `iops`      |                  | Provisioned IOPS for database disks     |
+| `storage`   | `20`             | GB of storage to provision              |
+| `version`   | `5.7.22`         | MySQL version                           |
 
 #### redis
 
@@ -66,11 +67,11 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 
 #### postgres
 
-| Option    | Default          | Description                             |
-|-----------|------------------|-----------------------------------------|
-| `class`   | `db.t2.micro`    | Instance class                          |
-| `durable` | `false`          | Automatic failover                      |
-| `iops`    |                  | Provisioned IOPS for database disks     |
-| `storage` | `20`             | GB of storage to provision              |
-| `version` | `9.6.6`          | PostgreSQL version                      |
-
+| Option      | Default          | Description                             |
+|-------------|------------------|-----------------------------------------|
+| `class`     | `db.t2.micro`    | Instance class                          |
+| `durable`   | `false`          | Automatic failover                      |
+| `encrypted` | `false`          | Encrypt data at rest                    |
+| `iops`      |                  | Provisioned IOPS for database disks     |
+| `storage`   | `20`             | GB of storage to provision              |
+| `version`   | `9.6.6`          | PostgreSQL version                      |
