@@ -4,7 +4,7 @@ title: "Health Checks"
 
 The Convox deployment process depends on application Health Checks to determine success.
 
-If the Process [exposes a port](/application/ports) is it considered healthy after it passes a certain number of HTTP health checks.
+If the Process [exposes a port](/application/port) is it considered healthy after it passes a certain number of HTTP health checks.
 
 ## Definition
 

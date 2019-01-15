@@ -9,6 +9,6 @@ services:
       - ALGOLIA_KEY_SEARCH
       - DEVELOPMENT=false
     health:
-      path: /introduction/overview
+      path: /check
       interval: 30
     port: https:3000

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/convox/docs/pkg/docs"
@@ -49,6 +50,10 @@ func main() {
 		}
 	})
 
+	s.Router.HandleFunc("/check", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "ok\n")
+	})
+
 	s.Router.Static("/assets/", "./assets")
 
 	s.Route("GET", "/", index)
@@ -87,6 +92,8 @@ func doc(c *stdapi.Context) error {
 
 	cc, ok := docs.CategoryList().Find(c.Var("category"))
 	if !ok {
+		c.Response().WriteHeader(404)
+		params["Category"] = ""
 		return c.RenderTemplate("404", params)
 	}
 
@@ -94,6 +101,7 @@ func doc(c *stdapi.Context) error {
 
 	d, ok := cc.Documents.Find(c.Var("slug"))
 	if !ok {
+		c.Response().WriteHeader(404)
 		return c.RenderTemplate("404", params)
 	}
 

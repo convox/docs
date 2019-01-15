@@ -133,9 +133,3 @@ You can use `convox rack resources proxy` to tunnel to the remote production (or
 You can also use local containers as defined via the services in `docker-compose.yml`. The environment variables your app should use to communicate between containers will be automatic for linked services as described [here](/gen1/environment#linking).
 
 You'll want to [scale the remote services to `-1`](/gen1/scaling#scaling-down-unused-services) to avoid creating unnecessary containers and load balancers in production.
-
-## Local Volumes
-
-If your `docker-compose.yml` specifies volumes, they will be created on your local machine at `~/.convox/volumes`.
-
-For more information, see [Persistence for local containers](/deployment/volumes#persistence-for-local-containers).

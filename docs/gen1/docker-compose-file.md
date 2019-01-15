@@ -271,8 +271,6 @@ Share data between Processes of the same type by mounting volumes from the host 
     volumes:
       - /var/lib/postgresql/data
 
-See our [volumes documentation](/deployment/volumes) for more.
-
 ## Missing Configuration Options
 
 Didn't find what you were looking for? If you encounter critical Docker Compose configuration options that we have not implemented, we invite you to [submit an issue](https://github.com/convox/rack/issues) describing your use case.

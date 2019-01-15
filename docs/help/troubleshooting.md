@@ -10,7 +10,7 @@ Open a [Github issue](https://github.com/convox/rack/issues/new) with any errors
 
 ## I get an error when I deploy my app to Convox
 
-During a deployment, CloudFormation will not complete an update until the ECS Services stabilize. If newly deployed processes crash or fail to pass health checks, eventually the update will time out and roll back. To figure out what's going wrong, you can look at the [app logs](/management/logs) via `convox logs` to check for crashes and [health check](/deployment/health-checks) failures.
+During a deployment, CloudFormation will not complete an update until the ECS Services stabilize. If newly deployed processes crash or fail to pass health checks, eventually the update will time out and roll back. To figure out what's going wrong, you can look at the [app logs](/management/logs) via `convox logs` to check for crashes and [health check](/application/health-checks) failures.
 
 ECS events can be found in the application logs as well. Use `convox logs --filter=ECS` to find them.
 
@@ -37,7 +37,7 @@ check out the logs for your application. You will see messages from CloudFormati
 
 If the listed reason is `Instance has failed at least the UnhealthyThreshold number of health checks consecutively`, this means your app is failing its [health checks](/deployment/rolling-updates#health-checks). Often this is because your app is not actually listening on the port(s) specified for the service in your `convox.yml`. Or your Rack might be missing an environment variable defined in your `convox.yml`. It might also be an error from your application itself (check the [app logs with `convox logs`](/management/debugging#convox-logs), or use [`convox instances ssh`](/management/debugging#convox-instances-ssh) to check docker logs).
 
-Once you've found the reason, you can run [`convox apps cancel -a app_name`](/deployment/deploying-to-convox#canceling-a-deployment) to cancel this deployment. Once it rolls back, you can fix the error and try to deploy again.
+Once you've found the reason, you can run `convox apps cancel -a app_name` to cancel this deployment. Once it rolls back, you can fix the error and try to deploy again.
 
 
 ## Fargate
@@ -45,7 +45,7 @@ Once you've found the reason, you can run [`convox apps cancel -a app_name`](/de
 To use have ECS use Fargate instead of regular EC2 you will need the following:
 
 - have a rack installed in [a region where Fargate is available](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-- specify `cpu` and `memory` in [convox.yml](/reference/convox-yml) that is [compatible with Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)
+- specify `cpu` and `memory` in [convox.yml](/application/convox-yml) that is [compatible with Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)
 - either
    - run _all_ your services and/or tasks in Fargate by setting the relevant [App Parameters](/reference/app-parameters)
    - enable Fargate on a _per service_ basis via the ProcessName Formation(/gen1/app-parameters/) parameter

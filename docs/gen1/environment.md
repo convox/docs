@@ -117,7 +117,7 @@ Environment variables set via `convox env` are considered app-level configuratio
 
 There isn't currently a way to set an environment variable for a whole cluster rather than just a single app.
 
-You can set environment variables at the [service](/reference/definitions#service) level in `docker-compose.yml`.
+You can set environment variables at the service level in `docker-compose.yml`.
 
 ## Sensitive Information
 

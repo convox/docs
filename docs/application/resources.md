@@ -64,7 +64,7 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 | `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `9.6.6`          | PostgreSQL version                      |
+| `version`   | `9.6`            | PostgreSQL version                      |
 
 #### redis
 
