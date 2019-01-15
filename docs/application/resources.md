@@ -55,16 +55,6 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `5.7.22`         | MySQL version                           |
 
-#### redis
-
-| Option      | Default          | Description          |
-|-------------|------------------|----------------------|
-| `class`     | `cache.t2.micro` | Instance class       |
-| `durable`   | `false`          | Automatic failover   |
-| `encrypted` | `false`          | Encrypt data at rest |
-| `nodes`     | `1`              | Number of nodes      |
-| `version`   | `2.8.24`         | Redis version        |
-
 #### postgres
 
 | Option      | Default          | Description                             |
@@ -75,3 +65,13 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `9.6.6`          | PostgreSQL version                      |
+
+#### redis
+
+| Option      | Default          | Description          |
+|-------------|------------------|----------------------|
+| `class`     | `cache.t2.micro` | Instance class       |
+| `durable`   | `false`          | Automatic failover   |
+| `encrypted` | `false`          | Encrypt data at rest |
+| `nodes`     | `1`              | Number of nodes      |
+| `version`   | `2.8.24`         | Redis version        |
