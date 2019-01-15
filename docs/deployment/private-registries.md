@@ -1,6 +1,5 @@
 ---
 title: "Private Registries"
-order: 1000
 ---
 
 Convox apps are composed of one or more processes that run inside Docker containers.

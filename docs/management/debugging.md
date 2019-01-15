@@ -50,5 +50,5 @@ $ convox instances ssh i-0234d285
 ````
 
 <div class="block-callout block-show-callout type-info" markdown="1">
-Before you can use `convox instances ssh` the first time, you will need to run `convox instances keyroll` to load an SSH key onto your Rack instances. See [Keyroll](/docs/ssh-keyroll/) for details.
+Before you can use `convox instances ssh` the first time, you will need to run `convox instances keyroll` to load an SSH key onto your Rack instances.
 </div>

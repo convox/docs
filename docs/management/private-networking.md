@@ -12,15 +12,7 @@ By contrast, server instances in a private Rack have no direct connection to the
 
 ## Installing a Private Rack
 
-A Rack can be installed as private by selecting the **Private** checkbox in the Rack installation page in the Convox console.
-
-We recommend [installing via the Console](/docs/installing-a-rack/), but it's also possible using the Convox CLI:
-
-```
-convox rack install Private=Yes
-```
-
-Note that Racks installed via the CLI will need to be added manually to the Console.
+A Rack can be installed as private by setting the parameter `Private` to `Yes` in Console during Rack installation.
 
 ## Converting an Existing Rack to Private
 

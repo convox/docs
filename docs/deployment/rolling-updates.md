@@ -1,6 +1,5 @@
 ---
 title: "Rolling Updates"
-order: 400
 ---
 
 When a Release is promoted, new processes are gracefully rolled out into production.

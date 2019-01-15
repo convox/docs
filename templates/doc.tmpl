@@ -1,5 +1,9 @@
 {{ define "content" }}
 
+  {{ with .Deprecation }}
+    <div class="block-callout block-show-callout type-warning"><p>{{.}}</p></div>
+  {{ end }}
+
   <h1 class="d-none d-lg-block">{{.Title}}</h1>
 
   {{ .Document }}

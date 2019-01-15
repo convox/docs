@@ -2,7 +2,7 @@
 title: "VPC Configurations"
 ---
 
-When you [install a Rack](/docs/installing-a-rack/), most of the AWS resources used by Convox are launched inside of a new [VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html). That default behavior might not be sufficient in all cases, so we've covered a few of the common non-default VPC configurations below.
+When you install a Rack, most of the AWS resources used by Convox are launched inside of a new [VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html). That default behavior might not be sufficient in all cases, so we've covered a few of the common non-default VPC configurations below.
 
 1. [Installing into an existing VPC](#installing-into-an-existing-vpc)
 1. [Installing a private Rack into an existing VPC](#installing-a-private-rack-into-an-existing-vpc)
@@ -19,7 +19,7 @@ To install a Rack into an existing VPC, you'll need to provide:
 * the CIDRs of the subnets into which Convox should be installed
 * the Internet Gateway ID
 
-The [advanced Rack installer](/docs/advanced-installer-options) in Convox Console will help you choose these values.
+See [Rack Parameters](/reference/rack-parameters) for the specific parameter names you will need to configure during Rack installation.
 
 ### Choosing suitable CIDR blocks
 
@@ -53,5 +53,4 @@ Keep in mind that VPC Peering has a number of [limitations](http://docs.aws.amaz
 
 ## See also
 
-* [Installing a Rack](/docs/installing-a-rack/)
-* [Rack parameters](/docs/rack-parameters)
+* [Rack Parameters](/docs/rack-parameters)
