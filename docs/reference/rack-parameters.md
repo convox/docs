@@ -301,7 +301,7 @@ Private Subnet 2 CIDR Block.
 
 ### SwapSize
 
-Default swap volume size in GB.
+Default swap volume size in GB. Set this value to 0 to disable swap.
 
 | Default value | `5` |
 
