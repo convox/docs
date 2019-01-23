@@ -2,15 +2,17 @@
 title: "Deploy Keys"
 ---
 
-Deploy keys are special, limited scope API keys that allow you to run the `build` and `deploy` commands from remote servers for the purposes of continuous integration.
+Deploy keys are limited scope API keys that allow you to run the `build` and `deploy` commands from remote environments.
 
-![](/assets/images/docs/console/deploy-keys.png)
+## Creating a Deploy Key
 
-## Creating deploy keys
+To generate a deploy key, log into your account at [console.convox.com](https://console.convox.com) and click on the **Settings** tab on the left. 
 
-To generate a **deploy key**, log into your account at [console.convox.com](https://console.convox.com) and click on the **Settings** section on the left. Click on create in the **Deploy Keys** section to create a new key.
+Go to the **Deploy Keys** section, give your deploy key a name, and click on **Create**.
 
-## Using a deploy key
+## Using a Deploy Key
+
+In your CI environment, download the latest version of the [Convox CLI](/introduction/installation) and use the deploy key like this:
 
 ```
 $ env CONVOX_PASSWORD=<key> convox deploy
