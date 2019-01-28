@@ -41,6 +41,12 @@ Autoscale rack instances. See our [Scaling doc](/docs/scaling#autoscale) for mor
 | Default value  | `Yes`       |
 | Allowed values | `Yes`, `No` |
 
+### AvailabilityZones
+
+Override the default availability zones used in a Rack. Please note that updating this parameter once a Rack is installed will require choosing new values for the various SubnetCIDR parameters since two subnets can not exist with the same CIDR simultaneously.
+
+| Default value | *<blank>* |
+
 ### BuildCpu
 
 How much CPU should be allocated to builds.
@@ -167,6 +173,12 @@ The number of EC2 instances in your Rack cluster.
 
 | Default value | `3`    |
 | Minimum value | `3`    |
+
+### InstancePolicy
+
+ARN of an additional IAM policy to add to the instance-level role.
+
+| Default value | *<blank>* |
 
 ### InstanceRunCommand
 
