@@ -24,6 +24,12 @@ Install the `microk8s` snap:
 $ sudo snap install microk8s --classic
 ```
 
+Once it is running, enable the DNS service:
+
+```
+$ microk8s.enable dns
+```
+
 #### Windows
 
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows.
