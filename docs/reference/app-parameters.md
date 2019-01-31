@@ -8,6 +8,10 @@ Parameters can be set using the following command.
 
     convox apps params set Foo=Yes Baz=No
 
+<div class="block-callout block-show-callout type-info" markdown="1">
+  When a Rack update adds new app parameters they become available for each app after its next deploy.
+</div>
+
 ### FargateServices
 
 Set to `Yes` to run all services for this application in [Fargate](https://aws.amazon.com/fargate/).
