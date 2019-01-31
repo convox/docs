@@ -26,4 +26,4 @@ Set to `No` to disable the internal domain names at `convox.site` and `.convox` 
 
 ### RedirectHttps
 
-Set to `No` to allow the app to listen on HTTP rather than having all HTTP requests automatically redirected to HTTPS.
+Set to `No` to allow the app to listen on HTTP rather than the default behavior of having all HTTP requests automatically redirected to HTTPS.
