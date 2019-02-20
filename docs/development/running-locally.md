@@ -30,6 +30,12 @@ Once it is running, enable the DNS service:
 $ microk8s.enable dns
 ```
 
+You will also need to configure your machine to allow `microk8s` to forward traffic internally:
+
+```
+$ sudo iptables -P FORWARD ACCEPT
+```
+
 #### Windows
 
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows.
