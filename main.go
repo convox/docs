@@ -20,7 +20,7 @@ var categorySlugs = []string{
 	"console",
 	"reference",
 	"external-services",
-	"guides",
+	"migration",
 	"gen1",
 	"help",
 }
@@ -99,6 +99,7 @@ func doc(c *stdapi.Context) error {
 	}
 
 	params["Category"] = cc.Slug
+	params["CategoryName"] = cc.Name
 
 	d, ok := cc.Documents.Find(c.Var("slug"))
 	if !ok {

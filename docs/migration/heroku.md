@@ -1,5 +1,5 @@
 ---
-title: Heroku Migration
+title: Heroku
 layout: guide
 tags: convox, heroku, ecs, aws, migration
 description: Migrate your application from Heroku to AWS with Convox

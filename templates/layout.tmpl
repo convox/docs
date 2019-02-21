@@ -55,7 +55,7 @@
       <div id="toc-small" class="d-lg-none">
         <div class="dropdown">
           <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{.Title}}
+            <span class="title-category-name">{{.CategoryName}}</span> <span class="separator">&raquo;</span> {{.Title}}
           </button>
           <div class="dropdown-menu">
             {{ range $c := .Categories }}
