@@ -42,10 +42,12 @@ type Category struct {
 type Categories []Category
 
 type Document struct {
-	Body  []byte
-	Order int
-	Slug  string
-	Title string
+	Body        []byte
+	Description string
+	Order       int
+	Slug        string
+	Tags        []string
+	Title       string
 }
 
 type Documents []Document
@@ -133,6 +135,7 @@ func LoadCategory(slug string) error {
 			return err
 		}
 
+		d.Description = front["description"]
 		d.Title = front["title"]
 
 		if d.Title == "" {
@@ -148,6 +151,16 @@ func LoadCategory(slug string) error {
 			}
 			d.Order = o
 		}
+
+		d.Tags = []string{}
+
+		for _, t := range strings.Split(front["tags"], ",") {
+			if tt := strings.TrimSpace(t); tt != "" {
+				d.Tags = append(d.Tags, tt)
+			}
+		}
+
+		sort.Strings(d.Tags)
 
 		markdown := m[3]
 

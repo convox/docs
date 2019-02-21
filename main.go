@@ -20,6 +20,7 @@ var categorySlugs = []string{
 	"console",
 	"reference",
 	"external-services",
+	"guides",
 	"gen1",
 	"help",
 }
@@ -106,8 +107,11 @@ func doc(c *stdapi.Context) error {
 	}
 
 	params["Document"] = template.HTML(d.Body)
+	params["Description"] = d.Description
 	params["Slug"] = d.Slug
+	params["Tags"] = d.Tags
 	params["Title"] = d.Title
+	params["URL"] = fmt.Sprintf("https://%s/%s/%s", c.Request().Host, cc.Slug, d.Slug)
 
 	if cc.Slug == "gen1" {
 		params["Deprecation"] = "Generation 1 has been deprecated and is not recommended for new applications."
