@@ -24,16 +24,10 @@ Install the `microk8s` snap:
 $ sudo snap install microk8s --classic
 ```
 
-Once it is running, enable the DNS service:
+Once it is running, enable a few additional services:
 
 ```
-$ microk8s.enable dns
-```
-
-You will also need to configure your machine to allow `microk8s` to forward traffic internally:
-
-```
-$ sudo iptables -P FORWARD ACCEPT
+$ microk8s.enable dns storage
 ```
 
 #### Windows
