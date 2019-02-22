@@ -122,7 +122,14 @@ $ convox rack params set Internal=Yes
 
 ### port
 
-Defines the port on which the container is listening. Can be defined in the format `port: 3000` or `port: https:3000` depending on the protocol the container expects.
+Defines the port on which an HTTP service is listening.
+
+If you'd like to use end-to-end encryption, have your application listenin on HTTPS (self-signed certificates are fine) and prefix the port with `https:`
+
+#### Examples
+
+* `port: 3000`
+* `port: https:3001`
 
 ### resources
 
