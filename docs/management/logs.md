@@ -49,3 +49,40 @@ You can view the logs for a Convox Rack itself using the `convox rack logs` comm
     $ convox rack logs
     2017-03-24T21:59:57Z service/web:20170322201601/0b92eed79c1d ns=provider.aws at=fetchLogs start=1490392796065 events=0 state=success end=1490392796066 elapsed=225.020
     2017-03-24T22:16:15Z service/web:20170322201601/e378ddb167fd who="EC2/ASG" what="Terminating EC2 instance: i-02ce4f07da10a5333" why="At 2017-03-24T22:14:38Z a user request update of AutoScalingGroup constraints to min: 3, max: 1000, desired: 3 changing the desired capacity from 4 to 3.  At 2017-03-24T22:15:02Z an instance was taken out of service in response to a difference between desired and actual capacity, shrinking the capacity from 4 to 3.  At 2017-03-24T22:15:02Z instance i-02ce4f07da10a5333 was selected for termination."
+    
+### Routing Logs to a 3rd Party
+
+Convox supports routing your logs to any third party that can accept data from a syslog forwarder.
+
+You can create a syslog forwarder with the following command:
+
+	$ convox rack resources create syslog [destination]
+	
+For example:
+
+	$ convox rack resources create syslog Url=tcp+tls://logs1.papertrailapp.com:12345
+    Creating syslog-3785 (syslog)... CREATING
+    
+You can view the forwarder setup at any time using `convox rack resources info`
+
+	$ convox rack resources info syslog-3785
+	Name    syslog-3785
+	Status  running
+	URL     tcp+tls://logs1.papertrailapp.com:12345
+
+In order to start sending logs from an app to the forwarder you need to link it to the app with `convox rack resources link`
+
+	$ convox rack resources link syslog-3785 --app example-app
+    Linked syslog-3786 to example-app
+	
+Some common 3rd party logging services include:
+
+* [Papertrail](https://papertrailapp.com)
+
+  * Go to [Log Destinations](https://papertrailapp.com/account/destinations) to get the forwarding destination
+
+* [LogDNA](https://logdna.com/)
+
+  * Select Syslog as your provider and then select `provision a syslog port` to get the forwarding destination
+
+
