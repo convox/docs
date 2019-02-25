@@ -6,7 +6,7 @@ title: "Troubleshooting"
 
 Look at the AWS [Cloudformation Management Console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) and look for CREATE_FAILED errors on the "Events" tab.
 
-Open a [Github issue](https://github.com/convox/rack/issues/new) with any errors you see in these events.
+Post in the new [Community Forum](https://community.convox.com/) with any errors you see in these events.
 
 ## I get an error when I deploy my app to Convox
 
@@ -56,11 +56,10 @@ To use have ECS use Fargate instead of regular EC2 you will need the following:
 
 Some good places to search are:
 
-- this site, via [google](https://www.google.com/search?q=site%3Aconvox.com) or the search box above
-- the history of our [public Slack channel](https://invite.convox.com/)
-- [GitHub issues](https://github.com/convox/rack/issues)
+- this site, via [google](https://www.google.com/search?q=site%3Adocs.convox.com) or the search box above
+- visit our [Community Forum](https://community.convox.com/)
 
 If you still need help, feel free to:
 
-- reach out [on Slack](https://invite.convox.com/)
+- post a question on the [Community Forum](https://community.convox.com/)
 - open a ticket via the Support section [in the Convox web console](https://console.convox.com/)

@@ -57,7 +57,7 @@ How much CPU should be allocated to builds.
 
 Override the default build image.
 
-This parameter is used for local [development on Rack](https://github.com/convox/rack/blob/master/Development.md#build-image). This is primarily used for development purposes only. General users should not set this parameter (which is not related to `BuildInstance` below).
+This parameter is used for local [development on Rack](https://github.com/convox/rack/blob/master/DEVELOPMENT.md). This is primarily used for development purposes only. General users should not set this parameter (which is not related to `BuildInstance` below).
 
 | Default value | *<blank>* |
 

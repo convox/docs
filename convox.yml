@@ -3,10 +3,10 @@ services:
     build: .
     domain: ${DOMAIN}
     environment:
-      - ALGOLIA_APP
-      - ALGOLIA_INDEX
-      - ALGOLIA_KEY_ADMIN
-      - ALGOLIA_KEY_SEARCH
+      - ALGOLIA_APP=""
+      - ALGOLIA_INDEX=""
+      - ALGOLIA_KEY_ADMIN=""
+      - ALGOLIA_KEY_SEARCH=""
       - DEVELOPMENT=false
     health:
       path: /check
