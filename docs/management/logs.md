@@ -56,25 +56,25 @@ Convox supports routing your logs to any third party that can accept data from a
 
 You can create a syslog forwarder with the following command:
 
-	$ convox rack resources create syslog [destination]
-	
+    $ convox rack resources create syslog [destination]
+    
 For example:
 
-	$ convox rack resources create syslog Url=tcp+tls://logs1.papertrailapp.com:12345
+    $ convox rack resources create syslog Url=tcp+tls://logs1.papertrailapp.com:12345
     Creating syslog-3785 (syslog)... CREATING
     
 You can view the forwarder setup at any time using `convox rack resources info`
 
-	$ convox rack resources info syslog-3785
-	Name    syslog-3785
-	Status  running
-	URL     tcp+tls://logs1.papertrailapp.com:12345
+    $ convox rack resources info syslog-3785
+    Name    syslog-3785
+    Status  running
+    URL     tcp+tls://logs1.papertrailapp.com:12345
 
 In order to start sending logs from an app to the forwarder you need to link it to the app with `convox rack resources link`
 
-	$ convox rack resources link syslog-3785 --app example-app
+    $ convox rack resources link syslog-3785 --app example-app
     Linked syslog-3786 to example-app
-	
+    
 Some common 3rd party logging services include:
 
 * [Papertrail](https://papertrailapp.com)

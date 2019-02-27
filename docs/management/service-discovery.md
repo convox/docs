@@ -27,20 +27,22 @@ This will cause Convox to automatically inject an environment variable called `A
 
 #### Communicating Between Apps 
 
-There is not currently a process for automated discovery of services between apps. That said, it is a relatively simple process to connect services across apps. In order to find the endpoint for your service simply run `convox services`
-
+All services can be accessed by other services running on the same Rack via a URL with the following format
 ```
-$ convox services
-SERVICE  DOMAIN                                                  PORTS           
-web      nodedemo-web.prod-Route-xxxxxxxx.us-east-1.convox.site  80:3000 443:3000
-api      nodedemo-api.prod-Route-xxxxxxxx.us-east-1.convox.site  80:3000 443:3000
+[servicename].[appname].[rackname].convox
+```
+For example if we have a Rack named `production` with an app named `myapp` and a service named `api` the URL would be:
+```
+https://api.myapp.production.convox
 ```
 
-We recommend that you store this URL as an [environment variable](/application/environment) which will then be made available to all the apps in your rack.
+We recommend that you store this URL as an [environment variable](/application/environment) which will then be made available to all the apps in your Rack.
+
+This URL is only accessible by other services running on the same Rack. If you need to access a service from another Rack, or other external source, you will need to use the public URL available with `convox services`
     
 #### Internal Services
 
-If you have a service that you want to be internal only, meaning it is only accessible by other services running in the same rack, you can create an [internal service](/deployment/internal-services)
+If you have a service that you want to be internal only, meaning it is only accessible by other services running in the same Rack, you can create an [internal service](/deployment/internal-services)
 
 First make sure your Rack has the internal load balancer enabled with 
 ```
@@ -65,5 +67,5 @@ services:
 ```
 
 <div class="block-callout block-show-callout type-warning" markdown="1">
-Note: Services that are marked as internal are only accesible by other serivces running in the same rack.
+Note: Services that are marked as internal are only accesible by other services running in the same Rack.
 </div>

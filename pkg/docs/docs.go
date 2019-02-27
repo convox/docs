@@ -197,6 +197,10 @@ func LoadCategory(slug string) error {
 }
 
 func UploadIndex() error {
+	if algolia == nil {
+		return nil
+	}
+
 	algolia.Clear()
 
 	os := []algoliasearch.Object{}
