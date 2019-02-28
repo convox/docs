@@ -59,4 +59,4 @@ api      auth-api.router.us-east-1.convox.site  80:3000 443:3000
 $ convox env set AUTH_URL=https://auth-api.router.us-east-1.convox.site -a frontend -r acme/production
 ```
 
-This would set an `AUTH_URL` environment variable on the `frotend` app on the `acme/production` Rack to point at the load balancer for the `api` service on the `auth` app on the `acme/utility` Rack.
+This would set an `AUTH_URL` environment variable on the `frontend` app on the `acme/production` Rack to point at the load balancer for the `api` service on the `auth` app on the `acme/utility` Rack.
