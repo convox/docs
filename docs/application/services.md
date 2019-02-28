@@ -16,6 +16,8 @@ services:
     health: /health
     image: ubuntu:16.04
     init: true
+    links:
+      - other
     port: 3000
     resources:
       - database
@@ -119,6 +121,19 @@ Your rack must have the `Internal` param set to Yes to deploy internal services.
 ```shell
 $ convox rack params set Internal=Yes
 ```
+
+### links
+
+Set up links between services on the same app.
+
+#### Example
+
+```
+links:
+  - web
+```
+
+This would add a `WEB_URL` environment variable that points to the load balancer of the `web` service on the same app.
 
 ### port
 

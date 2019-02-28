@@ -5,7 +5,7 @@ sort: 20
 
 ### Community Support
 
-The Convox community has a [public support forum](https://community.convox.com/). This is the best place to ask support questions.
+Community support is available on the [Convox Community](https://community.convox.com) forums.
 
 ### Commercial Support
 

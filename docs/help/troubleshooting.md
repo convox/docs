@@ -56,7 +56,7 @@ To use have ECS use Fargate instead of regular EC2 you will need the following:
 
 Some good places to search are:
 
-- this site, via [google](https://www.google.com/search?q=site%3Adocs.convox.com) or the search box above
+- this site, via the search box on in the sidebar
 - visit our [Community Forum](https://community.convox.com/)
 
 If you still need help, feel free to:
