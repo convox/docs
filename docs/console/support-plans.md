@@ -6,9 +6,9 @@ Convox offers several tiers of support. Your level of support is tied to your or
 
 ## Developer (Free)
 
-In the free plan you can get support from the Convox community via our [public Slack](https://invite.convox.com).
+In the free plan you can get support from the Convox community via our [public support forum](https://community.convox.com/).
 
-The Convox team also answers questions in public Slack, but responses are not guaranteed. This is a best-effort channel.
+The Convox team also answers questions in the community forum, but responses are not guaranteed. This is a best-effort channel.
 
 ## Pro
 

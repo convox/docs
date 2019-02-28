@@ -53,14 +53,6 @@ How much CPU should be allocated to builds.
 
 | Default value | `0` |
 
-### BuildImage
-
-Override the default build image.
-
-This parameter is used for local [development on Rack](https://github.com/convox/rack/blob/master/Development.md#build-image). This is primarily used for development purposes only. General users should not set this parameter (which is not related to `BuildInstance` below).
-
-| Default value | *<blank>* |
-
 ### BuildInstance
 
 EC2 instance type to create and use as the Rack's [dedicated build instance](/docs/builds/#dedicated-build-instance).

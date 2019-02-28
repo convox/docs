@@ -31,6 +31,8 @@ The `convox.yml` file is a manifest used to describe your application and all of
     command: bin/worker
     <a href="/application/environment">environment</a>:
       - FOO
+    links:
+      - web
     <a href="/application/resources">resources</a>:
       - database
   metrics:

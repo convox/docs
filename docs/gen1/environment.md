@@ -149,7 +149,6 @@ When this label is set the environment variables will not be applied to that ser
 
 Although it's possible to handle this directly with the AWS SDK, Convox has provided a binary called `secure-environment` to make things easier. You can download the latest binary from the [releases page](https://github.com/convox/secure-environment/releases). It can be used with a Docker ENTRYPOINT script to download, decrypt, and source your environment variables at container runtime.
 
-See the example app at [https://github.com/convox-examples/secure-env-example](https://github.com/convox-examples/secure-env-example) for more details.
 
 ## Further Reading
 
