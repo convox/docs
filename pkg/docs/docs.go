@@ -17,7 +17,6 @@ import (
 )
 
 var (
-	algolia    algoliasearch.Index
 	categories = Categories{}
 	documents  = Documents{}
 )
@@ -52,10 +51,6 @@ type Document struct {
 }
 
 type Documents []Document
-
-func init() {
-	algolia = algoliasearch.NewClient(os.Getenv("ALGOLIA_APP"), os.Getenv("ALGOLIA_KEY_ADMIN")).InitIndex(os.Getenv("ALGOLIA_INDEX"))
-}
 
 func CategoryList() Categories {
 	return categories
@@ -197,9 +192,11 @@ func LoadCategory(slug string) error {
 }
 
 func UploadIndex() error {
-	if algolia == nil {
+	if os.Getenv("ALGOLIA_APP") == "" {
 		return nil
 	}
+
+	algolia := algoliasearch.NewClient(os.Getenv("ALGOLIA_APP"), os.Getenv("ALGOLIA_KEY_ADMIN")).InitIndex(os.Getenv("ALGOLIA_INDEX"))
 
 	algolia.Clear()
 
