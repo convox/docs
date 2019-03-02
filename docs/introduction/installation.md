@@ -31,7 +31,7 @@ You can install it via the command line:
 
 # Next steps
 
-## Logging in to the CLI
+## Logging in to Console
 
 After installing Convox, you'll need to `convox login`:
 
