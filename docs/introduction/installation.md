@@ -15,7 +15,7 @@ You can install it via the command line:
 
 ## OS X
 
-    $ curl -L https://convox.com/cli/osx/convox -o /tmp/convox
+    $ curl -L https://convox.com/cli/macos/convox -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 
