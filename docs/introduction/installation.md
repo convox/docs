@@ -19,12 +19,6 @@ You can install it via the command line:
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 
-#### Homebrew
-
-Alternatively, on OSX you can also install via Homebrew:
-
-    $ brew install convox
-
 ## Linux
 
     $ curl -L https://convox.com/cli/linux/convox -o /tmp/convox
