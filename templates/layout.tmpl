@@ -1,171 +1,186 @@
 {{ define "main" }}
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>Convox Docs</title>
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>Convox Docs</title>
 
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/assets/css/docs.css">
+			<link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 
-      <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+			<script src="/assets/docs.js"></script>
 
-      <script src="/assets/js/jquery-3.3.1.min.js"></script>
-      <script src="/assets/js/jquery-ui.min.js"></script>
-      <script src="/assets/js/popper.min.js"></script>
-      <script src="/assets/js/bootstrap.min.js"></script>
-      <script src="/assets/js/moment.min.js"></script>
-      <script src="/assets/js/jquery.timeago.js"></script>
-      <script src="/assets/js/clipboard.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch-theme-algolia.min.css">
+			<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2"></script>
 
-      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
-      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch-theme-algolia.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 
-      {{ block "head" . }}{{ end }}
-    </head>
-    <body>
-      <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-          <a class="navbar-brand" href="https://convox.com">
-            <img src="/assets/images/logo.png">
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto flex-row">
-              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/blog">Blog</a></li>
-              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0 active"><a class="nav-link" href="https://docs.convox.com">Documentation</a></li>
-              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/pricing">Pricing</a></li>
-              <li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0 mt-1">
-                <a class="btn btn-primary btn-sm" href="https://console.convox.com/login">
-                  <i class="fa fa-user mr-1"></i>
-                  Login
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+			{{ block "head" . }}{{ end }}
+		</head>
+		<body>
+			<header>
+				<nav class="navbar navbar-expand-md fixed-top navbar-dark">
+					<div class="container pt-1 pb-1">
+						<a class="navbar-brand" href="/">
+							<img src="/assets/images/logo.png" height="30">
+						</a>
 
-      <div id="toc-small" class="d-lg-none">
-        <div class="dropdown">
-          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="title-category-name">{{.CategoryName}}</span> <span class="separator">&raquo;</span> {{.Title}}
-          </button>
-          <div class="dropdown-menu">
-            {{ range $c := .Categories }}
-              <div class="category">
-                <h6 class="dropdown-header">{{.Name}}</h6>
-                {{ range .Documents }}
-                  <a class="dropdown-item" href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a>
-                {{ end }}
-              </div>
-            {{ end }}
-          </div>
-        </div>
-      </div>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+							<span class="navbar-toggler-icon"></span>
+						</button>
 
-      <div class="d-flex flex-row justify-content-center">
-        <nav id="toc" class="sidebar d-none d-lg-block">
-          <ul class="nav nav-pills flex-column">
-            <div id="search">
-              <input type="text" class="form-control" placeholder="Search" id="search-query" oninput="queryChange();" onblur="queryClose();">
-              <div id="search-hits" style="display: none;">
-              </div>
-            </div>
-            {{ range $c := .Categories }}
-              <div class="category">{{.Name}}</div>
-              <ul class="documents">
-                {{ range .Documents }}
-                  <li><a {{ if and (eq $.Slug .Slug) (eq $.Category $c.Slug) }}class="active"{{ end }} href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a></li>
-                {{ end }}
-              </ul>
-            {{ end }}
-          </ul>
-        </nav>
+						<div class="collapse navbar-collapse" id="navbar-collapse">
+							<ul class="navbar-nav ml-auto mr-2">
+								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/blog">Blog</a></li>
+								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0 active"><a class="nav-link" href="https://docs.convox.com">Documentation</a></li>
+								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/pricing">Pricing</a></li>
+							</ul>
 
-        <main role="main" class="flex-column col">
-          {{ template "content" . }}
-        </main>
-      </div>
+							<ul class="navbar-nav ml-4 d-none d-lg-flex">
+								<li class="nav-item">
+									<a class="btn btn-primary pl-3 pr-3" href="https://console.convox.com/login">
+										<i class="fa fa-user mr-2"></i>
+										Log In
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
 
-      <script>
-        var queryClosed = true;
+			<div class="container">
+				<div id="toc-small" class="d-lg-none">
+					<div class="dropdown">
+						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="title-category-name">{{.CategoryName}}</span> <span class="separator">&raquo;</span> {{.Title}}
+						</button>
+						<div class="dropdown-menu">
+							{{ range $c := .Categories }}
+								<div class="category">
+									<h6 class="dropdown-header">{{.Name}}</h6>
+									{{ range .Documents }}
+										<a class="dropdown-item" href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a>
+									{{ end }}
+								</div>
+							{{ end }}
+						</div>
+					</div>
+				</div>
 
-        function queryChange() {
-          if ($('#search-query').val() == '') {
-          } else {
-            queryShow();
-          }
-        }
+				<div class="d-flex flex-row justify-content-center">
+					<nav id="toc" class="sidebar d-none d-lg-block">
+						<ul class="nav nav-pills flex-column">
+							<div id="search">
+								<input type="text" class="form-control" placeholder="Search" id="search-query" oninput="queryChange();" onblur="queryClose();">
+								<div id="search-hits" style="display: none;">
+								</div>
+							</div>
+							{{ range $c := .Categories }}
+								<div class="category">{{.Name}}</div>
+								<ul class="documents">
+									{{ range .Documents }}
+										<li><a {{ if and (eq $.Slug .Slug) (eq $.Category $c.Slug) }}class="active"{{ end }} href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a></li>
+									{{ end }}
+								</ul>
+							{{ end }}
+						</ul>
+					</nav>
 
-        function queryClose() {
-          //if (queryClosed) return;
-          window.setTimeout(function() { $('#search-hits').hide(200); }, 500);
-          queryClosed = true;
-        }
+					<main role="main" class="flex-column col">
+						{{ template "content" . }}
+					</main>
+				</div>
+			</div>
 
-        function queryShow() {
-          //if (!queryClosed) return;
-          $('#search-hits').show(200);
-          queryClosed = false;
-        }
+			<nav class="navbar navbar-expand fixed-bottom navbar-dark text-light">
+				<div class="container">
+					<ul class="navbar-nav">
+						<li class="nav-item pl-3">
+							&copy; 2019 Convox, Inc. All rights reserved.
+						</li>
+					</ul>
+					<ul class="navbar-nav pr-2">
+						<li class="nav-item"><a class="nav-link" href="https://convox.com/privacy">Privacy Policy</a></li>
+						<li class="nav-item"><a class="nav-link" href="https://convox.com/terms">Terms of Use</a></li>
+					</ul>
+				</div>
+			</nav>
 
-        const search = instantsearch({
-          appId: '{{ env "ALGOLIA_APP" }}',
-          apiKey: '{{ env "ALGOLIA_KEY_SEARCH" }}',
-          indexName: '{{ env "ALGOLIA_INDEX" }}'
-        });
+			<script>
+				var queryClosed = true;
 
-        search.addWidget(
-          instantsearch.widgets.searchBox({
-            container: '#search-query',
-            placeholder: 'Search',
-            reset: false,
-          })
-        );
+				function queryChange() {
+					if ($('#search-query').val() == '') {
+					} else {
+						queryShow();
+					}
+				}
 
-        search.addWidget(
-          instantsearch.widgets.hits({
-            container: '#search-hits',
-            cssClasses: { root: 'd-block' },
-            templates: {
-              empty: 'No results',
-              item: '{{ "<div class=\"hit-item\"><a href=\"{{url}}\"><div class=\"category-title\">{{category_title}}</div><span class=\"document-title\">{{title}}</span></a></div>" }}'
-            }
-          })
-        );
+				function queryClose() {
+					//if (queryClosed) return;
+					window.setTimeout(function() { $('#search-hits').hide(200); }, 500);
+					queryClosed = true;
+				}
 
-        search.start();
-      </script>
+				function queryShow() {
+					//if (!queryClosed) return;
+					$('#search-hits').show(200);
+					queryClosed = false;
+				}
 
-      <script>
-        Popper.Defaults.modifiers.computeStyle.enabled = false;
+				const search = instantsearch({
+					appId: '{{ env "ALGOLIA_APP" }}',
+					apiKey: '{{ env "ALGOLIA_KEY_SEARCH" }}',
+					indexName: '{{ env "ALGOLIA_INDEX" }}'
+				});
 
-        $(function() {
-          return $("h2, h3, h4, h5, h6").each(function(i, el) {
-            var $el, icon, id;
-            $el = $(el);
-            id = $el.attr('id');
-            icon = '<i class="fa fa-link"></i>';
-            if (id) {
-              return $el.prepend($("<a />").addClass("heading-link").attr("href", "#" + id).html(icon));
-            }
-          });
-        });
-      </script>
+				search.addWidget(
+					instantsearch.widgets.searchBox({
+						container: '#search-query',
+						placeholder: 'Search',
+						reset: false,
+					})
+				);
 
-      <script>
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
-        analytics.load("zddB7ae88ZllkcsRSBSO9j1ozu6nGpRh");
-        analytics.page();
-        }}();
-      </script>
-    </body>
-  </html>
+				search.addWidget(
+					instantsearch.widgets.hits({
+						container: '#search-hits',
+						cssClasses: { root: 'd-block' },
+						templates: {
+							empty: 'No results',
+							item: '{{ "<div class=\"hit-item\"><a href=\"{{url}}\"><div class=\"category-title\">{{category_title}}</div><span class=\"document-title\">{{title}}</span></a></div>" }}'
+						}
+					})
+				);
+
+				search.start();
+			</script>
+
+			<script>
+				Popper.Defaults.modifiers.computeStyle.enabled = false;
+
+				$(function() {
+					return $("h2, h3, h4, h5, h6").each(function(i, el) {
+						var $el, icon, id;
+						$el = $(el);
+						id = $el.attr('id');
+						icon = '<i class="fa fa-link"></i>';
+						if (id) {
+							return $el.prepend($("<a />").addClass("heading-link").attr("href", "#" + id).html(icon));
+						}
+					});
+				});
+			</script>
+
+			<script>
+				!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+				analytics.load("zddB7ae88ZllkcsRSBSO9j1ozu6nGpRh");
+				analytics.page();
+				}}();
+			</script>
+		</body>
+	</html>
 {{ end }}

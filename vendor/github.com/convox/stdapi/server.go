@@ -7,16 +7,23 @@ import (
 
 	"github.com/convox/logger"
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 )
 
 type RecoverFunc func(error)
 
 type Server struct {
-	Hostname   string
-	Logger     *logger.Logger
-	Recover    RecoverFunc
-	Router     *Router
+	Check    HandlerFunc
+	Hostname string
+	Logger   *logger.Logger
+	Recover  RecoverFunc
+	Router   *Router
+
 	middleware []Middleware
+}
+
+func (s *Server) HandleNotFound(fn HandlerFunc) {
+	s.Router.HandleNotFound(fn)
 }
 
 func (s *Server) Listen(proto, addr string) error {
@@ -24,7 +31,7 @@ func (s *Server) Listen(proto, addr string) error {
 
 	l, err := net.Listen("tcp", addr)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	switch proto {
@@ -37,7 +44,7 @@ func (s *Server) Listen(proto, addr string) error {
 
 		cert, err := generateSelfSignedCertificate(s.Hostname)
 		if err != nil {
-			return err
+			return errors.WithStack(err)
 		}
 
 		config.Certificates = append(config.Certificates, cert)

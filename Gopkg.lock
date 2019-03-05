@@ -22,19 +22,51 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a1500d2da21815711c845d1a5ce0485ae60c17ffa941a2fb7d137474739bab36"
+  digest = "1:e41ce11792e31c825cf4e547f1fd029b1fd9bcea2269806958957a0d807dcd13"
   name = "github.com/convox/stdapi"
   packages = ["."]
   pruneopts = "UT"
-  revision = "06815fe58b4c13ce5c6536513e31f99b48145be6"
+  revision = "d3c01b4ef379a4319938195a3e0f8b1f324cde3a"
 
 [[projects]]
   branch = "v2"
-  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
+  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "github.com/go-yaml/yaml"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+
+[[projects]]
+  digest = "1:5b33a8ff87888677489ba612c8aa1bf06500b087f1397a4732b7a0298f6d5f8a"
+  name = "github.com/gobuffalo/envy"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "fa0dfdc10b5366ce365b7d9d1755a03e4e797bc5"
+  version = "v1.6.15"
+
+[[projects]]
+  branch = "master"
+  digest = "1:5ad58eea047f705cbbc07da1b7a5d0e4a6cf4e5aed1880e75795dce9fdceac75"
+  name = "github.com/gobuffalo/packd"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d04dd98aca5b9aa7ca7c36ee639a21bcc69de32a"
+
+[[projects]]
+  digest = "1:8e161e85f697ed2c4edc424b271b8f05fcc876c6d5da518c5abc32de01ad5ef1"
+  name = "github.com/gobuffalo/packr"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "5aa3f2df6770adb7f8719a43ef25c2522af176ed"
+  version = "v2.0.3"
+
+[[projects]]
+  branch = "master"
+  digest = "1:b90ac64448d67ef218124185a8524f3c665fb7f51f096d5dd51ce950a1775d89"
+  name = "github.com/gobuffalo/syncx"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "33c29581e754bd354236e977dfe426e55331c45d"
 
 [[projects]]
   digest = "1:c79fb010be38a59d657c48c6ba1d003a8aa651fa56b579d959d74573b7dff8e1"
@@ -77,6 +109,14 @@
   version = "v1.4.0"
 
 [[projects]]
+  digest = "1:ecd9aa82687cf31d1585d4ac61d0ba180e42e8a6182b85bd785fcca8dfeefc1b"
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "23d116af351c84513e1946b527c88823e476be13"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
   name = "github.com/pkg/errors"
   packages = ["."]
@@ -85,20 +125,32 @@
   version = "v0.8.0"
 
 [[projects]]
+  digest = "1:e09ada96a5a41deda4748b1659cc8953961799e798aea557257b56baee4ecaf3"
+  name = "github.com/rogpeppe/go-internal"
+  packages = [
+    "modfile",
+    "module",
+    "semver",
+  ]
+  pruneopts = "UT"
+  revision = "1cf9852c553c5b7da2d5a4a091129a7822fed0c9"
+  version = "v1.2.2"
+
+[[projects]]
   branch = "v2"
-  digest = "1:82d5be405790a16f2c58b119b1a63efebdf701866792c7e9c6cfb695cdb79be5"
+  digest = "1:63fc9f859560e1af6c3ba30f3032fa57af80518495c9895e1c9e0dedef01c333"
   name = "github.com/russross/blackfriday"
   packages = ["."]
   pruneopts = "UT"
-  revision = "646308596abc3fd896ed699fee08a546c89e0116"
+  revision = "792d13404204e12d4c292c77184f47ad325fcfdc"
 
 [[projects]]
   branch = "master"
-  digest = "1:def689e73e9252f6f7fe66834a76751a41b767e03daab299e607e7226c58a855"
-  name = "github.com/shurcooL/sanitized_anchor_name"
+  digest = "1:a01b0cb6b3b0960c415f21148b494e78d6b72ad2adcaf1d8b54d26a920a98448"
+  name = "github.com/sebest/xff"
   packages = ["."]
   pruneopts = "UT"
-  revision = "86672fcb3f950f35f2e675df2240550f2a50762f"
+  revision = "6c115e0ffa35d6a2e3f7a9e797c9cf07f0da4b9f"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -107,6 +159,7 @@
     "github.com/algolia/algoliasearch-client-go/algoliasearch",
     "github.com/convox/stdapi",
     "github.com/go-yaml/yaml",
+    "github.com/gobuffalo/packr",
     "github.com/russross/blackfriday",
   ]
   solver-name = "gps-cdcl"

@@ -12,7 +12,9 @@ import (
 	"strings"
 
 	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-	"github.com/go-yaml/yaml"
+	yaml "github.com/go-yaml/yaml"
+	"github.com/gobuffalo/packd"
+	"github.com/gobuffalo/packr"
 	"github.com/russross/blackfriday"
 )
 
@@ -31,6 +33,10 @@ var (
 	reDocument    = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
 	reMarkdownDiv = regexp.MustCompile(`(?ms)(<div.*?markdown="1".*?>(.*?)</div>)`)
 	reTag         = regexp.MustCompile(`(?ms)(<[\w]+.*?>(.*?)</[\w]+>)`)
+)
+
+var (
+	files = packr.NewBox("../../docs")
 )
 
 type Category struct {
@@ -67,7 +73,7 @@ func LoadCategories(slugs ...string) error {
 }
 
 func LoadCategory(slug string) error {
-	root := filepath.Join("docs", slug)
+	// root := filepath.Join("docs", slug)
 
 	tokens := strings.Split(slug, "-")
 
@@ -87,23 +93,13 @@ func LoadCategory(slug string) error {
 		Documents: Documents{},
 	}
 
-	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		rel, err := filepath.Rel(root, path)
-		if err != nil {
-			return err
-		}
-
-		if info == nil {
-			return nil
-		}
-
-		if info.IsDir() {
-			return nil
-		}
+	err := files.WalkPrefix(fmt.Sprintf("%s/", slug), func(path string, file packd.File) error {
+		fmt.Printf("path = %+v\n", path)
+		rel := path
+		// rel, err := filepath.Rel(root, path)
+		// if err != nil {
+		//   return err
+		// }
 
 		name := filepath.Base(rel)
 		name = strings.TrimSuffix(name, ".md")
@@ -114,7 +110,7 @@ func LoadCategory(slug string) error {
 			Slug: slug,
 		}
 
-		data, err := ioutil.ReadFile(path)
+		data, err := ioutil.ReadAll(file)
 		if err != nil {
 			return err
 		}

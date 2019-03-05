@@ -8,18 +8,20 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/convox/logger"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"github.com/gorilla/websocket"
+	"github.com/pkg/errors"
+	"github.com/sebest/xff"
 )
 
 var (
-	SessionName   = "console"
-	SessionSecret = os.Getenv("SESSION_SECRET")
+	SessionExpiration = 86400 * 30
+	SessionName       = ""
+	SessionSecret     = ""
 )
 
 type Context struct {
@@ -28,7 +30,7 @@ type Context struct {
 	logger   *logger.Logger
 	name     string
 	request  *http.Request
-	response http.ResponseWriter
+	response *Response
 	rvars    map[string]string
 	session  sessions.Store
 	vars     map[string]interface{}
@@ -45,15 +47,23 @@ func init() {
 }
 
 func NewContext(w http.ResponseWriter, r *http.Request) *Context {
+	s := sessions.NewCookieStore([]byte(SessionSecret))
+	s.Options.MaxAge = SessionExpiration
+	s.Options.SameSite = http.SameSiteLaxMode
+
 	return &Context{
 		context:  r.Context(),
 		logger:   logger.New(""),
 		request:  r,
-		response: w,
+		response: &Response{ResponseWriter: w},
 		rvars:    map[string]string{},
-		session:  sessions.NewCookieStore([]byte(SessionSecret)),
+		session:  s,
 		vars:     map[string]interface{}{},
 	}
+}
+
+func (c *Context) Ajax() bool {
+	return c.request.Header.Get("X-Requested-With") == "XMLHttpRequest"
 }
 
 func (c *Context) Body() io.ReadCloser {
@@ -63,11 +73,11 @@ func (c *Context) Body() io.ReadCloser {
 func (c *Context) BodyJSON(v interface{}) error {
 	data, err := ioutil.ReadAll(c.Body())
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	if err := json.Unmarshal(data, v); err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	return nil
@@ -84,7 +94,7 @@ func (c *Context) Context() context.Context {
 func (c *Context) Flash(kind, message string) error {
 	s, err := c.session.Get(c.request, SessionName)
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	s.AddFlash(Flash{Kind: kind, Message: message})
@@ -95,7 +105,7 @@ func (c *Context) Flash(kind, message string) error {
 func (c *Context) Flashes() ([]Flash, error) {
 	s, err := c.session.Get(c.request, SessionName)
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	fs := []Flash{}
@@ -107,7 +117,7 @@ func (c *Context) Flashes() ([]Flash, error) {
 	}
 
 	if err := s.Save(c.request, c.response); err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	return fs, nil
@@ -130,12 +140,28 @@ func (c *Context) Header(name string) string {
 	return c.request.Header.Get(name)
 }
 
+func (c *Context) IP() string {
+	return strings.Split(xff.GetRemoteAddr(c.Request()), ":")[0]
+}
+
+func (c *Context) Logger() *logger.Logger {
+	return c.logger
+}
+
 func (c *Context) Logf(format string, args ...interface{}) {
 	c.logger.Logf(format, args...)
 }
 
 func (c *Context) Name() string {
 	return c.name
+}
+
+func (c *Context) Protocol() string {
+	if h := c.Header("X-Forwarded-Proto"); h != "" {
+		return h
+	}
+
+	return "https"
 }
 
 func (c *Context) Query(name string) string {
@@ -152,7 +178,7 @@ func (c *Context) Read(data []byte) (int, error) {
 		return 0, io.EOF
 	}
 	if err != nil {
-		return 0, err
+		return 0, errors.WithStack(err)
 	}
 
 	switch t {
@@ -161,7 +187,7 @@ func (c *Context) Read(data []byte) (int, error) {
 	case websocket.BinaryMessage:
 		return 0, io.EOF
 	default:
-		return 0, fmt.Errorf("unknown message type: %d\n", t)
+		return 0, errors.WithStack(fmt.Errorf("unknown message type: %d\n", t))
 	}
 }
 
@@ -173,17 +199,17 @@ func (c *Context) Redirect(code int, target string) error {
 func (c *Context) RenderJSON(v interface{}) error {
 	data, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	c.response.Header().Set("Content-Type", "application/json")
 
 	if _, err := c.response.Write(data); err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	if _, err := c.response.Write([]byte{10}); err != nil {
-		return err
+		return errors.WithStack(err)
 	}
 
 	return nil
@@ -200,7 +226,7 @@ func (c *Context) RenderTemplate(path string, params interface{}) error {
 
 func (c *Context) RenderText(t string) error {
 	_, err := c.response.Write([]byte(t))
-	return err
+	return errors.WithStack(err)
 }
 
 func (c *Context) Request() *http.Request {
@@ -217,21 +243,26 @@ func (c *Context) Required(names ...string) error {
 	}
 
 	if len(missing) > 0 {
-		return fmt.Errorf("parameter required: %s", strings.Join(missing, ", "))
+		return errors.WithStack(fmt.Errorf("parameter required: %s", strings.Join(missing, ", ")))
 	}
 
 	return nil
 }
 
-func (c *Context) Response() http.ResponseWriter {
+func (c *Context) Response() *Response {
 	return c.response
 }
 
 func (c *Context) SessionGet(name string) (string, error) {
-	s, err := c.session.Get(c.request, SessionName)
-	if err != nil {
-		return "", err
+	if SessionName == "" {
+		return "", fmt.Errorf("no session name set")
 	}
+
+	if SessionSecret == "" {
+		return "", fmt.Errorf("no session secret set")
+	}
+
+	s, _ := c.session.Get(c.request, SessionName)
 
 	vi, ok := s.Values[name]
 	if !ok {
@@ -240,17 +271,22 @@ func (c *Context) SessionGet(name string) (string, error) {
 
 	vs, ok := vi.(string)
 	if !ok {
-		return "", fmt.Errorf("session value is not string")
+		return "", errors.WithStack(fmt.Errorf("session value is not string"))
 	}
 
 	return vs, nil
 }
 
 func (c *Context) SessionSet(name, value string) error {
-	s, err := c.session.Get(c.request, SessionName)
-	if err != nil {
-		return err
+	if SessionName == "" {
+		return fmt.Errorf("no session name set")
 	}
+
+	if SessionSecret == "" {
+		return fmt.Errorf("no session secret set")
+	}
+
+	s, _ := c.session.Get(c.request, SessionName)
 
 	s.Values[name] = value
 
@@ -299,14 +335,10 @@ func (c *Context) Write(data []byte) (int, error) {
 
 	w, err := c.ws.NextWriter(websocket.TextMessage)
 	if err != nil {
-		return 0, err
+		return 0, errors.WithStack(err)
 	}
 
 	defer w.Close()
 
 	return w.Write(data)
-}
-
-type causer interface {
-	Cause() error
 }
