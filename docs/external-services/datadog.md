@@ -1,8 +1,6 @@
 ---
 title: "Datadog"
-order: 300
 ---
-
 
 You can add operational visibility to your Convox environments with Datadog.
 

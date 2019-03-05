@@ -4,31 +4,31 @@ title: "Notifications"
 
 Console users can get notification for common Rack events. Below you can find a list of the types of notifications you will receive.
 
-#### [*rack*] Created app *example-app*
+#### [*rack*] Created app *example*
 
 A convox app has been created, as with `convox apps create` and is ready to accept deployments.
 
-#### [*rack*] Deleted app *example-app*
+#### [*rack*] Deleted app *example*
 
 A convox app has been deleted, as with `convox apps delete`.
 
-#### [*rack*] Build `BNJFGEQEXOK` failed for app *example-app*
+#### [*rack*] Build `BNJFGEQEXOK` failed for app *example*
 
 An app build failed. Run `convox builds info <id>` to view build logs.
 
-#### [*rack*] Created release `RMDKLNZIACD` for app *example-app*
+#### [*rack*] Created release `RMDKLNZIACD` for app *example*
 
 A new release has been created and is ready to be deployed. Releases are created when new builds complete or when the app’s environment variables are changed. You can promote a new release with the `convox releases promote` command.
 
-#### [*rack*] Finished rolling deploy of release `RMDKLNZIACD` for app *example-app*
+#### [*rack*] Finished rolling deploy of release `RMDKLNZIACD` for app *example*
 
 A deployment is totally finished. All of the new processes have been booted and all of the old processes have been stopped.
 
-#### [*rack*] Promoted release `RMDKLNZIACD` for app *example-app*
+#### [*rack*] Promoted release `RMDKLNZIACD` for app *example*
 
 A release has been promoted to be the live version on the application. This does not mean the deployment is totally complete. See the “Finished rolling deploy” notification above.
 
-#### [*rack*] Scaled release `RMDKLNZIACD` for app *example-app*
+#### [*rack*] Scaled release `RMDKLNZIACD` for app *example*
 
 A `convox scale` command has been received, instructing the Rack to run a different number of copies for a specific process.
 
