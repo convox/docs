@@ -47,9 +47,13 @@ Migrating database... Done
 ```
 
 <div class="block-callout block-show-callout type-info" markdown="1">
-#### Detached processes
+#### Detached processes and timeouts
 
-By default, `convox run` processes are run interactively ("attached"). This means you can interact with the running process via the terminal (stdin and stdout). Attached processes have a timeout of 1 hour.
+By default, `convox run` processes are run interactively ("attached"). This means you can interact with the running process via the terminal (stdin and stdout). Attached processes have a timeout of 1 hour. Use `--timeout [seconds]` to increase this:
+
+```
+$ convox run web --timeout 7200 bin/long_running_process
+```
 
 If you don't need to run a process interactively, you can add the `--detach` option to your `convox run` command:
 
