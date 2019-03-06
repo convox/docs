@@ -38,10 +38,6 @@ func init() {
 func main() {
 	s := stdapi.New("docs", "docs.convox")
 
-	// s.Router.HandleFunc("/check", func(w http.ResponseWriter, r *http.Request) {
-	//   fmt.Fprintf(w, "ok\n")
-	// })
-
 	s.Router.Static("/assets/images", packr.NewBox("../../public/images"))
 	s.Router.Static("/assets", packr.NewBox("../../public/assets"))
 
@@ -54,6 +50,8 @@ func main() {
 	s.Route("GET", "/{slug}/", redirect)
 
 	stdapi.LoadTemplates(packr.NewBox("../../templates"), helpers)
+
+	docs.Files = packr.NewBox("../../docs")
 
 	if err := s.Listen("https", ":3000"); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: %s\n", err)

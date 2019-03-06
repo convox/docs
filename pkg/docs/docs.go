@@ -36,7 +36,7 @@ var (
 )
 
 var (
-	files = packr.NewBox("../../docs")
+	Files packr.Box
 )
 
 type Category struct {
@@ -93,15 +93,8 @@ func LoadCategory(slug string) error {
 		Documents: Documents{},
 	}
 
-	err := files.WalkPrefix(fmt.Sprintf("%s/", slug), func(path string, file packd.File) error {
-		fmt.Printf("path = %+v\n", path)
-		rel := path
-		// rel, err := filepath.Rel(root, path)
-		// if err != nil {
-		//   return err
-		// }
-
-		name := filepath.Base(rel)
+	err := Files.WalkPrefix(fmt.Sprintf("%s/", slug), func(path string, file packd.File) error {
+		name := filepath.Base(path)
 		name = strings.TrimSuffix(name, ".md")
 
 		slug = strings.Replace(name, ".", "-", -1)
