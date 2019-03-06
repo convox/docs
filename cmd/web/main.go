@@ -25,16 +25,6 @@ var categorySlugs = []string{
 	"help",
 }
 
-func init() {
-	if err := docs.LoadCategories(categorySlugs...); err != nil {
-		log.Fatal(err)
-	}
-
-	if err := docs.UploadIndex(); err != nil {
-		log.Printf("error: %s", err)
-	}
-}
-
 func main() {
 	s := stdapi.New("docs", "docs.convox")
 
@@ -52,6 +42,14 @@ func main() {
 	stdapi.LoadTemplates(packr.NewBox("../../templates"), helpers)
 
 	docs.Files = packr.NewBox("../../docs")
+
+	if err := docs.LoadCategories(categorySlugs...); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := docs.UploadIndex(); err != nil {
+		log.Printf("error: %s", err)
+	}
 
 	if err := s.Listen("https", ":3000"); err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: %s\n", err)

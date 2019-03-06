@@ -2,6 +2,7 @@ package algoliasearch
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -9,6 +10,7 @@ import (
 )
 
 type client struct {
+	appID     string
 	transport *Transport
 }
 
@@ -16,6 +18,7 @@ type client struct {
 // `apiKey`. Default hosts are used for the transport layer.
 func NewClient(appID, apiKey string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransport(appID, apiKey),
 	}
 }
@@ -25,8 +28,13 @@ func NewClient(appID, apiKey string) Client {
 // `hosts`.
 func NewClientWithHosts(appID, apiKey string, hosts []string) Client {
 	return &client{
+		appID:     appID,
 		transport: NewTransportWithHosts(appID, apiKey, hosts),
 	}
+}
+
+func (c *client) GetAppID() string {
+	return c.appID
 }
 
 func (c *client) SetExtraHeader(key, value string) {
@@ -39,9 +47,10 @@ func (c *client) SetTimeout(connectTimeout, readTimeout int) {
 	// configurable.
 	c.SetReadTimeout(time.Duration(readTimeout) * time.Second)
 }
-func (c *client) SetReadTimeout(t time.Duration)      { c.transport.setTimeouts(t, -1, -1) }
-func (c *client) SetWriteTimeout(t time.Duration)     { c.transport.setTimeouts(-1, t, -1) }
-func (c *client) SetAnalyticsTimeout(t time.Duration) { c.transport.setTimeouts(-1, -1, t) }
+func (c *client) SetReadTimeout(t time.Duration)      { c.transport.setTimeouts(t, -1, -1, -1) }
+func (c *client) SetWriteTimeout(t time.Duration)     { c.transport.setTimeouts(-1, t, -1, -1) }
+func (c *client) SetAnalyticsTimeout(t time.Duration) { c.transport.setTimeouts(-1, -1, t, -1) }
+func (c *client) SetInsightsTimeout(t time.Duration)  { c.transport.setTimeouts(-1, -1, -1, t) }
 
 func (c *client) SetMaxIdleConnsPerHosts(maxIdleConnsPerHost int) {
 	c.transport.setMaxIdleConnsPerHost(maxIdleConnsPerHost)
@@ -71,6 +80,10 @@ func (c *client) InitAnalytics() Analytics {
 	return NewAnalytics(c)
 }
 
+func (c *client) InitInsights() Insights {
+	return NewInsights(c)
+}
+
 func (c *client) ListKeys() (keys []Key, err error) {
 	return c.ListAPIKeys()
 }
@@ -95,8 +108,7 @@ func (c *client) MoveIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) MoveIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.MoveWithRequestOptions(destination, opts)
+	return c.operation(source, destination, "move", nil, opts)
 }
 
 func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
@@ -104,8 +116,7 @@ func (c *client) CopyIndex(source, destination string) (UpdateTaskRes, error) {
 }
 
 func (c *client) CopyIndexWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.CopyWithRequestOptions(destination, opts)
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, nil, opts)
 }
 
 func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (UpdateTaskRes, error) {
@@ -113,8 +124,23 @@ func (c *client) ScopedCopyIndex(source, destination string, scopes []string) (U
 }
 
 func (c *client) ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error) {
-	index := c.InitIndex(source)
-	return index.ScopedCopyWithRequestOptions(destination, scopes, opts)
+	return c.operation(source, destination, "copy", scopes, opts)
+}
+
+func (c *client) operation(src, dst, op string, scopes []string, opts *RequestOptions) (res UpdateTaskRes, err error) {
+	if err = checkScopes(scopes); err != nil {
+		return
+	}
+
+	o := IndexOperation{
+		Destination: dst,
+		Operation:   op,
+		Scopes:      scopes,
+	}
+
+	path := "/1/indexes/" + url.QueryEscape(src) + "/operation"
+	err = c.request(&res, "POST", path, o, write, opts)
+	return
 }
 
 func (c *client) DeleteIndex(name string) (res DeleteTaskRes, err error) {
@@ -151,7 +177,7 @@ func (c *client) AddAPIKeyWithRequestOptions(ACL []string, params Map, opts *Req
 		return
 	}
 
-	err = c.request(&res, "POST", "/1/keys/", req, read, opts)
+	err = c.request(&res, "POST", "/1/keys/", req, write, opts)
 	return
 }
 
@@ -251,6 +277,94 @@ func (c *client) MultipleQueriesWithRequestOptions(queries []IndexedQuery, strat
 	return
 }
 
+func (c *client) ListClusters() (res []Cluster, err error) {
+	return c.ListClustersWithRequestOptions(nil)
+}
+
+func (c *client) ListClustersWithRequestOptions(opts *RequestOptions) (res []Cluster, err error) {
+	var rawRes map[string][]Cluster
+	var ok bool
+	err = c.request(&rawRes, "GET", "/1/clusters", nil, read, opts)
+	if res, ok = rawRes["clusters"]; !ok {
+		res = nil
+		err = errors.New("missing field `clusters` in JSON response")
+	}
+	return
+}
+
+func (c *client) ListUserIDs(page int, hitsPerPage int) (res ListUserIDsRes, err error) {
+	return c.ListUserIDsWithRequestOptions(page, hitsPerPage, nil)
+}
+
+func (c *client) ListUserIDsWithRequestOptions(page int, hitsPerPage int, opts *RequestOptions) (res ListUserIDsRes, err error) {
+	params := Map{
+		"page":        page,
+		"hitsPerPage": hitsPerPage,
+	}
+	err = c.request(&res, "GET", "/1/clusters/mapping?"+encodeMap(params), nil, read, opts)
+	return
+}
+
+func (c *client) GetUserID(userID string) (res UserID, err error) {
+	return c.GetUserIDWithRequestOptions(userID, nil)
+}
+
+func (c *client) GetUserIDWithRequestOptions(userID string, opts *RequestOptions) (res UserID, err error) {
+	err = c.request(&res, "GET", "/1/clusters/mapping/"+url.QueryEscape(userID), nil, read, opts)
+	return
+}
+
+func (c *client) AssignUserID(userID string, clusterName string) (res AssignUserIDRes, err error) {
+	return c.AssignUserIDWithRequestOptions(userID, clusterName, nil)
+}
+
+func (c *client) AssignUserIDWithRequestOptions(userID string, clusterName string, opts *RequestOptions) (res AssignUserIDRes, err error) {
+	if opts == nil {
+		opts = &RequestOptions{
+			ExtraHeaders: make(map[string]string),
+		}
+	}
+	opts.ExtraHeaders["X-Algolia-User-ID"] = userID
+	body := map[string]string{"cluster": clusterName}
+	err = c.request(&res, "POST", "/1/clusters/mapping", body, write, opts)
+	return
+}
+
+func (c *client) RemoveUserID(userID string) (res RemoveUserIDRes, err error) {
+	return c.RemoveUserIDWithRequestOptions(userID, nil)
+}
+
+func (c *client) RemoveUserIDWithRequestOptions(userID string, opts *RequestOptions) (res RemoveUserIDRes, err error) {
+	if opts == nil {
+		opts = &RequestOptions{
+			ExtraHeaders: make(map[string]string),
+		}
+	}
+	opts.ExtraHeaders["X-Algolia-User-ID"] = userID
+
+	err = c.request(&res, "DELETE", "/1/clusters/mapping", nil, write, opts)
+	return
+}
+
+func (c *client) GetTopUserIDs() (res TopUserIDs, err error) {
+	return c.GetTopUserIDsWithRequestOptions(nil)
+}
+
+func (c *client) GetTopUserIDsWithRequestOptions(opts *RequestOptions) (res TopUserIDs, err error) {
+	err = c.request(&res, "GET", "/1/clusters/mapping/top", nil, read, opts)
+	return
+}
+
+func (c *client) SearchUserIDs(query string, params Map) (res SearchUserIDRes, err error) {
+	return c.SearchUserIDsWithRequestOptions(query, params, nil)
+}
+
+func (c *client) SearchUserIDsWithRequestOptions(query string, params Map, opts *RequestOptions) (res SearchUserIDRes, err error) {
+	params["query"] = query
+	err = c.request(&res, "POST", "/1/clusters/mapping/search", params, read, opts)
+	return
+}
+
 func (c *client) Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error) {
 	return c.BatchWithRequestOptions(operations, nil)
 }
@@ -304,6 +418,50 @@ func (c *client) GetStatus(indexName string, taskID int) (res TaskStatusRes, err
 func (c *client) GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error) {
 	path := fmt.Sprintf("/1/indexes/%s/task/%d", url.QueryEscape(indexName), taskID)
 	err = c.request(&res, "GET", path, nil, read, opts)
+	return
+}
+
+func (c *client) CopySettings(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySettingsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"settings"}, opts)
+}
+
+func (c *client) CopySynonyms(source, destination string) (UpdateTaskRes, error) {
+	return c.CopySynonymsWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"synonyms"}, opts)
+}
+
+func (c *client) CopyRules(source, destination string) (UpdateTaskRes, error) {
+	return c.CopyRulesWithRequestOptions(source, destination, nil)
+}
+
+func (c *client) CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error) {
+	return c.ScopedCopyIndexWithRequestOptions(source, destination, []string{"rules"}, opts)
+}
+
+func (c *client) SetPersonalizationStrategy(strategy Strategy) (SetStrategyRes, error) {
+	return c.SetPersonalizationStrategyWithRequestOptions(strategy, nil)
+}
+
+func (c *client) SetPersonalizationStrategyWithRequestOptions(strategy Strategy, opts *RequestOptions) (res SetStrategyRes, err error) {
+	path := "/1/recommendation/personalization/strategy"
+	err = c.request(&res, "POST", path, strategy, write, opts)
+	return
+}
+
+func (c *client) GetPersonalizationStrategy() (Strategy, error) {
+	return c.GetPersonalizationStrategyWithRequestOptions(nil)
+}
+
+func (c *client) GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (strategy Strategy, err error) {
+	path := "/1/recommendation/personalization/strategy"
+	err = c.request(&strategy, "GET", path, nil, read, opts)
 	return
 }
 

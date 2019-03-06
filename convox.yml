@@ -11,4 +11,5 @@ services:
     health:
       path: /check
       interval: 30
+    init: true
     port: https:3000

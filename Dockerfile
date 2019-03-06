@@ -1,6 +1,6 @@
 ## development #################################################################
 
-FROM golang:1.12 AS development
+FROM golang:1.11 AS development
 
 RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update && apt-get -y install nodejs
@@ -22,7 +22,7 @@ CMD ["bin/web"]
 
 ## package #####################################################################
 
-FROM golang:1.12 AS package
+FROM golang:1.11 AS package
 
 RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update && apt-get -y install nodejs
@@ -40,13 +40,18 @@ RUN make -B build
 
 FROM ubuntu:18.04 AS production
 
+RUN apt-get update && apt-get -y install ca-certificates
+
 ENV DEVELOPMENT=false
+ENV GOPATH=/go
 
 WORKDIR /
 
-COPY --from=package /go/bin/web /usr/local/bin/web
+COPY bin/web /bin/
+
+COPY --from=package /go/bin/web /go/bin/web
 
 RUN groupadd -r docs && useradd -r -g docs docs
 USER docs
 
-CMD ["/usr/local/bin/web"]
+CMD ["/bin/web"]

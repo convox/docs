@@ -2,15 +2,15 @@
 
 
 [[projects]]
-  digest = "1:838c693b8a6ddcccf45e7c25db5998916cecc3ff4bdb81c4eaaf5a0d57b83025"
+  digest = "1:8e380c421170c601ad6fafca32715ed5510a5929cad1f3cb498470953e1b0231"
   name = "github.com/algolia/algoliasearch-client-go"
   packages = [
     "algoliasearch",
     "algoliasearch/call",
   ]
   pruneopts = "UT"
-  revision = "68149ecd478242b4323aa535fe0fadca0d98912e"
-  version = "2.25.0"
+  revision = "1c0b06b9e47a0110de105eeb0aa2fdeda6e4a422"
+  version = "2.27.0"
 
 [[projects]]
   branch = "master"
@@ -159,6 +159,7 @@
     "github.com/algolia/algoliasearch-client-go/algoliasearch",
     "github.com/convox/stdapi",
     "github.com/go-yaml/yaml",
+    "github.com/gobuffalo/packd",
     "github.com/gobuffalo/packr",
     "github.com/russross/blackfriday",
   ]

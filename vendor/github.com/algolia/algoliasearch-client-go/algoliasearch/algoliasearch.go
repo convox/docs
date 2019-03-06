@@ -9,6 +9,9 @@ import (
 // allows manipulations over the indexes of the application as well as network
 // related parameters.
 type Client interface {
+	// GetAppID returns the Algolia application ID to which the client is linked to.
+	GetAppID() string
+
 	// SetExtraHeader allows to set custom headers while reaching out to
 	// Algolia servers.
 	SetExtraHeader(key, value string)
@@ -60,6 +63,9 @@ type Client interface {
 	// InitAnalytics returns a new Analytics instance, bound to the Client.
 	InitAnalytics() Analytics
 
+	// InitInsights returns a new Insights instance, bound to the Client.
+	InitInsights() Insights
+
 	// ListKeys returns all the API keys available for this Algolia
 	// application.
 	//
@@ -103,17 +109,25 @@ type Client interface {
 	ScopedCopyIndexWithRequestOptions(source, destination string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// DeleteIndex removes the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Delete instead.
 	DeleteIndex(name string) (res DeleteTaskRes, err error)
 
 	// DeleteIndexWithRequestOptions is the same as DeleteIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.DeleteWithRequestOptions instead.
 	DeleteIndexWithRequestOptions(name string, opts *RequestOptions) (res DeleteTaskRes, err error)
 
 	// ClearIndex removes every record from the `name` Algolia index.
+	//
+	// Deprecated: Use Index.Clear instead.
 	ClearIndex(name string) (res UpdateTaskRes, err error)
 
 	// ClearIndexWithRequestOptions is the same as ClearIndex but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Index.ClearWithRequestOptions instead.
 	ClearIndexWithRequestOptions(name string, opts *RequestOptions) (res UpdateTaskRes, err error)
 
 	// AddUserKey creates a new API key from the supplied `ACL` and the
@@ -197,6 +211,55 @@ type Client interface {
 	// also accepts extra RequestOptions.
 	MultipleQueriesWithRequestOptions(queries []IndexedQuery, strategy string, opts *RequestOptions) (res []MultipleQueryRes, err error)
 
+	// List all available clusters for the application.
+	ListClusters() (res []Cluster, err error)
+
+	// ListClustersWithRequestOptions is the same as ListClusters but it
+	// also accepts extra RequestOptions.
+	ListClustersWithRequestOptions(opts *RequestOptions) (res []Cluster, err error)
+
+	// List all user IDs across all clusters.
+	ListUserIDs(page int, hitsPerPage int) (res ListUserIDsRes, err error)
+
+	// ListUserIDsWithRequestOptions is the same as ListUserIDs but it
+	// also accepts extra RequestOptions.
+	ListUserIDsWithRequestOptions(page int, hitsPerPage int, opts *RequestOptions) (res ListUserIDsRes, err error)
+
+	// Get a specific user ID when using multi cluster infrastructure.
+	GetUserID(userID string) (res UserID, err error)
+
+	// GetUserIDWithRequestOptions is the same as GetUserID but it
+	// also accepts extra RequestOptions.
+	GetUserIDWithRequestOptions(userID string, opts *RequestOptions) (res UserID, err error)
+
+	// Assign a user ID to a cluster.
+	AssignUserID(userID string, clusterName string) (res AssignUserIDRes, err error)
+
+	// AssignUserIDWithRequestOptions is the same as AssignUserID but it
+	// also accepts extra RequestOptions.
+	AssignUserIDWithRequestOptions(userID string, clusterName string, opts *RequestOptions) (res AssignUserIDRes, err error)
+
+	// Remove a user ID from a cluster.
+	RemoveUserID(userID string) (res RemoveUserIDRes, err error)
+
+	// RemoveUserIDWithRequestOptions is the same as RemoveUserID but it
+	// also accepts extra RequestOptions.
+	RemoveUserIDWithRequestOptions(userID string, opts *RequestOptions) (res RemoveUserIDRes, err error)
+
+	// Get user IDs with the highest number of records per cluster.
+	GetTopUserIDs() (res TopUserIDs, err error)
+
+	// GetTopUserIDsWithRequestOptions is the same as GetTopUserIDs but it
+	// also accepts extra RequestOptions.
+	GetTopUserIDsWithRequestOptions(opts *RequestOptions) (res TopUserIDs, err error)
+
+	// Typical Algolia search but for user ID.
+	SearchUserIDs(query string, params Map) (res SearchUserIDRes, err error)
+
+	// SearchUserIDsWithRequestOptions is the same as SearchUserIDs but it
+	// also accepts extra RequestOptions.
+	SearchUserIDsWithRequestOptions(query string, params Map, opts *RequestOptions) (res SearchUserIDRes, err error)
+
 	// Batch performs all queries in `operations`.
 	Batch(operations []BatchOperationIndexed) (res MultipleBatchRes, err error)
 
@@ -220,10 +283,50 @@ type Client interface {
 	// GetStatusWithRequestOptions is the same as GetStatus but it also accepts
 	// extra RequestOptions.
 	GetStatusWithRequestOptions(indexName string, taskID int, opts *RequestOptions) (res TaskStatusRes, err error)
+
+	// CopySettings copies the settings from the source index to the destination index.
+	CopySettings(source, destination string) (UpdateTaskRes, error)
+
+	// CopySettingsWithRequestOptions is the same as CopySettings but it also accepts
+	// extra RequestOptions.
+	CopySettingsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopySynonyms copies the synonyms from the source index to the destination index.
+	CopySynonyms(source, destination string) (UpdateTaskRes, error)
+
+	// CopySynonymsWithRequestOptions is the same as CopySynonyms but it also accepts
+	// extra RequestOptions.
+	CopySynonymsWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// CopyRules copies the rules from the source index to the destination index.
+	CopyRules(source, destination string) (UpdateTaskRes, error)
+
+	// CopyRulesWithRequestOptions is the same as CopyRulesWith but it also accepts
+	// extra RequestOptions.
+	CopyRulesWithRequestOptions(source, destination string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// SetPersonalizationStrategy allows to set the inner strategies related to the
+	// Personalization features.
+	SetPersonalizationStrategy(strategy Strategy) (SetStrategyRes, error)
+
+	// SetPersonalizationStrategyWithRequestOptions is the same as SetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	SetPersonalizationStrategyWithRequestOptions(strategy Strategy, opts *RequestOptions) (SetStrategyRes, error)
+
+	// GetPersonalizationStrategy retrieves the inner strategies related to the Personalization
+	// features.
+	GetPersonalizationStrategy() (Strategy, error)
+
+	// GetPersonalizationStrategyWithRequestOptions is the same as GetPersonalizationStrategy but it also
+	// accepts extra RequestOptions.
+	GetPersonalizationStrategyWithRequestOptions(opts *RequestOptions) (Strategy, error)
 }
 
 // Index is a representation used to manipulate an Algolia index.
 type Index interface {
+	// GetAppID returns the Algolia application ID to which the index is linked to.
+	GetAppID() string
+
 	// Delete removes the Algolia index.
 	Delete() (res DeleteTaskRes, err error)
 
@@ -473,26 +576,49 @@ type Index interface {
 	BatchWithRequestOptions(operations []BatchOperation, opts *RequestOptions) (res BatchRes, err error)
 
 	// Copy copies the index into a new one called `name`.
+	//
+	// Deprecated: Use Client.CopyIndex instead.
 	Copy(name string) (UpdateTaskRes, error)
 
 	// CopyWithRequestOptions is the same as Copy but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.CopyIndexWithRequestOptions instead.
 	CopyWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// ScopedCopy copies the index into a new one called `name`, according to
 	// the given scopes.
+	//
+	// Deprecated: Use Client.ScopedCopyIndex instead.
 	ScopedCopy(name string, scopes []string) (UpdateTaskRes, error)
 
 	// ScopedCopyWithRequestOptions is the same as ScopedCopy but it also
 	// accepts extra RequestOptions.
+	//
+	// Deprecated: Use Client.ScopedCopyIndexWithRequestOptions instead.
 	ScopedCopyWithRequestOptions(name string, scopes []string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// Move renames the index into `name`.
+	//
+	// Deprecated: Use Client.MoveIndex instead.
 	Move(name string) (UpdateTaskRes, error)
 
 	// MoveWithRequestOptions is the same as Move but it also accepts extra
 	// RequestOptions.
+	//
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
 	MoveWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
+
+	// MoveTo renames the index into `name`.
+	//
+	// Deprecated: Use Client.MoveIndex instead.
+	MoveTo(name string) (UpdateTaskRes, error)
+
+	// MoveToWithRequestOptions is the same as MoveTo but it also accepts extra
+	// RequestOptions.
+	//
+	// Deprecated: Use Client.MoveIndexWithRequestOptions instead.
+	MoveToWithRequestOptions(name string, opts *RequestOptions) (UpdateTaskRes, error)
 
 	// GetStatus returns the status of a task given its ID `taskID`.
 	GetStatus(taskID int) (res TaskStatusRes, err error)
@@ -711,6 +837,27 @@ type Index interface {
 	// SearchRulesWithRequestOptions is the same as SearchRules but it also
 	// accepts extra RequestOptions.
 	SearchRulesWithRequestOptions(params Map, opts *RequestOptions) (SearchRulesRes, error)
+
+	// ReplaceAllSynonyms replace all the synonyms of the current index with the given ones.
+	ReplaceAllSynonyms(synonyms []Synonym) (res UpdateTaskRes, err error)
+
+	// ReplaceAllSynonymsWithRequestOptions is the same as ReplaceAllSynonyms but it also
+	// accepts extra RequestOptions.
+	ReplaceAllSynonymsWithRequestOptions(synonyms []Synonym, opts *RequestOptions) (res UpdateTaskRes, err error)
+
+	// ReplaceAllRules replace all the rules of the current index with the given ones.
+	ReplaceAllRules(rules []Rule) (res BatchRulesRes, err error)
+
+	// ReplaceAllRulesWithRequestOptions is the same as ReplaceAllRules but it also
+	// accepts extra RequestOptions.
+	ReplaceAllRulesWithRequestOptions(rules []Rule, opts *RequestOptions) (res BatchRulesRes, err error)
+
+	// ReplaceAllObjects replace all the objects of the current index with the given ones.
+	ReplaceAllObjects(objects []Object) error
+
+	// ReplaceAllObjectsWithRequestOptions is the same as ReplaceAllObjects but it also
+	// accepts extra RequestOptions.
+	ReplaceAllObjectsWithRequestOptions(objects []Object, opts *RequestOptions) error
 }
 
 // IndexIterator is used by the BrowseAll functions to iterate over all the
@@ -750,4 +897,45 @@ type Analytics interface {
 	// WaitTask blocks until the given task has ended successfully. If anything
 	// goes wrong or if the task did not succeed, a non-nil error is returned.
 	WaitTask(task ABTestTaskRes) (err error)
+}
+
+type Insights interface {
+	User(userToken string) InsightsWithUser
+}
+
+type InsightsWithUser interface {
+	ClickedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ClickedFiltersWithRequestOptions(eventName, indexName string, filters []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ClickedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ClickedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ClickedObjectIDsAfterSearch(eventName, indexName string, objectIDs []string, positions []int, queryID string) (res InsightsResponse, err error)
+	ClickedObjectIDsAfterSearchWithRequestOptions(eventName, indexName string, objectIDs []string, positions []int, queryID string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	ConvertedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ConvertedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ConvertedObjectIDsAfterSearch(eventName, indexName string, objectIDs []string, queryID string) (res InsightsResponse, err error)
+	ConvertedObjectIDsAfterSearchWithRequestOptions(eventName, indexName string, objectIDs []string, queryID string, opts *RequestOptions) (res InsightsResponse, err error)
+	ConvertedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ConvertedFiltersWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	ViewedFilters(eventName, indexName string, filters []string) (res InsightsResponse, err error)
+	ViewedFiltersWithRequestOptions(eventName, indexName string, filters []string, opts *RequestOptions) (res InsightsResponse, err error)
+	ViewedObjectIDs(eventName, indexName string, objectIDs []string) (res InsightsResponse, err error)
+	ViewedObjectIDsWithRequestOptions(eventName, indexName string, objectIDs []string, opts *RequestOptions) (res InsightsResponse, err error)
+
+	SendEvent(req InsightsRequest) (res InsightsResponse, err error)
+	SendEventWithRequestOptions(req InsightsRequest, opts *RequestOptions) (res InsightsResponse, err error)
+	SendEvents(req []InsightsRequest) (res InsightsResponse, err error)
+	SendEventsWithRequestOptions(req []InsightsRequest, opts *RequestOptions) (res InsightsResponse, err error)
+}
+
+// AccountClient is responsible for handling cross-application operations.
+type AccountClient interface {
+	// CopyIndex copies the content of the entire source index to the destination index. Indices from the same
+	// application cannot be copied. To do so, use Client.CopyIndex instead.
+	CopyIndex(src, dst Index) (taskIDs []int, err error)
+
+	// CopyIndexWithRequestOptions is the same as CopyIndex but it also
+	// accepts extra RequestOptions.
+	CopyIndexWithRequestOptions(src, dst Index, opts *RequestOptions) (taskIDs []int, err error)
 }

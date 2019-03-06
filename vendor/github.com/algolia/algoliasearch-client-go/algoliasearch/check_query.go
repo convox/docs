@@ -32,6 +32,7 @@ Outer:
 			"attributesToSnippet",
 			"disableExactOnAttributes",
 			"disableTypoToleranceOnAttributes",
+			"explain",
 			"queryLanguages",
 			"responseFields":
 			if _, ok := v.([]string); !ok {
@@ -104,10 +105,17 @@ Outer:
 				return invalidType(k, "string or []interface{}")
 			}
 
+		case "facetFilters":
+			switch v.(type) {
+			case string, []string, [][]string, []interface{}:
+				//OK
+			default:
+				return invalidType(k, "string, []string, [][]string or []interface{}")
+			}
+
 		case "analyticsTags",
 			"restrictSearchableAttributes",
 			"facets",
-			"facetFilters",
 			"optionalWords":
 			switch v.(type) {
 			case string, []string:
