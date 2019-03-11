@@ -1,32 +1,32 @@
 ---
-title: "CircleCi"
+title: "CircleCI"
 ---
 
-You can deploy to Convox as part of a CircleCi workflow using the [Convox Orb](https://circleci.com/orbs/registry/orb/convox/orb)
+You can deploy to Convox as part of a CircleCI workflow using the [Convox Orb](https://circleci.com/orbs/registry/orb/convox/orb)
 
-## Sign Up for CircleCi
+## Sign Up for CircleCI
 
-If you don’t have an account already, [sign up for CircleCi](https://circleci.com/signup/). 
+If you don’t have an account already, [sign up for CircleCI](https://circleci.com/signup/). 
 
 ## Enable 3rd Party Orbs
 
-Because the Convox Orb is new, it has not yet completed the CircleCi certification process. For now, the Admin of your CircleCi org must opt-in to 3rd-party uncertified orb usage on the Settings > Security page for your org
+Because the Convox Orb is new, it has not yet completed the CircleCI certification process. For now, the Admin of your CircleCI org must opt-in to 3rd-party uncertified orb usage on the Settings > Security page for your org
 
-## Configure Your CircleCi Project to Build With Convox
+## Configure Your CircleCI Project to Build With Convox
 
-If you don't already have a project setup in CircleCi you will need to [add one](https://circleci.com/docs/2.0/gh-bb-integration/#section=projects)
+If you don't already have a project setup in CircleCI you will need to [add one](https://circleci.com/docs/2.0/gh-bb-integration/#section=projects)
 
 Once you have your project added, login to the Convox console and click on the settings tab in the left side navigation bar. 
 
 From here generate a [deploy key](/console/deploy-keys) and copy it to your local clipboard.
 
-In CircleCi, add an [environment variable](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) with the name `CONVOX_DEPLOY_KEY` and paste your deploy key as the value
+In CircleCI, add an [environment variable](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) with the name `CONVOX_DEPLOY_KEY` and paste your deploy key as the value
 
-## Build a CircleCi config.yml Using the Convox Orb
+## Build a CircleCI config.yml Using the Convox Orb
 ***
 ***Note: You must specify `version: 2.1`  in your config.yml in order to use [Orbs](https://circleci.com/docs/2.0/using-orbs/)***
 ***
-The Convox Orb contains a single `deploy` command and matching job for deploying your app to Convox using CircleCi.
+The Convox Orb contains a single `deploy` command and matching job for deploying your app to Convox using CircleCI.
 
 The job is self contained. If you would prefer to use the command you must run the `checkout` command before using `deploy`.
 
@@ -67,7 +67,7 @@ The simplest version of a config.yml would look like:
 ```
 version: 2.1
 orbs:
-  convox: circleci/convox@1.4.0
+  convox: convox/orb@1.4.1
 workflows:
   deploy:
     jobs:
@@ -81,7 +81,7 @@ If you would prefer to use the Convox Orb commands directly you need to run the 
 ```
 version: 2.1
 orbs:
-  convox: circleci/convox@1.4.0
+  convox: convox/orb@1.4.1
 workflows:
   deploy:
     jobs:
