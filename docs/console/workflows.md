@@ -42,6 +42,7 @@ A deployment workflow is how you can manage the regular deployment of your appli
 * Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/application/convox-yml) however if you have custom needs for a specific deployment workflow you can specify a custom manifest
 * App - Deployment workflows allow you to specify multiple applications to deploy to and you can specify whether or not to automatically promote each application. For example on a merge to your master branch you might choose to deploy to a staging application with automatic promotion and simultaneously deploy to a production application with manual promotion.
 * Run tests - Checking this box will run whatever command is in the test directive in your [convox.yml](/application/convox-yml). One thing to note is when run tests is enabled, two releases are created for every build and both releases will appear in the release list for your application.
+* Before Promote - Here you can specify a service and a command to be run before your application is promoted. This is useful for things like database migrations
 * After Promote - Here you can specify a service and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts.
 * Demo Environment - Here you can specify any environment variables you want set or overridden for your demo application.
 
