@@ -11,11 +11,11 @@ If the Process [exposes a port](/application/port) is it considered healthy afte
 ```yaml
 services:
   web:
-  health:
-    grace: 5
-    interval: 5
-    path: /health
-    timeout: 3
+    health:
+      grace: 5
+      interval: 5
+      path: /health
+      timeout: 3
 ```
 
 #### Options
