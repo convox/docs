@@ -34,6 +34,11 @@ resources:
 $ convox env set POSTGRES_STORAGE_SIZE=200
 ```
 
+## Environment variables
+
+You can access defined resources from services with envrionment variables.
+In the above example, `DATABASE_URL` become accessible from `web` service.
+
 ## Available Resources
 
 #### memcached
