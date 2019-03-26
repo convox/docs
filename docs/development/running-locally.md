@@ -21,7 +21,7 @@ Under Docker's preferences, change the following configuration:
 Install the `microk8s` snap:
 
 ```
-$ sudo snap install microk8s --classic
+$ sudo snap install microk8s --classic --channel=1.13/stable
 ```
 
 Once it is running, enable a few additional services:
