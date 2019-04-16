@@ -2,7 +2,7 @@
 title: "Rack Updates"
 ---
 
-As Convox is in active development, new Rack releases are frequently available. Rack updates will typically by applied automatically but you can manually trigger an update [via the CLI](#via-the-cli). Also keep in mind that some Rack releases are [required](#required-updates), i.e. cannot be skipped even if there is a newer release available.
+As Convox is in active development, new Rack releases are frequently available. Rack updates will typically be applied automatically but you can manually trigger an update [via the CLI](#via-the-cli). Also keep in mind that some Rack releases are [required](#required-updates), i.e. cannot be skipped even if there is a newer release available.
 
 ## Updating via the CLI
 
