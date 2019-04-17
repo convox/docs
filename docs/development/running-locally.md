@@ -13,6 +13,7 @@ Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac
 
 Under Docker's preferences, change the following configuration:
 
+* Make sure you are on the **edge** version of Docker Desktop.
 * On the **Advanced** tab, increase CPUs to the halfway mark and Memory as high as you are comfortable with on your environment.
 * On the **Kubernetes** tab check **Enable Kubernetes**.
 
@@ -36,6 +37,7 @@ Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Win
 
 Under Docker's preferences, change the following configuration:
 
+* Make sure you are on the **edge** version of Docker Desktop.
 * On the **Advanced** tab, increase CPUs to the halfway mark and Memory as high as you are comfortable with on your environment.
 * On the **Kubernetes** tab check **Enable Kubernetes**.
 
