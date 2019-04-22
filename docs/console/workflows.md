@@ -26,8 +26,8 @@ A review workflow allows you to review a new version of your application based o
 * Rack - This specifies what Rack the demo application will be deployed in 
 * Run tests - Checking this box will run whatever command is in the test directive in your [convox.yml](/application/convox-yml). One thing to note is when run tests is enabled, two releases are created for every build and both releases will appear in the release list for your application.
 * Deploy Demo - Checking this box will instruct Convox to create a demo application as part of the review workflow. The demo application will be deployed in the specified rack and will be deleted automatically once the pull request is merged
-* Before Promote - Here you can specify a service and a command to be run before your application is promoted. This is useful for things like database migrations
-* After Promote - Here you can specify a service and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts
+* Before Promote - Here you can specify a service(as defined in your convox.yml file) and a command to be run before your application is promoted. This is useful for things like database migrations
+* After Promote - Here you can specify a service(as defined in your convox.yml file) and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts
 * Demo Environment - Here you can specify any environment variables you want set or overridden for your demo application
 
 ## Deployment Workflows
@@ -42,8 +42,8 @@ A deployment workflow is how you can manage the regular deployment of your appli
 * Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/application/convox-yml) however if you have custom needs for a specific deployment workflow you can specify a custom manifest
 * App - Deployment workflows allow you to specify multiple applications to deploy to and you can specify whether or not to automatically promote each application. For example on a merge to your master branch you might choose to deploy to a staging application with automatic promotion and simultaneously deploy to a production application with manual promotion.
 * Run tests - Checking this box will run whatever command is in the test directive in your [convox.yml](/application/convox-yml). One thing to note is when run tests is enabled, two releases are created for every build and both releases will appear in the release list for your application.
-* Before Promote - Here you can specify a service and a command to be run before your application is promoted. This is useful for things like database migrations
-* After Promote - Here you can specify a service and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts.
+* Before Promote - Here you can specify a service(as defined in your convox.yml file) and a command to be run before your application is promoted. This is useful for things like database migrations
+* After Promote - Here you can specify a service(as defined in your convox.yml file) and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts.
 * Demo Environment - Here you can specify any environment variables you want set or overridden for your demo application.
 
 While deployment workflows are triggered by merges to the specified repository/branch you can also run a deployment workflow manually by clicking <img src="/assets/images/docs/workflows/workflow-play.png"  style="height: 1.5em;">
