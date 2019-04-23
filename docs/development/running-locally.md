@@ -31,6 +31,16 @@ Once it is running, enable a few additional services:
 $ microk8s.enable dns storage
 ```
 
+<div class="block-callout block-show-callout type-warning" markdown="1">
+  Running this command quickly after installing the `microk8s` snap has been known to fail. If you encounter errors please wait a few minutes and try running it again.
+</div>
+
+Create an alias for the `kubectl` binary:
+
+```
+$ sudo snap alias microk8s.kubectl kubectl
+```
+
 #### Windows
 
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows.
