@@ -36,8 +36,9 @@ $ convox env set POSTGRES_STORAGE_SIZE=200
 
 ## Environment variables
 
-You can access defined resources from services with envrionment variables.
-In the above example, `DATABASE_URL` become accessible from `web` service.
+You can access defined resources from services with environment variables.
+In the above example, the `database` service provides a `DATABASE_URL` variable that is accessible from the `web` service.
+(The environment variable name is the service name converted to all-caps, with a `_URL` suffix.)
 
 ## Available Resources
 
