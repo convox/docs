@@ -6,17 +6,13 @@ You can deploy to Convox as part of a CircleCI workflow using the [Convox Orb](h
 
 ## Sign Up for CircleCI
 
-If you don’t have an account already, [sign up for CircleCI](https://circleci.com/signup/). 
-
-## Enable 3rd Party Orbs
-
-Because the Convox Orb is new, it has not yet completed the CircleCI certification process. For now, the Admin of your CircleCI org must opt-in to 3rd-party uncertified orb usage on the Settings > Security page for your org
+If you don’t have an account already, [sign up for CircleCI](https://circleci.com/signup/).
 
 ## Configure Your CircleCI Project to Build With Convox
 
 If you don't already have a project setup in CircleCI you will need to [add one](https://circleci.com/docs/2.0/gh-bb-integration/#section=projects)
 
-Once you have your project added, login to the Convox console and click on the settings tab in the left side navigation bar. 
+Once you have your project added, login to the Convox console and click on the settings tab in the left side navigation bar.
 
 From here generate a [deploy key](/console/deploy-keys) and copy it to your local clipboard.
 
