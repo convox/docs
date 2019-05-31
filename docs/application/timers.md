@@ -14,7 +14,7 @@ timers:
     service: web
 ```
 
-You can think of a timer as issuing a `convox run` on the defined schedule. This timer would be equivalent to running `convox run web bin/cleanup` at 3AM every day.
+You can think of a timer as issuing a `convox run` on the defined schedule. This timer would be equivalent to running `convox run web --detach bin/cleanup` at 3AM every day.
 
 #### Cron expression format
 
