@@ -33,7 +33,7 @@ Authenticating with console.convox.com... OK
 
 If you already have a [Dockerized](https://docs.docker.com/engine/examples/) application, running on Convox is as easy as adding one small file that describes your application. If you are not already using Docker, don't worry we have sample applications for all popular frameworks that will make it easy to get started.
 
-* If you have an existing application see the **Application Setup** section of these docs.
+* If you have an existing application see the [convox.yml](/application/convox-yml) section of these docs.
 * If you are starting from scratch you can clone a [demo application](https://github.com/convox-examples) to get started.
 
 ## Deploy to AWS
