@@ -19,7 +19,7 @@ First you will need to [sign up for a Convox account](https://convox.com/signup)
 
 * [Install the Convox CLI](/introduction/installation) for your platform.
 
-* Next, click the **[Setup](https://console.convox.com/grid/user/welcome)** button then **[Connect the Convox CLI](https://console.convox.com/grid/user/api_key)** to get your API key.
+* Next, click the [Connect the Convox CLI](https://console.convox.com/welcome#cli) step in the welcome guide to get your CLI key. If you have already completed the setup steps you can generate a new CLI key at any time by clicking on [Account](https://console.convox.com/account) and then click reset CLI key to generate a new key.
 
 * Finally, use the `convox login` command with your [API key](https://console.convox.com/grid/user/api_key):
 
