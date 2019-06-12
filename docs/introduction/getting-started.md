@@ -7,7 +7,6 @@ Getting started with Convox is easy. The instructions below guide you through:
 
 * [Signing up](https://convox.com/signup)
 * Installing the CLI
-* Running your application locally
 * Deploying your application to AWS
 
 This guide takes around 30 minutes to go from zero to your first production deployment.
@@ -18,16 +17,9 @@ First you will need to [sign up for a Convox account](https://convox.com/signup)
 
 ## Install the CLI
 
-The `convox` CLI offers:
-
-* `convox start` - Start an application in development mode
-* `convox deploy` - Deploy an application
-
-along with numerous other commands that make configuring, scaling, and securing your apps simple.
-
 * [Install the Convox CLI](/introduction/installation) for your platform.
 
-* Next, click the **[Setup](https://console.convox.com/grid/user/welcome)** button then **[Connect the Convox CLI](https://console.convox.com/grid/user/api_key)** to get your API key.
+* Next, click the [Connect the Convox CLI](https://console.convox.com/welcome#cli) step in the welcome guide to get your CLI key. If you have already completed the setup steps you can generate a new CLI key at any time by clicking on [Account](https://console.convox.com/account) and then click reset CLI key to generate a new key.
 
 * Finally, use the `convox login` command with your [API key](https://console.convox.com/grid/user/api_key):
 
@@ -41,45 +33,10 @@ Authenticating with console.convox.com... OK
 
 If you already have a [Dockerized](https://docs.docker.com/engine/examples/) application, running on Convox is as easy as adding one small file that describes your application. If you are not already using Docker, don't worry we have sample applications for all popular frameworks that will make it easy to get started.
 
-* If you have an existing application see the **Application Setup** section of these docs.
+* If you have an existing application see the [convox.yml](/application/convox-yml) section of these docs.
 * If you are starting from scratch you can clone a [demo application](https://github.com/convox-examples) to get started.
 
-## Run locally for development
-
-### Install a local Rack
-
-To ensure your production deployments behave exactly the same as your local development environment Convox installs a local [Rack](/introduction/rack) for development that mimics your production Racks.
-
-If you already have Docker installed, [Installing your local Rack](/development/running-locally) is as simple as:
-
-    $ sudo convox rack install local
-    $ convox switch local
-
-### Start your application in development mode
-
-If your application is ready to go, you run it locally with `convox start`.
-
-Here is an example using one of our sample apps:
-
-    $ git clone https://github.com/convox-examples/rails
-    Cloning into 'rails'...
-    $ cd rails
-    $ convox start
-    build   | uploading source
-    build   | starting build
-    build   | Building: ...
-
-Once your build completes you can open a new terminal and run `convox services` to find the hostname for your application.
-
-    $ convox services
-    SERVICE  DOMAIN            PORTS
-    web      web.rails.convox  80:3000 443:3000
-
-Now if you point your browser at `https://web.rails.convox` you can see your application in action!
-
-You can make changes to your local directory and refresh to see those changes reflected in your browser.
-
-## Run on AWS for Production
+## Deploy to AWS
 
 ### Connect an AWS Account
 
