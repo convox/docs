@@ -19,7 +19,7 @@ services:
     resources:
       - database
 ```
-The convox.yml file also support environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you deploy you application to. For example if you want to run different instance sizes for your database between staging and production. You can setup your convox.yml like:
+The convox.yml file also support environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you deploy you application into. For example, if you want to run different instance sizes for your database between staging and production you can setup your convox.yml like:
 
 ```
 resources:
