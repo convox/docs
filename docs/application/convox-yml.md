@@ -6,6 +6,7 @@ order: 50
 The `convox.yml` file is a manifest used to describe your application and all of its infrastructure needs. This file is similar to a [Docker Compose](https://docs.docker.com/compose/overview/) file but allows for detailed configuration options for your environments.
 
 For a simple Rails application with a Postgres Database the convox.yml file might look like:
+
 ```
 resources:
   database:
@@ -18,7 +19,7 @@ services:
     resources:
       - database
 ```
-The convox.yml file also support environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you deploy you application to. For example if you want to run different instance sizes for your database between staging and production. You can setup your convox.yml like
+The convox.yml file also support environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you deploy you application to. For example if you want to run different instance sizes for your database between staging and production. You can setup your convox.yml like:
 
 ```
 resources:
@@ -26,7 +27,8 @@ resources:
     type: postgres
     options:
       class: ${POSTGRES_INSTANCE_SIZE} 
-``` 
+```
+
 You can then specify a different value for `POSTGRES_INSTANCE_SIZE` in your staging and production Racks using `convox env set POSTGRES_INSTANCE_SIZE=XXXX` and when your application is deployed to that Rack it will use that value to size the database.
 
 For a complete set of options available in convox.yml can click on the various sections in the template below.
