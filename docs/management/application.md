@@ -17,9 +17,9 @@ We recommend using an availability monitoring service not run on AWS so that an 
 
 ### Further Resources
 
-[Datadog: Introducing Availability Monitoring](https://www.datadoghq.com/blog/introducing-availability-monitoring/)
-[NewRelic: Downtime alert settings](https://docs.newrelic.com/docs/alerts/alert-policies/downtime-alerts/downtime-alert-settings)
-[Pingdom: How to set up an uptime (HTTP) check](https://help.pingdom.com/hc/en-us/articles/203679631-How-to-set-up-an-uptime-HTTP-check)
+- [Datadog: Introducing Availability Monitoring](https://www.datadoghq.com/blog/introducing-availability-monitoring/)
+- [NewRelic: Downtime alert settings](https://docs.newrelic.com/docs/alerts/alert-policies/downtime-alerts/downtime-alert-settings)
+- [Pingdom: How to set up an uptime (HTTP) check](https://help.pingdom.com/hc/en-us/articles/203679631-How-to-set-up-an-uptime-HTTP-check)
 
 ## Create a CloudWatch Dashboard
 
