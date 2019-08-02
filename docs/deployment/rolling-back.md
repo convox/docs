@@ -23,8 +23,9 @@ RTAITJQWMGG  1 month ago  BVZFLIJCRTV
 RPNUPSAXEFG  1 month ago  BRTFWFZLPFZ
 RACMHKRWPXU  1 month ago  BLFRJGIKRQM
 
-$ convox releases promote RHKOIXXVDMJ
-Promoting RHKOIXXVDMJ... UPDATING
+$ convox releases rollback --id RHKOIXXVDMJ
+Rolling back to RHKOIXXVDMJ... OK, RAXHPJHSWZO
+Promoting RAXHPJHSWZO...
 ```
 
 ## Rack
