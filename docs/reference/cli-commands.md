@@ -12,322 +12,324 @@ Or further assistance with the help flag:
 
     convox examplecommand -h
 
-### api get
+Commands valid as of version `20190801142802`
+
+### `api get`
 
 query the rack api
 
-### apps
+### `apps`
 
 list apps
 
-### apps cancel
+### ``apps cancel``
 
 cancel an app update
 
-### apps create
+### `apps create`
 
 create an app
 
-### apps delete
+### `apps delete`
 
 delete an app
 
-### apps export
+### `apps export`
 
 export an app
 
-### apps import
+### `apps import`
 
 import an app
 
-### apps info
+### `apps info`
 
 get information about an app
 
-### apps lock
+### `apps lock`
 
 enable termination protection
 
-### apps params
+### `apps params`
 
 display app parameters
 
-### apps params set
+### `apps params set`
 
 set app parameters
 
-### apps unlock
+### `apps unlock`
 
 disable termination protection
 
-### apps wait
+### `apps wait`
 
 wait for an app to finish updating
 
-### build
+### `build`
 
 create a build
 
-### builds
+### `builds`
 
 list builds
 
-### builds export
+### `builds export`
 
 export a build
 
-### builds import
+### `builds import`
 
 import a build
 
-### builds info
+### `builds info`
 
 get information about a build
 
-### builds logs
+### `builds logs`
 
 get logs for a build
 
-### certs
+### `certs`
 
 list certificates
 
-### certs delete
+### `certs delete`
 
 delete a certificate
 
-### certs generate
+### `certs generate`
 
 generate a certificate
 
-### certs import
+### `certs import`
 
 import a certificate
 
-### cp
+### `cp`
 
 copy files
 
-### deploy
+### `deploy`
 
 create and promote a build
 
-### env
+### `env`
 
 list env vars
 
-### env edit
+### `env edit`
 
 edit env interactively
 
-### env get
+### `env get`
 
 get an env var
 
-### env set
+### `env set`
 
 set env var(s)
 
-### env unset
+### `env unset`
 
 unset env var(s)
 
-### exec
+### `exec`
 
 execute a command in a running process
 
-### instances
+### `instances`
 
 list instances
 
-### instances keyroll
+### `instances keyroll`
 
 roll ssh key on instances
 
-### instances ssh
+### `instances ssh`
 
 run a shell on an instance
 
-### instances terminate
+### `instances terminate`
 
 terminate an instance
 
-### logs
+### `logs`
 
 get logs for an app
 
-### proxy
+### `proxy`
 
 proxy a connection inside the rack
 
-### ps
+### `ps`
 
 list app processes
 
-### ps info
+### `ps info`
 
 get information about a process
 
-### ps stop
+### `ps stop`
 
 stop a process
 
-### rack
+### `rack`
 
 get information about the rack
 
-### rack logs
+### `rack logs`
 
 get logs for the rack
 
-### rack params
+### `rack params`
 
 display rack parameters
 
-### rack params set
+### `rack params set`
 
 set rack parameters
 
-### rack ps
+### `rack ps`
 
 list rack processes
-### rack releases
+### `rack releases`
 
 list rack version history
-### rack scale
+### `rack scale`
 
 scale the rack
-### rack update
+### `rack update`
 
 update the rack
-### rack wait
+### `rack wait`
 
 wait for rack to finish updating
 
-### racks
+### `racks`
 
 list available racks
 
-### registries
+### `registries`
 
 list private registries
 
-### registries add
+### `registries add`
 
 add a private registry
 
-### registries remove
+### `registries remove`
 
 remove private registry
 
-### releases
+### `releases`
 
 list releases for an app
 
-### releases info
+### `releases info`
 
 get information about a release
 
-### releases manifest
+### `releases manifest`
 
 get manifest for a release
 
-### releases promote
+### `releases promote`
 
 promote a release
 
-### releases rollback
+### `releases rollback`
 
 copy an old release forward and promote it
 
-### resources
+### `resources`
 
 list resources
 
-### resources info
+### `resources info`
 
 get information about a resource
 
-### resources proxy
+### `resources proxy`
 
 proxy a local port to a resource
 
-### resources url
+### `resources url`
 
 get url for a resource
 
-### rack resources
+### `rack resources`
 
 list resources
 
-### rack resources create
+### `rack resources create`
 
 create a resource
 
-### rack resources delete
+### `rack resources delete`
 
 delete a resource
 
-### rack resources info
+### `rack resources info`
 
 get information about a resource
 
-### rack resources link
+### `rack resources link`
 
 link a resource to an app
 
-### rack resources options
+### `rack resources options`
 
 list options for a resource type
 
-### rack resources proxy
+### `rack resources proxy`
 
 proxy a local port to a rack resource
 
-### rack resources types
+### `rack resources types`
 
 list resource types
 
-### rack resources update
+### `rack resources update`
 
 update resource options
 
-### rack resources unlink
+### `rack resources unlink`
 
 unlink a resource from an app
 
-### rack resources url
+### `rack resources url`
 
 get url for a resource
 
-### run
+### `run`
 
 execute a command in a new process
 
-### scale
+### `scale`
 
 scale a service
 
-### services
+### `services`
 
 list services for an app
 
-### ssl
+### `ssl`
 
 list certificate associates for an app
 
-### ssl update
+### `ssl update`
 
 update certificate for an app
 
-### start
+### `start`
 
 start an application for local development
 
-### test
+### `test`
 
 run tests
 
-### version
+### `version`
 
 display version information
