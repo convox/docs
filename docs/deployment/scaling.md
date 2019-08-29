@@ -4,6 +4,21 @@ title: "Scaling"
 
 Convox allows you to scale your application's concurrency, memory allocation, and the resources available in the underlying Rack.
 
+#### Setting initial defaults
+
+You can specify initial default values for a service in the [convox.yml](/docs/convox-yml):
+
+```yaml
+services:
+  web:
+    scale:
+      count: 4
+      cpu: 512
+      memory: 1024
+```
+
+These will only be used upon first deployment.  Subsequent changes will not be actioned as scaling should be accomplished through the CLI, or through setting up autoscaling configuration.
+
 ### Scaling an application
 
 ```
@@ -32,19 +47,6 @@ web   2        1        1024
 <div class="block-callout block-show-callout type-warning" markdown="1">
 Each rack instance has 1024 [cpu units](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) for every CPU core. This parameter specifies the minimum amount of CPU to reserve for a container. Containers share unallocated CPU units with other containers on the instance with the same ratio as their allocated amount.
 </div>
-
-#### Setting defaults
-
-You can specify default values for a service in the [convox.yml](/docs/convox-yml):
-
-```yaml
-services:
-  web:
-    scale:
-      count: 4
-      cpu: 512
-      memory: 1024
-```
 
 ### Autoscaling
 
