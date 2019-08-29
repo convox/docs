@@ -1,83 +1,178 @@
-# postcss-custom-media [![Build Status](https://travis-ci.org/postcss/postcss-custom-media.png)](https://travis-ci.org/postcss/postcss-custom-media)
+# PostCSS Custom Media [<img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS" width="90" height="90" align="right">][postcss]
 
-> [PostCSS](https://github.com/postcss/postcss) plugin to transform [W3C CSS Custom Media Queries](https://www.w3.org/TR/2016/WD-mediaqueries-4-20160126/#custom-mq) syntax to more compatible CSS.
+[![NPM Version][npm-img]][npm-url]
+[![CSS Standard Status][css-img]][css-url]
+[![Build Status][cli-img]][cli-url]
+[![Support Chat][git-img]][git-url]
 
-## Installation
+[PostCSS Custom Media] lets you use Custom Media Queries in CSS, following the
+[CSS Media Queries] specification.
 
-```console
-$ npm install postcss-custom-media
+```pcss
+@custom-media --small-viewport (max-width: 30em);
+
+@media (--small-viewport) {
+  /* styles for small viewport */
+}
+
+/* becomes */
+
+@media (max-width: 30em) {
+  /* styles for small viewport */
+}
 ```
 
 ## Usage
 
-```js
-// dependencies
-var postcss = require("postcss")
-var customMedia = require("postcss-custom-media")
+Add [PostCSS Custom Media] to your project:
 
-// css to be processed
-var css = fs.readFileSync("input.css", "utf8")
-
-// process css using postcss-custom-media
-var out = postcss()
-  .use(customMedia())
-  .process(css)
-  .css
+```bash
+npm install postcss-custom-media --save-dev
 ```
 
-Using this `input.css`:
+Use [PostCSS Custom Media] to process your CSS:
 
-```css
+```js
+const postcssCustomMedia = require('postcss-custom-media');
+
+postcssCustomMedia.process(YOUR_CSS /*, processOptions, pluginOptions */);
+```
+
+Or use it as a [PostCSS] plugin:
+
+```js
+const postcss = require('postcss');
+const postcssCustomMedia = require('postcss-custom-media');
+
+postcss([
+  postcssCustomMedia(/* pluginOptions */)
+]).process(YOUR_CSS /*, processOptions */);
+```
+
+[PostCSS Custom Media] runs in all Node environments, with special instructions for:
+
+| [Node](INSTALL.md#node) | [PostCSS CLI](INSTALL.md#postcss-cli) | [Webpack](INSTALL.md#webpack) | [Create React App](INSTALL.md#create-react-app) | [Gulp](INSTALL.md#gulp) | [Grunt](INSTALL.md#grunt) |
+| --- | --- | --- | --- | --- | --- |
+
+## Options
+
+### preserve
+
+The `preserve` option determines whether custom media and atrules using custom
+media should be preserved in their original form.
+
+```pcss
 @custom-media --small-viewport (max-width: 30em);
+
+@media (--small-viewport) {
+  /* styles for small viewport */
+}
+
+/* becomes */
+
+@custom-media --small-viewport (max-width: 30em);
+
+@media (max-width: 30em) {
+  /* styles for small viewport */
+}
 
 @media (--small-viewport) {
   /* styles for small viewport */
 }
 ```
 
-you will get:
+### importFrom
 
-```css
+The `importFrom` option specifies sources where custom media can be imported
+from, which might be CSS, JS, and JSON files, functions, and directly passed
+objects.
+
+```js
+postcssCustomMedia({
+  importFrom: 'path/to/file.css' // => @custom-selector --small-viewport (max-width: 30em);
+});
+```
+
+```pcss
 @media (max-width: 30em) {
+  /* styles for small viewport */
+}
+
+@media (--small-viewport) {
   /* styles for small viewport */
 }
 ```
 
-Checkout [tests](test) for more examples.
+Multiple sources can be passed into this option, and they will be parsed in the
+order they are received. JavaScript files, JSON files, functions, and objects
+will need to namespace custom media using the `customMedia` or
+`custom-media` key.
 
-### Options
+```js
+postcssCustomMedia({
+  importFrom: [
+    'path/to/file.css',
+    'and/then/this.js',
+    'and/then/that.json',
+    {
+      customMedia: { '--small-viewport': '(max-width: 30em)' }
+    },
+    () => {
+      const customMedia = { '--small-viewport': '(max-width: 30em)' };
 
-#### `extensions`
-
-(default: `{}`)
-
-Allows you to pass an object to define the `<media-query-list>` for each
-`<extension-name>`. These definitions will override any that exist in the CSS.
-
-```javascript
-{
-  '--phone': '(min-width: 544px)',
-  '--tablet': '(min-width: 768px)',
-  '--desktop': '(min-width: 992px)',
-  '--large-desktop': '(min-width: 1200px)',
-}
+      return { customMedia };
+    }
+  ]
+});
 ```
 
-#### `preserve`
+### exportTo
 
-(default: `false`)
+The `exportTo` option specifies destinations where custom media can be exported
+to, which might be CSS, JS, and JSON files, functions, and directly passed
+objects.
 
-Allows you to preserve custom media query definitions in output.
+```js
+postcssCustomMedia({
+  exportTo: 'path/to/file.css' // @custom-media --small-viewport (max-width: 30em);
+});
+```
 
-#### `appendExtensions`
+Multiple destinations can be passed into this option, and they will be parsed
+in the order they are received. JavaScript files, JSON files, and objects will
+need to namespace custom media using the `customMedia` or
+`custom-media` key.
 
-(default: `false`)
+```js
+const cachedObject = { customMedia: {} };
 
-**This option only works if `preserve` is truthy**.
-Allows you to append your extensions at end of your CSS.
+postcssCustomMedia({
+  exportTo: [
+    'path/to/file.css',   // @custom-media --small-viewport (max-width: 30em);
+    'and/then/this.js',   // module.exports = { customMedia: { '--small-viewport': '(max-width: 30em)' } }
+    'and/then/this.mjs',  // export const customMedia = { '--small-viewport': '(max-width: 30em)' } }
+    'and/then/that.json', // { "custom-media": { "--small-viewport": "(max-width: 30em)" } }
+    cachedObject,
+    customMedia => {
+      customMedia    // { '--small-viewport': '(max-width: 30em)' }
+    }
+  ]
+});
+```
 
----
+See example exports written to [CSS](test/export-media.css),
+[JS](test/export-media.js), [MJS](test/export-media.mjs), and
+[JSON](test/export-media.json).
 
-## [Changelog](CHANGELOG.md)
+[cli-img]: https://img.shields.io/travis/postcss/postcss-custom-media/master.svg
+[cli-url]: https://travis-ci.org/postcss/postcss-custom-media
+[css-img]: https://cssdb.org/badge/custom-media-queries.svg
+[css-url]: https://cssdb.org/#custom-media-queries
+[git-img]: https://img.shields.io/badge/support-chat-blue.svg
+[git-url]: https://gitter.im/postcss/postcss
+[npm-img]: https://img.shields.io/npm/v/postcss-custom-media.svg
+[npm-url]: https://www.npmjs.com/package/postcss-custom-media
 
-## [License](LICENSE)
+[CSS Media Queries]: https://drafts.csswg.org/mediaqueries-5/#custom-mq
+[PostCSS]: https://github.com/postcss/postcss
+[PostCSS Custom Media]: https://github.com/postcss/postcss-custom-media

@@ -27,4 +27,4 @@ function explodeSelectors() {
 }
 
 exports.default = _postcss2.default.plugin("postcss-selector-matches", explodeSelectors);
-module.exports = exports["default"];
+module.exports = exports.default;

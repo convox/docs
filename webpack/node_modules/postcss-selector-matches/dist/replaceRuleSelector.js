@@ -85,4 +85,4 @@ function replaceRuleSelector(rule, options) {
   var indentation = rule.raws && rule.raws.before ? rule.raws.before.split("\n").pop() : "";
   return explodeSelector(rule.selector, options).join("," + (options.lineBreak ? "\n" + indentation : " "));
 }
-module.exports = exports["default"];
+module.exports = exports.default;
