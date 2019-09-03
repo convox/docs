@@ -16,11 +16,7 @@ A Rack can be installed as private by setting the parameter `Private` to `Yes` i
 
 ## Converting an Existing Rack to Private
 
-An existing Rack can be flipped to private mode:
-
-```
-convox rack params set Private=Yes
-```
+It's not currently possible to toggle a rack between Public and Private due to how EFS mount targets work (one subnet per AZ at a time, so it's not possible to switch from public to private subnets, or vice versa).
 
 ## Why Use a Private Rack?
 
