@@ -1,5 +1,5 @@
 ---
-title: "Logs"
+title: "Syslogs"
 ---
 
 Native convox logging information can be found [here](/management/logs)...
