@@ -52,6 +52,6 @@ You can view the logs for a Convox Rack itself using the `convox rack logs` comm
 
 ### Routing Logs to a 3rd Party
 
-See the dedicated section to Syslogs [here](/deployment/sylogs)...
+See the dedicated section to Syslogs [here](/deployment/syslogs)...
 
 
