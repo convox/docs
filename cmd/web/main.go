@@ -18,6 +18,7 @@ var categorySlugs = []string{
 	"deployment",
 	"management",
 	"console",
+	"enterprise",
 	"reference",
 	"external-services",
 	"migration",
