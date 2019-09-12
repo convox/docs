@@ -54,8 +54,8 @@ Some common 3rd party logging services include:
 
 * [LogDNA](https://logdna.com/)
 
-  * Select Syslog as your provider and then select `provision a syslog port` to get the forwarding destination
-  * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} ${CONTAINER} [logdna@48950 key=\"INSERT-YOUR-INGESTION-KEY-HERE\"] {MESSAGE}` and replacing `INSERT-YOUR-INGESTION-KEY-HERE` with your LogDNA Ingestion key 😉
+  * Got to [https://app.logdna.com/pages/add-source](https://app.logdna.com/pages/add-source), select Syslog as your provider and then use the provided url as the syslog resource Url (with `tcp+tls://`)
+  * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} {MESSAGE}"`
 
 * [Loggly](https://www.loggly.com/)
 
