@@ -19,6 +19,7 @@ var categorySlugs = []string{
 	"management",
 	"console",
 	"enterprise",
+	"example-apps",
 	"reference",
 	"external-services",
 	"migration",
