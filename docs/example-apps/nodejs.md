@@ -23,21 +23,13 @@ You should now be able to access your application by going to [https://web.nodej
 
 #### Dockerfile
 
-Starting from the [ruby:2.6.4](https://hub.docker.com/_/ruby/) image, the [Dockerfile](https://github.com/convox-examples/rails/blob/master/Dockerfile) executes the remaining build steps that your Rails app needs. There are basically 3 steps in this process, and they are executed in a particular order to take advantage of Docker's build caching behavior.
-
-1. `bundle install` and `yarn install` are run to bring in any dependencies that are required by the app.
-
-2. The application source is copied over. These files will change frequently, so this step of the build will very rarely be cached.
-
-3. Finally, after setting the appropriate environment variables, the assets are precompiled.
+Starting from the [node:10.16.3-alpine](https://hub.docker.com/_/ruby/) image, the [Dockerfile](https://github.com/convox-examples/nodejs/blob/master/Dockerfile) simply sets up a basic nodejs app by copying the app files into the container, exposing port 3000 and specifying the command to be executed.
 
 #### Convox.yml
 
-The [convox.yml](https://github.com/convox-examples/rails/blob/master/convox.yml) file explains how to run the application. This file has two sections.
+The [convox.yml](https://github.com/convox-examples/rails/blob/master/convox.yml) file explains how to run the application. This file only has one section for our node app.
 
-1. Resources: These are network-attached dependencies of your application. In this case we have a single resource which is a postgres database. When [running locally](https://docs.convox.com/development/running-locally) Convox will automatically startup up a container running Postgres and will inject a ```DATABASE_URL``` environment variable into your application container that points to the Postgres database. When your application is [deployed](https://docs.convox.com/deployment/deploying-to-convox) to production Convox will startup an RDS postgres database for your application to use. 
-
-2. Services: This is where we define our application(s). In this case we have a single application called ```web``` which is built from our dockerfile, and uses the postgres resource for a database.  In a production application you may have additional services defined for things like Sidekiq task workers.
+1. Services: This is where we define our application(s). In this case we have a single application called ```web``` which is built from our dockerfile.  In a production application you may have additional sections for resources like databases etc.
 
 ### Deploying to production
 
