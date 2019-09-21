@@ -31,7 +31,7 @@ Starting from the [ruby:2.6.4](https://hub.docker.com/_/ruby/) image, the [Docke
 
 3. Finally, after setting the appropriate environment variables, the assets are precompiled.
 
-#### Convox.yml
+#### convox.yml
 
 The [convox.yml](https://github.com/convox-examples/rails/blob/master/convox.yml) file explains how to run the application. This file has two sections.
 

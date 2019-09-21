@@ -25,7 +25,7 @@ You should now be able to access your application by going to [https://web.nodej
 
 Starting from the [node:10.16.3-alpine](https://hub.docker.com/_/ruby/) image, the [Dockerfile](https://github.com/convox-examples/nodejs/blob/master/Dockerfile) simply sets up a basic nodejs app by copying the app files into the container, exposing port 3000 and specifying the command to be executed.
 
-#### Convox.yml
+#### convox.yml
 
 The [convox.yml](https://github.com/convox-examples/rails/blob/master/convox.yml) file explains how to run the application. This file only has one section for our node app.
 
