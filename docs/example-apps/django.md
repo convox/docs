@@ -41,7 +41,7 @@ Starting from the [python:3](https://hub.docker.com/_/python/) image, the [Docke
 
 2. The application source is copied over. These files will change frequently, so this step of the build will very rarely be cached.
 
-#### Convox.yml
+#### convox.yml
 
 The [convox.yml](https://github.com/convox-examples/django/blob/master/convox.yml) file explains how to run the application. This file has two sections.
 
