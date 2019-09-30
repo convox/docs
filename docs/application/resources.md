@@ -40,6 +40,13 @@ You can access defined resources from services with environment variables.
 In the above example, the `database` service provides a `DATABASE_URL` variable that is accessible from the `web` service.
 (The environment variable name is the service name converted to all-caps, with a `_URL` suffix.)
 
+This would contain the entire connection string you would need, ie:
+
+```
+DATABASE_URL=postgres://username:password@host.com:5432/databaseName
+```
+
+
 ## Available Resources
 
 #### memcached
