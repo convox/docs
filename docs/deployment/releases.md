@@ -7,7 +7,7 @@ Every time you deploy an application or change its environment a new Release is 
 
 ## Release Descriptions
 
-When creating a build using the CLI, you can use the `-d` flag to set your own description against the release.  If you don't, Convox will use your git commit message (assuming a clean working tree) to populate the description:
+When creating a build using the CLI, you can use the `--description`/`-d` flag to set your own description against the release.  If you don't, Convox will use your git commit message (assuming a clean working tree) to populate the description:
 
     build 7329df90c1 this is my commit message
 
