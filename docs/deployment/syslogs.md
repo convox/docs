@@ -54,7 +54,7 @@ Some common 3rd party logging services include:
 
 * [LogDNA](https://logdna.com/)
 
-  * Got to [https://app.logdna.com/pages/add-source](https://app.logdna.com/pages/add-source), select Syslog as your provider and then use the provided url as the syslog resource Url (with `tcp+tls://`)
+  * Go to [https://app.logdna.com/pages/add-source](https://app.logdna.com/pages/add-source), select Syslog as your provider and then use the provided url as the syslog resource Url (with `tcp+tls://`)
   * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} {MESSAGE}"`
 
 * [Loggly](https://www.loggly.com/)
