@@ -35,6 +35,14 @@ You can tell Convox to build from a remote git repository rather than shipping y
 $ convox build https://github.com/myuser/myproject.git
 ```
 
+### Using alternative manifest files
+
+By default, running `convox build` will look for the `convox.yml` in the current directory to determine how to build your application.  If you wish, you can maintain and pass in different manifest files to your build process using the `--manifest`/`-m` flags:
+
+```
+$ convox build -m convox.production.yml
+```
+
 ## Inspecting Builds
 
 Run `convox builds` to see a list of builds for your application.
