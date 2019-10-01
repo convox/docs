@@ -16,6 +16,10 @@ ECS events can be found in the application logs as well. Use `convox logs --filt
 
 When you know there is an issue and want to stop a deployment, you can run the `convox apps cancel` command. This will trigger an immediate CloudFormation rollback so you can fix the problem and try another deployment.
 
+### I get a `CREATE_FAILED BalancerListenerRule443Internal Priority 'xxxx' is currently in use`
+
+As ALB routing rules must have a unique priority, Convox will generate a random one for each service in the range 1-50000 (the range allowed by AWS).  This is generated from a checksum of the app name, service name, domain name, and a couple of other tweaks.  It is very unlikely, but it is possible to have a collision between two separate services on the same rack.  To solve this, simply slightly amend your app or service name to generate a different checksum.
+
 ## My app deployed but I cannot access it
 
 Run `convox services` to find the load balancer endpoints for your application.
