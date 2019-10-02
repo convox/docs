@@ -29,7 +29,7 @@ services:
 
 This would set an `WEB_URL` environment variable on the `worker` service pointing at the load balancer for the `web` service.  No matter where or how many `web` service instances are deployed, the `worker` instances will be able to access them via the load balancer.
 
-### To Discover Apps on the Same Rack
+### To Discover Services/Apps on the Same Rack
 
 Convox sets up internal DNS on a Rack such that the following hostname format will resolve to a specific service:
 
@@ -49,7 +49,7 @@ $ curl https://api.auth.$RACK.convox
 
 This hostname would resolve to the load balancer of the `api` service of the `auth` app on the current Rack.  Using naming conventions like this allow for effective auto-discovery with no overhead.
 
-### To Discover Apps on Different Racks
+### To Discover Services/Apps on Different Racks
 
 Use `convox services` to find the load balancer hostname of a given service and set an environment variable with the resulting hostname.
 
@@ -112,33 +112,18 @@ $ convox api get /apps/nodejs/processes
     "release": "RLEUTDHBBKD",
     "started": "2019-09-03T11:10:31Z",
     "status": "running"
-  },
-  {
-    "app": "nodejs",
-    "command": "",
-    "cpu": 0,
-    "host": "10.0.1.140",
-    "id": "9bb2f258abdf",
-    "image": "xxx.dkr.ecr.us-east-1.amazonaws.com/xxx:web.BIYKGJLHGIV",
-    "instance": "i-0df6e9e3d56e8d1c7",
-    "memory": 0,
-    "name": "web",
-    "ports": [
-      "47773:3000"
-    ],
-    "release": "RLEUTDHBBKD",
-    "started": "2019-09-25T09:32:51Z",
-    "status": "running"
   }
 ]
 ```
 
+<div class="block-callout block-show-callout type-info" markdown="1">
 We can use awesome tools like `jq` to parse the json and pull out the information we need, for instance to find all the `web` services running in the `nodejs` app we can do something like this:
+</div>
 
 ```
 $ convox api get /apps/nodejs/processes | jq '.[] | if .name == "web" then {node: .host, port: .ports[] | split(":")[0]} else "" end | join(":")'
-"10.0.3.87:47770"
-"10.0.1.140:37850"
+"10.0.3.87:32768"
+"10.0.2.10:47889"
 ```
 
 
