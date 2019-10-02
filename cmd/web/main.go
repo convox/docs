@@ -17,6 +17,7 @@ var categorySlugs = []string{
 	"development",
 	"deployment",
 	"management",
+	"use-cases",
 	"console",
 	"enterprise",
 	"example-apps",
