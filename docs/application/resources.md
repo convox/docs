@@ -6,18 +6,18 @@ A resource is a network-attached dependency of your application.
 
 ## Definition
 
-Here we define a resource called `primary_database` that is a Postgres database with 100GB of storage, and we then link it to our `web` service, which will be given an [env var](#accessing-resources-through-environment-variables) to connect to the database:
+Here we define a resource called `mydb` that is a Postgres database with 100GB of storage, and we then link it to our `web` service, which will be given an [env var](#accessing-resources-through-environment-variables) to connect to the database:
 
 ```yaml
 resources:
-  primary_database:
+  mydb:
     type: postgres
     options:
       storage: 100
   services:
     web:
       resources:
-        - primary_database
+        - mydb
 ```
 
 The resource name only affects the [environment variable name](#accessing-resources-through-environment-variables) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
@@ -28,7 +28,7 @@ If you'd like to make your resource configuration variable (e.g. to produce diff
 
 ```yaml
 resources:
-  primary_database:
+  mydb:
     type: postgres
     options:
       storage: ${POSTGRES_STORAGE_SIZE}
@@ -42,13 +42,14 @@ $ convox env set POSTGRES_STORAGE_SIZE=200 --rack=acme/production
 ## Accessing Resources through Environment variables
 
 You can access defined resources from services with environment variables.
-In the above example, the `primary_database` resource provides a `PRIMARY_DATABASE_URL` variable that is accessible from the `web` service.
+In the above example, the `mydb` resource provides a `MYDB_URL` variable that is accessible from the `web` service.
+
 The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.
 
 This would contain the entire connection string you would need, ie:
 
 ```
-PRIMARY_DATABASE_URL=postgres://username:password@host.com:5432/databaseName
+MYDB_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
 
