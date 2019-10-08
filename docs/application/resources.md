@@ -8,14 +8,14 @@ A resource is a network-attached dependency of your application.
 
 ```yaml
 resources:
-  database:
+  web_database:
     type: postgres
     options:
       storage: 100
   services:
     web:
       resources:
-        - database
+        - web_database
 ```
 
 #### Dynamic Configuration
@@ -24,7 +24,7 @@ If you'd like to make your resource configuration variable (e.g. staging/product
 
 ```yaml
 resources:
-  database:
+  web_database:
     type: postgres
     options:
       storage: ${POSTGRES_STORAGE_SIZE}
@@ -34,16 +34,16 @@ resources:
 $ convox env set POSTGRES_STORAGE_SIZE=200
 ```
 
-## Environment variables
+## Accessing Resources through Environment variables
 
 You can access defined resources from services with environment variables.
-In the above example, the `database` service provides a `DATABASE_URL` variable that is accessible from the `web` service.
-(The environment variable name is the service name converted to all-caps, with a `_URL` suffix.)
+In the above example, the `web_database` resource provides a `WEB_DATABASE_URL` variable that is accessible from the `web` service.
+(The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.)
 
 This would contain the entire connection string you would need, ie:
 
 ```
-DATABASE_URL=postgres://username:password@host.com:5432/databaseName
+WEB_DATABASE_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
 
