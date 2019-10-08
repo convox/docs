@@ -9,7 +9,7 @@ For a simple Rails application with a Postgres Database the convox.yml file migh
 
 ```
 resources:
-  database:
+  web_database:
     type: postgres
 services:
   web:
@@ -17,13 +17,13 @@ services:
     command: bundle exec rails server -b 0.0.0.0 -p 3000
     port: 3000
     resources:
-      - database
+      - web_database
 ```
 The convox.yml file also supports environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you are deploying your application into. For example, if you want to run different instance sizes for your database between staging and production you can setup your convox.yml like:
 
 ```
 resources:
-  database:
+  web_database:
     type: postgres
     options:
       class: ${POSTGRES_INSTANCE_SIZE} 
@@ -31,7 +31,21 @@ resources:
 
 You can then specify a different value for `POSTGRES_INSTANCE_SIZE` in your staging and production Racks using `convox env set POSTGRES_INSTANCE_SIZE=XXXX` and when your application is deployed to that Rack it will use that value to size the database.
 
-For a complete set of options available in convox.yml can click on the various sections in the template below.
+## Accessing Resources through Environment variables
+
+You can access defined resources from services with environment variables.
+In the above example, the `web_database` resource provides a `WEB_DATABASE_URL` variable that is accessible from the `web` service.
+(The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.)
+
+This would contain the entire connection string you would need, ie:
+
+```
+WEB_DATABASE_URL=postgres://username:password@host.com:5432/databaseName
+```
+
+## Complete `convox.yml` options
+
+For a complete set of options available in `convox.yml` can click on the various sections in the template below.
 
 <pre>
 <a href="/application/environment">environment</a>:
