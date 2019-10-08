@@ -19,19 +19,8 @@ services:
     resources:
       - postgres
 ```
-The convox.yml file also supports environment variable interpolation. This allows you to specify things like different domains or database options depending on which environment you are deploying your application into. For example, if you want to run different instance sizes for your database between staging and production you can setup your convox.yml like:
 
-```
-resources:
-  postgres:
-    type: postgres
-    options:
-      class: ${POSTGRES_INSTANCE_SIZE}
-```
-
-You can then specify a different value for `POSTGRES_INSTANCE_SIZE` in your staging and production Racks using `convox env set POSTGRES_INSTANCE_SIZE=XXXX` and when your application is deployed to that Rack it will use that value to size the database.
-
-## Accessing Resources through Environment variables
+## Accessing Resources
 
 You can access defined resources from services with environment variables.
 In the above example, the `postgres` resource provides a `POSTGRES_URL` variable that is accessible from the `web` service.

@@ -39,7 +39,7 @@ $ convox env set POSTGRES_STORAGE_SIZE=50 --rack=acme/staging
 $ convox env set POSTGRES_STORAGE_SIZE=200 --rack=acme/production
 ```
 
-## Accessing Resources through Environment variables
+## Accessing Resources
 
 You can access defined resources from services with environment variables.
 In the above example, the `mydb` resource provides a `MYDB_URL` variable that is accessible from the `web` service.
