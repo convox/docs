@@ -10,13 +10,13 @@ When you install a Rack, most of the AWS resources used by Convox are launched i
 
 ## Installing into an existing VPC
 
-By default, Convox Rack installations create a new VPC with subnets in two or three (when available) Availability Zones in your chosen AWS Region. If you'd like to install a Convox Rack into an existing VPC, we recommend allocating a /24 block subnet in each of three Availability Zones.
+By default, Convox Rack installations create a new VPC with subnets in two or three (when available) Availability Zones in your chosen AWS Region. If you'd like to install a Convox Rack into an existing VPC, we recommend setting aside a /24 block in each of three Availability Zones.
 
 To install a Rack into an existing VPC, you'll need to provide:
 
 * the VPC ID
 * the VPC CIDR
-* the CIDRs of the subnets into which Convox should be installed
+* the CIDRs of the blocks into which the Convox subnets will be installed
 * the Internet Gateway ID
 
 Also, make sure your VPC:
@@ -28,7 +28,7 @@ See [Rack Parameters](/reference/rack-parameters) for the specific parameter nam
 
 ### Choosing suitable CIDR blocks
 
-Your existing VPC has a CIDR block, and each of your existing subnets has its own CIDR block within that larger VPC block. From the remaining addresses in your VPC CIDR block, you'll need to create an additional subnet in each Availability Zone in which you'd like to run Convox instances. Convox recommends three subnets with /24 CIDR blocks to give your Convox installation 254 addresses per subnet.
+Your existing VPC has a CIDR block, and each of your existing subnets has its own CIDR block within that larger VPC block. From the remaining addresses in your VPC CIDR block, Convox will create an additional subnet in each Availability Zone in which you'd like to run Convox instances. Convox recommends three subnets with /24 CIDR blocks to give your Convox installation 254 addresses per subnet.
 
 ## Installing a private Rack into an existing VPC
 
