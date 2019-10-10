@@ -14,9 +14,9 @@ When you first deploy your app, Convox will use your configuration provided in t
 
 The Load Balancer will also check the health of your services, based on the [health check](/application/health-checks) information you provide.
 
-#### Traffic Balancing
+#### Traffic Balancing and Scaling
 
-The Load Balancer will distribute incoming requests amongst the currently healthy instances of your service evenly.  
+The Load Balancer will distribute incoming requests amongst the currently healthy instances of your service evenly.  If you have [automatic scaling rules](/deployment/scaling#service-autoscaling) configured for your app, then as the load grows on your backend instances, and scaling thresholds are reached, then new instances will be automatically spun up and, once healthy, brought into the pool of available instances for the Load Balancer to direct traffic to.  During times when load decreases, then unnecessary instances will be spun down and traffic redirected as appropriate.
 
 
 #### Sticky Sessions
@@ -26,12 +26,12 @@ If your client supports sticky sessions and wishes to utilise it, sticky session
 
 #### Rolling deployments
 
-
+The Load Balancer will continue to route traffic to healthy instances throughout a [rolling deployment](/deployment/rolling-updates), ensuring zero downtime and continued service to the client.  As new instances with a fresh release are brought online, the Load Balancer will monitor their health, and once passing the [health check](/application/health-checks), will bring them into the pool of available instances to route traffic to.  Older instances with the previous release will then be retired and traffic no longer routed to them.
 
 
 #### Limitations
 
-- Currently, AWS ALB's have a 100 rule limit.  Because of this, no more than 50 routable apps should be deployed on any one rack - 2 rules could be created for each app, one for the custom Convox domain, and one for your own domains.  
+- Currently, AWS ALB's have a 100 rule limit.  Because of this, no more than 50 routable apps should be deployed on any one rack - 2 rules could be created for each app, one for the custom Convox domain, and one for your own domains.  If you have more than 50 routable apps, you can simply spread them across multiple racks to overcome this limitation.
 
 - If, on your very first deployment of an app, all instances of a service are unhealthy, the default Load Balancer behaviour is to keep trying to route traffic to the instances and mark the deployment as complete.  Otherwise, there is no previous deployment to rollback to.  Once one successful deployment has been made, then normal processes apply.
 
