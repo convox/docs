@@ -56,3 +56,4 @@ services:
 ## See also
 
 * [Rolling Updates](/docs/rolling-updates/)
+* [Load Balancing](/deployment/load-balancing)
