@@ -15,12 +15,14 @@ The following resources are available at the [App level](/application/resources)
 * `postgres`
 * `redis`
 
-When resources are defined in your `convox.yml`, they can be automatically linked to your services.On your local rack, appropriate containers will be initiated 
+When resources are defined in your `convox.yml`, they can be automatically linked to your services.  On your local rack, appropriate containers will be spun up alongside your service one/s to provide the functionality required.  On a cloud-based rack, Convox will automatically utilise the appropriate AWS/GCP resources to provide this functionality and link to your apps for you.
+
+Further types of App-level resource are on the Convox roadmap to implement.
 
 
 # Rack-level Resources
 
-The following resources are available at the Rack level:
+Rack-level resources are not supported on your local rack, only in an AWS/GCP backed Rack.  The following resources are available at the Rack level:
 
 * `memcached`
 * `mysql`
@@ -32,21 +34,19 @@ The following resources are available at the Rack level:
 * `syslog`
 * `webhook`
 
-## Creating a Resource
+## Creating a Rack Resource
+
+You can create a Rack resource very simply with the default options or you can pass in your optional values at creation time.
 
 ```
 $ convox rack resources create postgres
 Creating resource... OK, postgres-8458
 
-$ convox rack resources create webhook Url=http://mydomain.com/path
-Creating resource... OK, webhook-2871
+$ convox rack resources create postgres MultiAZ=true
+Creating resource... OK, postgres-2871
 ```
 
 #### Options
-
-```
-$ convox rack resources create postgres Encrypted=true MultiAZ=true
-```
 
 You can see the available options for a resource type using the CLI:
 
@@ -65,13 +65,13 @@ Password                    (generated)  Server password
 Username                    postgres     Server username
 ```
 
-## Updating a Resource
+## Updating a Rack Resource
 
 ```
 $ convox rack resources update postgres-8458 MultiAZ=true
 ```
 
-## Deleting a Resource
+## Deleting a Rack Resource
 
 ```
 $ convox rack resources delete postgres-8458
