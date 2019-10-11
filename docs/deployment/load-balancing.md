@@ -26,8 +26,10 @@ If your client supports sticky sessions and wishes to utilise it, sticky session
 
 The Load Balancer will continue to route traffic to healthy instances throughout a [rolling deployment](/deployment/rolling-updates), ensuring zero downtime and continued service to the client.  As new instances with a fresh release are brought online, the Load Balancer will monitor their health, and once passing the [health check](/application/health-checks), will bring them into the pool of available instances to route traffic to.  Older instances with the previous release will then be retired and traffic no longer routed to them.
 
-- The very first time you deploy your app, if all instances of a service fail their health check, Load Balancer behaviour is to keep trying to route traffic to the instances and mark the deployment as complete.  This only applies to the first time you deploy a new app.  After this, if your new instances fail their health checks, the deployment would fail and be rolled back.
+<div class="block-callout block-show-callout type-info" markdown="1">
+The very first time you deploy your app, if all instances of a service fail their health check, Load Balancer behaviour is to keep trying to route traffic to the instances and mark the deployment as complete.  This only applies to the first time you deploy a new app.  After this, if your new instances fail their health checks, the deployment would fail and be rolled back.
+</div>
 
 #### Limitations
 
-- Currently, AWS ALB's have a 100 rule limit.  Because of this, there is a limit to the number of routable apps that should be deployed on any one rack.   If you run out of available rules on your load balancer, you can simply spread your apps across multiple racks to overcome this limitation, or alternative change the [`InternalDomains`](/reference/app-parameters#internaldomains) app parameter to disable the internal domains from utilising some of those rules.
+Currently, AWS ALB's have a 100 rule limit.  Because of this, there is a limit to the number of routable apps that should be deployed on any one rack.   If you run out of available rules on your load balancer, you can simply spread your apps across multiple racks to overcome this limitation.  Alternatively change the [`InternalDomains`](/reference/app-parameters#internaldomains) app parameter to disable the internal domains from utilising some of those rules.
