@@ -35,15 +35,6 @@ You can tell Convox to build from a remote git repository rather than shipping y
 $ convox build https://github.com/myuser/myproject.git
 ```
 
-### Using alternative manifest files
-
-By default, running `convox build` will look for the `convox.yml` in the current directory to determine how to build your application.  We would recommend maintainging and using one `convox.yml` across your local dev, staging and production environments to maintain parity.  You can manage differences between environments by utilising environment variables to pass in differing endpoints or different configuration.  You can scale down unneeded services in a particular environment easily with `convox scale`.
-However, if you really, really need to, you can maintain and pass in different manifest files to your build process using the `--manifest`/`-m` flags:
-
-```
-$ convox build -m convox.production.yml
-```
-
 ## Inspecting Builds
 
 Run `convox builds` to see a list of builds for your application.
