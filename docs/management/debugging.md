@@ -55,7 +55,7 @@ Before you can use `convox instances ssh` the first time, you will need to run `
 
 #### convox restart
 
-If all else fails and you wish to restart all running instances of your app you can perform a remote restart of all running processes from the CLI with:
+If all else fails and you wish to restart all running instances of your app you can perform a remote restart from the CLI with:
 
 ```
 $ convox restart -a app1
