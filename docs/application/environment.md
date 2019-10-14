@@ -52,3 +52,26 @@ services:
     environment:
       - "*"
 ```
+
+## Setting and Editing your Environment Variables
+
+You can configure your env vars through the Convox web console for your cloud-based Racks, or through the Convox CLI for all your Racks:
+
+```
+$ convox env set FOO=bar
+Setting FOO... OK
+Release: RFMGESPZHC
+
+$ convox env get FOO
+bar
+
+$ convox env unset FOO
+Unsetting FOO... OK
+Release: RZIDXFIJAC
+
+$ convox env edit
+Setting ... OK
+Release: RRJQTMVKRS
+```
+
+`convox env edit` allows you to interactively update your environment variables in a terminal editor 😊
