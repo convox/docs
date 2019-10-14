@@ -1,5 +1,5 @@
 ---
-title: "Managing Multiple Environments through Environment Variables"
+title: "Multiple Environments"
 ---
 
 Convox allows you to use environment variable interpolation in your `convox.yml` for the purposes of maintaining the best practice of consistent infrastructure environment configuration.  You can have one version-controlled `convox.yml` across your development, staging, test, production, etc environments, and change any appropriate settings through the use of environment variables.
@@ -9,7 +9,6 @@ As your `convox.yml` is version controlled and environment changes are recorded 
 As an example, where we want to inform all services of which environment they are in, we want to change the Database options to be appropriate to the environment, we want to tweak the startup command for our main service, and the domain it sits behind, the value of an env var we are passing to the service itself, and we want to change when our cleanup timer runs depending on the environment:
 
 ```
-
 environment:
   - ENVIRONMENT
   - TIMER_SCHEDULE
