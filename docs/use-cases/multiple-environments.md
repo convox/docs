@@ -1,5 +1,5 @@
 ---
-title: "Environment Interpolation"
+title: "Managing Multiple Environments through Environment Variables"
 ---
 
 Convox allows you to use environment variable interpolation in your `convox.yml` for the purposes of maintaining the best practice of consistent infrastructure environment configuration.  You can have one version-controlled `convox.yml` across your development, staging, test, production, etc environments, and change any appropriate settings through the use of environment variables.
