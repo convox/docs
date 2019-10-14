@@ -11,7 +11,7 @@ As an example, where we want to inform all services of which environment they ar
 ```
 
 environment:
-  - ENVIRONMENT=${GLOBAL_ENVIRONMENT}
+  - ENVIRONMENT
 resources:
   database:
     type: postgres
@@ -42,12 +42,28 @@ timers:
 In this case, you can set your env vars for different environments something along the lines of:
 
 ```
-$ convox env set GLOBAL_ENVIRONMENT=dev DB_STORAGE_SIZE=10 DB_DURABLE=false WEB_COMMAND="bin/web --logging=debug" HOST=mylocal.dev TIMER_SCHEDULE="*/15 * * * *" FOOBAR=devbar --rack local/convox
-$ convox env set GLOBAL_ENVIRONMENT=staging DB_STORAGE_SIZE=50 DB_DURABLE=false WEB_COMMAND="bin/web --logging=error --threads 2" HOST=staging.mydomain.com TIMER_SCHEDULE="0 0 * * *" FOOBAR=stagebar --rack acme/staging
-$ convox env set GLOBAL_ENVIRONMENT=prod DB_STORAGE_SIZE=200 DB_DURABLE=true WEB_COMMAND="bin/web --logging=warn --threads 10" HOST=www.mydomain.com TIMER_SCHEDULE="0 * * * *" FOOBAR=prodbar --rack acme/production
+$ convox env set ENVIRONMENT=dev DB_STORAGE_SIZE=10 DB_DURABLE=false WEB_COMMAND="bin/web --logging=debug" HOST=mylocal.dev TIMER_SCHEDULE="*/15 * * * *" FOO=devfoo BAR=devbar FOOBAR=devfoobar --rack local/convox
 ```
 
-Or use `convox env edit` to edit them interactively.
+`ENVIRONMENT` is a required global variable so must be set, we are creating a smaller database, starting our service with a lot of logging for dev purposes, using a dev domain, and running our cleanup every 15 minutes.  For the `web` service, we are specifying more env vars, `FOO` is required, `BAR` has a default value which we are overriding here, and `FOOBAR` would be set to an empty string unless we pass in our value as we are here.
+
+```
+$ convox env set ENVIRONMENT=staging DB_STORAGE_SIZE=50 DB_DURABLE=false WEB_COMMAND="bin/web --logging=error --threads 2" HOST=staging.mydomain.com TIMER_SCHEDULE="0 0 * * *" FOO=stagefoo FOOBAR=stagefoobar --rack acme/staging
+```
+
+`ENVIRONMENT` is a required global variable so must be set, we are creating a medium-sized database, starting our service with error logging and a couple of threads, using our staging domain, and running our cleanup once a day.  For the `web` service, we are specifying more env vars, `FOO` is required, `BAR` has a default value which we are leaving as is, and `FOOBAR` would be set to an empty string unless we pass in our value as we are here.
+
+```
+$ convox env set ENVIRONMENT=prod DB_STORAGE_SIZE=200 DB_DURABLE=true WEB_COMMAND="bin/web --logging=warn --threads 10" HOST=www.mydomain.com TIMER_SCHEDULE="0 * * * *" FOO=prodfoo FOOBAR=prodbar --rack acme/production
+```
+
+`ENVIRONMENT` is a required global variable so must be set, we are creating a large, robust database, starting our service with appropriate logging and thread capacity for production usage, using our actual domain, and running our cleanup once an hour.  For the `web` service, we are specifying more env vars, `FOO` is required, `BAR` has a default value which we are leaving as is, and `FOOBAR` would be set to an empty string unless we pass in our value as we are here.
+
+You can also use `convox env edit` to edit the variables interactively.
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+If you don't set a variable to be interpolated, it will simply be treated as an empty string when it comes to injecting them into the `convox.yml`.  
+</div>
 
 Documentation around the environment variables that your application code will see and have access to is [here](/application/environment).
 
