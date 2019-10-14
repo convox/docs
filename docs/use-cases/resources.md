@@ -23,16 +23,16 @@ The following resources are available at the [App level](/application/resources)
 * `postgres`
 * `redis`
 
-When resources are defined in your `convox.yml`, they can be automatically linked to your services, requiring no code changes on your part, beyond reading the resource's URL from an injected environment variable.  On your local rack, appropriate containers will be spun up alongside your service to provide the functionality required.  On a cloud-based rack, Convox will automatically utilise the appropriate AWS/GCP resources to provide this functionality and link to your apps for you.
+When resources are defined in your `convox.yml`, they can be automatically linked to your services, requiring no code changes on your part, beyond reading the resource's URL from an injected environment variable.  App Resources are also automatically available during [review workflows](/console/workflows#review-workflows).  On your local rack, appropriate containers will be spun up alongside your service to provide the functionality required.  On a cloud-based rack, Convox will automatically utilise the appropriate AWS/GCP resources to provide this functionality and link to your apps for you.
 
-Further types of App Resource are on the Convox roadmap to implement.  If you have specific demands, please contact us through the Support page in your console to request them.
+Further types of App Resource are on the Convox roadmap to implement.  If you have specific requests, please contact us through the Support page in your Console to request them.
 
 For further information see the dedicated page on [App Resources](/application/resources).
 
 
 # Rack Resources
 
-Rack Resources are not supported on your local rack, only in a cloud backed Rack.  They are created and configured from the Convox CLI. The following resources are available at the Rack level:
+Rack Resources are provider specific, only available from a Rack installed in your cloud account.  They will not be available from a Rack installed on your local development machine.  They are created and configured from the Convox CLI. The following resources are available from an AWS-backed Rack:
 
 * `memcached`
 * `mysql`
@@ -118,6 +118,12 @@ $ convox rack resources info redis-8193 | grep URL
 URL      redis://tes19oh8aty8gzb4.iigghx.ng.0001.use1.cache.amazonaws.com:6379/0
 ```
 
+<div class="block-callout block-show-callout type-info" markdown="1">
+While Memcached and Redis are available as Rack Resources if needed, there are advantages to utilising them as App Resources instead:
+- Your configuration of the Resource is stored in the code of your `convox.yml`, and can therefore be version controlled.
+- App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
+</div>
+
 ### MySQL / Postgres
 
 ```
@@ -154,6 +160,12 @@ MySQL and Postgres are two of the most popular relational database types in use 
 $ convox rack resources info postgres-3894 | grep URL
 URL      postgres://postgres:d45eea0e492cf51b2ee83328e72284@test-postgres-3894.cm9ftl2mwswu.us-east-1.rds.amazonaws.com:5432/app
 ```
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+While MySQL and Postgres are available as Rack Resources if needed, there are advantages to utilising them as App Resources instead:
+- Your configuration of the Resource is stored in the code of your `convox.yml`, and can therefore be version controlled.
+- App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
+</div>
 
 ### S3
 
@@ -254,8 +266,6 @@ services:
 As environment variables are encrypted and stored securely in KMS, your credentials are secure within your environment.  You may also route using the internal IP address if you wish, for locked down environments.
 </div>
 
-Through this, you can securely control and configure access to different resources based on app and environment.  It is even possible to integrate resources and infrastructure elements that are external to your cloud environment as long as they are accessible.
+- For External Resources that are still within your AWS infrastructure, you should create them to be accessible to your Rack.  Either within the same VPC as your Rack, within a VPC that your Rack VPC [peers with](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-peering.html), or in a way that is network accessible (with a public endpoint).  This will be dependent on your security needs, and the type of Resource you are creating.  Any Security Group [configuration](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules) for your Resource should also allow access to your Resource's port from the Rack Security Group for your instances.  If you did not specify a custom Security Group for your Rack, you can discover it through your AWS Console, named as `{RACK_NAME}-instances`.  If you have set a custom Security Group for your Rack instances, you can remind yourself of it from your rack params: `$ convox rack params | grep InstanceSecurityGroup`.
 
-- For External Resources that are still within your AWS infrastructure, you should create them within the same VPC as your Rack, within a VPC that your Rack VPC [peers with](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-peering.html), or in a way that is publically accessible (with a public endpoint), depending on your security needs, and the type of Resource you are creating.  Any Security Group [configuration](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules) for your Resource should also allow access to your Resource's port from the Rack Security Group.
-
-- For External Resources that are outside of your AWS infrastructure, they should be publically accessible, if your Rack is public, as AWS cannot guarantee the IP address that a request will come from.  If your Rack is [private](/management/private-networking), then all outbound traffic from it will pass through a NAT Gateway with a static IP address so you may if you wish limit access to the Resource based on those IP addresses (up to 3 Gateways are created, one for each Availability Zone).
+- External Resource that are outside of your AWS infrastructure will need to be network-accessible to your Rack instances. For [private Racks](/management/private-networking), traffic will come from the IPs of your NAT gateways (you can find out the addresses of your NAT Gateways through your AWS Console, in the VPC Dashboard for your Rack's region). If your Rack is not set to private the IPs will not be easily predictable and you'll likely need to make the resource available to the public internet.
