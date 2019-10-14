@@ -258,6 +258,10 @@ proxy a local port to a resource
 
 get url for a resource
 
+### `restart`
+
+restart all processes for an app on the rack
+
 ### `rack resources`
 
 list resources
@@ -313,6 +317,10 @@ scale a service
 ### `services`
 
 list services for an app
+
+### `services restart`
+
+restart a particular service within an app
 
 ### `ssl`
 

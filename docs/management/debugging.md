@@ -44,11 +44,25 @@ i-14cd0a89  on     active  7 hours ago  2   0.00%  5.18%
 i-d8740c43  on     active  5 days ago   4   0.00%  21.04%
 ```
 
-```    
+```
 $ convox instances ssh i-0234d285
 [ec2-user@ip-10-0-3-209 ~]$ 
-````
+```
 
 <div class="block-callout block-show-callout type-info" markdown="1">
 Before you can use `convox instances ssh` the first time, you will need to run `convox instances keyroll` to load an SSH key onto your Rack instances.
 </div>
+
+#### convox restart
+
+If all else fails and you wish to restart all running instances of your app you can perform a remote restart of all running processes from the CLI with:
+
+```
+$ convox restart -a app1
+```
+
+Or alternatively to just restart the `web` service processes, you can perform:
+
+```
+$ convox services restart web -a app1
+```

@@ -28,6 +28,19 @@ Run `convox ps` to determine if your application is booting successfully.
 
 Run `convox logs` to inspect your application logs and cluster events for problems placing your container, starting your app, or registering with the load balancer.
 
+## My app stopped working and I want to restart it
+
+You can perform a remote restart of an entire App (all running processes) from the CLI with:
+
+```
+$ convox restart -a app1
+```
+
+Or alternatively to just restart the `web` service processes, you can perform:
+
+```
+$ convox services restart web -a app1
+```
 
 ## ECS
 
