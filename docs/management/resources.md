@@ -36,7 +36,7 @@ $ redis-cli -h localhost -p 6379
 
 You'll see `connect: 6379` appear in the terminal where you ran `convox resources proxy` as evidence of your connection.
 
-Now you can indirect with your remote redis resource:
+Now you can interact with your remote redis resource:
 
 ```
 127.0.0.1:6379> ping "hello world"
