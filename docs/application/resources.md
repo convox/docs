@@ -22,6 +22,30 @@ resources:
 
 The resource name only affects the [environment variable name](#accessing-resources-through-environment-variables) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
 
+You can easily define multiple resources within one `convox.yml`:
+
+```yaml
+resources:
+  maindb:
+    type: mysql
+  gisdb:
+    type: postgres
+    options:
+      version: 12
+  queue:
+    type: redis
+  cache:
+    type: redis
+  services:
+    web:
+      resources:
+        - maindb
+        - gisdb
+        - queue
+        - cache
+
+```
+
 #### Dynamic Configuration
 
 If you'd like to make your resource configuration variable (e.g. to produce different results between environments like staging vs production) you can use environment variable interpolation:
