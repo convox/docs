@@ -41,7 +41,7 @@ For a complete set of options available in `convox.yml` can click on the various
 <a href="/application/environment">environment</a>:
   - DEFAULT=value
 <a href="/application/resources">resources</a>:
-  mydb:
+  database:
     type: postgres
     options:
       storage: 200
@@ -68,7 +68,7 @@ For a complete set of options available in `convox.yml` can click on the various
     links:
       - web
     <a href="/application/resources">resources</a>:
-      - mydb
+      - database
       - queue
   metrics:
     agent: true
