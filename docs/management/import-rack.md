@@ -6,27 +6,9 @@ Whilst we recommend creating your Racks through the Convox Console, you can crea
 
 If you wish to then manage and configure your Rack through the Console, you will have to import the Rack.
 
-## Installing a Rack via the Convox CLI
-
-The two required [parameters](/reference/rack-parameters) when installing a Rack are the `Password` and `Version` fields.  Everything else is optional, but you may wish to set many of these [options](/reference/rack-parameters).
-
-```
-$ convox rack install aws Password=externalrack Version=20190822194002
-Preparing... OK
-Installing...  98.61% 6m14s
-Starting... OK, convox-608673667.us-east-1.elb.amazonaws.com
-```
-
-Once installed, remember the password you have set and take a note of that hostname reported in the output.  You can go to the Console and start importing.
-
-## Installing a Rack via Terraform
-
-To install a Kubernetes-backed Rack on AWS or GCP you can follow the Terraform installation process from the instructions on the [repo here](https://github.com/convox-examples/terraform).
-
-
 ## Importing an AWS Rack to your Console account through your Runtime Integration
 
-If you have an AWS Runtime integration then it's very simple to import your Rack (if you installed it in AWS 😉):
+If you have an AWS Runtime integration then it's very simple to import your Rack (if you installed it in the same AWS account that you are integrated with):
 
 - From the 'Racks' page within the Console, click on the 'Add Rack' dropdown and select your runtime integration.
 - Switch to the 'Import Rack' tab within the pop-up that appears.
@@ -37,7 +19,7 @@ If you have an AWS Runtime integration then it's very simple to import your Rack
 ![](/assets/images/docs/import-rack/import-popup.png)
 
 <div class="block-callout block-show-callout type-info" markdown="1">
-Please note that importing the Rack in this manner will change the password as you set above.
+Please note that importing the Rack in this manner will change the password that you set during installation.
 </div>
 
 ## Importing a GCP/AWS Rack to your Console account without a Runtime Integration
