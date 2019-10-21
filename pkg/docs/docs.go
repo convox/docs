@@ -203,6 +203,10 @@ func UploadIndex() error {
 				body = stripped
 			}
 
+			if len(body) > 8000 {
+				body = body[0:8000]
+			}
+
 			os = append(os, algoliasearch.Object{
 				"objectID":       fmt.Sprintf("%s:%s", c.Slug, d.Slug),
 				"category_slug":  c.Slug,
