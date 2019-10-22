@@ -40,6 +40,10 @@ You will be prompted for your username and password. Once the registry has been 
     RUNNING: docker pull yourname/postgres
     latest: Pulling from yourname/postgres
 
+<div class="block-callout block-show-callout type-info" markdown="1">
+Note that you do not need to include the `https://` protocol as part of the registry address.  Convox will add this for you automatically.
+</div>
+
 ## Removing a registry
 
 To remove private registry info, use the `convox registries remove` command. To remove Docker Hub in our example the command would be:
