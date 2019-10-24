@@ -2,7 +2,17 @@
 title: "Rolling Back"
 ---
 
+<div class="block-callout block-show-callout type-info" markdown="1">
 Convox keeps history for your Apps and for Rack and CLI releases. It's possible to roll back to previous versions of all of these.
+</div>
+
+If you wish to revert to a previous release for whatever reason, Convox makes that simple.  As Releases also contain state about environment variables, you can even revert to previous versions of these with ease!
+
+In the Console, when looking at the list of releases for an app, ones older than the currently active release can be simply rolled back to by clicking the 'Rollback' button.  Convox will then create a copy of the older Release, place it at the top of your Release list, and promote it.  This causes a rolling update to this copied release across your Rack.
+
+From the CLI, you can `convox releases rollback <release id>` to kick off the rollback process.
+
+Previous releases are not lost or forgotten in the rollback process, they will stay in your Release list allowing you to `rollback` to any other release at any time you wish.
 
 ## Apps
 
