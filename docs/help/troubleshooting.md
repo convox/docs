@@ -68,6 +68,10 @@ To use have ECS use Fargate instead of regular EC2 you will need the following:
    - enable Fargate on a _per service_ basis via the ProcessName Formation(/gen1/app-parameters/) parameter
       - e.g. `convox apps params set WebFormation=2,256,512,FARGATE`
 
+   
+## My CLI commands take a long time to return
+
+If your local Kubernetes setup does not point to a valid cluster, that can slow down your Convox CLI operations as it tries to interrogate the invalid endpoint.  In this case, you can set a local env var `$ export CONVOX_LOCAL=disable` to stop the CLI from doing this and speed up your commands.
 
 ## Still having trouble?
 

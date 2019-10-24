@@ -62,3 +62,8 @@ Under Docker's preferences, change the following configuration:
 Use `convox start` to run applications against your local Rack.
 
 You can use `convox switch local` to point your CLI at the local rack and use all `convox` commands normally.
+
+
+<div class="block-callout block-show-callout type-warning" markdown="1">
+  If your local Kubernetes setup does not point to a valid cluster, that can slow down your Convox CLI operations as it tries to interrogate the invalid endpoint.  In this case, you can set a local env var `$ export CONVOX_LOCAL=disable` to stop the CLI from doing this and speed up your commands.
+</div>
