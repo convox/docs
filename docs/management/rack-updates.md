@@ -13,7 +13,9 @@ $ convox rack update --rack dev
 Updating to 20161111013816... UPDATING
 ```
 
-When you update your rack, you will likely need to redeploy applications so that they can pick up the changes and start logging to CloudWatch directly.
+<div class="block-callout block-show-callout type-info" markdown="1">
+Updating your Rack will not cause any application or resource downtime, or require app redeployment (unless explicitly noted to enable new features).  Rack updates generally just update the Convox software stack running on the Rack seamlessly in the background.  Sometimes they will update the underlying AMI's the Rack runs on, which will initiate a rolling update, automatically migrating your apps to the new instances without causing any downtime.
+</div>
 
 ## Required Updates
 
