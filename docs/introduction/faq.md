@@ -23,6 +23,10 @@ order: 500
 
   Yep!  Use them up as you wish, no restrictions here.
 
+## Can I use Reserved Instances with Convox?
+
+  Definitely!  Any reserved instance arrangements you have in place (if they match with the instance types you are running in your racks) will then automatically apply and you will benefit from your reduced pricing 😄
+
 ## What is a Rack?
 
   [A Rack](/introduction/rack) is your deployment platform for your applications and services.  It's an abstraction of your ECS/EKS/GKE/local cluster, installed in your own cloud account or local machine.  It provides an API to manage your applications, controlled from the Convox CLI or Console.  
