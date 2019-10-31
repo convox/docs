@@ -14,10 +14,10 @@ resources:
     type: postgres
     options:
       storage: 100
-  services:
-    web:
-      resources:
-        - mydb
+services:
+  web:
+    resources:
+      - mydb
 ```
 
 The resource name only affects the [environment variable name](#accessing-resources-through-environment-variables) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
@@ -36,13 +36,13 @@ resources:
     type: redis
   cache:
     type: redis
-  services:
-    web:
-      resources:
-        - maindb
-        - gisdb
-        - queue
-        - cache
+services:
+  web:
+    resources:
+      - maindb
+      - gisdb
+      - queue
+      - cache
 
 ```
 
