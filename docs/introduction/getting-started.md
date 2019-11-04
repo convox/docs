@@ -7,7 +7,7 @@ Getting started with Convox is easy. The instructions below guide you through:
 
 * [Signing up](https://convox.com/signup)
 * Installing the CLI
-* Deploying your application to AWS
+* Deploying your application to your Rack
 
 This guide takes around 30 minutes to go from zero to your first production deployment.
 
@@ -36,33 +36,9 @@ If you already have a [Dockerized](https://docs.docker.com/engine/examples/) app
 * If you have an existing application see the [convox.yml](/application/convox-yml) section of these docs.
 * If you are starting from scratch you can clone a [demo application](https://github.com/convox-examples) to get started.
 
-## Deploy to AWS
+## Rack Installation
 
-### Connect an AWS Account
-
-Click on the integrations link in the main navigation button then click the plus sign on the runtime integration section.
-
-![](/assets/images/docs/console/integrations.png)
-
-This grants Convox access and permission to help manage resources in your AWS account.
-
-See [AWS Integration](/console/aws-integration) for more details.
-
-### Install an AWS Rack
-
-Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
-
-Wait for the Rack to finish installing.
-
-You can now switch your CLI to point at your new Rack.
-
-    $ convox racks
-    NAME             STATUS
-    local/convox     running
-    acme/production  running
-
-    $ convox switch acme/production
-    Switched to acme/production
+[Create your Convox Rack](/introduction/rack#rack-installation) in the cloud environment of your choice.
 
 ### Deploy your application
 

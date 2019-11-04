@@ -2,7 +2,7 @@
 title: "Import a Rack"
 ---
 
-Whilst we recommend creating your Racks through the Convox Console, you can create Racks through the CLI or via our new Terraform creation process.
+Whilst we recommend creating your Racks through the Convox Console, you can create Racks through the CLI or via our new [Convox Installer](https://github.com/convox/installer) process.
 
 If you wish to then manage and configure your Rack through the Console, you will have to import the Rack.
 
@@ -22,9 +22,9 @@ If you have an AWS Runtime integration then it's very simple to import your Rack
 Please note that importing the Rack in this manner will change the password that you set during installation.
 </div>
 
-## Importing a GCP/AWS Rack to your Console account without a Runtime Integration
+## Importing a GCP/AWS/Digital Ocean Rack to your Console account without a Runtime Integration
 
-If you have installed your Rack in GCP or do not have an AWS Runtime integration you can also easily import your Rack:
+If you have installed your Rack in GCP, Digital Ocean, or do not have an AWS Runtime integration you can also easily import your Rack:
 
 - From the 'Racks' page within the Console, click on the 'Add Rack' dropdown and select the 'Manual' option.
 - Fill in your chosen name for the Rack, the hostname as reported by the installation, and the password you set during installation.

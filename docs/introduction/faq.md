@@ -15,11 +15,11 @@ order: 500
 
   Yes!  Business Day support is available on [Pro plans](/pricing) and 24/7 support available with an [Enterprise license](/enterprise).  [Community support](https://community.convox.com/) is also available!
 
-## Can I use my own AWS/GCP account with Convox?
+## Can I use my own AWS/GCP/Digital Ocean account with Convox?
 
   Definitely, that's how it works.  You maintain control and direct access to all of your infrastructure.  Convox makes managing it easier, with no markup based on how many instances or apps you run!
 
-## Can I use my AWS/GCP credits with Convox?
+## Can I use my AWS/GCP/Digital Ocean credits with Convox?
 
   Yep!  Use them up as you wish, no restrictions here.
 
@@ -33,7 +33,7 @@ order: 500
 
 ## Do you support Multi-Cloud?
 
-  You can use Convox to install your Racks in your AWS account.  Google Cloud (GCP) support is currently in Beta.  Keep an eye out for further platforms in the future 😉
+  You can use Convox to install your Racks in your AWS account.  Google Cloud (GCP) and Digital Ocean support is currently in Beta.  Keep an eye out for further platforms in the future 😉
 
 ## Does Convox integrate with CircleCi, Jenkins, or my custom CI/CD pipeline?
 
