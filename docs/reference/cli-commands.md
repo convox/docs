@@ -199,6 +199,9 @@ list rack version history
 ### `rack scale`
 
 scale the rack
+### `rack uninstall`
+
+uninstall a rack
 ### `rack update`
 
 update the rack
