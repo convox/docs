@@ -20,13 +20,17 @@ services:
   web:
     domain:
       - myapp.example.org
-      - "*.example.net"
+      - "*.example.org"
     port: 3000
 ```
 
 <div class="block-callout block-show-callout type-warning" markdown="1">
   Using a custom domain requires a valid SSL certificate for the domains being specified.
-  <p>If a certificate does not already exist in your account that matches the domains you specify, one will be automatically created. The DNS owner will receive a validation email with a link that needs to be clicked for this process to complete.</p>
+  <p>If a single certificate does not already exist in your account that matches all the domains you specify for your service, one will be automatically created. The DNS owner will receive a validation email with a link that needs to be clicked for this process to complete.  This will happen the first time you deploy your service with your configuration</p>
+</div>
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+You can [pre-generate your SSL certificate](/deployment/ssl#pre-generate-your-certificate) ahead of deploy time if you wish.
 </div>
 
 #### Dynamic Configuration
