@@ -8,6 +8,20 @@ You can view the live logs for a Convox application using `convox logs`:
     2016-04-12 19:45:00 i-0234d285 service/web:RSPZQWVWGOP/5e3c8576b942 : 10.0.1.242 - - [12/Apr/2016:19:45:00 +0000] "GET / HTTP/1.1" 200 70 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36"
     2016-04-12 19:45:00 i-0234d285 service/web:RSPZQWVWGOP/5e3c8576b942 : 10.0.1.242 - - [12 Apr/2016:19:45:00 +0000] "GET / HTTP/1.0" 200 70 0.0019
 
+### Retention
+
+By default, new applications will retain 7 days worth of logs.  You can control the retention window (in numbers of days) through the `LogRetention` app-level parameter.
+
+```sh
+$ convox apps params set LogRetention=3
+```
+
+To make an unlimited retention window, set the parameter to be blank/empty.  
+
+<div class="block-callout block-show-callout type-warning" markdown="1">
+Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [Syslogs](/deployment/syslogs) to export your logs for long-term archival and analysis.
+</div>
+
 ### Additional Options
 
 <table>

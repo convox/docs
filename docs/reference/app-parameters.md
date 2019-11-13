@@ -28,6 +28,10 @@ Specify the ARN of a custom IAM policy to add the the Service's [Task Role](http
 
 Set to `No` to disable the internal domain names at `convox.site` and `.convox` to from routing to this application. You can use this parameter if you are running out of available rules on your load balancer.
 
+### LogRetention
+
+Set to the number of days you wish to retain logs for.  The default for new applications is `7`.  Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [Syslogs](/deployment/syslogs) to export your logs for long-term archival and analysis.
+
 ### RedirectHttps
 
 Set to `No` to allow the app to listen on HTTP rather than the default behavior of having all HTTP requests automatically redirected to HTTPS.
