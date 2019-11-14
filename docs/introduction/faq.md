@@ -37,7 +37,7 @@ order: 500
 
 ## Does Convox integrate with CircleCi, Jenkins, or my custom CI/CD pipeline?
 
-  We have a [CircleCI Orb](https://circleci.com/orbs/registry/orb/convox/orb) ready for use to make your CI/CD easier.  Jenkins and other solutions are also well supported with the use of the Convox CLI and unique [deploy keys](/console/deploy-keys) to provide access from your automated processes.  
+  We have a [CircleCI Orb](https://circleci.com/orbs/registry/orb/convox/orb) as well as a set of [Github Actions](/external-services/github-actions) ready for use to make your CI/CD easier.  Jenkins and other solutions are also well supported with the use of the Convox CLI and unique [deploy keys](/console/deploy-keys) to provide access from your automated processes.  
 
 ## What kind of apps can I deploy on Convox?
 
