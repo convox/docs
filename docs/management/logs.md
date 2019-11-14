@@ -16,10 +16,14 @@ By default, new applications will retain 7 days worth of logs.  You can control 
 $ convox apps params set LogRetention=3
 ```
 
-To make an unlimited retention window, set the parameter to be blank/empty.  
+To set an unlimited retention window, configure the parameter to be blank/empty.  
+
+```sh
+$ convox apps params set LogRetention=
+```
 
 <div class="block-callout block-show-callout type-warning" markdown="1">
-Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [Syslogs](/deployment/syslogs) to export your logs for long-term archival and analysis.
+Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [syslog](/deployment/syslogs) to export your logs for long-term archival and analysis.
 </div>
 
 ### Additional Options

@@ -30,7 +30,7 @@ Set to `No` to disable the internal domain names at `convox.site` and `.convox` 
 
 ### LogRetention
 
-Set to the number of days you wish to retain logs for.  The default for new applications is `7`.  Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [Syslogs](/deployment/syslogs) to export your logs for long-term archival and analysis.
+Set to the number of days you wish to retain logs for.  The default for new applications is `7`.  Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [syslog](/deployment/syslogs) to export your logs for long-term archival and analysis.
 
 ### RedirectHttps
 
