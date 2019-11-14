@@ -11,7 +11,7 @@ Builds can either be created:
 
 - Manually from the CLI.  `convox build` will create your build artifact, whereas `convox deploy` will create the artifact and also then promote the subsequent release.
 - As part of a Convox [workflow](/console/workflows).  Workflows can connect to your code repository and initiate builds and subsequent activities from code pushes or pull requests.
-- As part of an external CI process.  Convox has a [CircleCI Orb](/external-services/circleci) for easy integration.  Other CI services can also easily integrate with Convox by [installing the Convox CLI](/introduction/installation) in your CI environment, utilising [deploy keys](/console/deploy-keys) to keep your credentials secure, and running the `build` or `deploy` commands as appropriate in your CI workflow.
+- As part of an external CI process.  Convox has a [CircleCI Orb](/external-services/circleci) as well as a set of [Github Actions](/external-services/github-actions) for easy integration.  Other CI services can also easily integrate with Convox by [installing the Convox CLI](/introduction/installation) in your CI environment, utilising [deploy keys](/console/deploy-keys) to keep your credentials secure, and running the `build` or `deploy` commands as appropriate in your CI workflow.
 
 You can see a list of all the builds for your app by running `convox builds` from the CLI.
 
