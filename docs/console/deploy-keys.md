@@ -2,7 +2,7 @@
 title: "Deploy Keys"
 ---
 
-Deploy keys are limited scope API keys that allow you to run the `build`, `builds`, `deploy`, `env set`, `env unset`, `logs`, `rack`, `racks` and `run` commands from remote environments.
+Deploy keys are limited scope API keys that allow you to run the `build`, `builds`, `deploy`, `env set --replace`, `logs`, `rack`, `racks` and `run` commands from remote environments.
 
 ## Creating a Deploy Key
 
@@ -16,9 +16,10 @@ Deploy keys are specific to the organization they are created within.
 
 ## Using a Deploy Key
 
-In your CI environment, download the latest version of the [Convox CLI](/introduction/installation) and use the deploy key like this:
+In your CI environment, download the latest version of the [Convox CLI](/introduction/installation) and use the deploy key like these examples:
 
-```
+```sh
 $ env CONVOX_HOST=console.convox.com CONVOX_PASSWORD=<key> convox deploy
 $ env CONVOX_HOST=console.convox.com CONVOX_PASSWORD=<key> convox run web bin/migrate
+$ env CONVOX_HOST=console.convox.com CONVOX_PASSWORD=<key> convox env set NODE_ENV=production FOO=bar ... --replace
 ```
