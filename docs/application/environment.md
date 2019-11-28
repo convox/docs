@@ -18,7 +18,7 @@ Convox applications are configured using environment variables.
 
 Environment variables specified in the top level `environment:` section will be available to all services in the application:
 
-```
+```yml
 environment:
   - DEFAULT=true
   - REQUIRED
@@ -30,7 +30,7 @@ In this example the `DEFAULT` variable has a default value of `true` and the `RE
 
 You can also configure each service individually to limit secrets to the services that need them:
 
-```
+```yml
 services:
   web:
     build: .
@@ -45,7 +45,7 @@ In this example the `FOO` variable has a default value of `bar` and the `BAZ` va
 
 You can use the wildcard syntax to provide all available environment variables to a service:
 
-```
+```yml
 services:
   web:
     build: .
@@ -57,7 +57,7 @@ services:
 
 You can configure your env vars through the Convox web console for your cloud-based Racks, or through the Convox CLI for all your Racks:
 
-```
+```sh
 $ convox env set FOO=bar
 Setting FOO... OK
 Release: RFMGESPZHC
@@ -75,3 +75,9 @@ Release: RRJQTMVKRS
 ```
 
 `convox env edit` allows you to interactively update your environment variables in a terminal editor 😊
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+If you update your env vars through the CLI, that will create a new release containing your changes.  For this to take effect, you will need to promote that release: `$ convox releases promote RRJQTMVKRS`
+
+Environment variable updates made through the Convox web console create releases which are promoted automatically for you.
+</div>
