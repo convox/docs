@@ -10,7 +10,7 @@ Every time you deploy an application or change its environment a new Release is 
 Releases will automatically be created:
 
 - Once a build artifact is created through any of the methods mentioned [above](#builds).
-- When you update your environment variables the Console.
+- When you update your environment variables in the Console.
 - When you update your environment variables from the CLI.
 
 You can see the list of all releases, and which one is currently active for your app in the Console under the 'Releases' tab, or via the CLI by running `convox releases`.
