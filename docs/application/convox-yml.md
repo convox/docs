@@ -60,6 +60,8 @@ For a complete set of options available in `convox.yml` can click on the various
     <a href="/application/resources">resources</a>:
       - database
     test: make test
+    <a href="/application/volumes">volumes</a>:
+      - /tmp/something
   worker:
     build: ./worker
     command: bin/worker
