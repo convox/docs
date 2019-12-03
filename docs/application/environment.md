@@ -6,6 +6,8 @@ Convox applications are configured using environment variables.  You will need t
 
 ## Definition
 
+All environment variables defined in your `convox.yml` are required to start up your application, but you can easily set a default or empty value in your configuration for those that are appropriate to do so.
+
 #### Global
 
 Environment variables specified in the top level `environment:` section will be available to all services in the application:
@@ -18,7 +20,7 @@ environment:
 ...
 ```
 
-In this example the `ENABLED` variable has a default value of `true`, the `LICENSE` variable will just be empty and the `ENVIRONMENT` variable must be defined before the application will start (a variable without a `=` in it's syntax is required).
+In this example the `ENABLED` variable has a default value of `true`, the `LICENSE` variable will just be empty and the `ENVIRONMENT` variable must be defined using the CLI or Web console before the application will start.
 
 #### Service
 
@@ -34,7 +36,7 @@ services:
       - MULTI_TENANT
 ```
 
-In this example the `LOG_LEVEL` variable has a default value of `debug`, `DEFAULT_CLIENT` will just be empty and the `MULTI_TENANT` variable must be defined before the application will start (a variable without a `=` in it's syntax is required).
+In this example the `LOG_LEVEL` variable has a default value of `debug`, `DEFAULT_CLIENT` will just be empty and the `MULTI_TENANT` variable must be defined using the CLI or Web console before the application will start.
 
 Environment variables defined at the service level will not be shared or visible to other services in the same app.  You can have a variable with the same name in separate services with different declared values, but note that updating this variable after deployment will update the value in all services with that variable name.  
 
