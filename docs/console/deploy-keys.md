@@ -4,16 +4,17 @@ title: "Deploy Keys"
 
 Deploy keys are limited scope API keys that allow you to run the following commands from your remote environment:
 
-- `build`
-- `builds`
-- `builds export`
-- `builds import`
-- `deploy`
-- `env set --replace`
-- `logs`
-- `rack`
-- `racks`
-- `run`
+* `build`
+* `builds`
+* `builds`
+* `builds export`
+* `builds import`
+* `deploy`
+* `env set --replace`
+* `logs`
+* `rack`
+* `racks`
+* `run`
 
 ## Creating a Deploy Key
 
