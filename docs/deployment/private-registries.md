@@ -92,3 +92,7 @@ You can revoke Convox access by deleting the IAM user and removing the registry:
     $ aws iam delete-user --user-name ECRReadOnly
     $ convox registries remove 901416387788.dkr.ecr.us-east-1.amazonaws.com
     Done.
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+Local racks do not authenticate against Amazon EC2 Container Registries (ECR) but do respect `docker login` sessions.  You can authenticate against your chosen ECR's with `docker login`/`aws ecr get-login` (see [here](https://aws.amazon.com/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/)) before runnning a local build and your remote images will be pulled succesfully.
+</div>
