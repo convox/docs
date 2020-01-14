@@ -7,7 +7,10 @@ services:
       - ALGOLIA_INDEX=
       - ALGOLIA_KEY_ADMIN=
       - ALGOLIA_KEY_SEARCH=
-      - DEVELOPMENT=false
+      - AWS_ACCESS_KEY_ID
+      - AWS_REGION
+      - AWS_SECRET_ACCESS_KEY
+      - BUCKET
     health:
       path: /check
       interval: 30

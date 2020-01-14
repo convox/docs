@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/gobuffalo/packr"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
@@ -64,11 +63,11 @@ func (rt *Router) Route(method, path string, fn HandlerFunc) Route {
 	}
 }
 
-func (rt *Router) Static(path string, box packr.Box) Route {
+func (rt *Router) Static(path string, files FileSystem) Route {
 	prefix := fmt.Sprintf("%s/", path)
 
 	return Route{
-		Route:  rt.PathPrefix(prefix).Handler(http.StripPrefix(prefix, http.FileServer(box))),
+		Route:  rt.PathPrefix(prefix).Handler(http.StripPrefix(prefix, http.FileServer(files))),
 		Router: rt,
 	}
 }

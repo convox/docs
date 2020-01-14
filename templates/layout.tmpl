@@ -21,7 +21,7 @@
 		</head>
 		<body>
 			<header>
-				<nav class="navbar navbar-expand-md fixed-top navbar-dark">
+				<nav class="navbar navbar-expand-md navbar-dark">
 					<div class="container pt-1 pb-1">
 						<a class="navbar-brand" href="/">
 							<img src="/assets/images/logo.png" height="30">
@@ -53,7 +53,7 @@
 				</nav>
 			</header>
 
-			<div class="container">
+			<div class="container" id="primary">
 				<div id="toc-small" class="d-lg-none">
 					<div class="dropdown">
 						<button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +72,7 @@
 					</div>
 				</div>
 
-				<div class="d-flex flex-row justify-content-center">
+				<div class="d-flex flex-row justify-content-center" style="height:100%">
 					<nav id="toc" class="sidebar d-none d-lg-block">
 						<ul class="nav nav-pills flex-column">
 							<div id="search">
@@ -80,6 +80,102 @@
 								<div id="search-hits" style="display: none;">
 								</div>
 							</div>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
+							<div class="category">Test</div>
+							<ul class="documents">
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+								<li><a href="#">Test 1</a></li>
+							</ul>
 							{{ range $c := .Categories }}
 								<div class="category">{{.Name}}</div>
 								<ul class="documents">
@@ -97,7 +193,7 @@
 				</div>
 			</div>
 
-			<nav class="navbar navbar-expand fixed-bottom navbar-dark text-light">
+			<nav class="navbar navbar-expand navbar-dark text-light">
 				<div class="container">
 					<ul class="navbar-nav">
 						<li class="nav-item pl-3">
@@ -167,15 +263,25 @@
 			<script>
 				Popper.Defaults.modifiers.computeStyle.enabled = false;
 
-				$(function() {
+				$(window).ready(function() {
 					return $("h2, h3, h4, h5, h6").each(function(i, el) {
 						var $el, icon, id;
 						$el = $(el);
 						id = $el.attr('id');
-						icon = '<i class="fa fa-link"></i>';
-						if (id) {
-							return $el.prepend($("<a />").addClass("heading-link").attr("href", "#" + id).html(icon));
+						if (id === undefined) {
+							id = 'anchor'+i;
+							$el.attr('id', id);
 						}
+						icon = '<i class="fa fa-link"></i>';
+						var anchor = $("<a />").addClass("heading-link").attr("href", "#" + id);
+						anchor.html(icon);
+						anchor.on('click', function(e) {
+							window.setTimeout(function() {
+								$(anchor).get(0).scrollIntoView();
+								$('main').scrollTop($('main').scrollTop()-20);
+							}, 20);
+						})
+						$el.prepend(anchor);
 					});
 				});
 			</script>

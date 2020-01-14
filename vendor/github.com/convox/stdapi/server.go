@@ -1,6 +1,7 @@
 package stdapi
 
 import (
+	"context"
 	"crypto/tls"
 	"net"
 	"net/http"
@@ -18,8 +19,10 @@ type Server struct {
 	Logger   *logger.Logger
 	Recover  RecoverFunc
 	Router   *Router
+	Wrapper  func(h http.Handler) http.Handler
 
 	middleware []Middleware
+	server     http.Server
 }
 
 func (s *Server) HandleNotFound(fn HandlerFunc) {
@@ -36,7 +39,9 @@ func (s *Server) Listen(proto, addr string) error {
 
 	switch proto {
 	case "h2", "https", "tls":
-		config := &tls.Config{}
+		config := &tls.Config{
+			MinVersion: tls.VersionTLS12,
+		}
 
 		if proto == "h2" {
 			config.NextProtos = []string{"h2"}
@@ -52,7 +57,21 @@ func (s *Server) Listen(proto, addr string) error {
 		l = tls.NewListener(l, config)
 	}
 
-	return http.Serve(l, s)
+	var h http.Handler
+
+	if s.Wrapper != nil {
+		h = s.Wrapper(s)
+	} else {
+		h = s
+	}
+
+	s.server = http.Server{Handler: h}
+
+	return s.server.Serve(l)
+}
+
+func (s *Server) Shutdown(ctx context.Context) error {
+	return s.server.Shutdown(ctx)
 }
 
 func (s *Server) MatcherFunc(fn mux.MatcherFunc) *Router {

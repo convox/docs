@@ -1,18 +1,12 @@
-.PHONY: all build mocks test
+.PHONY: all build mocks package test
 
 commands  = web
 webpack   = public/assets/docs.js
 
 assets   = $(wildcard assets/*)
 binaries = $(addprefix $(GOPATH)/bin/, $(commands))
-compiler = go
 mode     = development
 sources  = $(shell find . -name '*.go')
-
-ifeq ($(PACKAGE),true)
-	compiler=packr
-	mode=production
-endif
 
 all: build
 
@@ -22,11 +16,14 @@ mocks:
 	make -C models mocks
 	make -C pkg/storage mocks
 
+package:
+	go run -mod=vendor vendor/github.com/gobuffalo/packr/packr/main.go
+
 test:
 	env TEST=true go test -coverpkg ./... -covermode atomic -coverprofile coverage.txt ./...
 
 $(binaries): $(GOPATH)/bin/%: $(sources)
-	$(compiler) install ./cmd/$*
+	go install -mod=vendor --ldflags="-s -w" ./cmd/$*
 
 $(GOPATH)/bin/web: $(webpack)
 

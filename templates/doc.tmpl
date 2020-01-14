@@ -18,20 +18,24 @@
 
 {{ define "content" }}
 
+  <script>
+    var main = $('main');
+    $(window).ready(function() {
+      if (window.location.hash != '') {
+        main.scrollTop(main.scrollTop()-20);
+      }
+    })
+  </script>
+
   {{ with .Deprecation }}
     <div class="block-callout block-show-callout type-warning"><p>{{.}}</p></div>
   {{ end }}
-
-  <h1 class="d-none d-lg-block">
-    <div style="float:right; font-size: 0.7em;" class="title-category-name">{{.CategoryName}}</div>
-    {{.Title}}
-  </h1>
 
   {{ .Document }}
 
   <div id="footer">
     We welcome
-    <a href="https://github.com/convox/docs/edit/master/docs/{{.Category}}/{{.Slug}}.md">suggested changes</a>
+    <a href="https://github.com/convox/convox/edit/master/docs/{{.Slug}}.md">suggested changes</a>
     to this document.
   </div>
 
