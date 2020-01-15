@@ -13,6 +13,6 @@ services:
       - BUCKET
     health:
       path: /check
-      interval: 30
+      interval: 5
     init: true
     port: https:3000

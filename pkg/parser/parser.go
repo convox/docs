@@ -28,9 +28,9 @@ var categoryNames = map[string]string{
 
 var (
 	reDocument    = regexp.MustCompile(`(?ms)(---(.*?)---)?(.*)$`)
+	reTitle       = regexp.MustCompile(`<h1.*?>(.*?)</h1>`)
 	reLink        = regexp.MustCompile(`href="([^"]+)"`)
 	reMarkdownDiv = regexp.MustCompile(`(?ms)(<div.*?markdown="1".*?>(.*?)</div>)`)
-	// reTag         = regexp.MustCompile(`(?ms)(<[\w]+.*?>(.*?)</[\w]+>)`)
 )
 
 // var (
@@ -62,8 +62,8 @@ var (
 // 	Name       string
 // }
 
-func Parse(files source.Files) (docs.Documents, error) {
-	ds := docs.Documents{}
+func Parse(files source.Files) (*docs.Documents, error) {
+	ds := docs.NewDocuments()
 
 	for _, f := range files {
 		d, err := parseDocument(f.Path, f.Body)
@@ -71,15 +71,18 @@ func Parse(files source.Files) (docs.Documents, error) {
 			return nil, err
 		}
 
-		ds = append(ds, *d)
+		if err := ds.Add(*d); err != nil {
+			return nil, err
+		}
 	}
 
-	return ds, nil
+	return &ds, nil
 }
 
 func parseDocument(path string, data []byte) (*docs.Document, error) {
 	name := strings.TrimSuffix(path, ".md")
-	slug := strings.Replace(name, ".", "-", -1)
+	readme := strings.HasSuffix(path, "/README.md")
+	slug := strings.TrimSuffix(strings.Replace(name, ".", "-", -1), "/README")
 
 	d := &docs.Document{
 		Slug: slug,
@@ -99,10 +102,6 @@ func parseDocument(path string, data []byte) (*docs.Document, error) {
 
 	d.Description = front["description"]
 	d.Title = front["title"]
-
-	if d.Title == "" {
-		d.Title = name
-	}
 
 	d.Order = 50000
 
@@ -148,10 +147,24 @@ func parseDocument(path string, data []byte) (*docs.Document, error) {
 			}
 			if u.Host == "" {
 				u.Path = strings.TrimSuffix(u.Path, ".md")
+				if readme {
+					u.Path = fmt.Sprintf("/%s/%s", d.Slug, u.Path)
+				}
 			}
 			return []byte(fmt.Sprintf("href=%q", u.String()))
 		}
 	})
+
+	if d.Title == "" {
+		if m := reTitle.FindStringSubmatch(string(d.Body)); len(m) > 1 {
+			d.Title = m[1]
+		}
+	}
+
+	if d.Title == "" {
+		parts := strings.Split(d.Slug, "/")
+		d.Title = strings.Title(strings.ReplaceAll(parts[len(parts)-1], "-", " "))
+	}
 
 	return d, nil
 }
@@ -274,52 +287,6 @@ func parseDocument(path string, data []byte) (*docs.Document, error) {
 // 	sort.Slice(c.Documents, c.Documents.Less)
 
 // 	categories = append(categories, c)
-
-// 	return nil
-// }
-
-// func UploadIndex() error {
-// 	if os.Getenv("ALGOLIA_APP") == "" {
-// 		return nil
-// 	}
-
-// 	algolia := algoliasearch.NewClient(os.Getenv("ALGOLIA_APP"), os.Getenv("ALGOLIA_KEY_ADMIN")).InitIndex(os.Getenv("ALGOLIA_INDEX"))
-
-// 	algolia.Clear()
-
-// 	os := []algoliasearch.Object{}
-
-// 	for _, c := range categories {
-// 		for _, d := range c.Documents {
-// 			body := d.Body
-
-// 			for {
-// 				stripped := reTag.ReplaceAll(body, []byte("$2"))
-// 				if bytes.Equal(body, stripped) {
-// 					break
-// 				}
-// 				body = stripped
-// 			}
-
-// 			if len(body) > 8000 {
-// 				body = body[0:8000]
-// 			}
-
-// 			os = append(os, algoliasearch.Object{
-// 				"objectID":       fmt.Sprintf("%s:%s", c.Slug, d.Slug),
-// 				"category_slug":  c.Slug,
-// 				"category_title": c.Name,
-// 				"body":           string(body),
-// 				"slug":           string(d.Slug),
-// 				"title":          string(d.Title),
-// 				"url":            fmt.Sprintf("/%s/%s", c.Slug, d.Slug),
-// 			})
-// 		}
-// 	}
-
-// 	if _, err := algolia.AddObjects(os); err != nil {
-// 		return err
-// 	}
 
 // 	return nil
 // }

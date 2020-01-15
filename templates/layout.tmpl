@@ -60,11 +60,11 @@
 							<span class="title-category-name">{{.CategoryName}}</span> <span class="separator">&raquo;</span> {{.Title}}
 						</button>
 						<div class="dropdown-menu">
-							{{ range $c := .Categories }}
+							{{ range $c := .Documents.Categories }}
 								<div class="category">
 									<h6 class="dropdown-header">{{.Name}}</h6>
-									{{ range .Documents }}
-										<a class="dropdown-item" href="/{{$c.Slug}}/{{.Slug}}">{{.Title}}</a>
+									{{ range $.Documents.Children $c.Slug }}
+										<a class="dropdown-item" href="/{{.Slug}}">{{.Title}}</a>
 									{{ end }}
 								</div>
 							{{ end }}
@@ -80,102 +80,12 @@
 								<div id="search-hits" style="display: none;">
 								</div>
 							</div>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
-							<div class="category">Test</div>
-							<ul class="documents">
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-								<li><a href="#">Test 1</a></li>
-							</ul>
+							{{ range $c := .Documents.Categories }}
+								<div class="category">{{.Name}}</div>
+								<ul class="documents">
+									{{ template "toc" (params "Active" $.Slug "Documents" $.Documents "Slug" $c.Slug "Index" 0)}}
+								</ul>
+							{{ end }}
 							{{ range $c := .Categories }}
 								<div class="category">{{.Name}}</div>
 								<ul class="documents">
@@ -264,7 +174,15 @@
 				Popper.Defaults.modifiers.computeStyle.enabled = false;
 
 				$(window).ready(function() {
-					return $("h2, h3, h4, h5, h6").each(function(i, el) {
+					var main = $('main');
+					var toc = $('#toc');
+					{{ if .Slug }}
+						toc.find('#{{ slugid .Slug }}').get(0).scrollIntoView({ behavior: 'smooth', block: 'center' });
+					{{ end }}
+					if (window.location.hash != '') {
+						main.scrollTop(main.scrollTop()-20);
+					}
+					$("h2, h3, h4, h5, h6").each(function(i, el) {
 						var $el, icon, id;
 						$el = $(el);
 						id = $el.attr('id');
@@ -278,7 +196,7 @@
 						anchor.on('click', function(e) {
 							window.setTimeout(function() {
 								$(anchor).get(0).scrollIntoView();
-								$('main').scrollTop($('main').scrollTop()-20);
+								main.scrollTop(main.scrollTop()-20);
 							}, 20);
 						})
 						$el.prepend(anchor);
@@ -294,4 +212,13 @@
 			</script>
 		</body>
 	</html>
+{{ end }}
+
+{{ define "toc" }}
+	{{ range .Documents.Children .Slug }}
+		<li><a id="{{ slugid .Slug }}" style="padding-left:{{ indent $.Index }}px" class="dropdown-item {{ if eq .Slug $.Active }}active{{ end }}" href="/{{.Slug}}">{{.Title}}</a></li>
+		{{ if expand .Slug $.Active }}
+			{{ template "toc" (params "Active" $.Active "Documents" $.Documents "Index" (inc $.Index) "Slug" .Slug) }}
+		{{ end }}
+	{{ end }}
 {{ end }}

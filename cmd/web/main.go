@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"strings"
+	"time"
 
 	"github.com/convox/docs/pkg/docs"
 	"github.com/convox/docs/pkg/parser"
 	"github.com/convox/docs/pkg/source"
 	"github.com/convox/stdapi"
 	"github.com/gobuffalo/packr"
+	"github.com/pkg/errors"
 )
 
 var categorySlugs = []string{
@@ -29,7 +32,9 @@ var categorySlugs = []string{
 	"help",
 }
 
-var documents docs.Documents
+var (
+	documents *docs.Documents
+)
 
 func main() {
 	if err := run(); err != nil {
@@ -45,30 +50,17 @@ func run() error {
 	// fmt.Printf("ds: %+v\n", ds)
 	// fmt.Printf("err: %+v\n", err)
 
-	fs, err := source.LoadS3("3.0.0.beta43")
-	if err != nil {
+	if err := loadDocuments(); err != nil {
 		return err
 	}
 
-	ds, err := parser.Parse(fs)
-	if err != nil {
-		return err
-	}
-
-	documents = ds
+	go loadDocumentsInterval(2 * time.Minute)
 
 	s.Router.Static("/assets/images", packr.NewBox("../../public/images"))
 	s.Router.Static("/assets", packr.NewBox("../../public/assets"))
 
 	s.Route("GET", "/", index)
 	s.Route("GET", "/{slug:.*}", doc)
-
-	// s.Route("GET", "/docs/{slug}", redirect)
-	// s.Route("GET", "/docs/{slug}/", redirect)
-	// s.Route("GET", "/{category}/{slug}", doc)
-	// s.Route("GET", "/{category}/{slug}/", doc)
-	// s.Route("GET", "/{slug}", redirect)
-	// s.Route("GET", "/{slug}/", redirect)
 
 	stdapi.LoadTemplates(packr.NewBox("../../templates"), helpers)
 
@@ -94,57 +86,90 @@ func helpers(c *stdapi.Context) template.FuncMap {
 		"env": func(s string) string {
 			return os.Getenv(s)
 		},
+		"expand": func(slug, active string) bool {
+			sparts := strings.Split(slug, "/")
+			if len(sparts) < 2 {
+				return true
+			}
+			if strings.HasPrefix(active, slug) {
+				return true
+			}
+			if slug == active {
+				return true
+			}
+			return false
+		},
+		"inc": func(i int) int {
+			return i + 1
+		},
+		"indent": func(i int) int {
+			return i*16 + 10
+		},
+		"mul": func(x, y int) int {
+			return x * y
+		},
+		"params": func(args ...interface{}) (map[interface{}]interface{}, error) {
+			if len(args)%2 != 0 {
+				return nil, errors.WithStack(fmt.Errorf("must have an even number of args"))
+			}
+			p := map[interface{}]interface{}{}
+			for i := 0; i < len(args); i += 2 {
+				p[args[i]] = args[i+1]
+			}
+			return p, nil
+		},
+		"slugid": func(slug string) string {
+			return strings.ToLower(strings.ReplaceAll(slug, "/", "-"))
+		},
 	}
 }
 
 func index(c *stdapi.Context) error {
-	return c.Redirect(302, "/introduction/getting-started")
+	return c.Redirect(302, "/getting-started/introduction")
+}
+
+func loadDocuments() error {
+	fs, err := source.LoadS3("test")
+	if err != nil {
+		return err
+	}
+
+	ds, err := parser.Parse(fs)
+	if err != nil {
+		return err
+	}
+
+	documents = ds
+
+	if err := ds.UploadIndex(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func loadDocumentsInterval(interval time.Duration) {
+	for range time.Tick(interval) {
+		if err := loadDocuments(); err != nil {
+			fmt.Printf("err: %+v\n", err)
+		}
+	}
 }
 
 func doc(c *stdapi.Context) error {
-	// cc, ok := docs.CategoryList().Find(c.Var("category"))
-	// if !ok {
-	// 	c.Response().WriteHeader(404)
-	// 	params["Category"] = ""
-	// 	return c.RenderTemplate("404", params)
-	// }
-
-	// params["Category"] = cc.Slug
-	// params["CategoryName"] = cc.Name
-
-	fmt.Printf("slug: %+v\n", c.Var("slug"))
+	params := map[string]interface{}{
+		"Documents": documents,
+		"Slug":      "",
+	}
 
 	d, ok := documents.Find(c.Var("slug"))
 	if !ok {
 		c.Response().WriteHeader(404)
-		return c.RenderTemplate("404", nil)
+		return c.RenderTemplate("404", params)
 	}
 
-	params := map[string]interface{}{
-		"Document": template.HTML(d.Body),
-		"Slug":     d.Slug,
-	}
-
-	// params["Document"] = template.HTML(d.Body)
-	// params["Description"] = d.Description
-	// params["Slug"] = d.Slug
-	// params["Tags"] = d.Tags
-	// params["Title"] = d.Title
-	// params["URL"] = fmt.Sprintf("https://%s/%s/%s", c.Request().Host, cc.Slug, d.Slug)
-
-	// if cc.Slug == "gen1" {
-	// 	params["Deprecation"] = "Generation 1 has been deprecated and is not recommended for new applications."
-	// }
+	params["Body"] = template.HTML(d.Body)
+	params["Slug"] = d.Slug
 
 	return c.RenderTemplate("doc", params)
 }
-
-// func redirect(c *stdapi.Context) error {
-// 	for _, cc := range docs.CategoryList() {
-// 		if d, ok := cc.Documents.Find(c.Var("slug")); ok {
-// 			return c.Redirect(301, fmt.Sprintf("/%s/%s", cc.Slug, d.Slug))
-// 		}
-// 	}
-
-// 	return stdapi.Errorf(404, "not found")
-// }

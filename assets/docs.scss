@@ -81,6 +81,7 @@ a, a:hover {
 	background-color: #e3e6e9;
 	height: 100%;
 	padding: 0px;
+	overflow-x: hidden;
 	overflow-y: scroll;
 }
 
@@ -161,13 +162,15 @@ a, a:hover {
 }
 
 #toc ul.documents li {
-	padding-right: 10px;
+	padding-right: 8px;
 }
 
 #toc ul.documents li a {
+	color: #555;
 	display: block;
-	margin-left: -4px;
-	margin-right: -10px;
+	font-size: 0.9em;
+	margin-left: -6px;
+	margin-right: -18px;
 	padding: 4px 10px;
 	padding-left: 9px;
 	padding-right: 10px;
@@ -181,15 +184,18 @@ a, a:hover {
 }
 
 #toc ul.documents li a.active {
+	background-color: inherit;
 	color: #244d82;
 	font-weight: bold;
 }
 
 #toc .category {
-	font-size: 1.3em;
+	color: #000;
+	font-size: 0.9em;
 	font-weight: bold;
 	padding-bottom: 4px;
 	margin-left: 4px;
+	text-transform: uppercase;
 }
 
 #toc-small {
@@ -374,9 +380,12 @@ blockquote {
 	border-width: 2px;
 	border-left-width: 10px;
 	color: rgb(38,84,95);
-	padding: 14px;
-	padding-bottom: 0px;
+	display: inline-block;
+	padding: 8px 14px;
 	margin-bottom: 20px;
+	& p:last-child {
+		margin-bottom: 0;
+	}
 }
 
 .block-callout {

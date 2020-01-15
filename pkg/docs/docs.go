@@ -1,6 +1,32 @@
 package docs
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+	"os"
+	"regexp"
+	"sort"
+	"strings"
+
+	"github.com/algolia/algoliasearch-client-go/algoliasearch"
+)
+
+var (
+	categories = Categories{
+		Category{"getting-started", "Getting Started"},
+		Category{"configuration", "Configuration"},
+		Category{"guides", "Guides"},
+		Category{"reference", "Reference"},
+	}
+	reTag = regexp.MustCompile(`(?ms)(<[\w]+.*?>(.*?)</[\w]+>)`)
+)
+
+type Category struct {
+	Slug string
+	Name string
+}
+
+type Categories []Category
 
 type Document struct {
 	Body        []byte
@@ -11,12 +37,55 @@ type Document struct {
 	Title       string
 }
 
-type Documents []Document
+type Documents struct {
+	documents []Document
+}
 
-func (ds Documents) Find(slug string) (*Document, bool) {
-	for _, d := range ds {
-		fmt.Printf("d.Slug: %+v\n", d.Slug)
+func NewDocuments() Documents {
+	return Documents{
+		documents: []Document{},
+	}
+}
 
+func (cs Categories) Find(slug string) Category {
+	for _, c := range cs {
+		if c.Slug == slug {
+			return c
+		}
+	}
+	return Category{}
+}
+
+func (ds *Documents) Add(d Document) error {
+	ds.documents = append(ds.documents, d)
+	return nil
+}
+
+func (ds *Documents) Categories() Categories {
+	return categories
+}
+
+func (ds *Documents) Children(slug string) []Document {
+	docs := []Document{}
+
+	for _, d := range ds.documents {
+		if strings.HasPrefix(d.Slug, fmt.Sprintf("%s/", slug)) && level(d.Slug) == level(slug)+1 {
+			docs = append(docs, d)
+		}
+	}
+
+	sort.Slice(docs, func(i, j int) bool {
+		if docs[i].Order == docs[j].Order {
+			return docs[i].Title < docs[j].Title
+		}
+		return docs[i].Order < docs[j].Order
+	})
+
+	return docs
+}
+
+func (ds *Documents) Find(slug string) (*Document, bool) {
+	for _, d := range ds.documents {
 		if d.Slug == slug {
 			return &d, true
 		}
@@ -24,6 +93,91 @@ func (ds Documents) Find(slug string) (*Document, bool) {
 
 	return nil, false
 }
+
+func (ds *Documents) UploadIndex() error {
+	if os.Getenv("ALGOLIA_APP") == "" {
+		return nil
+	}
+
+	algolia := algoliasearch.NewClient(os.Getenv("ALGOLIA_APP"), os.Getenv("ALGOLIA_KEY_ADMIN")).InitIndex(os.Getenv("ALGOLIA_INDEX"))
+
+	algolia.Clear()
+
+	os := []algoliasearch.Object{}
+
+	for _, d := range ds.documents {
+		body := d.Body
+
+		for {
+			stripped := reTag.ReplaceAll(body, []byte("$2"))
+			if bytes.Equal(body, stripped) {
+				break
+			}
+			body = stripped
+		}
+
+		if len(body) > 8000 {
+			body = body[0:8000]
+		}
+
+		c := categories.Find(strings.Split(d.Slug, "/")[0])
+
+		os = append(os, algoliasearch.Object{
+			"objectID":       d.Slug,
+			"category_slug":  c.Slug,
+			"category_title": c.Name,
+			"body":           string(body),
+			"slug":           string(d.Slug),
+			"title":          string(d.Title),
+			"url":            "/" + d.Slug,
+		})
+	}
+
+	if _, err := algolia.AddObjects(os); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (d *Document) Level() int {
+	return level(d.Slug)
+}
+
+func level(slug string) int {
+	return len(strings.Split(slug, "/")) - 1
+}
+
+// func (ds Documents) Less(i, j int) bool {
+// 	if ds.documents[i].Order == ds.docuements[j].Order {
+// 		return ds[i].Title < ds[j].Title
+// 	}
+// 	return ds[i].Order < ds[j].Order
+// }
+
+// func (ds *Documents) Hierarchy(category, slug string) []Hierarchy {
+// 	hs := []Hierarchy{}
+
+// 	fmt.Printf("category: %+v\n", category)
+// 	fmt.Printf("slug: %+v\n", slug)
+
+// 	for _, d := range ds.documents {
+// 		if !strings.HasPrefix(d.Slug, fmt.Sprintf("%s/", category)) {
+// 			continue
+// 		}
+
+// 		if len(strings.Split(d.Slug, "/")) < 2 && !strings.HasPrefix(d.Slug, slug) {
+// 			continue
+// 		}
+
+// 		hs = append(hs, Hierarchy{
+// 			Document: d,
+// 			Children: ds.Hierarchy(category, d.Slug),
+// 		})
+// 	}
+
+// 	return hs
+// }
 
 // var (
 // 	categories = Categories{}

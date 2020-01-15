@@ -38,8 +38,6 @@ func LoadS3(version string) (Files, error) {
 		Prefix: aws.String(prefix),
 	}
 
-	fmt.Printf("req: %+v\n", req)
-
 	p := request.Pagination{
 		NewRequest: func() (*request.Request, error) {
 			r, _ := s3c.ListObjectsV2Request(req)
