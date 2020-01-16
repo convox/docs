@@ -105,6 +105,9 @@ func helpers(c *stdapi.Context) template.FuncMap {
 		"indent": func(i int) int {
 			return i*16 + 10
 		},
+		"join": func(sep string, ss []string) template.HTML {
+			return template.HTML(strings.Join(ss, sep))
+		},
 		"mul": func(x, y int) int {
 			return x * y
 		},
@@ -129,10 +132,26 @@ func index(c *stdapi.Context) error {
 }
 
 func loadDocuments() error {
-	fs, err := source.LoadS3("test")
-	if err != nil {
-		return err
+	fs := source.Files{}
+
+	switch os.Getenv("SOURCE_TYPE") {
+	case "local":
+		sfs, err := source.LoadLocal("docs/")
+		if err != nil {
+			return err
+		}
+		fs = sfs
+	case "tarball":
+		sfs, err := source.LoadTarball(os.Getenv("SOURCE_TARBALL"), "docs/", 1)
+		if err != nil {
+			return err
+		}
+		fs = sfs
 	}
+	// fs, err := source.LoadS3("test")
+	// if err != nil {
+	// 	return err
+	// }
 
 	ds, err := parser.Parse(fs)
 	if err != nil {
@@ -169,6 +188,8 @@ func doc(c *stdapi.Context) error {
 	}
 
 	params["Body"] = template.HTML(d.Body)
+	params["Breadcrumbs"] = documents.Breadcrumbs(d.Slug)
+	params["Category"] = d.Category()
 	params["Slug"] = d.Slug
 
 	return c.RenderTemplate("doc", params)

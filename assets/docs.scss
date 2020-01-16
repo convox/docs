@@ -47,7 +47,25 @@ body {
 }
 
 .title-category-name {
-	color: #666;
+	color: #888;
+}
+
+code {
+	background-color: #eee;
+	border: 1px #ccc solid;
+	border-radius: 4px;
+	color: #005580;
+	display: inline-block;
+	font-family: Courier, monospace;
+	padding: 3px 6px;
+}
+
+pre > code {
+	background-color: inherit;
+	border: 0;
+	font-weight: normal;
+	font-size: 1.1em;
+	padding: 0;
 }
 
 div#primary {

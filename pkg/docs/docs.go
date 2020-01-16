@@ -14,10 +14,19 @@ import (
 var (
 	categories = Categories{
 		Category{"getting-started", "Getting Started"},
+		Category{"tutorials", "Tutorials"},
+		Category{"installation", "Installation"},
 		Category{"configuration", "Configuration"},
-		Category{"guides", "Guides"},
+		Category{"development", "Development"},
+		Category{"deployment", "Deployment"},
+		Category{"management", "Management"},
 		Category{"reference", "Reference"},
+		Category{"integrations", "Integrations"},
+		Category{"help", "Help"},
 	}
+)
+
+var (
 	reTag = regexp.MustCompile(`(?ms)(<[\w]+.*?>(.*?)</[\w]+>)`)
 )
 
@@ -125,7 +134,7 @@ func (ds *Documents) UploadIndex() error {
 		os = append(os, algoliasearch.Object{
 			"objectID":       d.Slug,
 			"category_slug":  c.Slug,
-			"category_title": c.Name,
+			"category_title": strings.Join(ds.Breadcrumbs(d.Slug), " » "),
 			"body":           string(body),
 			"slug":           string(d.Slug),
 			"title":          string(d.Title),
@@ -138,6 +147,31 @@ func (ds *Documents) UploadIndex() error {
 	}
 
 	return nil
+}
+
+func (ds *Documents) Breadcrumbs(slug string) []string {
+	d, ok := ds.Find(slug)
+	if !ok {
+		return []string{}
+	}
+
+	bs := []string{}
+
+	bs = append(bs, d.Category().Name)
+
+	parts := strings.Split(d.Slug, "/")
+
+	for i := 1; i < len(parts); i++ {
+		if d, ok := ds.Find(strings.Join(parts[0:i], "/")); ok {
+			bs = append(bs, d.Title)
+		}
+	}
+
+	return bs
+}
+
+func (d *Document) Category() Category {
+	return categories.Find(strings.Split(d.Slug, "/")[0])
 }
 
 func (d *Document) Level() int {

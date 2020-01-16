@@ -22,6 +22,12 @@
     <div class="block-callout block-show-callout type-warning"><p>{{.}}</p></div>
   {{ end }}
 
+  {{ if .Body }}
+    <h1 style="float:right; font-size: 1.3em; margin-top: 10px; margin-bottom: 0;" class="title-category-name">
+      {{ join " » " .Breadcrumbs }}
+    </h1>
+  {{ end }}
+
   {{ .Body }}
 
   <div id="footer">
