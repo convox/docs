@@ -54,7 +54,7 @@ func run() error {
 		return err
 	}
 
-	go loadDocumentsInterval(2 * time.Minute)
+	// go loadDocumentsInterval(2 * time.Minute)
 
 	s.Router.Static("/assets/images", packr.NewBox("../../public/images"))
 	s.Router.Static("/assets", packr.NewBox("../../public/assets"))

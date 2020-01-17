@@ -33,6 +33,12 @@ func LoadTarball(url, prefix string, skip int) (Files, error) {
 		if err != nil {
 			return nil, err
 		}
+		if h.Typeflag != tar.TypeReg {
+			continue
+		}
+		if !strings.HasSuffix(h.Name, ".md") {
+			continue
+		}
 
 		path := strings.Join(strings.Split(h.Name, "/")[skip:], "/")
 
