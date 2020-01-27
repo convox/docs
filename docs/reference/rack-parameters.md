@@ -254,6 +254,13 @@ Specify a custom security group that can connect to the Rack API when `PrivateAp
 
 | Default value  | *<blank>* |
 
+### PrivateBuild
+
+Place only the build instances into a private network (unused if `Private` is `Yes`)
+
+| Default value  | `No`        |
+| Allowed values | `Yes`, `No` |
+
 ### RouterSecurityGroup
 
 Specify a custom security group to use for the Rack's router.
