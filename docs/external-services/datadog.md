@@ -14,11 +14,11 @@ You can deploy the datadog agent as a Convox app with a very simple `convox.yml`
 
 ```
 services:
-  agent:
-    agent:
-      ports:
-        - 8125/udp
-        - 8126/tcp
+  datadog:
+    agent: true
+    ports:
+      - 8125/udp
+      - 8126/tcp
     image: datadog/agent:latest
     environment:
       - DD_API_KEY
