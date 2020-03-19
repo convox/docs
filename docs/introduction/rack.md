@@ -32,17 +32,9 @@ See [AWS Integration](/console/aws-integration) for more details.
 
 ### Install an AWS Rack
 
-Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
+Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account.  Choose an ECS-based rack from the drop-down. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
 
-Alternatively, you can use the [Convox Installer](https://github.com/convox/installer/tree/master/aws) from the command line to install the Rack for you.
-
-## Install a GCP Rack
-
-You can use the [Convox Installer](https://github.com/convox/installer/tree/master/gcp) from the command line to install a Rack for you.
-
-## Install a Digital Ocean Rack
-
-You can use the [Convox Installer](https://github.com/convox/installer/tree/master/do) from the command line to install a Rack for you.
+Alternatively, you can use the CLI to install a Rack: `convox rack install aws -n {RACK_NAME}`.
 
 ## Local CLI control
 
