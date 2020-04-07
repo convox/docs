@@ -60,6 +60,9 @@ For a complete set of options available in `convox.yml` can click on the various
     <a href="/application/resources">resources</a>:
       - database
     test: make test
+    <a href="/deployment/rolling-updates#deployment-configuration">deployment</a>:
+      minimum: 50
+      maximum: 200
   worker:
     build: ./worker
     command: bin/worker
