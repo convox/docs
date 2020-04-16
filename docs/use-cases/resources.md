@@ -128,15 +128,16 @@ While Memcached and Redis are available as Rack Resources if needed, there are a
 
 ```
 $ convox rack resources options mysql
-NAME              DEFAULT      DESCRIPTION
-AllocatedStorage  10           Allocated storage size (GB)
-Database          app          Default database name
-Encrypted         false        Encrypt database with KMS
-EngineVersion     5.7.16       Version of MySQL
-InstanceType      db.t2.micro  Instance class for database nodes
-MultiAZ           false        Multiple availability zone
-Password          (generated)  Server password
-Username          app          Server username
+NAME                        DEFAULT      DESCRIPTION
+AllocatedStorage            10           Allocated storage size (GB)
+Database                    app          Default database name
+DatabaseSnapshotIdentifier               ARN of database snapshot to restore
+Encrypted                   false        Encrypt database with KMS
+EngineVersion               5.7.16       Version of MySQL
+InstanceType                db.t2.micro  Instance class for database nodes
+MultiAZ                     false        Multiple availability zone
+Password                    (generated)  Server password
+Username                    app          Server username
 
 $ convox rack resources options postgres
 NAME                        DEFAULT      DESCRIPTION
