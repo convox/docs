@@ -8,6 +8,7 @@ services:
       - ALGOLIA_KEY_ADMIN=
       - ALGOLIA_KEY_SEARCH=
       - DEVELOPMENT=false
+      - SEGMENT_TOKEN=
     health:
       path: /check
       interval: 30
