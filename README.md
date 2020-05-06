@@ -1,6 +1,6 @@
 # docs
 
-Documentation for Convox
+Documentation for Convox Gen 3
 
 ## Running Locally
 
