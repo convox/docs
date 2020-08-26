@@ -261,6 +261,13 @@ Place only the build instances into a private network (unused if `Private` is `Y
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
+### RouterMitigationMode
+
+Determines how the load balancer handles requests that might pose a security risk to your application.  See [here](https://aws.amazon.com/about-aws/whats-new/2020/08/application-and-classic-load-balancers-adding-defense-in-depth-with-introduction-of-desync-mitigation-mode/) for more information.
+
+| Default value  | `defensive`                         |
+| Allowed values | `defensive`, `monitor`, `strictest` |
+
 ### RouterSecurityGroup
 
 Specify a custom security group to use for the Rack's router.
