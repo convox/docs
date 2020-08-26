@@ -40,6 +40,10 @@ Set to the number of days you wish to retain logs for.  The default for new appl
 
 Set to `No` to allow the app to listen on HTTP rather than the default behavior of having all HTTP requests automatically redirected to HTTPS.
 
+### ScanImages
+
+Uses the built-in ECR image scanning to help identify vulnerabilities on each image push.  Defaults to `Yes`, but if you wish to disable automatic image scanning, set this app parameter to `No`.
+
 ### TaskTags
 
 Set to `Yes` to cause ECS tags to be propagated to the task level.
