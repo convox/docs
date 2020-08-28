@@ -18,6 +18,7 @@ Through this, you can have the majority of your standard app infrastructure cont
 
 The following resources are available at the [App level](/application/resources):
 
+* `mariadb`
 * `memcached`
 * `mysql`
 * `postgres`

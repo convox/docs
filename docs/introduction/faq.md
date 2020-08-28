@@ -45,7 +45,7 @@ order: 500
 
 ## What types of Databases, Block Storage, Messsage Queues, etc… does Convox support?
 
-  Convox provides native support for common [application resources](/application/resources) such as MySQL/Postgres/Redis/Memcached.  [Rack level resources](/gen1/resources) also provide support for S3/SQS/SNS/Syslog available to all apps.  We add others on a regular basis.  Anything not directly supported can easily be integrated, by passing the endpoint for your external resource into the app with an [environment variable](/application/environment).  
+  Convox provides native support for common [application resources](/application/resources) such as MariaDB/MySQL/Postgres/Redis/Memcached.  [Rack level resources](/gen1/resources) also provide support for S3/SQS/SNS/Syslog available to all apps.  We add others on a regular basis.  Anything not directly supported can easily be integrated, by passing the endpoint for your external resource into the app with an [environment variable](/application/environment).  
 
 ## How does Convox handle scaling?
 

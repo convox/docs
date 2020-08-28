@@ -87,6 +87,17 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 | `nodes`   | `1`              | Number of nodes   |
 | `version` | `1.4.34`         | Memcached version |
 
+#### mariadb
+
+| Option      | Default          | Description                             |
+|-------------|------------------|-----------------------------------------|
+| `class`     | `db.t2.micro`    | Instance class                          |
+| `encrypted` | `false`          | Encrypt data at rest                    |
+| `durable`   | `false`          | Automatic failover                      |
+| `iops`      |                  | Provisioned IOPS for database disks     |
+| `storage`   | `20`             | GB of storage to provision              |
+| `version`   | `10.4`           | MariaDB version                         |
+
 #### mysql
 
 | Option      | Default          | Description                             |
