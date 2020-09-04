@@ -24,7 +24,7 @@ You can read the complete details about Github Workflows [here](https://help.git
 ## A Simple Deploy
 As a simple example, let's say we have Rails app that we want to deploy to our Convox Staging Rack every time a commit is pushed to the master branch. The steps would be as follows:
 ### Add a Deploy Key to Github
-The first thing we will do is add our [Deploy Key](https://docs.convox.com/console/deploy-keys) as an [Encrypted Github Secret](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets) called `CONVOX_DEPLOY_KEY`. This will allow us to securely authenticate with Convox when we deploy without storing any keys in our code.
+The first thing we will do is add our [Deploy Key](https://docsv2.convox.com/console/deploy-keys) as an [Encrypted Github Secret](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets) called `CONVOX_DEPLOY_KEY`. This will allow us to securely authenticate with Convox when we deploy without storing any keys in our code.
 ### Create a Deployment.yml file
 For this simple example our `.github/workflows/deployment.yml` file looks like
 ```
