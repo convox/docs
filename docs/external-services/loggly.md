@@ -14,7 +14,7 @@ You can easily configure your application to to forward its logs to Loggly.
 
 Use the syslog endpoint from the previous step to create a `syslog` resource:
 
-    $ convox rack resources create syslog Url=tcp+tls://logs-01.loggly.com:514 Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} [69af9e44-e002-4f67-8777-7b3b93ab0297@41058 tag=\"example-app\" ] {MESSAGE}"
+    $ convox rack resources create syslog Url=tcp+tls://logs-01.loggly.com:514 Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - [69af9e44-e002-4f67-8777-7b3b93ab0297@41058 tag=\"example-app\" ] {MESSAGE}"
     Creating syslog-3785 (syslog)... CREATING
     
 ## Link the Resource
