@@ -25,6 +25,8 @@ services:
       count: 2
       memory: 1024
       cpu: 512
+    termination:
+      grace: 120
 ```
 
 ### agent
@@ -161,6 +163,10 @@ Controls deployment behavior. When set to true existing containers for this serv
 ### sticky
 
 Toggle load balancer stickiness (using a cookie to keep a user associated with a single container) which helps some applications maintain consistency during rolling deploys. Defaults to `true`.
+
+### termination
+
+Sets the grace period after which a container will be forcefully killed if it does not gracefully exit during a shutdown.  Defaults to 30 seconds.
 
 ### test
 
