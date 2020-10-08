@@ -63,6 +63,8 @@ For a complete set of options available in `convox.yml` can click on the various
     <a href="/deployment/rolling-updates#deployment-configuration">deployment</a>:
       minimum: 50
       maximum: 200
+    <a href="/application/services#termination">termination</a>:
+      grace: 45
   worker:
     build: ./worker
     command: bin/worker
