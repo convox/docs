@@ -60,6 +60,6 @@ Some common 3rd party logging services include:
 * [Loggly](https://www.loggly.com/)
 
   * Syslog configuration is documented [here](https://www.loggly.com/docs/syslog-ng-manual-configuration/)
-  * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} [INSERT-YOUR-CUSTOMER-TOKEN-HERE@41058 tag=\"INSERT-YOUR-TAG-HERE\" ] {MESSAGE}"` and replacing `INSERT-YOUR-CUSTOMER-TOKEN-HERE` with your Loggly [customer token](https://www.loggly.com/docs/customer-token-authentication-token/) and `INSERT-YOUR-TAG-HERE` with a [tag](https://www.loggly.com/docs/tags/) that describes your source
+  * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - [INSERT-YOUR-CUSTOMER-TOKEN-HERE@41058 tag=\"INSERT-YOUR-TAG-HERE\" ] {MESSAGE}"` and replacing `INSERT-YOUR-CUSTOMER-TOKEN-HERE` with your Loggly [customer token](https://www.loggly.com/docs/customer-token-authentication-token/) and `INSERT-YOUR-TAG-HERE` with a [tag](https://www.loggly.com/docs/tags/) that describes your source
 
 
