@@ -8,7 +8,7 @@ You can easily configure your application to to forward its logs to Loggly.
 
 * The Syslog configuration is documented [here](https://www.loggly.com/docs/syslog-ng-manual-configuration/)
 
-* The suggested Format is: `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} [INSERT-YOUR-CUSTOMER-TOKEN-HERE@41058 tag=\"INSERT-YOUR-TAG-HERE\" ] {MESSAGE}"` and replacing `INSERT-YOUR-CUSTOMER-TOKEN-HERE` with your Loggly [customer token](https://www.loggly.com/docs/customer-token-authentication-token/) and `INSERT-YOUR-TAG-HERE` with a [tag](https://www.loggly.com/docs/tags/) that describes your source
+* The suggested Format is: `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - [INSERT-YOUR-CUSTOMER-TOKEN-HERE@41058 tag=\"INSERT-YOUR-TAG-HERE\" ] {MESSAGE}"` and replacing `INSERT-YOUR-CUSTOMER-TOKEN-HERE` with your Loggly [customer token](https://www.loggly.com/docs/customer-token-authentication-token/) and `INSERT-YOUR-TAG-HERE` with a [tag](https://www.loggly.com/docs/tags/) that describes your source
 
 ## Create a Syslog Resource
 
