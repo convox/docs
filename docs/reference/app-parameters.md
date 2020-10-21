@@ -40,6 +40,10 @@ Set to the number of days you wish to retain logs for.  The default for new appl
 
 Set to `No` to allow the app to listen on HTTP rather than the default behavior of having all HTTP requests automatically redirected to HTTPS.
 
+### SlowStartDuration
+
+Sets the ramp up period during which a newly deployed service will receive a gradually increasing share of traffic. Defaults to 0 seconds (disabled). Other valid values are between 30-900 seconds.  Once the duration has expired, the full share of traffic will be directed at the newly deployed service.
+
 ### TaskTags
 
 Set to `Yes` to cause ECS tags to be propagated to the task level.
