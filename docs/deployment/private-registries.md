@@ -31,7 +31,7 @@ Continuing with our Docker Hub example, the command would be:
     $ convox registries add index.docker.io/v1/ username password
     Adding registry... OK
 
-You will be prompted for your username and password. Once the registry has been added, you can pull private images:
+Once the registry has been added, you can pull private images:
 
     $ convox deploy
     Deploying test
