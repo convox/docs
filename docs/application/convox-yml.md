@@ -65,7 +65,7 @@ For a complete set of options available in `convox.yml` can click on the various
       maximum: 200
     <a href="/application/services#termination">termination</a>:
       grace: 45
-     <a href="/deployment/scaling">scale:</a>
+    <a href="/deployment/scaling">scale:</a>
       count: 1-10
       cooldown:
         down: 180
