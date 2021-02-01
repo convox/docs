@@ -65,6 +65,15 @@ For a complete set of options available in `convox.yml` can click on the various
       maximum: 200
     <a href="/application/services#termination">termination</a>:
       grace: 45
+     <a href="/deployment/scaling">scale:</a>
+      count: 1-10
+      cooldown:
+        down: 180
+        up: 30
+      targets:
+        cpu: 70
+        memory: 90
+        requests: 200
   worker:
     build: ./worker
     command: bin/worker
