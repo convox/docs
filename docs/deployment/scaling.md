@@ -105,3 +105,27 @@ service:
 These settings would continually adjust the level of workers to keep the maximum number of messages waiting in the queue to 20.
 
 You can define any or all of these targets for each service. The autoscaler will select the maximum number of processes required to meet all of the defined targets.
+
+You can specify a cooldown period (in seconds) for your service-level autoscaling if you wish to limit the effects of continuous scaling activity.  Once a scale up/down event has happened, a subsequent scaling event (of the same direction) will wait for the expiry of the cooldown period before being actioned.  This can help to stop your service over-aggressively scaling up or down.
+
+You can define one value which will be applied to both scaling up and scaling down:
+
+```
+service:
+  web:
+    scale:
+      cooldown: 120
+```
+
+Or you can specify each value separately for the different scaling directions.
+
+```
+service:
+  web:
+    scale:
+      cooldown:
+        down: 180
+        up: 45
+```
+
+If you don't define a value, the cooldown period defaults to 60 seconds.
