@@ -1,6 +1,6 @@
 ## development #################################################################
 
-FROM golang:1.11 AS development
+FROM golang:1.15 AS development
 
 RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update && apt-get -y install nodejs
@@ -22,7 +22,7 @@ CMD ["bin/web"]
 
 ## package #####################################################################
 
-FROM golang:1.11 AS package
+FROM golang:1.15 AS package
 
 RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update && apt-get -y install nodejs
