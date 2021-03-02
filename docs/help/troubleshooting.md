@@ -66,7 +66,8 @@ To use have ECS use Fargate instead of regular EC2 you will need the following:
 - either
    - run _all_ your services and/or tasks in Fargate by setting the relevant [App Parameters](/reference/app-parameters)
    - enable Fargate on a _per service_ basis via the ProcessName Formation(/gen1/app-parameters/) parameter
-      - e.g. `convox apps params set WebFormation=2,256,512,FARGATE`
+      - e.g. `convox apps params set WebFormation=2,256,512,FARGATE` for running on Fargate
+      - e.g. `convox apps params set WebFormation=2,256,512,FARGATE_SPOT` for running on Fargate Spot
 
    
 ## My CLI commands take a long time to return
