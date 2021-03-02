@@ -14,11 +14,11 @@ Parameters can be set using the following command.
 
 ### FargateServices
 
-Set to `Yes` to run all services for this application in [Fargate](https://aws.amazon.com/fargate/).
+Set to `Yes` to run all services for this application in [Fargate](https://aws.amazon.com/fargate/).  Set to `Spot` to run all services for this application in [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
 
 ### FargateTimers
 
-Set to `Yes` to run all timers for this application in [Fargate](https://aws.amazon.com/fargate/).
+Set to `Yes` to run all timers for this application in [Fargate](https://aws.amazon.com/fargate/).  Set to `Spot` to run all timers for this application in [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
 
 ### IamPolicy
 
