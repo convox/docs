@@ -12,6 +12,10 @@ Parameters can be set using the following command.
   When a Rack update adds new app parameters they become available for each app after its next deploy.
 </div>
 
+### CircuitBreaker
+
+Set to `Yes` to enable Circuit Breaker deployments in ECS.  This will make failing deployments rollback quicker and easier.  If a deployment requires your Rack to scale up however, it can trip the Circuit Breaker and fail when it otherwise wouldn't.  Best used when you have good capacity on your Rack.
+
 ### FargateServices
 
 Set to `Yes` to run all services for this application in [Fargate](https://aws.amazon.com/fargate/).  Set to `Spot` to run all services for this application in [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
