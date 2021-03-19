@@ -42,5 +42,5 @@ Certain applications and containers may wish to access host volumes rather than 
 ```
 
 <div class="block-callout block-show-callout type-info" markdown="1">
-  Only certain specific host paths are supported for security reasons. (`/cgroup/`, `/dev/log`, `/etc/passwd`, `/proc/`, `/sys/fs/cgroup/`, `/var/log/audit/`, `/var/run/`, `/var/run/docker.sock`)<br/>
+  Only certain specific host paths are supported for security reasons. (`/cgroup/`, `/dev/log`, `/etc/passwd`, `/proc/`, `/sys/fs/cgroup/`, `/sys/kernel/debug/`, `/var/log/audit/`, `/var/run/`, `/var/run/docker.sock`)<br/>
 </div>
