@@ -217,6 +217,12 @@ If installing rack on existing VPC, you need to pass existing InternetGateway ID
 
 | Default value | *<blank>* |
 
+### LoadBalancerIdleTimeout
+
+The idle timeout value for the ALB, in seconds. The valid range is 1-4000 seconds.
+
+| Default value  | `3600` |
+
 ### OnDemandMinCount
 
 If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availbility.
