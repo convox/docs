@@ -20,6 +20,12 @@ When you know there is an issue and want to stop a deployment, you can run the `
 
 As ALB routing rules must have a unique priority, Convox will generate a random one for each service in the range 1-50000 (the range allowed by AWS).  This is generated from a checksum of the app name, service name, domain name, and a couple of other tweaks.  It is very unlikely, but it is possible to have a collision between two separate services on the same rack.  To solve this, simply slightly amend your app or service name to generate a different checksum.
 
+## I get an error when deleting rack from Convox Console 
+
+### I get `ERROR: ValidationError: Stack with id rack-name does not exist`
+
+When deleting a Rack from the Convox Console under certain circumstances the rack is removed from the Console, but the AWS resources are still in AWS. To remove resources you need to go to your AWS account console, then head over to CloudFormation in the same region you rack was created. Under stack there will be stacks with: `rack-name`, `rack-name-app-name`, `rack-name-console-xxx`. Select them and then click Delete from the CloudFormation options. This will remove all the resources created for you rack.
+
 ## My app deployed but I cannot access it
 
 Run `convox services` to find the load balancer endpoints for your application.
