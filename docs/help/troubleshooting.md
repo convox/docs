@@ -65,7 +65,7 @@ To use have ECS use Fargate instead of regular EC2 you will need the following:
 - specify `cpu` and `memory` in [convox.yml](/application/convox-yml) that is [compatible with Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)
 - either
    - run _all_ your services and/or tasks in Fargate by setting the relevant [App Parameters](/reference/app-parameters)
-   - enable Fargate on a _per service_ basis via the ProcessName Formation(/gen1/app-parameters/) parameter
+   - enable Fargate on a _per service_ basis via the ProcessName Formation parameter
       - e.g. `convox apps params set WebFormation=2,256,512,FARGATE` for running on Fargate
       - e.g. `convox apps params set WebFormation=2,256,512,FARGATE_SPOT` for running on Fargate Spot
 
