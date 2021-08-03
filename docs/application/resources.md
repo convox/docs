@@ -93,7 +93,7 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
 | `encrypted` | `false`          | Encrypt data at rest                    |
-| `durable`   | `false`          | Automatic failover                      |
+| `durable`   | `false`          | Multi-AZ automatic failover             |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `10.4`           | MariaDB version                         |
@@ -104,7 +104,7 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
 | `encrypted` | `false`          | Encrypt data at rest                    |
-| `durable`   | `false`          | Automatic failover                      |
+| `durable`   | `false`          | Multi-AZ automatic failover             |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `5.7.22`         | MySQL version                           |
@@ -114,7 +114,7 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 | Option      | Default          | Description                             |
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
-| `durable`   | `false`          | Automatic failover                      |
+| `durable`   | `false`          | Multi-AZ automatic failover             |
 | `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
@@ -125,7 +125,7 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 | Option      | Default          | Description          |
 |-------------|------------------|----------------------|
 | `class`     | `cache.t2.micro` | Instance class       |
-| `durable`   | `false`          | Automatic failover   |
+| `durable`   | `false`          | Multi-AZ automatic failover   |
 | `encrypted` | `false`          | Encrypt data at rest |
 | `nodes`     | `1`              | Number of nodes      |
 | `version`   | `2.8.24`         | Redis version        |
