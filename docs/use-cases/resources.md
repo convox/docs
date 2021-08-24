@@ -131,6 +131,7 @@ While Memcached and Redis are available as Rack Resources if needed, there are a
 $ convox rack resources options mysql
 NAME                        DEFAULT      DESCRIPTION
 AllocatedStorage            10           Allocated storage size (GB)
+AutoMinorVersionUpgrade     true         Automatically update minor versions
 Database                    app          Default database name
 DatabaseSnapshotIdentifier               ARN of database snapshot to restore
 Encrypted                   false        Encrypt database with KMS
@@ -143,6 +144,7 @@ Username                    app          Server username
 $ convox rack resources options postgres
 NAME                        DEFAULT      DESCRIPTION
 AllocatedStorage            10           Allocated storage size (GB)
+AutoMinorVersionUpgrade     true         Automatically update minor versions
 BackupRetentionPeriod       1            The automatic RDS backup retention period, (default 1 day)
 Database                    app          Default database name
 DatabaseSnapshotIdentifier               ARN of database snapshot to restore

@@ -12,6 +12,10 @@ Parameters can be set using the following command.
   When a Rack update adds new app parameters they become available for each app after its next deploy.
 </div>
 
+### AutoMinorVersionUpgrade
+
+Set to `false` to disable the automatic minor version upgrade of any database resources in this app.  Defaults to `true`.
+
 ### CircuitBreaker
 
 Set to `Yes` to enable Circuit Breaker deployments in ECS.  This will make failing deployments rollback quicker and easier.  If a deployment requires your Rack to scale up however, it can trip the Circuit Breaker and fail when it otherwise wouldn't.  Best used when you have good capacity on your Rack.
