@@ -28,6 +28,9 @@ If you have installed your Rack in GCP, Digital Ocean, or do not have an AWS Run
 
 - From the 'Racks' page within the Console, click on the 'Add Rack' dropdown and select the 'Manual' option.
 - Fill in your chosen name for the Rack, the hostname as reported by the installation, and the password you set during installation.
+  - To find hostname and password in the AWS Console, go to the region you intalled the Rack: 
+    - hostname: go to Cloudformation -> Choose your rack -> Outputs -> Dashboard
+    - password: go to ECS -> Clusters -> {rackname}-Cluster-{random string} -> {rackname}-ApiWebService-{random string} -> Select the task definition -> In Container Definitions look for the Environment Variable PASSWORD
 - Click on 'Add Rack' and the Rack will be imported to your Console account.
 
 ![](/assets/images/docs/import-rack/import-rack-manual.png)
