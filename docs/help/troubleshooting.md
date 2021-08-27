@@ -24,9 +24,9 @@ As ALB routing rules must have a unique priority, Convox will generate a random 
 
 ### I get `ERROR: ValidationError: Stack with id rack-name does not exist`
 
-When deleting a Rack from the Convox Console under certain circumstances the rack is removed from the Console, but the AWS resources are still in AWS. To remove resources you need to go to your AWS account console, then head over to CloudFormation in the same region you rack was created. Under stack there will be stacks with: `rack-name`, `rack-name-app-name`, `rack-name-console-xxx`. Select them and then click Delete from the CloudFormation options. This will remove all the resources created for you rack.
+When deleting a Rack from the Convox Console under certain circumstances the rack is removed from the Console, but the AWS resources are still in AWS. To remove resources you need to go to your AWS account console, then head over to CloudFormation in the same region your rack was created. Under stack there will be stacks with: `rack-name`, `rack-name-app-name`, `rack-name-console-xxx`. Select them and then click Delete from the CloudFormation options. This will remove all the resources created for your rack.
 
-Note: Some resouces as Cloudwatch logs might still exists after this process.
+Note: Some resources as Cloudwatch logs might still exists after this process.
 
 ## My app deployed but I cannot access it
 
