@@ -178,6 +178,10 @@ stop a process
 
 get information about the rack
 
+### `rack install`
+
+install a rack (you can configure the install passing [Rack Parameters](https://docsv2.convox.com/reference/rack-parameters) i.e. `convox rack install aws -n sandbox Private=Yes`)
+
 ### `rack logs`
 
 get logs for the rack
