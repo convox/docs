@@ -146,7 +146,7 @@ For more information, see [HTTP Proxy Configuration](http://docs.aws.amazon.com/
     
 ### ImagePullBehavior
 
-By default the ECS agent always pulls the Docker image from its remote registry when starting a task. If you are using a well designed image tagging scheme such as a new image tag for each release of your application this behavior is unnecessary. The default behavior only benefits you if you are doing something like overwriting your `latest` image tag with new content for each application release. Since using the `latest` tag is an anti-pattern anyway, you are likely using a unique image tag for each application release and can modify your image pull behavior.
+By default the ECS agent always pulls the Docker image from its remote registry when starting a task. You can configure it's behaviour with the following options documented [here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html).
 
 | Default value | `default` |
 | Allowed values | `default`, `always`, `once`, `prefer-cached`|
