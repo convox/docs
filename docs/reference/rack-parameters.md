@@ -204,6 +204,17 @@ The number of instances to update in a batch.
 | Default value | `1`    |
 | Minimum value | `1`    |
 
+### HighAvailability
+
+<div class="alert alert-warning">
+This parameter cannot be changed after the rack is created.
+</div>
+
+Whether to enable High Availability mode. This ensure propper resources redundancy to mitigate system failures.
+
+| Default value  | `true`             |
+| Allowed values | `true`, `false`    |
+
 ### Internal
 
 Enable the internal load balancer for this Rack. See [Internal Services](/docs/internal-services)
