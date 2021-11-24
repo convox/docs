@@ -1,8 +1,8 @@
 ## development #################################################################
 
-FROM golang:1.15 AS development
+FROM golang:1.16 AS development
 
-RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update && apt-get -y install nodejs
 
 RUN curl -Ls https://github.com/mattgreen/watchexec/releases/download/1.8.6/watchexec-1.8.6-x86_64-unknown-linux-gnu.tar.gz | \
@@ -22,9 +22,9 @@ CMD ["bin/web"]
 
 ## package #####################################################################
 
-FROM golang:1.15 AS package
+FROM golang:1.16 AS package
 
-RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update && apt-get -y install nodejs
 
 RUN go get -u github.com/gobuffalo/packr/packr

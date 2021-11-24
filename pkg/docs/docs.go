@@ -12,10 +12,10 @@ import (
 	"strings"
 
 	"github.com/algolia/algoliasearch-client-go/algoliasearch"
-	yaml "github.com/go-yaml/yaml"
 	"github.com/gobuffalo/packd"
 	"github.com/gobuffalo/packr"
-	"github.com/russross/blackfriday"
+	"github.com/russross/blackfriday/v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var (
