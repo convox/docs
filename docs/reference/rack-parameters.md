@@ -244,6 +244,21 @@ If using spot instances through the [SpotInstanceBid](#spotinstancebid) paramete
 
 SSH key name for access to cluster instances.
 
+### ScheduleRackScaleDown & ScheduleRackScaleUp
+
+Use ScheduleRackScaleDown & ScheduleRackScaleUp if you want to turn the rack on/off based on a schedule. Keep in mind that both parameters need to be set.
+To turn your rack off on weekends and back on during weekdays you can use:
+
+```
+convox rack params set ScheduleRackScaleDown="0 18 * * 5" ScheduleRackScaleUp="0 9 * * 1"
+```
+
+The supported cron expression format consists of five fields separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. In the example above it's configured to shutdown every Friday (5th day) at 6pm (UTC). More details on the CRON format can be found in [Crontab](http://crontab.org/) and [examples](https://crontab.guru/examples.html).
+
+You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html).
+
+| Default value  | ``
+
 ## Password
 
 (REQUIRED) API HTTP password.
