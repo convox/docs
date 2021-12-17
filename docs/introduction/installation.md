@@ -15,15 +15,38 @@ You can install it via the command line:
 
 ## OS X
 
+### x86_64 / amd64
+
     $ curl -L https://convox.com/cli/macos/convox -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 
+### arm64
+
+```html
+    $ curl -L https://convox.com/cli/macos/convox-arm64 -o /tmp/convox
+    $ sudo mv /tmp/convox /usr/local/bin/convox
+    $ sudo chmod 755 /usr/local/bin/convox
+```
+
 ## Linux
 
+
+### x86_64 / amd64
+
+```html
     $ curl -L https://convox.com/cli/linux/convox -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
+```
+
+### arm64
+
+```html
+    $ curl -L https://convox.com/cli/linux/convox-arm64 -o /tmp/convox
+    $ sudo mv /tmp/convox /usr/local/bin/convox
+    $ sudo chmod 755 /usr/local/bin/convox
+```
 
 ## Windows
 
