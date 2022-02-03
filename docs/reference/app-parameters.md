@@ -40,6 +40,10 @@ Set to `No` to disable the internal domain names at `convox.site` and `.convox` 
 
 Sets the routing algorithm used for the services within the application.  Defaults to `round_robin`, but you can also set to `least_outstanding_requests`.
 
+### LoadBalancerSuccessCodes
+
+Specifies the HTTP codes that healthy targets must use when responding to an HTTP health check. You can specify values between 200 and 499, and the default value is `200-399,401`. You can specify multiple values (for example, `200,202`) or a range of values (for example, `200-299`).
+
 ### LogRetention
 
 Set to the number of days you wish to retain logs for.  The default for new applications is `7`.  Setting the retention window to a high/unlimited value will affect the performance/reliability of `convox logs` over the long term.  It is recommended to keep it at a smaller value and use [syslog](/deployment/syslogs) to export your logs for long-term archival and analysis.
