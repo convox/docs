@@ -26,7 +26,7 @@ services:
 
 <div class="block-callout block-show-callout type-warning" markdown="1">
   Using a custom domain requires a valid SSL certificate for the domains being specified.
-  <p>If a single certificate does not already exist in the same regions as the rack is installed and that matches all the domains you specify for your service, one will be automatically created. The DNS owner will receive a validation email with a link that needs to be clicked for this process to complete.  This will happen the first time you deploy your service with your configuration</p>
+  <p>If a single certificate does not already exist in the same region as the rack is installed and that matches all the domains you specify for your service, one will be automatically created. The DNS owner will receive a validation email with a link that needs to be clicked for this process to complete.  This will happen the first time you deploy your service with your configuration</p>
 </div>
 
 <div class="block-callout block-show-callout type-info" markdown="1">
