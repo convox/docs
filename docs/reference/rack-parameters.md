@@ -143,7 +143,14 @@ Set this value to the hostname (or IP address) and port number of an HTTP proxy 
 | Default value | *<blank>* |
 
 For more information, see [HTTP Proxy Configuration](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/http_proxy_config.html) in the AWS docs.
+    
+### ImagePullBehavior
 
+By default the ECS agent always pulls the Docker image from its remote registry when starting a task. You can configure it's behaviour with the following options documented [here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html).
+
+| Default value | `default` |
+| Allowed values | `default`, `always`, `once`, `prefer-cached`|
+    
 ### InstanceBootCommand
 
 A single line of shell script to run (as root) as a cloud-init command early during instance boot.
