@@ -144,6 +144,21 @@ Set this value to the hostname (or IP address) and port number of an HTTP proxy 
 
 For more information, see [HTTP Proxy Configuration](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/http_proxy_config.html) in the AWS docs.
 
+The `HttpProxy`param will not change how the apps access the internet, the traffic won't go through the proxy. Only the instances requests will use the proxy for outbound connections, if you want your apps to use the proxy, you have to configure it on the convox.yml:
+
+```
+services:
+  web:
+    build: .
+    port: 3000
+    environment:
+      - http_proxy=10.0.1.124:8888
+      - https_proxy=10.0.1.124:8888
+      - HTTP_PROXY=10.0.1.124:8888
+      - HTTPS_PROXY=10.0.1.124:8888
+      - NO_PROXY=169.254.170.2
+```
+
 ### InstanceBootCommand
 
 A single line of shell script to run (as root) as a cloud-init command early during instance boot.
@@ -257,7 +272,7 @@ The supported cron expression format consists of five fields separated by white 
 
 You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html).
 
-| Default value  | ``
+| Default value  | `` |
 
 ## Password
 
