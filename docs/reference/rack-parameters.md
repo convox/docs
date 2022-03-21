@@ -100,16 +100,6 @@ Anonymous identifier.
 
 | Default value  | `dev@convox.com` |
 
-### ContainerDisk
-
-<div class="alert alert-info">
-Getting errors like <b>No space left on device</b> on your running applications (not builds)? You can extend the space on the device by increasing this parameter.
-</div>
-
-Default container disk size in GB.
-
-| Default value | `10` |
-
 ### EcsPollInterval
 
 How often (in seconds) to poll ECS for service updates(to inject into the app logs.
