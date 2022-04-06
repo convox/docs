@@ -149,6 +149,13 @@ services:
       - NO_PROXY=169.254.170.2
 ```
 
+### IMDSHttpTokens
+
+Set how your instances will access the instance metadata. You can set EC2 instances to use only v2 by setting IMDSHttpTokens as 'required', see [Configure the instance metadata options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html#configuring-IMDS-new-instances).
+
+| Default value  | `optional`             |
+| Allowed values | `optional`, `required` |
+
 ### InstanceBootCommand
 
 A single line of shell script to run (as root) as a cloud-init command early during instance boot.
@@ -174,8 +181,8 @@ Updating parameters... OK
 
 The number of EC2 instances in your Rack cluster.
 
-| Default value | `3`    |
-| Minimum value | `3`    |
+| Default value | `3` |
+| Minimum value | `3` |
 
 ### InstancePolicy
 
@@ -206,8 +213,8 @@ See also the [BuildInstance](#buildinstance) Rack parameter.
 
 The number of instances to update in a batch.
 
-| Default value | `1`    |
-| Minimum value | `1`    |
+| Default value | `1` |
+| Minimum value | `1` |
 
 ### HighAvailability
 
@@ -217,8 +224,8 @@ This parameter cannot be changed after the rack is created.
 
 Whether to enable High Availability mode. This ensure propper resources redundancy to mitigate system failures.
 
-| Default value  | `true`             |
-| Allowed values | `true`, `false`    |
+| Default value  | `true`          |
+| Allowed values | `true`, `false` |
 
 ### Internal
 
@@ -241,9 +248,9 @@ The idle timeout value for the ALB, in seconds. The valid range is 1-4000 second
 
 ### OnDemandMinCount
 
-If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availbility.
+If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availability.
 
-| Default value | `3`    |
+| Default value | `3` |
 
 ### Key
 
@@ -262,9 +269,9 @@ The supported cron expression format consists of five fields separated by white 
 
 You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html).
 
-| Default value  | `` |
+| Default value  | *<blank>* |
 
-## Password
+### Password
 
 (REQUIRED) API HTTP password.
 
