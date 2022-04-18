@@ -34,14 +34,21 @@ Your existing VPC has a CIDR block, and each of your existing subnets has its ow
 
 Installing a private Rack into an existing VPC requires specifying a few more options in the **Advanced Network and Compute Options** section of the Convox web installer:
 
-- `ExistingVpc=vpc-...`
-- `ExistingInternetGateway=igw-...`
-- `Subnet0CIDR=... Subnet1CIDR=... Subnet2CIDR=...`
+- `ExistingVpc=vpc-id`
+- `InternetGateway=igw-id`
+- `Subnet0CIDR=172.0.1.0/24`
+- `Subnet1CIDR=172.0.2.0/24`
+- `Subnet2CIDR=172.0.3.0/24`
+- `SubnetPrivate0=172.0.4.0/24`
+- `SubnetPrivate1=172.0.5.0/24`
+- `SubnetPrivate2=172.0.6.0/24`
+- `VPCCIDR=172.0.0.0/16` (make sure to create this block on your custom VPC first)
 
-If you want a Private rack you need these additional options:
+Even when running in non-private mode (`Private=No`) we still use private subnets for creating endpoints with some AWS services, so don't forget to specify them.
+
+If you want a Private rack, also add:
 
 - `Private=Yes`
-- `SubnetPrivate0CIDR=... SubnetPrivate1CIDR=... SubnetPrivate2CIDR=...`
 
 ## Peering VPCs
 
