@@ -16,7 +16,7 @@ Once you have your project added, login to the Convox console and click on the s
 
 From here generate a [deploy key](/console/deploy-keys) and copy it to your local clipboard.
 
-In CircleCI, add an [environment variable](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) with the name `CONVOX_DEPLOY_KEY` and paste your deploy key as the value
+In CircleCI, add an [environment variable](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) with the name `CONVOX_PASSWORD` and paste your deploy key as the value and if you self-host a console (enterprise customers) you need to specify the `CONVOX_HOST` with your console URL.
 
 ## Build a CircleCI config.yml Using the Convox Orb
 ***
@@ -25,7 +25,6 @@ In CircleCI, add an [environment variable](https://circleci.com/docs/2.0/env-var
 The Convox Orb contains a single `deploy` command and matching job for deploying your app to Convox using CircleCI.
 
 The job is self contained. If you would prefer to use the command you must run the `checkout` command before using `deploy`.
-
 
 The `deploy` Job/Command accepts the following parameters:
 
@@ -63,7 +62,7 @@ The simplest version of a config.yml would look like:
 ```
 version: 2.1
 orbs:
-  convox: convox/orb@1.4.1
+  convox: convox/orb@1.4.2
 workflows:
   deploy:
     jobs:
@@ -77,7 +76,7 @@ If you would prefer to use the Convox Orb commands directly you need to run the 
 ```
 version: 2.1
 orbs:
-  convox: convox/orb@1.4.1
+  convox: convox/orb@1.4.2
 workflows:
   deploy:
     jobs:
@@ -92,3 +91,5 @@ jobs:
           rack: production
           app: example
 ```
+
+Check our [orb page](https://circleci.com/developer/orbs/orb/convox/orb) to see if we have a new orb version.
