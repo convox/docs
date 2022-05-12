@@ -12,10 +12,10 @@ Authenticates, builds, and deploys in a single step
 Authenticates your Convox account. You should run this action as the first step in your workflow
 ### [Build](https://github.com/convox/action-build)
 Builds an app and creates a release which can be promoted later
-### [Run](https://github.com/convox/action-run) 
+### [Run](https://github.com/convox/action-run)
 Runs a command (such as a migration) using a previously built release before or after it is promoted
 ### [Promote](https://github.com/convox/action-promote)
-Promotes a release 
+Promotes a release
 
 
 ## Adding a Github Workflow to Your Repository
@@ -61,12 +61,12 @@ jobs:
       uses: actions/checkout@v1
     - name: login
       id: login
-      uses: convox/action-login@v1
+      uses: convox/action-login@v2
       with:
         password: ${{ secrets.CONVOX_DEPLOY_KEY }}
     - name: build
       id: build
-      uses: convox/action-build@v1
+      uses: convox/action-build@v2
       with:
         rack: staging
         app: myrailsapp
@@ -94,5 +94,7 @@ In this case the steps are as follows
 * Build with the [`build`](#buildhttpsgithubcomconvoxaction-build) action
 * Run our migrations with the [`run`](#runhttpsgithubcomconvoxaction-run) action using the `release` output variable from the build step to target that specific release for our run
 * Promote our release with the [`promote`](#promotehttpsgithubcomconvoxaction-promote) action also using the `release` output variable from the build step
+
+Remember to check and use the latest version available.
 
 One thing to note is that by default the `run` and `promote` actions will use the release from a previous build step so you only need to pass the `release` value if you want to target a release other than the one you just built.
