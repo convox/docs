@@ -124,6 +124,20 @@ Encrypt secrets with KMS.
 
 Existing VPC ID (if blank, a VPC will be created).
 
+
+### HighAvailability
+
+<div class="alert alert-warning">
+This parameter cannot be changed after the rack is created.
+</div>
+
+Whether to enable High Availability mode. This ensure proper resources redundancy to mitigate system failures.
+
+If High Availability is true, the [InstanceCount](#instancecount) is used as initial cluster size. If false, the `NoHaInstanceCount` is used as initial cluster size. Both can be scaled to 1000 instances.
+
+| Default value  | `true`          |
+| Allowed values | `true`, `false` |
+
 ### HttpProxy
 
 HTTP proxy for outbound HTTP connections (for network-restricted Racks).
@@ -179,7 +193,7 @@ Updating parameters... OK
 
 ### InstanceCount
 
-The number of EC2 instances in your Rack cluster.
+The number of EC2 instances in your Rack cluster. It's only used for high available clusters.
 
 | Default value | `3` |
 | Minimum value | `3` |
@@ -216,17 +230,6 @@ The number of instances to update in a batch.
 | Default value | `1` |
 | Minimum value | `1` |
 
-### HighAvailability
-
-<div class="alert alert-warning">
-This parameter cannot be changed after the rack is created.
-</div>
-
-Whether to enable High Availability mode. This ensure propper resources redundancy to mitigate system failures.
-
-| Default value  | `true`          |
-| Allowed values | `true`, `false` |
-
 ### Internal
 
 Enable the internal load balancer for this Rack. See [Internal Services](/docs/internal-services)
@@ -240,36 +243,30 @@ If installing rack on existing VPC, you need to pass existing InternetGateway ID
 
 | Default value | *<blank>* |
 
+### Key
+
+SSH key name for access to cluster instances.
+
+| Default value  | *<blank>* |
+
 ### LoadBalancerIdleTimeout
 
 The idle timeout value for the ALB, in seconds. The valid range is 1-4000 seconds.
 
 | Default value  | `3600` |
 
+### NoHaInstanceCount
+
+The number of EC2 instances in your non High Availability Rack cluster. It's only used for non high available clusters.
+
+| Default value | `1` |
+| Minimum value | `1` |
+
 ### OnDemandMinCount
 
-If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availability.
+If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availability. You must set it even if you using the HighAvailability as `false`, as this will be used to create the minimum on demand instances.
 
 | Default value | `3` |
-
-### Key
-
-SSH key name for access to cluster instances.
-
-### ScheduleRackScaleDown & ScheduleRackScaleUp
-
-Use ScheduleRackScaleDown & ScheduleRackScaleUp if you want to turn the rack on/off based on a schedule. Keep in mind that both parameters need to be set.
-To turn your rack off on weekends and back on during weekdays you can use:
-
-```
-convox rack params set ScheduleRackScaleDown="0 18 * * 5" ScheduleRackScaleUp="0 9 * * 1"
-```
-
-The supported cron expression format consists of five fields separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. In the example above it's configured to shutdown every Friday (5th day) at 6pm (UTC). More details on the CRON format can be found in [Crontab](http://crontab.org/) and [examples](https://crontab.guru/examples.html).
-
-You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html).
-
-| Default value  | *<blank>* |
 
 ### Password
 
@@ -318,9 +315,25 @@ Specify a custom security group to use for the Rack's router.
 
 | Default value  | *<blank>* |
 
+
+### ScheduleRackScaleDown & ScheduleRackScaleUp
+
+Use ScheduleRackScaleDown & ScheduleRackScaleUp if you want to turn the rack on/off based on a schedule. Keep in mind that both parameters need to be set.
+To turn your rack off on weekends and back on during weekdays you can use:
+
+```
+convox rack params set ScheduleRackScaleDown="0 18 * * 5" ScheduleRackScaleUp="0 9 * * 1"
+```
+
+The supported cron expression format consists of five fields separated by white spaces: [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. In the example above it's configured to shutdown every Friday (5th day) at 6pm (UTC). More details on the CRON format can be found in [Crontab](http://crontab.org/) and [examples](https://crontab.guru/examples.html).
+
+You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html).
+
+| Default value  | *<blank>* |
+
 ### SpotInstanceBid
 
-A value, in dollars, that you want to pay for spot instances. If spot instances are available for the bid price, the Rack instances will use spot instances instead of on demand instances, resulting in significant cost savings. If the parameter is empty, spot instances will not be utilized. This should be used with the [OnDemandMinCount](#ondemandmincount) parameter to guarantee some on demand instances are running if spot instances are not available.
+A value, in dollars, that you want to pay for spot instances. If spot instances are available for the bid price, the Rack instances will use spot instances instead of on demand instances, resulting in significant cost savings. If the parameter is empty, spot instances will not be utilized. This must be used with the [OnDemandMinCount](#ondemandmincount) parameter to guarantee some on demand instances are running if spot instances are not available (even if the HighAvailability is `false`, if not set will use the default).
 
 | Default value  | *<blank>* |
 
