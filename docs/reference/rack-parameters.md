@@ -131,7 +131,7 @@ Existing VPC ID (if blank, a VPC will be created).
 This parameter cannot be changed after the rack is created.
 </div>
 
-Whether to enable High Availability mode, choose between failure resiliency and cost efficiency. This ensure proper resources redundancy to mitigate system failures.
+Whether or not enable High Availability mode, choose between failure resiliency and cost efficiency. This ensure proper resources redundancy to mitigate system failures.
 
 If HighAvailability is set to true, the [InstanceCount](#instancecount) is used as initial cluster size. If false, the `NoHaInstanceCount` is used as initial cluster size. Both can be scaled to 1000 instances.
 
@@ -193,7 +193,7 @@ Updating parameters... OK
 
 ### InstanceCount
 
-The number of EC2 instances in your Rack cluster. This parameter is only used for clusters with HighAvailablity as true.
+The number of EC2 instances in your Rack cluster. This parameter is only used for clusters with HighAvailablity = true.
 
 | Default value | `3` |
 | Minimum value | `3` |
