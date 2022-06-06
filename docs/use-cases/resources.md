@@ -149,8 +149,8 @@ BackupRetentionPeriod       1            The automatic RDS backup retention peri
 Database                    app          Default database name
 DatabaseSnapshotIdentifier               ARN of database snapshot to restore
 Encrypted                   false        Encrypt database with KMS
-EngineVersion               9.6          Version of Postgres
-Family                      postgres9.6  Postgres version family
+EngineVersion               12           Version of Postgres
+Family                      postgres12   Postgres version family
 InstanceType                db.t2.micro  Instance class for database nodes
 MaxConnections                           ParameterGroup max_connections value, i.e. '{DBInstanceClassMemory/15000000}'
 MultiAZ                     false        Multiple availability zone
@@ -180,7 +180,7 @@ Topic                SNS resource name for change notifications
 Versioning  false    Enable versioning
 ```
 
-On an AWS-backed Rack, creating a S3 Resource will automatically create and configure a [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html) for you for persistent file storage.  You can use this bucket to put and retrieve data objects that will persist independently of your App.  
+On an AWS-backed Rack, creating a S3 Resource will automatically create and configure a [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html) for you for persistent file storage.  You can use this bucket to put and retrieve data objects that will persist independently of your App.
 
 ```
 $ convox rack resources info s3-2988 | grep URL
@@ -241,12 +241,12 @@ NAME  DEFAULT  DESCRIPTION
 Url            Webhook URL
 ```
 
-Internally, Convox uses the `webhook` resource to enable Slack integration.  You can do similar to receive [notifications](/console/notifications) about important events happening within your apps and Rack.  
+Internally, Convox uses the `webhook` resource to enable Slack integration.  You can do similar to receive [notifications](/console/notifications) about important events happening within your apps and Rack.
 
 # External Resources
 
-For any resource types that Convox does not natively support, it is still very easy to integrate them into your infrastructure and environments.  
-Best practice is to inject an environment variable for each external resource that you wish to integrate.  
+For any resource types that Convox does not natively support, it is still very easy to integrate them into your infrastructure and environments.
+Best practice is to inject an environment variable for each external resource that you wish to integrate.
 
 For example if you needed a MariaDB instance, you would go create that in RDS, ensure that the VPC and Security Group allows access to it from your Rack, get the appropriate endpoint, then in the application that needs access, set the env var for your connection string:
 
@@ -263,7 +263,7 @@ services:
     environment:
       - MARIADB_URL
       - ...
-    ...  
+    ...
 ```
 
 <div class="block-callout block-show-callout type-info" markdown="1">
