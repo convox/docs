@@ -118,7 +118,7 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 | `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `9.6`            | PostgreSQL version                      |
+| `version`   | `12`            | PostgreSQL version                      |
 
 #### redis
 
