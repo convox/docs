@@ -49,7 +49,7 @@ The number of instances of extra capacity that autoscale should keep running.
 
 ### AvailabilityZones
 
-Override the default availability zones used in a Rack. Please note that updating this parameter once a Rack is installed will require choosing new values for the various SubnetCIDR parameters since two subnets can not exist with the same CIDR simultaneously.
+Override the default availability zones used in a Rack. Please note that updating this parameter once a Rack is installed will require setting `MaxAvailabilityZones` to the new AZs quantity you are choosing.
 
 | Default value | *<blank>* |
 
@@ -254,6 +254,13 @@ SSH key name for access to cluster instances.
 The idle timeout value for the ALB, in seconds. The valid range is 1-4000 seconds.
 
 | Default value  | `3600` |
+
+### MaxAvailabilityZones
+
+The maximum number of Availability Zones that the cluster should use.
+
+| Default value | `3` |
+| Allowed values | `2`, `3` |
 
 ### NoHaInstanceCount
 
