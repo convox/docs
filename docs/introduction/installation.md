@@ -17,14 +17,14 @@ You can install it via the command line:
 
 ### x86_64 / amd64
 
-    $ curl -L https://convox.s3.amazonaws.com/cli/darwin/convox -o /tmp/convox
+    $ curl -L http://download.convox.com/cli/darwin/convox -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 
 ### arm64
 
 ```html
-    $ curl -L https://convox.s3.amazonaws.com/cli/darwin/convox-arm64 -o /tmp/convox
+    $ curl -L http://download.convox.com/cli/darwin/convox-arm64 -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 ```
@@ -35,7 +35,7 @@ You can install it via the command line:
 ### x86_64 / amd64
 
 ```html
-    $ curl -L https://convox.s3.amazonaws.com/cli/linux/convox -o /tmp/convox
+    $ curl -L http://download.convox.com/cli/linux/convox -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 ```
@@ -43,14 +43,14 @@ You can install it via the command line:
 ### arm64
 
 ```html
-    $ curl -L https://convox.s3.amazonaws.com/cli/linux/convox-arm64 -o /tmp/convox
+    $ curl -L http://download.convox.com/cli/linux/convox-arm64 -o /tmp/convox
     $ sudo mv /tmp/convox /usr/local/bin/convox
     $ sudo chmod 755 /usr/local/bin/convox
 ```
 
 ## Windows
 
-    $ curl -L https://convox.s3.amazonaws.com/cli/windows/convox.exe -O
+    $ curl -L http://download.convox.com/cli/windows/convox.exe -O
 
 # Next steps
 
