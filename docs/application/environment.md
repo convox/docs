@@ -77,6 +77,16 @@ Release: RRJQTMVKRS
 
 `convox env edit` allows you to interactively update your environment variables in a terminal editor 😊
 
+You can use `convox env edit` along with `convox releases` to restore an Environment Variable set from another release:
+
+First run `convox releases -a <app-name>` to identify the correct `RELEASE-ID`
+
+Next, examine the release's environment variables with `convox releases info <RELEASE-ID> -a <app-name>`
+
+Copy the desired variables.
+
+Finally run `convox env edit` paste and save the variables to create and promote a new `RELEASE` for your app with updated environment variables.
+
 ## Promoting your environment variable changes
 
 If you update your env vars through the CLI, that will create a new release containing your changes.  By default this will not be promoted.
