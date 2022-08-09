@@ -124,7 +124,7 @@ Encrypt secrets with KMS.
 
 Existing VPC-ID from AWS, if blank a VPC will be created. Additional paramater [InternetGateway](/reference/rack-parameters#internetgateway) must be set to use **ExistingVPC**.
 
-| Default value    ||
+| Default value    |*<blank>*|
 | Permitted values |VPC ID|
 
 
