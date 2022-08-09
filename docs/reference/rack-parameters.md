@@ -122,7 +122,10 @@ Encrypt secrets with KMS.
 
 ### ExistingVpc
 
-Existing VPC ID (if blank, a VPC will be created).
+Existing VPC ID (if blank, a VPC will be created). Paramater [InternetGateway](/reference/rack-parameters#internetgateway) must be set to use [ExistingVPC](/reference/rack-parameters#existingvpc).
+
+| Default value    ||
+| Permitted values |VPC ID|
 
 
 ### HighAvailability
