@@ -258,6 +258,12 @@ The idle timeout value for the ALB, in seconds. The valid range is 1-4000 second
 
 | Default value  | `3600` |
 
+### LogRetention
+
+Number of days to keep logs (blank for unlimited). Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 2192, 2557, 2922, 3288, and 3653. See [Logs](/management/logs#retention).
+
+| Default value  | `7` |
+
 ### MaxAvailabilityZones
 
 The maximum number of Availability Zones that the cluster should use.
