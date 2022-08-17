@@ -6,7 +6,11 @@ Native convox logging information can be found [here](/management/logs)...
 
 ### Routing Logs to a 3rd Party
 
-Convox supports routing your logs to any third party that can accept data from a syslog forwarder.
+Convox supports routing your logs to any third party that can accept data from a syslog forwarder. You have two options, using the **Resource Syslog** or configuring the **LogDriver** to `Syslog`.
+
+#### Resource Syslog
+
+Using the resource Syslog, it will create a Lambda function that will gather logs from CloudWatch and forward them to your Syslog. It will enable `convox logs` and `convox rack logs`.
 
 You can create a syslog forwarder with the following command:
 
@@ -62,4 +66,16 @@ Some common 3rd party logging services include:
   * Syslog configuration is documented [here](https://www.loggly.com/docs/syslog-ng-manual-configuration/)
   * Suggested `Format="<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - [INSERT-YOUR-CUSTOMER-TOKEN-HERE@41058 tag=\"INSERT-YOUR-TAG-HERE\" ] {MESSAGE}"` and replacing `INSERT-YOUR-CUSTOMER-TOKEN-HERE` with your Loggly [customer token](https://www.loggly.com/docs/customer-token-authentication-token/) and `INSERT-YOUR-TAG-HERE` with a [tag](https://www.loggly.com/docs/tags/) that describes your source
 
+#### Syslog as the LogDriver
 
+Using Syslog as the LogDriver will disable CloudWatch, all rack and apps logs will be redirect directly to your Syslog destination, be aware that `convox logs` and `convox rack logs` will not work if CloudWatch is not enabled. You must provide `SyslogDestination` when enabling Syslog as `LogDriver`. You can create a rack using with:
+
+    $ convox rack install aws -n ${rack-name} LogDriver=Syslog SyslogDestination="tcp+tls://logsX.syslog.com:1234"
+
+Or you can set on an existing rack by setting the parameters:
+
+    $ convox rack params set LogDriver=Syslog SyslogDestination="tcp+tls://logsX.syslog.com:1234"
+
+You can change the Syslog format using `SyslogFormat`:
+
+    $ convox rack params set SyslogFormat=rfc5424micro
