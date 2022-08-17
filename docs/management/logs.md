@@ -16,7 +16,7 @@ By default, new applications will retain 7 days worth of logs.  You can control 
 $ convox apps params set LogRetention=3
 ```
 
-To set an unlimited retention window, configure the parameter to be blank/empty.  
+To set an unlimited retention window, configure the parameter to be blank/empty.
 
 ```sh
 $ convox apps params set LogRetention=
@@ -72,4 +72,10 @@ You can view the logs for a Convox Rack itself using the `convox rack logs` comm
 
 See the dedicated section to Syslogs [here](/deployment/syslogs)...
 
+### Disabling logging system
 
+You can disable the logging system by setting `LogDriver` as empty:
+
+    $ convox rack params set LogDriver=""
+
+It will not create a CloudWatch LogGroup, existing LogGroups will not be deleted. Be aware that disabling it, convox logs and convox rack logs will stop working.
