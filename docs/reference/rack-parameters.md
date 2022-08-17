@@ -258,9 +258,18 @@ The idle timeout value for the ALB, in seconds. The valid range is 1-4000 second
 
 | Default value  | `3600` |
 
+### LogDriver
+
+Log driver used by the rack and services to send logs. Default to CloudWatch. You must provide the SyslogDestination when setting as Syslog. It disable logs if blank.
+
+**Attention!!** Disabling CloudWatch will impact `convox logs` and `convox rack logs`. Use Syslog resource if you still want to use convox logs, see [Resource Syslog](/deployment/syslogs)
+
+| Default value  | `CloudWatch` |
+| Allowed values | `CloudWatch`, `Syslog`, *<blank>* |
+
 ### LogRetention
 
-Number of days to keep logs (blank for unlimited). Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 2192, 2557, 2922, 3288, and 3653. See [Logs](/management/logs#retention).
+Number of days to keep logs (blank for unlimited). Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 2192, 2557, 2922, 3288, and 3653. See [Logs retention](/management/logs#retention).
 
 | Default value  | `7` |
 
@@ -401,6 +410,18 @@ Private Subnet 2 CIDR Block.
 Default swap volume size in GB. Set this value to 0 to disable swap.
 
 | Default value | `5` |
+
+### SyslogDestination
+
+Syslog address destination, you need to pass the protocol to be used, e.g. `tcp+tls://logsX.syslog.com:1234`.
+
+| Default value | *<blank>* |
+
+### SyslogFormat
+
+Syslog format (low case) to sent to SyslogDestination. See [Docker Syslog](https://docs.docker.com/config/containers/logging/syslog/) and [RFC5424](https://www.rfc-editor.org/rfc/rfc5424#section-6).
+
+| Default value | `rfc5424` |
 
 ### Tenancy
 
