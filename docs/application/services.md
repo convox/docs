@@ -49,6 +49,7 @@ or if your agent needs to open host-level ports then use this format:
 services:
   datadog:
     agent:
+      enabled: true
       ports:
         - 8125/udp
         - 8126/tcp
