@@ -76,6 +76,18 @@ This would contain the entire connection string you would need, ie:
 MYDB_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
+#### Additional credentials (20221013170042 or newer)
+You can also use the addiotional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, , `_PASS`, `_HOST`, `_PORT`, `_NAME`.
+
+Using the example above, ie:
+
+```
+MYDB_USER=username
+MYDB_PASS=password
+MYDB_HOST=host.com
+MYDB_PORT=5432
+MYDB_NAME=databaseName
+```
 
 ## Available Resources
 
