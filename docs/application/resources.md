@@ -77,9 +77,9 @@ MYDB_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
 #### Additional credentials (20221013170042 or newer)
-You can also use the addiotional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, , `_PASS`, `_HOST`, `_PORT`, `_NAME`.
+You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, , `_PASS`, `_HOST`, `_PORT`, `_NAME`.
 
-Using the example above, ie:
+Using the example above, the resource name `mydb` will provide the following environment variable:
 
 ```
 MYDB_USER=username
