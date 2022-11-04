@@ -144,10 +144,14 @@ Defines the port on which an HTTP service is listening.
 
 If you'd like to use end-to-end encryption, have your application listenin on HTTPS (self-signed certificates are fine) and prefix the port with `https:`
 
+If you'd like to run the GRPC service, then prefix the port with `grpc:` for insecure grpc and `secure-grpc:` for secure grpc
+
 #### Examples
 
 * `port: 3000`
 * `port: https:3001`
+* `port: grpc:50051`
+* `port: secure-grpc:50051`
 
 ### resources
 

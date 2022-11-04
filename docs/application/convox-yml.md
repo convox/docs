@@ -87,6 +87,9 @@ For a complete set of options available in `convox.yml` can click on the various
   metrics:
     agent: true
     image: awesome/metrics
+  grpc:
+    build: .
+    port: grpc:50051
 <a href="/application/timers">timers</a>:
   cleanup:
     schedule: "0 3 * * ? *"
