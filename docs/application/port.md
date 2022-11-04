@@ -26,6 +26,23 @@ services:
 
 This syntax implies that your container is listening on HTTPS for requests between the router and the container.
 
+#### GRPC
+
+You can specify that your application is using GRPC:
+
+```yaml
+services:
+  web:
+    port: grpc:3001
+```
+
+If your application is using GPRC in tls mode, then:
+```yaml
+services:
+  web:
+    port: secure-grpc:3001
+```
+
 ## See also
 
 - [Custom Domains](/docs/custom-domains)
