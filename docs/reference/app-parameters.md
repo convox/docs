@@ -46,7 +46,7 @@ Specifies the HTTP codes that healthy targets must use when responding to an HTT
 
 ### LoadBalancerGrpcSuccessCodes
 
-Specifies the GRPC codes that healthy targets must use when responding to an GRPC health check.  You can specify values between 200 and 499, and the default value is \"12\". You can specify multiple values (for example, \"12,13\") or a range of values (for example, \"10-99\").
+Specifies the GRPC codes that healthy targets must use when responding to an GRPC health check.  You can specify values between 0 and 99, and the default value is \"12\". You can specify multiple values (for example, \"12,13\") or a range of values (for example, \"10-99\").
 
 ### LogRetention
 
