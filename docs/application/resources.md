@@ -141,3 +141,7 @@ MYDB_NAME=databaseName
 | `encrypted` | `false`          | Encrypt data at rest |
 | `nodes`     | `1`              | Number of nodes      |
 | `version`   | `2.8.24`         | Redis version        |
+
+## AutoMinorVersionUpgrade
+
+In case you specify the minor version on your resource definition you have to turn off the [AutoMinorVersionUpgrade](../reference/app-parameters#autominorversionupgrade) on your app parameter. It's enabled by default and it will update the DB instance during the maintenance window.
