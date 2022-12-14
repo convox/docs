@@ -43,7 +43,40 @@ services:
       - gisdb
       - queue
       - cache
+```
 
+### EFS Resource (INSERT RELEASE VERSION HERE+)
+
+EFS resources have additional configurations. The definition is different from the database resources. See Available Resources > [EFS](#efs).
+After declaring the resource and the options, the link between the resource and service you want to expose is required. Example:
+
+```
+resources:
+  sharedvolume:
+    type: efs
+    options:
+      path: "/root-directory"
+services:
+  web:
+    resources:
+      - sharedvolume
+```
+
+Once the resource is linked to the service, set the volume and the path you want to expose to the application, e.g. `{efs-resource-name}:/path/to/mount/on/application`.
+The path you want to link the application is not bound to the same you declared in the definition, it's the directory that will be mount in the application container. A full example of EFS resource using the `resources` and `volumes`:
+
+```
+resources:
+  sharedvolume:
+    type: efs
+    options:
+      path: "/root-directory"
+services:
+  web:
+    volumes:
+      - sharedvolume:/app/dir
+    resources:
+      - sharedvolume
 ```
 
 #### Dynamic Configuration
@@ -130,17 +163,29 @@ MYDB_NAME=databaseName
 | `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `12`            | PostgreSQL version                      |
+| `version`   | `12`             | PostgreSQL version                      |
 
 #### redis
 
-| Option      | Default          | Description          |
-|-------------|------------------|----------------------|
-| `class`     | `cache.t2.micro` | Instance class       |
-| `durable`   | `false`          | Multi-AZ automatic failover   |
-| `encrypted` | `false`          | Encrypt data at rest |
-| `nodes`     | `1`              | Number of nodes      |
-| `version`   | `2.8.24`         | Redis version        |
+| Option      | Default          | Description                 |
+|-------------|------------------|-----------------------------|
+| `class`     | `cache.t2.micro` | Instance class              |
+| `durable`   | `false`          | Multi-AZ automatic failover |
+| `encrypted` | `false`          | Encrypt data at rest        |
+| `nodes`     | `1`              | Number of nodes             |
+| `version`   | `2.8.24`         | Redis version               |
+
+#### efs
+
+Use to share volumes between the tasks in different AZs and instances.
+
+| Option        | Default  | Description                                                            |
+|---------------|----------|------------------------------------------------------------------------|
+| `encrypted`   | `false`  | Encrypt data at rest                                                   |
+| `owner-gid`   | `1000`   | POSIX group ID to apply to the `path` directory                        |
+| `owner-uid`   | `1000`   | POSIX user ID to apply to the `path` directory                         |
+| `path`        | `/`      | The path on the file system used as the root directory by the services |
+| `permissions` | `0777`   | POSIX permissions to apply to the `path` directory                     |
 
 ## AutoMinorVersionUpgrade
 
