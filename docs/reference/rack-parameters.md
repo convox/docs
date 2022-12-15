@@ -423,6 +423,13 @@ Syslog format (low case) to sent to SyslogDestination. See [Docker Syslog](https
 
 | Default value | `rfc5424` |
 
+### Tags
+
+Custom tags to add with AWS resource
+
+| Default value  | *<blank>* |
+| Format | `<key>=<val>,<key>=<val>`. example: `key1=val1,key2=val2` |
+
 ### Tenancy
 
 Dedicated hardware.
