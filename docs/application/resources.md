@@ -45,7 +45,9 @@ services:
       - cache
 ```
 
-### EFS Resource (INSERT RELEASE VERSION HERE+)
+### EFS Resource (version 20221214201933+)
+
+The EFS resource lets you share volumes between services in different AZs.
 
 EFS resources have additional configurations. The definition is different from the database resources. See Available Resources > [EFS](#efs).
 After declaring the resource and the options, the link between the resource and service you want to expose is required. Example:
