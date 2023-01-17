@@ -454,3 +454,9 @@ Default disk size (in gibibytes) of the EBS volume attached to each EC2 instance
 VPC CIDR Block. Note that changing this has no effect since VPC CIDR ranges cannot be changed after they're created.
 
 | Default value | `10.0.0.0/16` |
+
+### WhiteList
+
+Comma delimited list of CIDRs, e.g. `10.0.0.0/24,172.10.0.1/32`, to allow access to the rack api. Maximum 4 CIDR can be specified.
+
+| Default value | *<blank>* |
