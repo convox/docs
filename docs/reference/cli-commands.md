@@ -200,6 +200,23 @@ list rack processes
 ### `rack releases`
 
 list rack version history
+
+### `rack runtimes`
+
+List of attachable runtime integrations
+
+```html
+convox rack runtimes
+```
+
+### `rack runtime attach`
+
+Attach runtime integration to the rack
+
+```html
+convox rack runtime attach <runtime_id>
+```
+
 ### `rack scale`
 
 scale the rack
