@@ -27,6 +27,7 @@ services:
       cpu: 512
     termination:
       grace: 120
+    privileged: true
 ```
 
 ### agent
@@ -152,6 +153,10 @@ If you'd like to run the GRPC service, then prefix the port with `grpc:` for ins
 * `port: https:3001`
 * `port: grpc:50051`
 * `port: secure-grpc:50051`
+
+### privileged
+
+Enabling this parameter results in the container being granted elevated privileges on the host container instance, similar to the root user. If the privileged parameter is set to true for a service to which a timer is linked, the timer container will also be granted privileged access.
 
 ### resources
 
