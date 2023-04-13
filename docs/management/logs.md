@@ -32,6 +32,7 @@ Setting the retention window to a high/unlimited value will affect the performan
   <tr><th>Option</th><th>Description</th></tr>
   <tr><td nowrap><code>--filter=<b><i>POST</i></b></code></td><td>Return only the logs that match all the filters. Filters are case sensitive and non-alphanumeric terms must be inside double quotes.</td></tr>
   <tr><td nowrap><code>--since=<b><i>20m</i></b></code></td><td>Return logs starting this duration ago. Values are a duration like <code>10m</code> or <code>48h</code>.</td></tr>
+    <tr><td nowrap><code>--since=<b><i>20m</i></b> --no-follow</code></td><td>Return logs starting this duration ago, but does not continues to return realtime logs.</td></tr>
 </table>
 
 You can tie all these together to generate a report from the logs from a single container over the last 2 days:
