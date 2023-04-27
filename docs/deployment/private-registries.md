@@ -41,7 +41,7 @@ Once the registry has been added, you can pull private images:
     latest: Pulling from yourname/postgres
 
 <div class="block-callout block-show-callout type-info" markdown="1">
-Note that you do not need to include the `https://` protocol as part of the registry address.  Convox will add this for you automatically.
+Note that you should NOT include the `https://` protocol as part of the registry address.  Doing so can cause errors. Convox will add this for you automatically.
 </div>
 
 ## Removing a registry
