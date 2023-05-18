@@ -36,14 +36,7 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-In order to create `dd-agent` as a Convox standalone app, add a Dockerfile that contains the following:
-
-```go
-FROM datadog/agent:latest
-EXPOSE 8125/udp
-```
-
-Then, run `convox deploy` to deploy Datadog Agent into ECS.
+Run `convox deploy` to deploy Datadog Agent into ECS.
 
 ### Application Metrics
 
