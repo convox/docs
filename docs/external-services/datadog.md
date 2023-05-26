@@ -22,7 +22,7 @@ services:
         - 8126/tcp
       image: datadog/agent:latest
       environment:
-        - DD_API_KEY
+        - DD_API_KEY=<DATADOG-API-KEY>
         - DD_APM_ENABLED=true
       privileged: true
       scale:
@@ -32,6 +32,13 @@ services:
         - /sys/fs/cgroup/:/host/sys/fs/cgroup/
         - /proc/:/host/proc/
         - /var/run/docker.sock:/var/run/docker.sock
+```
+
+Along with a basic `Dockerfile`:
+```
+FROM datadog/agent:latest
+
+EXPOSE 8125/udp
 ```
 
 ### Application Metrics
