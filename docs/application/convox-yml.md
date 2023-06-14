@@ -74,6 +74,7 @@ For a complete set of options available in `convox.yml` can click on the various
         cpu: 70
         memory: 90
         requests: 200
+    <a href="/application/services#privileged">privileged</a>: true
   worker:
     build: ./worker
     command: bin/worker

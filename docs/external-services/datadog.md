@@ -26,6 +26,9 @@ services:
         - 8125/udp
         - 8126/tcp
       image: datadog/agent:latest
+      environment:
+        - DD_API_KEY=<DATADOG-API-KEY>
+        - DD_APM_ENABLED=true
       privileged: true
       scale:
         cpu: 128
@@ -36,7 +39,7 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-Run `convox deploy` to deploy Datadog Agent into ECS.
+Run `convox deploy` to deploy the Datadog Agent into ECS.
 
 ### Application Metrics
 
