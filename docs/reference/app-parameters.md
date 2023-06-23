@@ -30,7 +30,7 @@ Set to `Yes` to run all timers for this application in [Fargate](https://aws.ama
 
 ### IamPolicy
 
-Specify the ARN of a custom IAM policy to add the the Service's [Task Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) at runtime.
+Specify the ARN of a custom IAM policy to add the the Service's [Task Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) at runtime. Unless the service has the [Policies](/application/services) parameter set, then it will not be used at service level.
 
 ### InternalDomains
 

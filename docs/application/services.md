@@ -18,6 +18,8 @@ services:
     init: true
     links:
       - other
+    policies:
+      - arn:aws:iam::aws:policy/AdministratorAccess
     port: 3000
     resources:
       - database
@@ -153,6 +155,10 @@ If you'd like to run the GRPC service, then prefix the port with `grpc:` for ins
 * `port: https:3001`
 * `port: grpc:50051`
 * `port: secure-grpc:50051`
+
+### policies
+
+A list of ARN of IAM policies to attach to the service's role. It must be created before the service. It will create a new role dedicated to the service, using only the specified policies. Overrides the App's [IamPolicy](/reference/app-parameters#iampolicy) at the service level.
 
 ### privileged
 
