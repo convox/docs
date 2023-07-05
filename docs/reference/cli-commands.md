@@ -337,26 +337,32 @@ Generates rack access credential
 > supported version: >= 20230704162933
 
 * Usage
+
 ```html
-    convox rack access --role [role] --duration-in-hour [duration]
+convox rack access --role [role] --duration-in-hour [duration]
 ```
+
 flags:
   - `role`: Access role for the credential. Allowed roles are: `read` or `write`
+
   - `duration-in-hour`: TTL for the credential.
 
 * Examples
+
 ```html
-    $ convox rack access --role read --duration-in-hour 1
-    RACK_URL=https://...
+$ convox rack access --role read --duration-in-hour 1
 
-    $ export RACK_URL=https://...
-    $ convox rack
-    Name      v3-rack
-    Provider  aws
-    Router    router.convox
-    Status    running
-    Version   ...
+RACK_URL=https://...
 
+$ export RACK_URL=https://...
+
+$ convox rack
+
+Name      v3-rack
+Provider  aws
+Router    router.convox
+Status    running
+Version   ...
 ```
 
 ### `rack access key rotation`
@@ -366,15 +372,17 @@ Rotates the rack access key that is used for rack access credential. It will inv
 > supported version: >= 20230704162933
 
 * Usage
+
 ```html
-    convox rack access key rotate
+convox rack access key rotate
 ```
 
 * Examples
-```html
-    $ convox rack access key rotate              
-    OK
 
+```html
+$ convox rack access key rotate
+
+OK
 ```
 
 ### `run`
