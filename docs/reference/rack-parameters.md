@@ -457,6 +457,8 @@ VPC CIDR Block. Note that changing this has no effect since VPC CIDR ranges cann
 
 ### WhiteList
 
-Comma delimited list of CIDRs, e.g. `10.0.0.0/24,172.10.0.1/32`, to allow access to the rack api. Maximum 4 CIDR can be specified.
+Comma delimited list of CIDRs, e.g. `10.0.0.0/24,172.10.0.1/32`, to allow access to the rack api.
+
+**Attention!!** Please be careful to consider all required connections to the rack API before enabling Whitelist. You can block your access and ability to edit this parameter from CLI again if misconfigured.
 
 | Default value | *<blank>* |
