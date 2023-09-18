@@ -100,6 +100,20 @@ Anonymous identifier.
 
 | Default value  | `dev@convox.com` |
 
+### CpuCredits
+
+The credit option for CPU usage of a T instance.
+
+| Allowed values  | `standard`, `unlimited` |
+
+### DisableALBPort80
+
+Disable exposing 80 port on ALB
+
+| Default value  | `No`       |
+| Allowed values  | `Yes`, `No` |
+
+
 ### EcsPollInterval
 
 How often (in seconds) to poll ECS for service updates(to inject into the app logs.
