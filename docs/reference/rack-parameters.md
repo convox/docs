@@ -287,6 +287,13 @@ Number of days to keep logs (blank for unlimited). Possible values are: 1, 3, 5,
 
 | Default value  | `7` |
 
+### MaintainTimerState
+
+To maintain the state of timer if it's disabled/enabled in AWS console event rule. After deploying the timer, if you disable the timer in the AWS console event rule, this will keep it disabled unless it is recreated. By default it is not maintained explicitly and the behaviour of the timer state change(if you disable event rule in the AWS console) will be depened on the cloudformation.
+
+| Default value  | `No`        |
+| Allowed values | `Yes`, `No` |
+
 ### MaxAvailabilityZones
 
 The maximum number of Availability Zones that the cluster should use.
