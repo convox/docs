@@ -219,6 +219,14 @@ convox rack runtime attach <runtime_id>
 
 ### `rack scale`
 
+### rack sync whitelist instances ip
+
+To sync build and instances ip when rack is public and whitelisting is enabled
+
+```html
+convox rack sync whitelist instances ip
+```
+
 scale the rack
 ### `rack uninstall`
 

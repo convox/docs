@@ -144,6 +144,11 @@ MYDB_NAME=databaseName
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `10.4`           | MariaDB version                         |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
+
+
+
 
 #### mysql
 
@@ -155,6 +160,8 @@ MYDB_NAME=databaseName
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `5.7.22`         | MySQL version                           |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
 
 #### postgres
 
@@ -166,6 +173,8 @@ MYDB_NAME=databaseName
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
 | `version`   | `12`             | PostgreSQL version                      |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
 
 #### redis
 
