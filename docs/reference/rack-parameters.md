@@ -187,6 +187,12 @@ Set how your instances will access the instance metadata. You can set EC2 instan
 | Default value  | `optional`             |
 | Allowed values | `optional`, `required` |
 
+### InstancesIpToIncludInWhiteListing
+To auto include build and instances ips to whitelist when rack is public and whitelist is enabled.
+
+| Default value  | `Both`             |
+| Allowed values | `Both` , `Build`, `Workload`, `None`` |
+
 ### InstanceBootCommand
 
 A single line of shell script to run (as root) as a cloud-init command early during instance boot.
