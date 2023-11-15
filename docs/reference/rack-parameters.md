@@ -376,11 +376,64 @@ A value, in dollars, that you want to pay for spot instances. If spot instances 
 
 | Default value  | *<blank>* |
 
+### SpotFleetAllowedInstanceTypes
+
+Comma-separated list of allowed instance types in the Spot Fleet. It can not be used with SpotFleetExcludedInstanceTypes, it takes precedent over it. The following are examples: m5.8xlarge, c5*.*, m5a.*, r*, *3*. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.  
+
+| Default value  | *<blank>* |
+
+### SpotFleetExcludedInstanceTypes
+
+Comma-separated list of excluded instance types in the Spot Fleet. . It can not be used with SpotFleetAllowedInstanceTypes. The following are examples: m5.8xlarge, c5*.*, m5a.*, r*, *3*. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Default value  | *<blank>* |
+
+### SpotFleetAllocationStrategy
+
+The Spot Fleet allocation strategy. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Allowed values | `lowestPrice`, `diversified`, `capacityOptimized` |
+
+| Default value | `lowestPrice` |
+  
+### SpotFleetMaxPrice
+
+The maximum price for instances in the Spot Fleet per hour. It will try to launch instances untill it crosses the price even if target [InstanceCount](#instancecount) or [NoHaInstanceCount](#nohainstancecount) is not fullfilled. Setting this parameter will enable spotfleet which will use the AWS Spot request to fullfill the instance demand and will be manage by the spot request(not autoscaling group). Currently this has only single zone support even if you set **HighAvailability** to `true`. **SpotFleetMinOnDemandCount** will be used to lauch ondemand instances along with these spot instances.
+
+### SpotFleetMinMemoryMiB
+
+Spot fleet's min memory in MiB. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Default value | `1000` |
+
+### SpotFleetMinVcpuCount
+
+Spot fleet's min vcpu count. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Default value | `0` |
+
+### SpotFleetMinOnDemandCount
+
+Spot fleet's minimum on demand instance count. Instance type will taken from [InstanceType](#instancetype) param. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Default value (if HighAvailability disabled) | `1` |
+
+| Default value (if HighAvailability enabled) | `2` |
+
+### SpotFleetTargetType
+
+The unit type used for the Spot Fleet target capacity. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
+
+| Allowed values | `memory-mib`, `units`, `vcpu` |
+
+| Default value | `units` |
+
 ### SslPolicy
 
 Specify an SSL policy for the primary Rack load balancer.
 
 | Default value  | *<blank>* |
+
 | Allowed values | [ELB SSL Policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies) |
 
 ### Subnet0CIDR
