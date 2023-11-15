@@ -181,7 +181,7 @@ MYDB_NAME=databaseName
 | Option      | Default          | Description                 |
 |-------------|------------------|-----------------------------|
 | `class`     | `cache.t2.micro` | Instance class              |
-| `durable`   | `false`          | Multi-AZ automatic failover |
+| `durable`   | `false`          | Multi-AZ automatic failover. When it is set to `true`, the option `nodes` has to be greater or equal to `2`, otherwise it will fail |
 | `encrypted` | `false`          | Encrypt data at rest        |
 | `nodes`     | `1`              | Number of nodes             |
 | `version`   | `2.8.24`         | Redis version               |
