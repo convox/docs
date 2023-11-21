@@ -140,6 +140,7 @@ MYDB_NAME=databaseName
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
 | `encrypted` | `false`          | Encrypt data at rest                    |
+| `deletionProtection` | `false` | Enable deletion protection              |
 | `durable`   | `false`          | Multi-AZ automatic failover             |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
@@ -156,6 +157,7 @@ MYDB_NAME=databaseName
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
 | `encrypted` | `false`          | Encrypt data at rest                    |
+| `deletionProtection` | `false` | Enable deletion protection              |
 | `durable`   | `false`          | Multi-AZ automatic failover             |
 | `iops`      |                  | Provisioned IOPS for database disks     |
 | `storage`   | `20`             | GB of storage to provision              |
@@ -168,6 +170,7 @@ MYDB_NAME=databaseName
 | Option      | Default          | Description                             |
 |-------------|------------------|-----------------------------------------|
 | `class`     | `db.t2.micro`    | Instance class                          |
+| `deletionProtection` | `false` | Enable deletion protection              |
 | `durable`   | `false`          | Multi-AZ automatic failover             |
 | `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
