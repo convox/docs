@@ -327,6 +327,13 @@ If using spot instances through the [SpotInstanceBid](#spotinstancebid) paramete
 | Minimum length  | 1  |
 | Maximum length  | 50 |
 
+### PlaceLambdaInVpc
+
+Place convox related lambdas in vpc if rack is private.
+
+| Default value  | `No`        |
+| Allowed values | `Yes`, `No` |
+
 ### Private
 
 Have the Rack create non-publicly routable resources, i.e. in a private subnet. See our [Private Networking doc](/docs/private-networking/) for more information.
