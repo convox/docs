@@ -334,6 +334,12 @@ Place convox related lambdas in vpc if rack is private.
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
+### InternalRouterSuffix
+
+Suffix for internal router domain
+
+| Default value  | `-rti`        |
+
 ### Private
 
 Have the Rack create non-publicly routable resources, i.e. in a private subnet. See our [Private Networking doc](/docs/private-networking/) for more information.
