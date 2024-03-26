@@ -113,6 +113,20 @@ Disable exposing 80 port on ALB
 | Default value  | `No`       |
 | Allowed values  | `Yes`, `No` |
 
+### DynamoDbTableDeletionProtectionEnabled
+
+Determines if a dynamodb table is protected from deletion. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default.
+
+| Default value  | `false`       |
+| Allowed values  | `true`, `false` |
+
+### DynamoDbTablePointInTimeRecoveryEnabled
+
+Indicates whether point in time recovery is enabled or disabled on the dynamodb table.
+
+| Default value  | `false`       |
+| Allowed values  | `true`, `false` |
+
 
 ### EcsPollInterval
 
@@ -141,6 +155,26 @@ Existing VPC-ID from AWS, if blank a VPC will be created. Additional paramater [
 | Default value    |*<blank>*|
 | Permitted values |VPC ID|
 
+### EnableS3Versioning
+
+Enable s3 bucket versioning. This affects all the buckets created for this rack.
+
+| Default value  | `Suspended`       |
+| Allowed values  | `Enabled`, `Suspended` |
+
+### EnableContainerReadonlyRootFilesystem
+
+Enable container readonly root filesystem. Enabling this will remove write access to the root filesystem.
+
+| Default value  | `No`       |
+| Allowed values  | `Yes`, `No` |
+
+### EnableSharedEFSVolumeEncryption
+
+This will enable aws kms encryption on shared efs volume. Enabling this will remove exsiting data and recreate the efs volume.
+
+| Default value  | `false`       |
+| Allowed values  | `true`, `false` |
 
 ### HighAvailability
 
@@ -353,6 +387,20 @@ Place only the build instances into a private network (unused if `Private` is `Y
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
+
+
+### PruneOlderImagesInHour
+
+To prune docker images older than this specified hours.
+
+| Default value  | `96`        |
+
+### PruneOlderImagesCronRunFreq
+
+Cron frequecy to prune docker older images.
+
+| Default value  | `daily`        |
+| Allowed values | `hourly`, `daily`, `weekly` |
 
 ### RouterMitigationMode
 
