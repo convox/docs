@@ -171,10 +171,19 @@ Enable container readonly root filesystem. Enabling this will remove write acces
 
 ### EnableSharedEFSVolumeEncryption
 
-This will enable aws kms encryption on shared efs volume. Enabling this will remove exsiting data and recreate the efs volume.
+This will enable AWS KMS encryption on the shared EFS volume. Enabling this will remove existing data and recreate the EFS volume.
 
 | Default value  | `false`       |
 | Allowed values  | `true`, `false` |
+
+<div class="alert alert-warning">
+<b>Important:</b> Enabling <code>EnableSharedEFSVolumeEncryption</code> will recreate the EFS volume and <strong>all</strong> application's shared volume data will be lost. To preserve data, it is crucial to:
+<ol>
+<li>Backup: Use <a href="https://aws.amazon.com/backup/">AWS Backup</a> or a similar tool to create a snapshot of the existing Amazon EFS volume, ensuring all current data is securely copied.</li>
+<li>Restore: After enabling encryption, restore your data from the backup snapshot to the new encrypted EFS volume.</li>
+</ol>
+</div>
+
 
 ### HighAvailability
 
@@ -213,6 +222,20 @@ services:
       - HTTPS_PROXY=10.0.1.124:8888
       - NO_PROXY=169.254.170.2
 ```
+### IMDSHttpPutResponseHopLimit
+
+Specifies the maximum number of network hops that PUT response packets are allowed to travel from the EC2 instance metadata service (IMDS) to the requesting instance. This parameter is particularly relevant when `IMDSHttpTokens` is set to `required`, ensuring enhanced security by enforcing IMDSv2.
+
+| Default value  | `1`            |
+| Allowed values  | Numerical values (e.g., `1`, `2`) |
+
+<div class="alert alert-info">
+When <code>IMDSHttpTokens</code> is set to <code>required</code>, some configurations may require increasing the <code>IMDSHttpPutResponseHopLimit</code> to ensure proper functionality. If encountering connectivity issues with applications requiring IMDSv2, consider setting <code>IMDSHttpPutResponseHopLimit</code> to <code>2</code>. This adjustment helps facilitate necessary communications with the instance metadata service.
+</div>
+
+<div class="alert alert-warning">
+Note: Adjusting the <code>IMDSHttpPutResponseHopLimit</code> above the default value should be done with understanding of your network topology and the security implications. Always verify that changes do not compromise your instance's security posture.
+</div>
 
 ### IMDSHttpTokens
 
