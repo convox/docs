@@ -171,7 +171,7 @@ Enable container readonly root filesystem. Enabling this will remove write acces
 
 ### EnableSharedEFSVolumeEncryption
 
-This will enable AWS KMS encryption on the shared EFS volume. Enabling this will remove existing data and recreate the EFS volume.
+This will enable AWS KMS encryption on the default shared EFS volume used for application [volumes](/application/volumes).
 
 | Default value  | `false`       |
 | Allowed values  | `true`, `false` |
@@ -179,7 +179,7 @@ This will enable AWS KMS encryption on the shared EFS volume. Enabling this will
 <div class="alert alert-warning">
 <b>Important:</b> Enabling <code>EnableSharedEFSVolumeEncryption</code> will recreate the EFS volume and <strong>all</strong> application's shared volume data will be lost. To preserve data, it is crucial to:
 <ol>
-<li>Backup: Use <a href="https://aws.amazon.com/backup/">AWS Backup</a> or a similar tool to create a snapshot of the existing Amazon EFS volume, ensuring all current data is securely copied.</li>
+<li>Backup: Use AWS Backup or a similar tool to create a snapshot of the existing Amazon EFS volume, ensuring all current data is securely copied.</li>
 <li>Restore: After enabling encryption, restore your data from the backup snapshot to the new encrypted EFS volume.</li>
 </ol>
 </div>
