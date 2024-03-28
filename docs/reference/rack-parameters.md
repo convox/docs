@@ -178,11 +178,12 @@ This will enable AWS KMS encryption on the default shared EFS volume used for ap
 
 <div class="alert alert-warning">
 <b>Important:</b> Enabling <code>EnableSharedEFSVolumeEncryption</code> will recreate the EFS volume and <strong>all</strong> application's shared volume data will be lost. To preserve data, it is crucial to follow these steps:
-
-<b>Backup:</b> Use AWS Backup or a similar tool to create a snapshot of the existing Amazon EFS volume, ensuring all current data is securely copied.
-
-<b>Restore:</b> After enabling encryption, restore your data from the backup snapshot to the new encrypted EFS volume.
+<ul>
+<li><b>Backup:</b> Use AWS Backup or a similar tool to create a snapshot of the existing Amazon EFS volume, ensuring all current data is securely copied.</li>
+<li><b>Restore:</b> After enabling encryption, restore your data from the backup snapshot to the new encrypted EFS volume.</li>
+</ul>
 </div>
+
 
 
 
