@@ -8,9 +8,6 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 			<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-
-			<script src="/assets/docs.js"></script>
-
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch-theme-algolia.min.css">
 			<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2"></script>
@@ -21,36 +18,54 @@
 		</head>
 		<body>
 			<header>
-				<nav class="navbar navbar-expand-md fixed-top navbar-dark">
-					<div class="container pt-1 pb-1">
-						<a class="navbar-brand" href="/">
-							<img src="/assets/images/logo.png" height="30">
-						</a>
-
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-
-						<div class="collapse navbar-collapse" id="navbar-collapse">
-							<ul class="navbar-nav ml-auto mr-2">
-								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/features">Features</a></li>
-								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/blog">Blog</a></li>
-								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0 active"><a class="nav-link" href="https://docs.convox.com">Docs</a></li>
-								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/enterprise">Enterprise</a></li>
-								<li class="nav-item ml-1 ml-md-4 mr-4 mr-md-0"><a class="nav-link" href="https://convox.com/pricing">Pricing</a></li>
-							</ul>
-
-							<ul class="navbar-nav ml-4 d-none d-lg-flex">
-								<li class="nav-item">
-									<a class="btn btn-primary pl-3 pr-3" href="https://console.convox.com/login">
-										<i class="fa fa-user mr-2"></i>
-										Log In
-									</a>
-								</li>
-							</ul>
+			<nav>
+				<div class="main-navbar fixed-top" id="main-navbar">
+					<div class="main-navbar" id="main-navbar">
+						<div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="nav-bar w-nav">
+							<div class="navigation-container">
+								<div class="navigation-left">
+								<a href="/" aria-current="page" class="logo-container w-nav-brand w--current" aria-label="home">
+									<img src="/assets/images/logo.svg" alt="" class="logo">
+								</a>
+								<article role="navigation" class="nav-menu-mobile w-nav-menu">
+									<a href="https://convox.com/features" class="link-product w-nav-link">Features</a>
+									<a href="https://convox.com/blog" class="link-blog w-nav-link">Blog</a>
+									<a href="https://docs.convox.com" class="link-about w-nav-link w--current">Docs</a>
+									<a href="https://convox.com/enterprise" class="link-enterprise w-nav-link">Enterprise</a>
+									<a href="https://convox.com/pricing" class="link-pricing w-nav-link">Pricing</a>
+									<a href="https://console.convox.com/login" class="nav-link w-nav-link">Log&nbsp;In</a>
+									<a href="https://console.convox.com/login" class="nav-link-2 w-nav-link">Get Started</a>
+								</article>
+								<div class="nav-bar-menu w-nav-button" id="open-mobile-nav-sidebar-button" style="display: none;" aria-label="menu" role="button" tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
+									<div class="w-icon-nav-menu">
+									</div>
+								</div>
+								<div class="nav-bar-menu w-nav-button" id="close-mobile-nav-sidebar-button" aria-label="menu" role="button" tabindex="0" 
+								style="display: none;" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
+									<div class="w-icon-nav-menu">
+									</div>
+								</div>
+								</div>
+								<div class="navigation-right">
+								<a href="https://console.convox.com/login" rel="noopener" class="link-log-in w-nav-link">Log In</a>
+								<a href="https://console.convox.com/login" rel="noopener" class="link-get-started-free w-nav-link">Get Started Free</a>
+								</div>
+							</div>
+							<div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0">
+								<article role="navigation" class="nav-menu-mobile w-nav-menu main-sidebar-slideout-animation" id="nav-menu-mobile">
+								<a href="https://convox.com/features" class="link-product w-nav-link">Features</a>
+								<a href="https://convox.com/blog" class="link-blog w-nav-link">Blog</a>
+								<a href="https://docs.convox.com" class="link-about w-nav-link">Docs</a>
+								<a href="https://convox.com/enterprise" class="link-enterprise w-nav-link">Enterprise</a>
+								<a href="https://convox.com/pricing" class="link-pricing w-nav-link">Pricing</a>
+								<a href="https://console.convox.com/login" class="nav-link w-nav-link">Log&nbsp;In</a>
+								<a href="https://console.convox.com/login" class="nav-link-2 w-nav-link">Get Started</a>
+								</article>
+							</div>
 						</div>
 					</div>
-				</nav>
+				</div>
+</nav>
 			</header>
 
 			<div class="container">
@@ -186,6 +201,7 @@
 				analytics.page();
 				}}();
 			</script>
+			<script src="/assets/docs.js"></script>
 		</body>
 	</html>
 {{ end }}

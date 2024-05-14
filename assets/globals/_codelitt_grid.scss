@@ -1,0 +1,135 @@
+$view-width-mobile-x-small-min: 400px;
+$view-width-mobile-small-min: 600px;
+$view-width-mobile-min: 800px;
+$view-width-desktop-min: 1200px;
+$view-width-desktop-large-min: 1440px;
+$view-width-desktop-x-large-min: 1600px;
+
+$container-width-mobile-fluid: 100%;
+$container-width-x-small-mobile: 375px;
+$container-width-small-mobile: 408px;
+$container-width-mobile: 768px;
+$container-width-small-desktop: 1024px;
+$container-width-medium-desktop: 1200px;
+$container-width-large-desktop: 1480px;
+$container-width-desktop-fluid: 100%;
+
+$columns-count-mobile: 4;
+$columns-count-tablet: 8;
+$columns-count-small-desktop: 12;
+$columns-count-medium-desktop: 12;
+$columns-count-large-desktop: 12;
+$columns-count-large-desktop-fluid: 16;
+
+$gutter-width-small-mobile: 24px;
+$gutter-width-mobile: 32px;
+$gutter-width-small-desktop: 32px;
+$gutter-width-desktop: 32px;
+$gutter-width-medium-desktop-fluid: 36px;
+$gutter-width-large-desktop-fluid: 40px;
+$no-gutter-width: 0;
+
+:root {
+  --col-background-color: none;
+  --col-border: none;
+  --container-background-color: none;
+  --container-border: none;
+  --row-background-color: none;
+  --row-border: none;
+}
+
+@mixin create-container($container-width, $gutter, $class-grid-type) {
+  $container-name: if($class-grid-type != '', '.codelitt-container-#{$class-grid-type}', '.codelitt-container' );
+  #{$container-name} {
+    background-color: var(--container-background-color);
+    border: var(--container-border);
+    margin: 0 auto;
+    max-width: $container-width;
+    padding-left: $gutter / 2;
+    padding-right: $gutter / 2;
+  }
+}
+
+@mixin generate-gutter-classes() {
+  .codelitt-col-no-left-gutter {
+    padding-left: $no-gutter-width !important;
+  }
+  .codelitt-col-no-right-gutter {
+    padding-right: $no-gutter-width !important;
+  }
+  .codelitt-col-no-gutters {
+    padding-left: $no-gutter-width !important;
+    padding-right: $no-gutter-width !important;
+  }
+}
+
+@mixin generate-grid($container-width, $columns-count, $gutter, $class-name, $class-grid-type: '') {
+  @include create-container($container-width, $gutter, $class-grid-type);
+  $container-name: if($class-grid-type != '', '.codelitt-container-#{$class-grid-type}', '.codelitt-container' );
+
+  #{$container-name} .codelitt-row {
+    background-color: var(--row-background-color);
+    border: var(--row-border);
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -$gutter / 2;
+    margin-right: -$gutter / 2;
+  }
+
+  @for $current-column from 1 to $columns-count + 1 {
+    $col-number: $current-column;
+    $col-percentage: percentage($col-number / $columns-count);
+    $side-gutter: $gutter / 2;
+
+    #{$container-name} .codelitt-col-#{$class-name}-#{$col-number} {
+      background-color: var(--col-background-color);
+      border: var(--col-border);
+      box-sizing: border-box;
+      flex: 0 0 $col-percentage;
+      max-width: $col-percentage;
+      padding-left: $side-gutter;
+      padding-right: $side-gutter;
+      width: $col-percentage;
+    }
+
+    @if $current-column < $columns-count {
+      #{$container-name} .codelitt-offset-#{$class-name}-#{$col-number} {
+        margin-left: $col-percentage;
+      }
+    }
+  }
+}
+
+@include generate-grid($container-width-x-small-mobile, $columns-count-mobile, $gutter-width-small-mobile, 'xxs');
+@include generate-grid($container-width-mobile-fluid, $columns-count-mobile, $gutter-width-small-mobile, 'xxs','fluid');
+@include generate-gutter-classes();
+
+@media only screen and (min-width: $view-width-mobile-x-small-min) {
+  @include generate-grid($container-width-x-small-mobile, $columns-count-mobile, $gutter-width-small-mobile, 'xs');
+  @include generate-grid($container-width-mobile-fluid, $columns-count-mobile, $gutter-width-small-mobile, 'xs', 'fluid');
+}
+
+@media only screen and (min-width: $view-width-mobile-small-min) {
+  @include generate-grid($container-width-small-mobile, $columns-count-tablet, $gutter-width-mobile, 'sm');
+  @include generate-grid($container-width-mobile-fluid, $columns-count-tablet, $gutter-width-mobile, 'sm', 'fluid');
+}
+
+@media only screen and (min-width: $view-width-mobile-min) {
+  @include generate-grid($container-width-mobile, $columns-count-small-desktop, $gutter-width-small-desktop, 'md');
+  @include generate-grid($container-width-desktop-fluid, $columns-count-medium-desktop, $gutter-width-medium-desktop-fluid, 'md', 'fluid');
+}
+
+@media only screen and (min-width: $view-width-desktop-min) {
+  @include generate-grid($container-width-small-desktop, $columns-count-medium-desktop, $gutter-width-desktop, 'lg');
+  @include generate-grid($container-width-desktop-fluid, $columns-count-large-desktop-fluid, $gutter-width-desktop, 'lg', 'fluid');
+}
+
+@media only screen and (min-width: $view-width-desktop-large-min) {
+  @include generate-grid($container-width-medium-desktop, $columns-count-large-desktop, $gutter-width-desktop, 'xl');
+  @include generate-grid($container-width-desktop-fluid, $columns-count-large-desktop-fluid, $gutter-width-desktop, 'xl', 'fluid');
+}
+
+@media only screen and (min-width: $view-width-desktop-x-large-min) {
+  @include generate-grid($container-width-large-desktop, $columns-count-large-desktop, $gutter-width-desktop, 'xxl');
+  @include generate-grid($container-width-desktop-fluid, $columns-count-large-desktop-fluid, $gutter-width-large-desktop-fluid, 'xxl', 'fluid');
+}

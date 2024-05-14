@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+html, body {
+  margin: 0;
+}
+
+html {
+  // font-size: 10px;
+}
+
+@media screen and (min-width: 1200px) {
+  .codelitt-container-fluid {
+    max-width: 144rem;
+  }
+}

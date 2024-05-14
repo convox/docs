@@ -1,0 +1,178 @@
+$mobile-nav-sidebar-width: 30.6rem;
+
+.mobile-navbar {
+  .mobile-nav-sidebar-overlay {
+    background-color: $primary-dark-grey-60;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: linear 0.2s;
+    width: 0;
+  }
+
+  .mobile-nav-sidebar-overlay-expansion {
+    width: 100%;
+  }
+
+  .mobile-nav-sidebar {
+    background-color: $primary-dark-grey;
+    box-shadow: 0 1rem 5rem $comp-black-40;
+    display: none;
+    height: 100vh;
+    overflow: scroll;
+    padding: 1.5rem 0 0;
+    position: absolute;
+    top: 0;
+    width: $mobile-nav-sidebar-width;
+    z-index: 1000;
+
+    .mobile-nav-sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+
+      .mobile-nav-sidebar-header-link {
+        align-items: center;
+        display: inherit;
+      }
+
+      .mobile-nav-sidebar-close-button {
+        background-color: transparent;
+        border: none;
+      }
+    }
+
+    .mobile-nav-sidebar-link-container {
+      border-bottom: 0.1rem solid $comp-dark-blue-septenary;
+      padding: 2.3rem 0;
+
+      .mobile-nav-sidebar-link {
+        color: $primary-white;
+        font-size: 2rem;
+        font-weight: 500;
+        margin-left: 2.3rem;
+        text-decoration: none;
+      }
+
+      .mobile-nav-sidebar-dropdown-title.mobile-nav-sidebar-link-highlight {
+        color: $comp-mid-blue !important;
+      }
+
+      .mobile-nav-sidebar-link-highlight {
+        color: $comp-mid-blue;
+      }
+    }
+
+    .mobile-nav-sidebar-dropdown {
+      margin: 0 auto;
+      max-width: 73.4rem;
+      overflow: hidden;
+
+      .mobile-nav-sidebar-dropdown-label {
+        align-items: baseline;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        &::after {
+          content: url('/images/icons/dropdown/up-arrow.svg');
+          width: 3.6rem;
+        }
+      }
+
+      .mobile-nav-sidebar-dropdown-content {
+        margin: 0;
+        max-height: 0;
+        text-align: left;
+        transition: max-height .35s;
+
+        .mobile-nav-sidebar-dropdown-link-container {
+          margin-left: 3.3rem;
+          padding: 2rem 0 1.7rem;
+
+          &:first-of-type {
+            border-bottom: 0.1rem solid $comp-dark-blue-septenary;
+          }
+
+          &:last-of-type {
+            padding-bottom: 0;
+          }
+
+          .mobile-nav-sidebar-dropdown-link {
+            text-decoration: none;
+
+            .mobile-nav-sidebar-dropdown-title {
+              color: $primary-white;
+              font-size: 2rem;
+              line-height: 2rem;
+            }
+
+            .mobile-nav-sidebar-dropdown-title-highlight {
+              color: $comp-mid-blue;
+            }
+
+            .mobile-nav-sidebar-dropdown-subtitle {
+              color: $comp-mid-blue-secondary;
+              font-size: 1.7rem;
+              line-height: 2rem;
+              margin-top: 0.7rem;
+            }
+          }
+        }
+      }
+
+      .mobile-nav-sidebar-dropdown-input {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+
+        &:checked {
+          ~ .mobile-nav-sidebar-dropdown-content {
+            border-top: 0.1rem solid $comp-dark-blue-septenary;
+            max-height: 50rem;
+            transition: max-height 2s;
+          }
+
+          + .mobile-nav-sidebar-dropdown-label {
+            margin-bottom: 2.3rem;
+
+            &::after {
+              content: url('/images/icons/dropdown/down-arrow.svg');
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.mobile-sidebar-slidein-animation {
+  animation: slide-in 1s;
+}
+
+.mobile-nav-sidebar.mobile-sidebar-slideout-animation {
+  animation: slide-out 1s;
+  box-shadow: none;
+  transform: translateX(-$mobile-nav-sidebar-width);
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-$mobile-nav-sidebar-width);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-$mobile-nav-sidebar-width);
+  }
+}
