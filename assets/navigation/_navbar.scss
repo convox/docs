@@ -161,6 +161,7 @@ img {
 
 .w-nav-link:hover{
   text-decoration: none !important;
+  color: #343434 !important;
 }
 
 .link-product {
@@ -201,7 +202,7 @@ img {
 }
 
 .link-blog {
-  color: #343434;
+  color: #343434 !important;
   margin-left: 15px;
   margin-right: 15px;
   padding: 5px;
