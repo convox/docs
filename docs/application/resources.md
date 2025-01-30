@@ -48,6 +48,7 @@ services:
 
 
 ## Read Replica Support
+*Available in rack version **20240513194424 or later***
 
 Read replicas allow you to scale out read-heavy workloads by creating **read-only copies** of an existing database. This helps distribute database traffic, improve performance, and enhance application scalability without affecting the primary database.
 
@@ -55,19 +56,63 @@ Read replicas allow you to scale out read-heavy workloads by creating **read-onl
 
 To create a read replica using Convox resources, reference an existing database as the `readSourceDB` in your `convox.yml` file. The source database **must exist** before deploying a read replica.
 
-Example:
+#### How to Set `readSourceDB`
+
+The value for `readSourceDB` follows this format:
+
+```
+#convox.resources.<source-database-name>
+```
+
+The **`#convox.resources.`** prefix is constant, and the **`<source-database-name>`** must match the name of the database resource you want to replicate. For example, if your primary database resource is named `maindb`, then the correct `readSourceDB` reference would be:
+
+```yaml
+readSourceDB: "#convox.resources.maindb"
+```
+
+### **Configurable Read Replica Options**
+
+While read replicas inherit most configurations from their primary database, certain parameters **can be adjusted**:
+
+#### **Encryption Rules**
+- If the primary database is **unencrypted**, the read replica **must** also be **unencrypted**.
+- If the primary database is **encrypted**, the read replica can be **either encrypted or unencrypted**.
+- **You cannot create an encrypted read replica from an unencrypted primary database.**
+
+#### **Storage Capacity Rules**
+- A read replica **can have more storage than the primary database**, but **not less**.
+- **Storage capacity cannot be reduced** once allocated.
+
+#### **Multi-AZ Failover (`durable`)**
+- **Multi-AZ failover is optional** for read replicas.
+- A read replica **is not required** to have `durable: true`, even if the primary database does.
+
+### **Important: Ensure the Database Version Matches**
+
+When creating a read replica, it is **mandatory** to explicitly set the **same database version** as the primary database. A mismatch can lead to **deployment failures** or **unexpected behavior**. 
+
+Always ensure the `version` field in the read replica **matches the source database exactly**.
+
+### Example Configuration
+
 ```yaml
 resources:
-  mysql-main:
+  primary-db:
     type: mysql
     options:
-      class: db.t3.micro
-      encrypted: false
-  mysql-replica:
+      version: "8.0"  # Ensure the version matches the primary database
+      class: db.t3.medium
+      storage: 50
+      encrypted: true
+      durable: true
+
+  read-replica:
     type: mysql
     options:
-      readSourceDB: "#convox.resources.mysql-main"
-      class: db.t3.micro
+      readSourceDB: "#convox.resources.primary-db"
+      version: "8.0"  # The read replica must use the same version as the primary database
+      class: db.t3.medium
+      storage: 50
       encrypted: true
 ```
 
@@ -75,7 +120,9 @@ resources:
 
 If you want to convert a read replica into an independent database, remove the `readSourceDB` option from `convox.yml` and redeploy the application. This process **does not affect** the original primary database, and the read replica retains the same name.
 
-### EFS Resource (version 20221214201933+)
+### EFS Resource
+*Available in rack version **20221214201933 or later***
+
 
 The EFS resource lets you share volumes between services in different AZs.
 
@@ -141,7 +188,9 @@ This would contain the entire connection string you would need, ie:
 MYDB_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
-#### Additional credentials (20221013170042 or newer)
+#### Additional credentials
+*Available in rack version **20221013170042 or later***
+
 You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, , `_PASS`, `_HOST`, `_PORT`, `_NAME`.
 
 Using the example above, the resource name `mydb` will provide the following environment variable:
