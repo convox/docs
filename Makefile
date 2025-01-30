@@ -10,7 +10,7 @@ mode     = development
 sources  = $(shell find . -name '*.go')
 
 ifeq ($(PACKAGE),true)
-	compiler=packr
+	compiler=go run -mod=vendor vendor/github.com/gobuffalo/packr/packr/main.go
 	mode=production
 endif
 
