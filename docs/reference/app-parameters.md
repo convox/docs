@@ -59,11 +59,6 @@ This parameter controls whether ECS containers operate with a **read-only root f
 **Potential Breaking Change:**  
 Enabling this parameter may **disrupt applications** that write to the root filesystem. Ensure your application is compatible before enabling it. Use **external storage solutions** or **designated writable paths** to prevent unexpected failures.
 
-**Example usage:**
-```
-$ convox apps params set EnableContainerReadonlyRootFilesystem=Yes
-```
-
 ---
 
 ### <a href="#fargateservices" title="Copy link" onclick="navigator.clipboard.writeText(location.origin + location.pathname + '#fargateservices'); return false;">⧉</a> FargateServices <a name="fargateservices"></a>
@@ -96,11 +91,6 @@ When autoscaling is enabled, this parameter controls whether manually set desire
 
 If set to `Yes`, any manually set service counts using `convox scale` will be ignored, and the autoscaler will dynamically manage the service count based on the targets defined in `convox.yml`.  
 Additionally, during deployments, the **active** instance count at the time of deployment will be used as the new desired count, ensuring the autoscaler fully controls scaling behavior without manual overrides.
-
-**Example usage:**
-```
-$ convox apps params set IgnoreManualScaleCount=Yes
-```
 
 For more details on how this parameter interacts with scaling, see [Scaling](/deployment/scaling).
 
