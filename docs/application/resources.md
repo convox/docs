@@ -70,24 +70,24 @@ The **`#convox.resources.`** prefix is constant, and the **`<source-database-nam
 readSourceDB: "#convox.resources.maindb"
 ```
 
-### **Configurable Read Replica Options**
+### Configurable Read Replica Options
 
 While read replicas inherit most configurations from their primary database, certain parameters **can be adjusted**:
 
-#### **Encryption Rules**
+#### Encryption Rules
 - If the primary database is **unencrypted**, the read replica **must** also be **unencrypted**.
 - If the primary database is **encrypted**, the read replica can be **either encrypted or unencrypted**.
 - **You cannot create an encrypted read replica from an unencrypted primary database.**
 
-#### **Storage Capacity Rules**
+#### Storage Capacity Rules
 - A read replica **can have more storage than the primary database**, but **not less**.
 - **Storage capacity cannot be reduced** once allocated.
 
-#### **Multi-AZ Failover (`durable`)**
+#### Multi-AZ Failover (`durable`)
 - **Multi-AZ failover is optional** for read replicas.
 - A read replica **is not required** to have `durable: true`, even if the primary database does.
 
-### **Important: Ensure the Database Version Matches**
+### Important: Ensure the Database Version Matches
 
 When creating a read replica, it is **mandatory** to explicitly set the **same database version** as the primary database. A mismatch can lead to **deployment failures** or **unexpected behavior**. 
 
