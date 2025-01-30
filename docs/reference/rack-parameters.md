@@ -713,7 +713,8 @@ Specify a custom security group to use for the Rack's router.
 | Default value  | *<blank>* |
 
 
-### [#](#schedulerackscaledown&schedulerackscaleup) <a name="schedulerackscaledown&schedulerackscaleup"></a>
+### <a href="#schedulerackscaledown&schedulerackscaleup" title="Copy link" onclick="navigator.clipboard.writeText(location.origin + location.pathname + '#schedulerackscaledown&schedulerackscaleup'); return false;">⧉</a> ScheduleRackScaleDown & ScheduleRackScaleUp <a name="schedulerackscaledown&schedulerackscaleup"></a>
+
 
 Use ScheduleRackScaleDown & ScheduleRackScaleUp if you want to turn the rack on/off based on a schedule. Keep in mind that both parameters need to be set.
 To turn your rack off on weekends and back on during weekdays you can use:
