@@ -27,8 +27,6 @@ FROM golang:1.17 AS package
 RUN apt-get update && apt-get -y install curl software-properties-common && curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update && apt-get -y install nodejs
 
-RUN go get -u github.com/gobuffalo/packr/packr
-
 ENV PACKAGE=true
 
 WORKDIR /go/src/github.com/convox/docs
