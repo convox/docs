@@ -45,6 +45,36 @@ services:
       - cache
 ```
 
+
+
+## Read Replica Support
+
+Read replicas allow you to scale out read-heavy workloads by creating **read-only copies** of an existing database. This helps distribute database traffic, improve performance, and enhance application scalability without affecting the primary database.
+
+### Defining a Read Replica
+
+To create a read replica using Convox resources, reference an existing database as the `readSourceDB` in your `convox.yml` file. The source database **must exist** before deploying a read replica.
+
+Example:
+```yaml
+resources:
+  mysql-main:
+    type: mysql
+    options:
+      class: db.t3.micro
+      encrypted: false
+  mysql-replica:
+    type: mysql
+    options:
+      readSourceDB: "#convox.resources.mysql-main"
+      class: db.t3.micro
+      encrypted: true
+```
+
+### Converting a Read Replica to an Active Database
+
+If you want to convert a read replica into an independent database, remove the `readSourceDB` option from `convox.yml` and redeploy the application. This process **does not affect** the original primary database, and the read replica retains the same name.
+
 ### EFS Resource (version 20221214201933+)
 
 The EFS resource lets you share volumes between services in different AZs.
