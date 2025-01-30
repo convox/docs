@@ -104,54 +104,54 @@ $ convox rack params set Foo=bar Baz=qux
 - [VPCCIDR](#vpccidr)
 - [WhiteList](#whitelist)
 
-### [#](#ami) <a name="ami"></a>
+### [#](#ami) Ami <a name="ami"></a>
 
 Which [Amazon Machine Image](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html) should be used.
 
-### [#](#apicount) <a name="apicount"></a>
+### [#](#apicount) ApiCount <a name="apicount"></a>
 
 How many Rack API containers to run. Setting this higher than 2 will guarantee better Rack API availability for mission critical clusters.
 
 | Default value | `2` |
 
-### [#](#apicpu) <a name="apicpu"></a>
+### [#](#apicpu) ApiCpu <a name="apicpu"></a>
 
 How much CPU should be reserved by the API web process.
 
 | Default value | `128` |
 
-### [#](#apimemory) <a name="apimemory"></a>
+### [#](#apimemory) ApiMemory <a name="apimemory"></a>
 
 How much memory should be reserved by the API web process.
 
 | Default value | `128` |
 
-### [#](#autoscale) <a name="autoscale"></a>
+### [#](#autoscale) Autoscale <a name="autoscale"></a>
 
 Autoscale rack instances. See our [Scaling doc](/docs/scaling#autoscale) for more information.
 
 | Default value  | `Yes`       |
 | Allowed values | `Yes`, `No` |
 
-### [#](#autoscaleextra) <a name="autoscaleextra"></a>
+### [#](#autoscaleextra) AutoscaleExtra <a name="autoscaleextra"></a>
 
 The number of instances of extra capacity that autoscale should keep running.
 
 | Default value  | `1` |
 
-### [#](#availabilityzones) <a name="availabilityzones"></a>
+### [#](#availabilityzones) AvailabilityZones <a name="availabilityzones"></a>
 
 Override the default availability zones used in a Rack. Please note that updating this parameter once a Rack is installed will require setting `MaxAvailabilityZones` to the new AZs quantity you are choosing.
 
 | Default value | *<blank>* |
 
-### [#](#buildcpu) <a name="buildcpu"></a>
+### [#](#buildcpu) BuildCpu <a name="buildcpu"></a>
 
 How much CPU should be allocated to builds.
 
 | Default value | `0` |
 
-### [#](#buildinstance) <a name="buildinstance"></a>
+### [#](#buildinstance) BuildInstance <a name="buildinstance"></a>
 
 EC2 instance type to create and use as the Rack's [dedicated build instance](/docs/builds/#dedicated-build-instance).
 
@@ -162,7 +162,7 @@ Note: the build instance will also use the [`InstanceBootCommand`](/docs/rack-pa
 
 See also the [InstanceType](#instancetype) Rack parameter.
 
-### [#](#buildmemory) <a name="buildmemory"></a>
+### [#](#buildmemory) BuildMemory <a name="buildmemory"></a>
 
 Defines the amount of memory (in MB) that the instance should allocate to build containers for each build.
 
@@ -176,7 +176,7 @@ Getting build errors like <b>Starting build... ERROR: not enough memory availabl
 Note: If you set BuildMemory to an amount that's more than half of the total memory available to the build instance, you'll only be able to run one build at a time. If this value is too high, builds may fail.
 </div>
 
-### [#](#buildvolumesize) <a name="buildvolumesize"></a>
+### [#](#buildvolumesize) BuildVolumeSize <a name="buildvolumesize"></a>
 
 <div class="alert alert-info">
 Getting errors like <b>No space left on device</b> on your builds (not your running applications)? You can extend the space on the device by increasing this parameter.
@@ -186,19 +186,19 @@ Default container disk size in GB.
 
 | Default value | `100` |
 
-### [#](#clientid) <a name="clientid"></a>
+### [#](#clientid) ClientId <a name="clientid"></a>
 
 Anonymous identifier.
 
 | Default value  | `dev@convox.com` |
 
-### [#](#cpucredits) <a name="cpucredits"></a>
+### [#](#cpucredits) CpuCredits <a name="cpucredits"></a>
 
 The credit option for CPU usage of a T instance.
 
 | Allowed values  | `standard`, `unlimited` |
 
-### [#](#defaultami) <a name="defaultami"></a>DefaultAmi
+### [#](#defaultami) DefaultAmi <a name="defaultami"></a>
 
 Defines the default Amazon Machine Image (AMI) used for **x86_64-based** rack instances. This allows racks to automatically use the latest recommended ECS-optimized AMI without manual intervention.
 
@@ -213,7 +213,7 @@ $ convox rack params set DefaultAmi="/aws/service/ecs/optimized-ami/amazon-linux
 
 If the `Ami` rack parameter is set, `DefaultAmi` will be ignored, and the explicitly set `Ami` value will be used instead.
 
-### [#](#defaultamiarm) <a name="defaultamiarm"></a>DefaultAmiArm
+### [#](#defaultamiarm) DefaultAmiArm <a name="defaultamiarm"></a>
 
 Defines the default Amazon Machine Image (AMI) used for **ARM64-based** rack instances. This ensures ARM-based racks always use the latest ECS-optimized AMI unless manually overridden.
 
@@ -228,28 +228,28 @@ $ convox rack params set DefaultAmiArm="/aws/service/ecs/optimized-ami/amazon-li
 
 If the `Ami` rack parameter is set, `DefaultAmiArm` will be ignored, and the explicitly set `Ami` value will be used instead.
 
-### [#](#disablealbport80) <a name="disablealbport80"></a>
+### [#](#disablealbport80) DisableALBPort80 <a name="disablealbport80"></a>
 
 Disable exposing 80 port on ALB
 
 | Default value  | `No`       |
 | Allowed values  | `Yes`, `No` |
 
-### [#](#dynamodbtabledeletionprotectionenabled) <a name="dynamodbtabledeletionprotectionenabled"></a>
+### [#](#dynamodbtabledeletionprotectionenabled) DynamoDbTableDeletionProtectionEnabled <a name="dynamodbtabledeletionprotectionenabled"></a>
 
 Determines if a dynamodb table is protected from deletion. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default.
 
 | Default value  | `false`       |
 | Allowed values  | `true`, `false` |
 
-### [#](#dynamodbtablepointintimerecoveryenabled) <a name="dynamodbtablepointintimerecoveryenabled"></a>
+### [#](#dynamodbtablepointintimerecoveryenabled) DynamoDbTablePointInTimeRecoveryEnabled <a name="dynamodbtablepointintimerecoveryenabled"></a>
 
 Indicates whether point in time recovery is enabled or disabled on the dynamodb table.
 
 | Default value  | `false`       |
 | Allowed values  | `true`, `false` |
 
-### [#](#ecscontainerstoptimeout) <a name="ecscontainerstoptimeout"></a>
+### [#](#ecscontainerstoptimeout) EcsContainerStopTimeout <a name="ecscontainerstoptimeout"></a>
 
 Sets a custom timeout duration for stopping ECS containers. This parameter defines the time (in seconds) ECS waits after sending a `SIGTERM` before issuing a `SIGKILL`, allowing for graceful shutdowns.
 
@@ -260,48 +260,48 @@ By default, this value is unset, meaning ECS will use its default 30-second stop
 
 This parameter is useful for applications requiring additional time to shut down properly, such as those with active user sessions or complex cleanup processes.
 
-### [#](#ecspollinterval) <a name="ecspollinterval"></a>
+### [#](#ecspollinterval) EcsPollInterval <a name="ecspollinterval"></a>
 
 How often (in seconds) to poll ECS for service updates(to inject into the app logs.
 
 | Default value  | `1` |
 
-### [#](#encryptebs) <a name="encryptebs"></a>
+### [#](#encryptebs) EncryptEbs <a name="encryptebs"></a>
 
 Enable encryption at rest for EBS volumes.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#encryption) <a name="encryption"></a>
+### [#](#encryption) Encryption <a name="encryption"></a>
 
 Encrypt secrets with KMS.
 
 | Default value    | `Yes`       |
 | Permitted values | `Yes`, `No` |
 
-### [#](#existingvpc) <a name="existingvpc"></a>
+### [#](#existingvpc) ExistingVpc <a name="existingvpc"></a>
 
 Existing VPC-ID from AWS, if blank a VPC will be created. Additional paramater [InternetGateway](/reference/rack-parameters#internetgateway) must be set to use **ExistingVPC**.
 
 | Default value    |*<blank>*|
 | Permitted values |VPC ID|
 
-### [#](#enables3versioning) <a name="enables3versioning"></a>
+### [#](#enables3versioning) EnableS3Versioning <a name="enables3versioning"></a>
 
 Enable s3 bucket versioning. This affects all the buckets created for this rack.
 
 | Default value  | `Suspended`       |
 | Allowed values  | `Enabled`, `Suspended` |
 
-### [#](#enablecontainerreadonlyrootfilesystem) <a name="enablecontainerreadonlyrootfilesystem"></a>
+### [#](#enablecontainerreadonlyrootfilesystem) EnableContainerReadonlyRootFilesystem <a name="enablecontainerreadonlyrootfilesystem"></a>
 
 Enable container readonly root filesystem. Enabling this will remove write access to the root filesystem.
 
 | Default value  | `No`       |
 | Allowed values  | `Yes`, `No` |
 
-### [#](#enablesharedefsvolumeencryption) <a name="enablesharedefsvolumeencryption"></a>
+### [#](#enablesharedefsvolumeencryption) EnableSharedEFSVolumeEncryption <a name="enablesharedefsvolumeencryption"></a>
 
 This will enable AWS KMS encryption on the default shared EFS volume used for application [volumes](/application/volumes).
 
@@ -319,7 +319,7 @@ This will enable AWS KMS encryption on the default shared EFS volume used for ap
 
 
 
-### [#](#highavailability) <a name="highavailability"></a>
+### [#](#highavailability) HighAvailability <a name="highavailability"></a>
 
 <div class="alert alert-warning">
 This parameter cannot be changed after the rack is created.
@@ -332,7 +332,7 @@ If HighAvailability is set to true, the [InstanceCount](#instancecount) is used 
 | Default value  | `true`          |
 | Allowed values | `true`, `false` |
 
-### [#](#httpproxy) <a name="httpproxy"></a>
+### [#](#httpproxy) HttpProxy <a name="httpproxy"></a>
 
 HTTP proxy for outbound HTTP connections (for network-restricted Racks).
 
@@ -356,7 +356,7 @@ services:
       - HTTPS_PROXY=10.0.1.124:8888
       - NO_PROXY=169.254.170.2
 ```
-### [#](#imdshttpputresponsehoplimit) <a name="imdshttpputresponsehoplimit"></a>
+### [#](#imdshttpputresponsehoplimit) IMDSHttpPutResponseHopLimit <a name="imdshttpputresponsehoplimit"></a>
 
 Specifies the maximum number of network hops that PUT response packets are allowed to travel from the EC2 instance metadata service (IMDS) to the requesting instance. This parameter is particularly relevant when `IMDSHttpTokens` is set to `required`, ensuring enhanced security by enforcing IMDSv2.
 
@@ -371,20 +371,20 @@ When <code>IMDSHttpTokens</code> is set to <code>required</code>, some configura
 Note: Adjusting the <code>IMDSHttpPutResponseHopLimit</code> above the default value should be done with understanding of your network topology and the security implications. Always verify that changes do not compromise your instance's security posture.
 </div>
 
-### [#](#imdshttptokens) <a name="imdshttptokens"></a>
+### [#](#imdshttptokens) IMDSHttpTokens <a name="imdshttptokens"></a>
 
 Set how your instances will access the instance metadata. You can set EC2 instances to use only v2 by setting IMDSHttpTokens as 'required', see [Configure the instance metadata options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html#configuring-IMDS-new-instances).
 
 | Default value  | `optional`             |
 | Allowed values | `optional`, `required` |
 
-### [#](#instancesiptoincludinwhitelisting) <a name="instancesiptoincludinwhitelisting"></a>
+### [#](#instancesiptoincludinwhitelisting) InstancesIpToIncludInWhiteListing <a name="instancesiptoincludinwhitelisting"></a>
 To auto include build and instances ips to whitelist when rack is public and whitelist is enabled.
 
 | Default value  | `Both`             |
 | Allowed values | `Both` , `Build`, `Workload`, `None`` |
 
-### [#](#instancebootcommand) <a name="instancebootcommand"></a>
+### [#](#instancebootcommand) InstanceBootCommand <a name="instancebootcommand"></a>
 
 A single line of shell script to run (as root) as a cloud-init command early during instance boot.
 
@@ -405,20 +405,20 @@ Updating parameters... OK
 
 (Note the surrounding single quotes in the above command.)
 
-### [#](#instancecount) <a name="instancecount"></a>
+### [#](#instancecount) InstanceCount <a name="instancecount"></a>
 
 The number of EC2 instances in your Rack cluster. This parameter is only used for clusters with HighAvailablity = true.
 
 | Default value | `3` |
 | Minimum value | `3` |
 
-### [#](#instancepolicy) <a name="instancepolicy"></a>
+### [#](#instancepolicy) InstancePolicy <a name="instancepolicy"></a>
 
 ARN of an additional IAM policy to add to the instance-level role.
 
 | Default value | *<blank>* |
 
-### [#](#instanceruncommand) <a name="instanceruncommand"></a>
+### [#](#instanceruncommand) InstanceRunCommand <a name="instanceruncommand"></a>
 
 A single line of shell script to run as a cloud-init command late during instance boot.
 
@@ -428,7 +428,7 @@ The `InstanceRunCommand` will also apply to any [build instance](/docs/rack-para
 
 | Default value | *<blank>* |
 
-### [#](#instancetype) <a name="instancetype"></a>
+### [#](#instancetype) InstanceType <a name="instancetype"></a>
 
 The type of EC2 instance to run in your Rack cluster.
 
@@ -437,39 +437,39 @@ The type of EC2 instance to run in your Rack cluster.
 
 See also the [BuildInstance](#buildinstance) Rack parameter.
 
-### [#](#instanceupdatebatchsize) <a name="instanceupdatebatchsize"></a>
+### [#](#instanceupdatebatchsize) InstanceUpdateBatchSize <a name="instanceupdatebatchsize"></a>
 
 The number of instances to update in a batch.
 
 | Default value | `1` |
 | Minimum value | `1` |
 
-### [#](#internal) <a name="internal"></a>
+### [#](#internal) Internal <a name="internal"></a>
 
 Enable the internal load balancer for this Rack. See [Internal Services](/docs/internal-services)
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#internetgateway) <a name="internetgateway"></a>
+### [#](#internetgateway) InternetGateway <a name="internetgateway"></a>
 
 If installing rack on existing VPC, you need to pass existing InternetGateway ID attached to the VPC. See [ExistingVPC](/reference/rack-parameters#existingvpc).
 
 | Default value | *<blank>* |
 
-### [#](#key) <a name="key"></a>
+### [#](#key) Key <a name="key"></a>
 
 SSH key name for access to cluster instances.
 
 | Default value  | *<blank>* |
 
-### [#](#loadbalanceridletimeout) <a name="loadbalanceridletimeout"></a>
+### [#](#loadbalanceridletimeout) LoadBalancerIdleTimeout <a name="loadbalanceridletimeout"></a>
 
 The idle timeout value for the ALB, in seconds. The valid range is 1-4000 seconds.
 
 | Default value  | `3600` |
 
-### [#](#logdriver) <a name="logdriver"></a>
+### [#](#logdriver) LogDriver <a name="logdriver"></a>
 
 Log driver used by the rack and services to send logs. Default to CloudWatch. You must provide the SyslogDestination when setting as Syslog. It disable logs if blank.
 
@@ -478,27 +478,27 @@ Log driver used by the rack and services to send logs. Default to CloudWatch. Yo
 | Default value  | `CloudWatch` |
 | Allowed values | `CloudWatch`, `Syslog`, *<blank>* |
 
-### [#](#logretention) <a name="logretention"></a>
+### [#](#logretention) LogRetention <a name="logretention"></a>
 
 Number of days to keep logs (blank for unlimited). Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 2192, 2557, 2922, 3288, and 3653. See [Logs retention](/management/logs#retention).
 
 | Default value  | `7` |
 
-### [#](#maintaintimerstate) <a name="maintaintimerstate"></a>
+### [#](#maintaintimerstate) MaintainTimerState <a name="maintaintimerstate"></a>
 
 To maintain the state of timer if it's disabled/enabled in AWS console event rule. After deploying the timer, if you disable the timer in the AWS console event rule, this will keep it disabled unless it is recreated. By default it is not maintained explicitly and the behaviour of the timer state change(if you disable event rule in the AWS console) will be depened on the cloudformation.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#maxavailabilityzones) <a name="maxavailabilityzones"></a>
+### [#](#maxavailabilityzones) MaxAvailabilityZones <a name="maxavailabilityzones"></a>
 
 The maximum number of Availability Zones that the cluster should use.
 
 | Default value | `3` |
 | Allowed values | `2`, `3` |
 
-### [#](#nohaautoscaleextra) <a name="nohaautoscaleextra"></a>
+### [#](#nohaautoscaleextra) NoHAAutoscaleExtra <a name="nohaautoscaleextra"></a>
 
 Specifies the number of extra instances to maintain when autoscaling is enabled, but only applies when `HighAvailability` is set to `false`.
 
@@ -506,60 +506,60 @@ Specifies the number of extra instances to maintain when autoscaling is enabled,
 
 This functions similarly to the `AutoscaleExtra` parameter but is used exclusively in non-HA configurations.
 
-### [#](#nohainstancecount) <a name="nohainstancecount"></a>
+### [#](#nohainstancecount) NoHaInstanceCount <a name="nohainstancecount"></a>
 
 The number of EC2 instances in your non High Availability Rack cluster. It's only used for non high available clusters.
 
 | Default value | `1` |
 | Minimum value | `1` |
 
-### [#](#ondemandmincount) <a name="ondemandmincount"></a>
+### [#](#ondemandmincount) OnDemandMinCount <a name="ondemandmincount"></a>
 
 If using spot instances through the [SpotInstanceBid](#spotinstancebid) parameter, this configures the minimum number of on demand instances. This should be set to a value that will guarantee the minimum acceptable service availability. You must set it even if you using the HighAvailability as `false`, as this will be used to create the minimum on demand instances.
 
 | Default value | `3` |
 
-### [#](#password) <a name="password"></a>
+### [#](#password) Password <a name="password"></a>
 
 (REQUIRED) API HTTP password.
 
 | Minimum length  | 1  |
 | Maximum length  | 50 |
 
-### [#](#placelambdainvpc) <a name="placelambdainvpc"></a>
+### [#](#placelambdainvpc) PlaceLambdaInVpc <a name="placelambdainvpc"></a>
 
 Place convox related lambdas in vpc if rack is private.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#internalroutersuffix) <a name="internalroutersuffix"></a>
+### [#](#internalroutersuffix) InternalRouterSuffix <a name="internalroutersuffix"></a>
 
 Suffix for internal router domain
 
 | Default value  | `-rti`        |
 
-### [#](#private) <a name="private"></a>
+### [#](#private) Private <a name="private"></a>
 
 Have the Rack create non-publicly routable resources, i.e. in a private subnet. See our [Private Networking doc](/docs/private-networking/) for more information.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#privateapi) <a name="privateapi"></a>
+### [#](#privateapi) PrivateApi <a name="privateapi"></a>
 
 Put Rack API Load Balancer in a private network, i.e. have the Rack API use an Internal ELB, making it unreachable from the internet.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
-### [#](#privateapisecuritygroup) <a name="privateapisecuritygroup"></a>
+### [#](#privateapisecuritygroup) PrivateApiSecurityGroup <a name="privateapisecuritygroup"></a>
 
 Specify a custom security group that can connect to the Rack API when `PrivateApi=Yes`.
 
 | Default value  | *<blank>* |
 
-### [#](#privatebuild) <a name="privatebuild"></a>
+### [#](#privatebuild) PrivateBuild <a name="privatebuild"></a>
 
 Place only the build instances into a private network (unused if `Private` is `Yes`)
 
@@ -567,27 +567,27 @@ Place only the build instances into a private network (unused if `Private` is `Y
 | Allowed values | `Yes`, `No` |
 
 
-### [#](#pruneolderimagesinhour) <a name="pruneolderimagesinhour"></a>
+### [#](#pruneolderimagesinhour) PruneOlderImagesInHour <a name="pruneolderimagesinhour"></a>
 
 To prune docker images older than this specified hours.
 
 | Default value  | `96`        |
 
-### [#](#pruneolderimagescronrunfreq) <a name="pruneolderimagescronrunfreq"></a>
+### [#](#pruneolderimagescronrunfreq) PruneOlderImagesCronRunFreq <a name="pruneolderimagescronrunfreq"></a>
 
 Cron frequecy to prune docker older images.
 
 | Default value  | `daily`        |
 | Allowed values | `hourly`, `daily`, `weekly` |
 
-### [#](#routermitigationmode) <a name="routermitigationmode"></a>
+### [#](#routermitigationmode) RouterMitigationMode <a name="routermitigationmode"></a>
 
 Determines how the load balancer handles requests that might pose a security risk to your application.  See [here](https://aws.amazon.com/about-aws/whats-new/2020/08/application-and-classic-load-balancers-adding-defense-in-depth-with-introduction-of-desync-mitigation-mode/) for more information.
 
 | Default value  | `defensive`                         |
 | Allowed values | `defensive`, `monitor`, `strictest` |
 
-### [#](#routersecuritygroup) <a name="routersecuritygroup"></a>
+### [#](#routersecuritygroup) RouterSecurityGroup <a name="routersecuritygroup"></a>
 
 Specify a custom security group to use for the Rack's router.
 
@@ -609,25 +609,25 @@ You can see details about the Scheduling Actions on AWS [doc](https://docs.aws.a
 
 | Default value  | *<blank>* |
 
-### [#](#spotinstancebid) <a name="spotinstancebid"></a>
+### [#](#spotinstancebid) SpotInstanceBid <a name="spotinstancebid"></a>
 
 A value, in dollars, that you want to pay for spot instances. If spot instances are available for the bid price, the Rack instances will use spot instances instead of on demand instances, resulting in significant cost savings. If the parameter is empty, spot instances will not be utilized. This must be used with the [OnDemandMinCount](#ondemandmincount) parameter to guarantee some on demand instances are running if spot instances are not available (even if the HighAvailability is `false`, if not set will use the default).
 
 | Default value  | *<blank>* |
 
-### [#](#spotfleetallowedinstancetypes) <a name="spotfleetallowedinstancetypes"></a>
+### [#](#spotfleetallowedinstancetypes) SpotFleetAllowedInstanceTypes <a name="spotfleetallowedinstancetypes"></a>
 
 Comma-separated list of allowed instance types in the Spot Fleet. It can not be used with SpotFleetExcludedInstanceTypes, it takes precedent over it. The following are examples: m5.8xlarge, c5*.*, m5a.*, r*, *3*. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.  
 
 | Default value  | *<blank>* |
 
-### [#](#spotfleetexcludedinstancetypes) <a name="spotfleetexcludedinstancetypes"></a>
+### [#](#spotfleetexcludedinstancetypes) SpotFleetExcludedInstanceTypes <a name="spotfleetexcludedinstancetypes"></a>
 
 Comma-separated list of excluded instance types in the Spot Fleet. . It can not be used with SpotFleetAllowedInstanceTypes. The following are examples: m5.8xlarge, c5*.*, m5a.*, r*, *3*. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
 | Default value  | *<blank>* |
 
-### [#](#spotfleetallocationstrategy) <a name="spotfleetallocationstrategy"></a>
+### [#](#spotfleetallocationstrategy) SpotFleetAllocationStrategy <a name="spotfleetallocationstrategy"></a>
 
 The Spot Fleet allocation strategy. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
@@ -635,23 +635,23 @@ The Spot Fleet allocation strategy. This parameter can be used only when [SpotFl
 
 | Default value | `lowestPrice` |
   
-### [#](#spotfleetmaxprice) <a name="spotfleetmaxprice"></a>
+### [#](#spotfleetmaxprice) SpotFleetMaxPrice <a name="spotfleetmaxprice"></a>
 
 The maximum price for instances in the Spot Fleet per hour. It will try to launch instances untill it crosses the price even if target [InstanceCount](#instancecount) or [NoHaInstanceCount](#nohainstancecount) is not fullfilled. Setting this parameter will enable spotfleet which will use the AWS Spot request to fullfill the instance demand and will be manage by the spot request(not autoscaling group). Currently this has only single zone support even if you set **HighAvailability** to `true`. **SpotFleetMinOnDemandCount** will be used to lauch ondemand instances along with these spot instances.
 
-### [#](#spotfleetminmemorymib) <a name="spotfleetminmemorymib"></a>
+### [#](#spotfleetminmemorymib) SpotFleetMinMemoryMiB <a name="spotfleetminmemorymib"></a>
 
 Spot fleet's min memory in MiB. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
 | Default value | `1000` |
 
-### [#](#spotfleetminvcpucount) <a name="spotfleetminvcpucount"></a>
+### [#](#spotfleetminvcpucount) SpotFleetMinVcpuCount <a name="spotfleetminvcpucount"></a>
 
 Spot fleet's min vcpu count. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
 | Default value | `0` |
 
-### [#](#spotfleetminondemandcount) <a name="spotfleetminondemandcount"></a>
+### [#](#spotfleetminondemandcount) SpotFleetMinOnDemandCount <a name="spotfleetminondemandcount"></a>
 
 Spot fleet's minimum on demand instance count. Instance type will taken from [InstanceType](#instancetype) param. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
@@ -659,7 +659,7 @@ Spot fleet's minimum on demand instance count. Instance type will taken from [In
 
 | Default value (if HighAvailability enabled) | `2` |
 
-### [#](#spotfleettargettype) <a name="spotfleettargettype"></a>
+### [#](#spotfleettargettype) SpotFleetTargetType <a name="spotfleettargettype"></a>
 
 The unit type used for the Spot Fleet target capacity. This parameter can be used only when [SpotFleet](#spotfleetmaxprice) is enabled.
 
@@ -667,7 +667,7 @@ The unit type used for the Spot Fleet target capacity. This parameter can be use
 
 | Default value | `units` |
 
-### [#](#sslpolicy) <a name="sslpolicy"></a>
+### [#](#sslpolicy) SslPolicy <a name="sslpolicy"></a>
 
 Specify an SSL policy for the primary Rack load balancer.
 
@@ -675,93 +675,93 @@ Specify an SSL policy for the primary Rack load balancer.
 
 | Allowed values | [ELB SSL Policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies) |
 
-### [#](#subnet0cidr) <a name="subnet0cidr"></a>
+### [#](#subnet0cidr) Subnet0CIDR <a name="subnet0cidr"></a>
 
 Public Subnet 0 CIDR Block.
 
 | Default value | `10.0.1.0/24` |
 
-### [#](#subnet1cidr) <a name="subnet1cidr"></a>
+### [#](#subnet1cidr) Subnet1CIDR <a name="subnet1cidr"></a>
 
 Public Subnet 1 CIDR Block.
 
 | Default value | `10.0.2.0/24` |
 
-### [#](#subnet2cidr) <a name="subnet2cidr"></a>
+### [#](#subnet2cidr) Subnet2CIDR <a name="subnet2cidr"></a>
 
 Public Subnet 2 CIDR Block.
 
 | Default value | `10.0.3.0/24` |
 
-### [#](#subnetprivate0cidr) <a name="subnetprivate0cidr"></a>
+### [#](#subnetprivate0cidr) SubnetPrivate0CIDR <a name="subnetprivate0cidr"></a>
 
 Private Subnet 0 CIDR Block.
 
 | Default value | `10.0.4.0/24` |
 
-### [#](#subnetprivate1cidr) <a name="subnetprivate1cidr"></a>
+### [#](#subnetprivate1cidr) SubnetPrivate1CIDR <a name="subnetprivate1cidr"></a>
 
 Private Subnet 1 CIDR Block.
 
 | Default value | `10.0.5.0/24` |
 
-### [#](#subnetprivate2cidr) <a name="subnetprivate2cidr"></a>
+### [#](#subnetprivate2cidr) SubnetPrivate2CIDR <a name="subnetprivate2cidr"></a>
 
 Private Subnet 2 CIDR Block.
 
 | Default value | `10.0.6.0/24` |
 
-### [#](#swapsize) <a name="swapsize"></a>
+### [#](#swapsize) SwapSize <a name="swapsize"></a>
 
 Default swap volume size in GB. Set this value to 0 to disable swap.
 
 | Default value | `5` |
 
-### [#](#syslogdestination) <a name="syslogdestination"></a>
+### [#](#syslogdestination) SyslogDestination <a name="syslogdestination"></a>
 
 Syslog address destination, you need to pass the protocol to be used, e.g. `tcp+tls://logsX.syslog.com:1234`.
 
 | Default value | *<blank>* |
 
-### [#](#syslogformat) <a name="syslogformat"></a>
+### [#](#syslogformat) SyslogFormat <a name="syslogformat"></a>
 
 Syslog format (low case) to sent to SyslogDestination. See [Docker Syslog](https://docs.docker.com/config/containers/logging/syslog/) and [RFC5424](https://www.rfc-editor.org/rfc/rfc5424#section-6).
 
 | Default value | `rfc5424` |
 
-### [#](#tags) <a name="tags"></a>
+### [#](#tags) Tags <a name="tags"></a>
 
 Custom tags to add with AWS resource
 
 | Default value  | *<blank>* |
 | Format | `<key>=<val>,<key>=<val>`. example: `key1=val1,key2=val2` |
 
-### [#](#tenancy) <a name="tenancy"></a>
+### [#](#tenancy) Tenancy <a name="tenancy"></a>
 
 Dedicated hardware.
 
 | Default value  | `default`              |
 | Allowed values | `default`, `dedicated` |
 
-### [#](#version) <a name="version"></a>
+### [#](#version) Version <a name="version"></a>
 
 (REQUIRED) Convox release version.
 
 | Minimum length | 1 |
 
-### [#](#volumesize) <a name="volumesize"></a>
+### [#](#volumesize) VolumeSize <a name="volumesize"></a>
 
 Default disk size (in gibibytes) of the EBS volume attached to each EC2 instance in the cluster.
 
 | Default value | `50` |
 
-### [#](#vpccidr) <a name="vpccidr"></a>
+### [#](#vpccidr) VPCCIDR <a name="vpccidr"></a>
 
 VPC CIDR Block. Note that changing this has no effect since VPC CIDR ranges cannot be changed after they're created.
 
 | Default value | `10.0.0.0/16` |
 
-### [#](#whitelist) <a name="whitelist"></a>
+### [#](#whitelist) WhiteList <a name="whitelist"></a>
 
 Comma delimited list of CIDRs, e.g. `10.0.0.0/24,172.10.0.1/32`, to allow access to the rack api.
 
