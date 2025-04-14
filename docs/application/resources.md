@@ -1,5 +1,5 @@
 ---
-title: "Resources"
+title: Resources
 ---
 
 A resource is a network-attached dependency of your application.
