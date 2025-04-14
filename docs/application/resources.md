@@ -1,5 +1,5 @@
 ---
-title: Resources
+title: "Resources"
 ---
 
 A resource is a network-attached dependency of your application.
@@ -14,6 +14,9 @@ resources:
     type: postgres
     options:
       storage: 100
+    tags:
+      Name: example-database
+      Environment: production
 services:
   web:
     resources:
@@ -28,10 +31,16 @@ You can easily define multiple resources within one `convox.yml`:
 resources:
   maindb:
     type: mysql
+    tags:
+      Name: main-database
+      Environment: staging
   gisdb:
     type: postgres
     options:
       version: 12
+    tags:
+      Name: gis-database
+      Project: mapping
   queue:
     type: redis
   cache:
@@ -105,6 +114,9 @@ resources:
       storage: 50
       encrypted: true
       durable: true
+    tags:
+      Name: primary-database
+      Environment: production
 
   read-replica:
     type: mysql
@@ -114,6 +126,10 @@ resources:
       class: db.t3.medium
       storage: 50
       encrypted: true
+    tags:
+      Name: read-replica-database
+      Environment: production
+      Purpose: reporting
 ```
 
 ### Converting a Read Replica to an Active Database
@@ -135,6 +151,9 @@ resources:
     type: efs
     options:
       path: "/root-directory"
+    tags:
+      Name: shared-filesystem
+      BackupSchedule: daily
 services:
   web:
     resources:
@@ -150,6 +169,10 @@ resources:
     type: efs
     options:
       path: "/root-directory"
+    tags:
+      Name: shared-filesystem
+      Environment: production
+      BackupSchedule: daily
 services:
   web:
     volumes:
@@ -168,11 +191,13 @@ resources:
     type: postgres
     options:
       storage: ${POSTGRES_STORAGE_SIZE}
+    tags:
+      Environment: ${ENVIRONMENT}
 ```
 
 ```
-$ convox env set POSTGRES_STORAGE_SIZE=50 --rack=acme/staging
-$ convox env set POSTGRES_STORAGE_SIZE=200 --rack=acme/production
+$ convox env set POSTGRES_STORAGE_SIZE=50 ENVIRONMENT=staging --rack=acme/staging
+$ convox env set POSTGRES_STORAGE_SIZE=200 ENVIRONMENT=production --rack=acme/production
 ```
 
 ## Accessing Resources
@@ -226,6 +251,7 @@ MYDB_NAME=databaseName
 | `version`   | `10.4`           | MariaDB version                         |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
+| `tags`      |                  | Custom tags to apply to the resource    |
 
 
 
@@ -243,6 +269,7 @@ MYDB_NAME=databaseName
 | `version`   | `5.7.22`         | MySQL version                           |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
+| `tags`      |                  | Custom tags to apply to the resource    |
 
 #### postgres
 
@@ -257,6 +284,7 @@ MYDB_NAME=databaseName
 | `version`   | `12`             | PostgreSQL version                      |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
+| `tags`      |                  | Custom tags to apply to the resource    |
 
 #### redis
 
@@ -279,6 +307,7 @@ Use to share volumes between the tasks in different AZs and instances.
 | `owner-uid`   | `1000`   | POSIX user ID to apply to the `path` directory                         |
 | `path`        | `/`      | The path on the file system used as the root directory by the services |
 | `permissions` | `0777`   | POSIX permissions to apply to the `path` directory                     |
+| `tags`      |           | Custom tags to apply to the resource                                    |
 
 ## AutoMinorVersionUpgrade
 
