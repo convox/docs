@@ -6,6 +6,11 @@
 
 			<meta charset="utf-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			{{ if eq (env "DEVELOPMENT") "false" }}
+			<meta name="robots" content="index, follow">
+			{{ else }}
+			<meta name="robots" content="noindex, nofollow">
+			{{ end }}
 
 			<link rel="icon" type="image/x-icon" href="https://img.convox.com/content/logos/png/favicon.png" />
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.2/dist/instantsearch.min.css">
