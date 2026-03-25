@@ -1,6 +1,11 @@
 ---
 title: "Linking"
+description: "Gen 1 (End of Life): How to link containers in Gen 1 Convox applications using docker-compose.yml to inject connection environment variables."
 ---
+
+# Linking
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Service Discovery](/networking/service-discovery).
 
 Convox allows you to link containers by declaring associations in the `docker-compose.yml` manifest. Links are created by injecting environment variables that point at the linked container.
 
@@ -37,23 +42,27 @@ Here is an example of what those actually look like with the `convox/postgres` i
 
 #### Local environment
 
-	DATABASE_HOST=172.17.0.1
-	DATABASE_PASSWORD=password
-	DATABASE_PATH=/app
-	DATABASE_PORT=5432
-	DATABASE_SCHEME=postgres
-	DATABASE_URL=postgres://postgres:password@172.17.0.1:5432/app
-	DATABASE_USERNAME=postgres
+```text
+DATABASE_HOST=172.17.0.1
+DATABASE_PASSWORD=password
+DATABASE_PATH=/app
+DATABASE_PORT=5432
+DATABASE_SCHEME=postgres
+DATABASE_URL=postgres://postgres:password@172.17.0.1:5432/app
+DATABASE_USERNAME=postgres
+```
 
 #### Production
 
-	DATABASE_HOST=postgres-i-191910196.us-east-1.elb.amazonaws.com
-	DATABASE_PASSWORD=password
-	DATABASE_PATH=/app
-	DATABASE_PORT=5432
-	DATABASE_SCHEME=postgres
-	DATABASE_URL=postgres://postgres:password@postgres-i-191910196.us-east-1.elb.amazonaws.com:5432/app
-	DATABASE_USERNAME=postgres
+```text
+DATABASE_HOST=postgres-i-191910196.us-east-1.elb.amazonaws.com
+DATABASE_PASSWORD=password
+DATABASE_PATH=/app
+DATABASE_PORT=5432
+DATABASE_SCHEME=postgres
+DATABASE_URL=postgres://postgres:password@postgres-i-191910196.us-east-1.elb.amazonaws.com:5432/app
+DATABASE_USERNAME=postgres
+```
 
 ## Linkable Images
 
@@ -89,6 +98,7 @@ When a service declares a link, the linked container (`database` in our example)
 
 When multiple ports are specified, the first one in the list of ports is used to construct the link URL. This can be overridden with the `LINK_PORT` environment variable described above.
 
-## See also
+## See Also
 
 - [Environment](/gen1/environment)
+- [Docker Compose File](/gen1/docker-compose-file)

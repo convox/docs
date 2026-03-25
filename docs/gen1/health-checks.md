@@ -1,6 +1,11 @@
 ---
 title: "Health Checks"
+description: "Gen 1 (End of Life): How health checks work for Gen 1 Convox applications, including configuration options and common failure causes."
 ---
+
+# Health Checks
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Health Checks](/application/health-checks).
 
 By default, for a deployment to succeed, it must pass certain "health checks."
 
@@ -68,7 +73,7 @@ services:
   </tr>
 </table>
 
-## See also
+## See Also
 
-* [Load Balancers](/gen1/load-balancers)
-* [Rolling Updates](/gen1/rolling-updates)
+- [Load Balancers](/gen1/load-balancers)
+- [Rolling Updates](/gen1/rolling-updates)

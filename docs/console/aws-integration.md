@@ -1,22 +1,31 @@
 ---
 title: "AWS Integration"
+description: "How to connect your AWS account to Convox Console for Rack installation and management."
 ---
 
-Convox is designed to give your team agility and consistency on top of AWS. In minutes you can install Convox and stand up new apps that follow AWS and DevOps best practices. Every Convox app leverages AWS CloudFormation and the EC2 Container Service for consistent configuration management and automation to reliably deploy, monitor and scale apps.
+# AWS Integration
 
-To this end, Convox requires access and permission to help manage resources in your AWS account.
+Convox uses AWS CloudFormation and the Elastic Container Service (ECS) to deploy, monitor, and scale your Apps. To do this, Convox requires access and permission to manage resources in your AWS account.
 
-Granting Convox access to your AWS account is extremely easy. Simply navigate to the integrations section of the console.
+## Connecting Your AWS Account
+
+Navigate to the integrations section of the Console.
 
 ![](/assets/images/docs/console/integrations.png)
 
-Then click on the plus sign in the Runtime section and select Amazon Web Services. When the prompt comes up click ***Launch Stack***
-
+Click the plus sign in the Runtime section and select **Amazon Web Services**. When the prompt appears, click **Launch Stack**.
 
 ![](/assets/images/docs/console/launch-stack.png)
 
-If you are not already logged into your AWS account you will be prompted to do so. Once you complete this step it will take approximately 10 minutes for Convox to create the necessary infrastructure in your AWS account. 
+If you are not already logged into your AWS account, you will be prompted to do so. Once you complete this step, it takes approximately 10 minutes for Convox to create the necessary infrastructure in your AWS account.
 
-You can remove the AWS integration at any time by clicking the gear icon next to your AWS account on the integrations screen and selecting ***Remove*** just make sure you delete any Racks you have created before removing the integration.
+## Removing the Integration
 
+You can remove the AWS integration at any time by clicking the gear icon next to your AWS account on the integrations screen and selecting **Remove**. Delete any Racks you have created before removing the integration.
 
+## See Also
+
+- [Import a Rack](/management/import-rack)
+- [Core Concepts: Console](/core-concepts/console)
+- [Reference: AWS](/reference/aws)
+- [Integrations](/console/integrations)

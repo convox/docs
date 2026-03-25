@@ -1,9 +1,11 @@
 ---
 title: "CLI Installation"
-order: 200
+description: "Install the Convox CLI on macOS, Linux, or Windows"
 ---
 
-The `convox` command line tool makes building, configuring, scaling, and securing your apps easy.
+# CLI Installation
+
+The `convox` command line tool makes building, configuring, scaling, and securing your apps straightforward.
 
 Here are some of the highlights:
 
@@ -13,58 +15,72 @@ Here are some of the highlights:
 
 You can install it via the command line:
 
-## OS X
+## macOS
 
 ### x86_64 / amd64
 
-    $ curl -L https://download.convox.com/cli/darwin/convox -o /tmp/convox
-    $ sudo mv /tmp/convox /usr/local/bin/convox
-    $ sudo chmod 755 /usr/local/bin/convox
+```bash
+$ curl -L https://download.convox.com/cli/darwin/convox -o /tmp/convox
+$ sudo mv /tmp/convox /usr/local/bin/convox
+$ sudo chmod 755 /usr/local/bin/convox
+```
 
 ### arm64
 
-```html
-    $ curl -L https://download.convox.com/cli/darwin/convox-arm64 -o /tmp/convox
-    $ sudo mv /tmp/convox /usr/local/bin/convox
-    $ sudo chmod 755 /usr/local/bin/convox
+```bash
+$ curl -L https://download.convox.com/cli/darwin/convox-arm64 -o /tmp/convox
+$ sudo mv /tmp/convox /usr/local/bin/convox
+$ sudo chmod 755 /usr/local/bin/convox
 ```
 
 ## Linux
 
-
 ### x86_64 / amd64
 
-```html
-    $ curl -L https://download.convox.com/cli/linux/convox -o /tmp/convox
-    $ sudo mv /tmp/convox /usr/local/bin/convox
-    $ sudo chmod 755 /usr/local/bin/convox
+```bash
+$ curl -L https://download.convox.com/cli/linux/convox -o /tmp/convox
+$ sudo mv /tmp/convox /usr/local/bin/convox
+$ sudo chmod 755 /usr/local/bin/convox
 ```
 
 ### arm64
 
-```html
-    $ curl -L https://download.convox.com/cli/linux/convox-arm64 -o /tmp/convox
-    $ sudo mv /tmp/convox /usr/local/bin/convox
-    $ sudo chmod 755 /usr/local/bin/convox
+```bash
+$ curl -L https://download.convox.com/cli/linux/convox-arm64 -o /tmp/convox
+$ sudo mv /tmp/convox /usr/local/bin/convox
+$ sudo chmod 755 /usr/local/bin/convox
 ```
 
 ## Windows
 
-    $ curl -L https://download.convox.com/cli/windows/convox.exe -O
+```bash
+$ curl -L https://download.convox.com/cli/windows/convox.exe -O
+```
 
-# Next steps
+## Next steps
 
-## Logging in to Console
+### Logging in to Console
 
 After installing Convox, you'll need to `convox login`:
 
-    $ convox login console.convox.com
-    Password: <your Console API key>
-    Logged in successfully.
+```bash
+$ convox login console.convox.com
+Password: <your Console API key>
+Logged in successfully.
+```
 
 ## Updating the CLI
 
 To update the CLI you can run `convox update`:
 
-    $ convox update
-    Updating convox to 20211231000000: OK
+```bash
+$ convox update
+Updating convox: OK
+```
+
+## See Also
+
+- [Getting Started](/introduction/getting-started)
+- [Reference: CLI Commands](/reference/cli-commands)
+- [Core Concepts: Console](/core-concepts/console)
+- [Frequently Asked Questions](/introduction/faq)

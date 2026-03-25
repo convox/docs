@@ -1,10 +1,13 @@
 ---
 title: "Custom Domains"
+description: "How to configure custom domains for your Convox Services, including SSL certificates and DNS setup."
 ---
+
+# Custom Domains
 
 ## Definition
 
-You can specify that your service should listen on a custom domain:
+You can specify that your Service should listen on a custom domain:
 
 ```yaml
 services:
@@ -13,7 +16,7 @@ services:
     port: 3000
 ```
 
-You can also specify multiple domains using this syntax:
+You can also specify multiple domains:
 
 ```yaml
 services:
@@ -24,16 +27,11 @@ services:
     port: 3000
 ```
 
-<div class="block-callout block-show-callout type-warning" markdown="1">
-  Using a custom domain requires a valid SSL certificate for the domains being specified.
-  <p>If a single certificate does not already exist in the same region as the rack is installed and that matches all the domains you specify for your service, one will be automatically created. The DNS owner will receive a validation email with a link that needs to be clicked for this process to complete.  This will happen the first time you deploy your service with your configuration</p>
-</div>
+> Using a custom domain requires a valid SSL certificate for the domains being specified. If a single certificate does not already exist in the same region as the Rack and matching all the domains you specify for your Service, one will be automatically created. The domain owner will receive a validation email with a link that must be clicked to complete the process. This happens the first time you deploy your Service with the custom domain configuration.
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-You can [pre-generate your SSL certificate](/deployment/ssl#pre-generate-your-certificate) ahead of deploy time if you wish.
-</div>
+> You can [pre-generate your SSL certificate](/deployment/ssl#pre-generate-your-certificate) ahead of deploy time if you wish.
 
-#### Dynamic Configuration
+## Dynamic Configuration
 
 You can use environment interpolation so that you don't have to hardcode the hostname in your `convox.yml`:
 
@@ -48,27 +46,20 @@ services:
 
 Run `convox rack` and find the `Router` value. Configure your custom domain as a `CNAME` to this domain.
 
-#### Example
+### Example
 
-<table>
-  <tr>
-    <th>Name</th>
-    <td><code>docs.convox.com</code></td>
-  </tr>
-  <tr>
-    <th>Type</th>
-    <td><code>CNAME</code></td>
-  </tr>
-  <tr>
-    <th>Value</th>
-    <td><code>produ-Route-1ABCDEFGHIJK-01234569.us-east-1.elb.amazonaws.com</code></td>
-  </tr>
-  <tr>
-    <th>TTL</th>
-    <td><code>60</code></td>
-  </tr>
-</table>
+| Field | Value |
+|-------|-------|
+| Name  | `docs.convox.com` |
+| Type  | `CNAME` |
+| Value | `produ-Route-1ABCDEFGHIJK-01234569.us-east-1.elb.amazonaws.com` |
+| TTL   | `60` |
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-To set up DNS for a root domain you should use the an **Alias** type with Route 53 or the equivalent with your DNS provider.
-</div>
+> To set up DNS for a root domain, use an **Alias** record with Route 53 or the equivalent with your DNS provider.
+
+## See Also
+
+- [SSL](/deployment/ssl)
+- [Services](/application/services)
+- [Load Balancing](/networking/load-balancing)
+- [Port](/application/port)

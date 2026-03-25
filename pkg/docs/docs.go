@@ -24,9 +24,11 @@ var (
 )
 
 var categoryNames = map[string]string{
-	"application": "Application Setup",
-	"gen1":        "Generation 1",
-	"migration":   "Migration Guides",
+	"application":  "Application Setup",
+	"core-concepts": "Core Concepts",
+	"gen1":         "Generation 1",
+	"management":   "Operations",
+	"migration":    "Migration Guides",
 }
 
 var (

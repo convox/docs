@@ -1,8 +1,11 @@
 ---
 title: "App Statuses"
+description: "Reference for Convox App lifecycle statuses including creating, running, updating, rollback, and deleting."
 ---
 
-As you interact with your Convox apps, you will notice a variety of statuses displayed in the Console web interface and in the output of CLI commands like `convox apps info`. Here's what they mean.
+# App Statuses
+
+As you interact with your Convox Apps, you will notice a variety of statuses displayed in the Console web interface and in the output of CLI commands like `convox apps info`. Here is what they mean.
 
 ## creating
 
@@ -23,3 +26,10 @@ Most of the time, your apps should display the _running_ status and be fully ope
 ## updating
 
 When you deploy an app, you'll see a status of _updating_ while the new release is being promoted. Once promotion completes, the status will transition to _running_.
+
+## See Also
+
+- [Rack Statuses](/reference/rack-statuses)
+- [Releases](/deployment/releases)
+- [Rolling Updates](/deployment/rolling-updates)
+- [App Parameters](/reference/app-parameters)

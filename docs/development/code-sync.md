@@ -1,7 +1,9 @@
 ---
 title: "Code Sync"
-order: 300
+description: "Automatically sync code changes between your host machine and Convox containers during local development."
 ---
+
+# Code Sync
 
 Convox enhances your development experience by automatically syncing code changes between your host and containers.
 
@@ -25,3 +27,9 @@ There are also known performance problems using Docker volumes to sync large num
 
 If you don't want to use code sync you can disable it by passing the `--no-sync` option to `convox start`.
 
+## See Also
+
+- [Running Locally](/development/running-locally)
+- [Dockerfile](/application/dockerfile)
+- [Volumes](/application/volumes)
+- [Builds](/deployment/builds)

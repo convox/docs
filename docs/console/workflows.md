@@ -1,10 +1,9 @@
 ---
 title: "Workflows"
+description: "Configure review and deployment workflows in Convox Console for automated CI/CD triggered by GitHub or GitLab events."
 ---
 
-***Please note this document refers to the new workflows available as of the December 2018 update of the Convox Console. Legacy workflows created prior to this update will still work, however they can no longer be created or edited. The new workflows provide much improved functionality over the legacy workflows and we highly encourage everyone to migrate to the new workflows.***
-***
-
+# Workflows
 
 Convox allows you to manage continuous integration and continuous delivery using workflows.  You can use workflows to build automation such as deploying when you push to GitHub. You can create workflows by clicking on the workflow link in the navigation bar
 
@@ -19,7 +18,7 @@ Convox has two types of workflows:
 
 A review workflow allows you to review a new version of your application based on a pull request. When you define a review workflow for a connected Github or Gitlab repository, Convox will build your application whenever a pull request is created for that repository. If selected, Convox will also run your tests against that build and can even create a running review application so you can test your latest changes before you merge the pull request.
 
-#### Creating a Review Workflow
+### Creating a Review Workflow
 
 * Repository - This is the linked source control repository from either Github or Gitlab from which creating pull requests will trigger your review workflow
 * Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/application/convox-yml) however, if you have custom needs for your review workflows you can specify a custom manifest
@@ -34,9 +33,9 @@ A review workflow allows you to review a new version of your application based o
 
 A deployment workflow is how you can manage the regular deployment of your applications to staging and production. A deployment workflow is triggered whenever code is merged into the specified repository/branch on either Github or Gitlab
 
-#### Creating a Deployment Workflow
+### Creating a Deployment Workflow
 
-* Repository - This is the linked source control repository from either Github or Gitlab 
+* Repository - This is the linked source control repository from either Github or Gitlab
 * Workflow Name - A name for your workflow ex: staging deploy
 * Branch - The branch which merging code into will cause this workflow to trigger
 * Manifest - The Convox manifest file to use for this workflow. This defaults to [convox.yml](/application/convox-yml) however if you have custom needs for a specific deployment workflow you can specify a custom manifest
@@ -92,7 +91,7 @@ Now whenever you merge to dev your staging application will be built and wheneve
 
 ### A Double Build Deployment Strategy
 
-We are particularly fond of this strategy at Convox. With a double build, whenever code is merged into your master branch your staging application is automatically built and deployed and your production application is automatically built and ready to be deployed. With this strategy, once you are satisfied with your testing on staging all you need to do is click promote to move your code into production.
+With a double build, whenever code is merged into your master branch your staging application is automatically built and deployed and your production application is automatically built and ready to be deployed. Once you are satisfied with your testing on staging, click promote to move your code into production.
 
 1. Create a deployment workflow for your repository specifying your master branch
 2. Add your staging application and choose automatic promotion
@@ -102,3 +101,11 @@ We are particularly fond of this strategy at Convox. With a double build, whenev
 Now whenever your merge to master your staging application will be automatically built and your production application will be built and ready to promote. Once you are satisfied with your testing on staging you can click on your production rack, select your application, find the latest release and click promote.
 
 ![](/assets/images/docs/workflows/promote-release.png)
+
+## See Also
+
+- [Integrations](/console/integrations)
+- [Deploy Keys](/console/deploy-keys)
+- [Audit Logs](/console/audit)
+- [Builds](/deployment/builds)
+- [Releases](/deployment/releases)

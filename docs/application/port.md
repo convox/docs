@@ -1,6 +1,9 @@
 ---
 title: "Port"
+description: "Define the port on which a Convox service listens for HTTP, HTTPS, or gRPC traffic."
 ---
+
+# Port
 
 The Convox router listens on ports 80 and 443 and handles SSL termination for you. You will need to define the port on which your application is listening.
 
@@ -14,7 +17,7 @@ services:
 
 Your service should listen for HTTP requests on this port.
 
-#### End-to-End Encryption
+### End-to-End Encryption
 
 You can specify that your application is listening on HTTPS:
 
@@ -26,7 +29,7 @@ services:
 
 This syntax implies that your container is listening on HTTPS for requests between the router and the container.
 
-#### GRPC
+### GRPC
 
 You can specify that your application is using GRPC:
 
@@ -43,7 +46,7 @@ services:
     port: secure-grpc:3001
 ```
 
-## See also
+## See Also
 
-- [Custom Domains](/docs/custom-domains)
-- [SSL](/docs/ssl)
+- [Custom Domains](/deployment/custom-domains)
+- [SSL](/deployment/ssl)

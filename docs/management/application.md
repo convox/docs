@@ -1,8 +1,11 @@
 ---
 title: "Application Monitoring"
+description: "Set up availability monitoring, CloudWatch dashboards, alarms, and metrics tracking for Convox applications on AWS."
 ---
 
-Once you've got an app running on Convox, setting up monitoring can help you keep it running smoothly. As a starting point, we'd recommend the following baseline monitoring coverage when using Convox:
+# Application Monitoring
+
+Once you have an App running on Convox, setting up monitoring can help you keep it running smoothly. As a starting point, the following baseline monitoring coverage is recommended when using Convox:
 
 1. [Set up availability monitoring](#set-up-availability-monitoring) to be notified if your app stops responding.
 1. [Create a CloudWatch Dashboard](#create-a-cloudwatch-dashboard) to help track multiple metrics of your app.
@@ -23,7 +26,7 @@ We recommend using an availability monitoring service not run on AWS so that an 
 
 ## Create a CloudWatch Dashboard
 
-Sometimes it's hard to diagnose a problem without stepping back and looking at the bigger picture. By creating a CloudWatch Dashboard that tracks multiple metrics of your application over time, you can more easily spot abnormalities, warning signs, bottlenecks, and more.
+Sometimes it's hard to diagnose a problem without stepping back and looking at the bigger picture. By creating a CloudWatch Dashboard that tracks multiple metrics of your application over time, you can spot abnormalities, warning signs, bottlenecks, and more.
 
 To set up a CloudWatch Dashboard with a single widget that tracks CPU and memory utilization of a given app, follow these instructions:
 
@@ -50,9 +53,7 @@ If, in addition to being able to monitor your new CloudWatch Dashboard, you'd li
 1. In the Alarm Preview section, confirm that Period is set to "15 Minutes" and the Statistic is "Average."
 1. Confirm that you see your new Alarm listed with State "OK."
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-Keep in mind that a notification email sent by a CloudWatch Alarm can be used as a trigger for other services like PagerDuty. See their [Email Integration Guide](https://www.pagerduty.com/docs/guides/email-integration-guide/) for more information.
-</div>
+> **Note:** A notification email sent by a CloudWatch Alarm can be used as a trigger for other services like PagerDuty. See their [Email Integration Guide](https://www.pagerduty.com/docs/guides/email-integration-guide/) for more information.
 
 ## Track CloudWatch Metrics
 
@@ -64,3 +65,10 @@ Once you've [created a CloudWatch Dashboard](#create-a-cloudwatch-dashboard), yo
 1. Click the "Add to Dashboard" button.
 1. In the "Add to Dashboard" dialog, select the desired dashboard and click the "Add to Dashboard" button.
 1. Consider resizing the widget (by dragging the bottom right corner) for better readability.
+
+## See Also
+
+- [Logs](/management/logs)
+- [Debugging](/management/debugging)
+- [Rack Updates](/management/rack-updates)
+- [Reference: AWS](/reference/aws)

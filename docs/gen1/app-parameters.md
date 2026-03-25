@@ -1,6 +1,11 @@
 ---
 title: "App Parameters"
+description: "Gen 1 (End of Life): Configurable application parameters for Gen 1 Convox apps, including formation, internal mode, security groups, and task roles."
 ---
+
+# App Parameters
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [App Parameters](/reference/app-parameters).
 
 Parameters can be used to configure your Convox apps. Below is a list of the available app parameters.
 
@@ -15,11 +20,15 @@ Parameters can be used to configure your Convox apps. Below is a list of the ava
 
 Parameters can be set using the following command.
 
-    convox apps params set Foo=bar
+```bash
+$ convox apps params set Foo=bar
+```
 
 You can also set multiple parameters at once.
 
-    convox apps params set Foo=bar Baz=qux
+```bash
+$ convox apps params set Foo=bar Baz=qux
+```
 
 ## ProcessName Formation
 
@@ -27,9 +36,9 @@ For a given app, specify the number of processes to run, CPU units to reserve, a
 
 A < ProcessName >Formation parameter is created for each app process you define in your `docker-compose.yml`. For example, your app might have `WebFormation` and `DatabaseFormation` parameters.
 
-See the [cpu section](http://docs.aws.amazon.com/AmazonECS/latest/APIReference//API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) of the AWS ContainerDefinition doc for more information about reserving CPU units.
+See the [cpu section](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) of the AWS ContainerDefinition doc for more information about reserving CPU units.
 
-Keep in mind that [ECS will terminate your app](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-memory) if it attempts to use more than the amount of memory you have reserved for it. You may need to [scale up your app's memory](/gen1/scaling#memory) if you encounter this kind of termination unexpectedly.
+Keep in mind that [ECS will terminate your app](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-memory) if it attempts to use more than the amount of memory you have reserved for it. You may need to [scale up your app's memory](/gen1/scaling#memory) if you encounter this kind of termination unexpectedly.
 
 | Default value  | "1,0,256"        |
 
@@ -49,3 +58,10 @@ For details, see [Load balancers: limited application access](/gen1/load-balance
 ## TaskRole
 
 The `TaskRole` app parameter can be set to the ARN or short name of an IAM Role you wish to apply to the ECS Tasks of this app.
+
+## See Also
+
+- [App Parameters (Gen 2)](/reference/app-parameters)
+- [Internal Apps](/gen1/internal-apps)
+- [Load Balancers](/gen1/load-balancers)
+- [Scaling](/gen1/scaling)

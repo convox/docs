@@ -1,6 +1,11 @@
 ---
 title: "Rolling Updates"
+description: "Gen 1 (End of Life): How rolling updates, automatic rollbacks, and deployment parameters work for Gen 1 Convox applications."
 ---
+
+# Rolling Updates
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Rolling Updates](/deployment/rolling-updates).
 
 When a Release is promoted, new processes are gracefully rolled out into production.
 
@@ -23,7 +28,7 @@ A rollout coordinates starting new processes in a way that maintains service upt
 
 If there are errors starting new processes, new processes are not verified as healthy, or the rollout doesn't complete in 10 minutes, an automatic rollback is performed. This will result in a [`rollback`](/reference/rack-statuses#rollback) or `failed` state for the app:
 
-```
+```bash
 $ convox apps info
 Name       httpd
 Status     rollback
@@ -64,3 +69,9 @@ version: '2'
 See the [deployment labels](/gen1/docker-compose-labels#convoxdeployment) doc for more information about setting a deployment minimum.
 
 Most apps will not need to configure any of these settings to gracefully roll out.
+
+## See Also
+
+- [Rolling Updates (Gen 2)](/deployment/rolling-updates)
+- [Health Checks](/gen1/health-checks)
+- [Docker Compose Labels](/gen1/docker-compose-labels)

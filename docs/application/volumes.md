@@ -1,6 +1,9 @@
 ---
 title: "Volumes"
+description: "Configure persistent data volumes for Convox services, including shared volumes and host volume mounts."
 ---
+
+# Volumes
 
 You can use Docker volumes to make data persist between runs of a given service's containers across restarts and instance replacements. This is useful for applications like WordPress or Jenkins that need to store data on the filesystem.
 
@@ -41,6 +44,11 @@ Certain applications and containers may wish to access host volumes rather than 
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-  Only certain specific host paths are supported for security reasons. (`/cgroup/`, `/dev/log`, `/etc/passwd`, `/proc/`, `/sys/fs/cgroup/`, `/sys/kernel/debug/`, `/var/log/audit/`, `/var/run/`, `/var/run/docker.sock`)<br/>
-</div>
+> **Note:** Only certain specific host paths are supported for security reasons: `/cgroup/`, `/dev/log`, `/etc/passwd`, `/proc/`, `/sys/fs/cgroup/`, `/sys/kernel/debug/`, `/var/log/audit/`, `/var/run/`, `/var/run/docker.sock`.
+
+## See Also
+
+- [Services](/application/services)
+- [Resources](/application/resources)
+- [Running Locally](/development/running-locally)
+- [One-off Commands](/management/one-off-commands)
