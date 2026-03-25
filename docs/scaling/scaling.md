@@ -183,7 +183,7 @@ For best practices, define scaling ranges and targets in `convox.yml` to ensure 
 ## See Also
 
 - [convox.yml Reference](/application/convox-yml)
-- [Service Tags](/scaling/service-tags)
+- [Service Tags](/management/service-tags)
 - [App Parameters](/reference/app-parameters)
 - [Rack Parameters](/reference/rack-parameters)
 - [Load Balancing](/networking/load-balancing)
