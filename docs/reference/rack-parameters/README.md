@@ -40,7 +40,6 @@ $ convox rack params set Foo=bar Baz=qux
 | [BuildMemory](/reference/rack-parameters/BuildMemory) | `1000` | Memory (MB) allocated to builds |
 | [BuildMethod](/reference/rack-parameters/BuildMethod) | `ec2` | Build process type (EC2 or Fargate) |
 | [BuildVolumeSize](/reference/rack-parameters/BuildVolumeSize) | `100` | Build disk size in GB |
-| [ClientId](/reference/rack-parameters/ClientId) | "" | Anonymous identifier |
 | [CpuCredits](/reference/rack-parameters/CpuCredits) | "" | CPU credit option for T instances |
 | [DefaultAmi](/reference/rack-parameters/DefaultAmi) | `.../amazon-linux-2/recommended/image_id` | Default AMI for x86_64 instances |
 | [DefaultAmiArm](/reference/rack-parameters/DefaultAmiArm) | `.../amazon-linux-2/arm64/recommended/image_id` | Default AMI for ARM64 instances |
