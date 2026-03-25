@@ -1,6 +1,9 @@
 ---
 title: "Integrations"
+description: "Connect Convox Console with GitHub, GitLab, and Slack for source control triggers and event notifications."
 ---
+
+# Integrations
 
 Convox Console can integrate with GitLab and GitHub to capture source code management events and with Slack for notifications.
 
@@ -14,7 +17,7 @@ The GitLab integration can be used to create triggers for [Workflows](/console/w
 
 The GitHub integration can be used to create triggers for [Workflows](/console/workflows).
 
-When enabling the integration, please note that there are OAuth settings for each GitHub organization. If you want to use a repository to trigger Workflows, its organization must be authorized.
+When enabling the integration, there are OAuth settings for each GitHub organization. If you want to use a repository to trigger Workflows, its organization must be authorized.
 
 Also note that forks from private repos in unauthorized GitHub organizations will not be available for triggers, even if the fork's current organization is authorized. To work around this limitation, instead of forking you can clone the original repo and push it to a new repo in an authorized organization.
 
@@ -34,4 +37,11 @@ Unfortunately, `repo` scope also includes write permissions, but Convox does not
 
 ## Slack
 
-The Slack integration can be used to recieve notifications of Rack events in your team's chat. See the [Notifications](/console/notifications) doc for details about the types of notifications that are sent.
+The Slack integration can be used to receive notifications of Rack events in your team's chat. See the [Notifications](/console/notifications) doc for details about the types of notifications that are sent.
+
+## See Also
+
+- [Workflows](/console/workflows)
+- [Notifications](/console/notifications)
+- [GitHub Actions](/integrations/github-actions)
+- [CircleCI](/integrations/circleci)

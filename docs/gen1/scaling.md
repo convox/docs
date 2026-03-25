@@ -1,6 +1,11 @@
 ---
 title: "Scaling"
+description: "Gen 1 (End of Life): How to scale Gen 1 Convox application concurrency, memory, CPU, and Rack instance count, including autoscaling."
 ---
+
+# Scaling
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Scaling](/scaling/scaling).
 
 Convox allows you to scale your application's concurrency, memory allocation, and the resources available in the underlying Rack.
 
@@ -8,7 +13,7 @@ Convox allows you to scale your application's concurrency, memory allocation, an
 
 #### Show current application scaling
 
-```
+```bash
 $ convox scale
 NAME  DESIRED  RUNNING  MEMORY
 web   2        1        256
@@ -17,7 +22,7 @@ redis 1        1        256
 
 #### Concurrency
 
-```
+```bash
 $ convox scale web --count=4
 NAME  DESIRED  RUNNING  MEMORY
 web   2        1        256
@@ -25,7 +30,7 @@ web   2        1        256
 
 #### Memory
 
-```
+```bash
 $ convox scale web --memory=1024
 NAME  DESIRED  RUNNING  MEMORY
 web   2        1        1024
@@ -33,9 +38,9 @@ web   2        1        1024
 
 #### CPU
 
-Each rack instance has 1,024 [cpu units](http://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) for every CPU core. This parameter specifies the minimum amount of CPU to reserve for a container. Containers share unallocated CPU units with other containers on the instance with the same ratio as their allocated amount.
+Each rack instance has 1,024 [cpu units](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) for every CPU core. This parameter specifies the minimum amount of CPU to reserve for a container. Containers share unallocated CPU units with other containers on the instance with the same ratio as their allocated amount.
 
-```
+```bash
 $ convox scale web --cpu=1024
 NAME  DESIRED  RUNNING  CPU
 web   1        1        1024
@@ -45,7 +50,7 @@ web   1        1        1024
 
 It's often convenient to run a service like Redis in a container locally. You can do so by defining a `redis` process in your `docker-compose.yml`. However, when you've deployed the app to your rack, you should use a hosted resource like ElastiCache. In this case, you can scale redis down and destroy the ELB which was created:
 
-```
+```bash
 $ convox scale redis --count=-1
 NAME  DESIRED  RUNNING  MEMORY
 redis   -1        1        256
@@ -57,7 +62,7 @@ Note: If you scale this service back up, the ELB will be recreated, but will hav
 
 You can define both the type and count of instances being run in your Rack.
 
-```
+```bash
 $ convox rack scale --type=m4.xlarge --count=3
 Name     demo
 Status   updating
@@ -73,13 +78,13 @@ Type     m4.xlarge
 
 Your Rack can scale its own instance count based on the needs of the containers it provisions. Autoscaling is enabled by default. To disable it, set the `Autoscale` parameter:
 
-```
+```bash
 $ convox rack params set Autoscale=No
 ```
 
 To monitor for autoscaling events, use `convox rack logs` with the `--filter` option.
 
-```
+```bash
 $ convox rack logs --filter="autoscaleRack change="
 ```
 
@@ -100,3 +105,9 @@ First, note that any services with open ports you have running at scale of `n` w
 Autoscaling does not yet take the subtleties of [deployment minimum/maximum](/gen1/docker-compose-labels#convoxdeployment) into account. For example: a `web` service listening on port 80 with a scale count of 3 will still require 4 instances, even if it has `convox.deployment.minimum=50` set.
 
 You can also look for anomalies in the Rack's autoscaling log events with `convox rack logs --filter=autoscale`.
+
+## See Also
+
+- [Scaling (Gen 2)](/scaling/scaling)
+- [App Parameters](/gen1/app-parameters)
+- [Rolling Updates](/gen1/rolling-updates)

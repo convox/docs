@@ -1,13 +1,23 @@
 ---
-title: "AWS"
+title: "AWS Infrastructure Details"
+description: "Details about the underlying AWS infrastructure Convox provisions, including ECS memory limits."
 ---
 
-This page contains detailed information about how AWS is set up with convox. Some of this information may be useful when troubleshooting your apps' unexpected behavior, or simply to understand better what's underneath infrastructure looks like.
+# AWS Infrastructure Details
 
-## ECS (EC2 launch type)
+This page contains detailed information about how AWS infrastructure is configured by Convox. This may be useful when troubleshooting unexpected App behavior or understanding what the underlying infrastructure looks like.
 
-A [service](https://docs.convox.com/application/services)'s [memory limit](https://docs.convox.com/deployment/scaling) (set via `convox scale <service> --memory <memory>` [CLI](https://docs.convox.com/reference/cli-commands) command) translates to a <u>hard-only</u> memory limit on ECS task definition (see `memoryReservation` section on AWS's website [here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definition_memory) to read more). This is true both for long-running processes, and for processes started via a [timer](https://docs.convox.com/application/timers).
+## ECS Memory Limits (EC2 Launch Type)
 
-If you were to execute a [one-off command](https://docs.convox.com/management/one-off-commands) however, the process created will have a <u>soft-only</u> memory limit with the same scale value. This _subtle_ difference may be important in understanding why sometimes a given command crashes when run either as a long-running process or a process started via a timer, but if executed via `convox run` it doesn't.
+A [Service](/application/services)'s [memory limit](/scaling/scaling) (set via `convox scale <service> --memory <memory>`) translates to a **hard** memory limit on the ECS task definition. This applies both to long-running processes and to processes started via a [Timer](/application/timers).
 
-When hard-only limit is used, docker will kill your process if it were to run out of memory; whilst when soft-only memory is used your process can use all the memory available in the container instance, hence it may not crash even if the memory consumption is higher than the value set as scale value.
+If you execute a [one-off command](/management/one-off-commands), the process created has a **soft** memory limit instead. This difference may be important in understanding why a given command crashes when run as a long-running process or Timer, but succeeds via `convox run`.
+
+When a hard limit is used, Docker kills the process if it exceeds its memory allocation. When a soft limit is used, the process can use all available memory on the container instance, so it may not crash even if memory consumption exceeds the configured scale value.
+
+## See Also
+
+- [Scaling](/scaling/scaling)
+- [One-Off Commands](/management/one-off-commands)
+- [Rack Parameters](/reference/rack-parameters)
+- [Services](/application/services)

@@ -1,6 +1,9 @@
 ---
 title: "Rails"
+description: "Deploy a Ruby on Rails application on Convox with PostgreSQL and Docker"
 ---
+
+# Rails
 
 This guide will show you how to install a Rails app to Convox using an [example application](https://github.com/convox-examples/rails).
 
@@ -37,11 +40,11 @@ Here we will describe the changes we made to a vanilla Rails application to allo
 
 ### [Dockerfile](https://github.com/convox-examples/rails/blob/master/Dockerfile)
 
-Starting from the [ruby:2.6.4](https://hub.docker.com/_/ruby/) image, the `Dockerfile` defines the steps necessary to turn the application code into an image that is ready to run. 
+Starting from the [ruby:3.2](https://hub.docker.com/_/ruby/) image, the `Dockerfile` defines the steps necessary to turn the application code into an image that is ready to run.
 
 This `Dockerfile` has 3 steps and they are executed in a particular order to take advantage of Docker's build caching behavior.
 
-1. `bundle install` and `yarn install` are run to install dependencies after copying just the files needed to run these commands. This will ensure that the output these commands are cached unless one of these files changes.
+1. `bundle install` and `yarn install` are run to install dependencies after copying the files needed to run these commands. This will ensure that the output these commands are cached unless one of these files changes.
 
 2. The application source is copied over. These files will change frequently so this step of the build will very rarely be cached.
 
@@ -51,15 +54,13 @@ This `Dockerfile` has 3 steps and they are executed in a particular order to tak
 
 The `convox.yml` manifest explains how to run the application. The manifest for this application has two sections:
 
-#### resources
+### resources
 
 These are network-attached dependencies of the application. In this application we have a single resource, a `postgres` database.
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-	The implementation of a resource will vary by Rack type. For example, on a local Rack a `postgres` resource will be satisfied with a containerized database while on AWS that same resource definition will be satisfied with an RDS database.
-</div>
+> **Note:** The implementation of a resource will vary by Rack type. For example, on a local Rack a `postgres` resource will be satisfied with a containerized database while on AWS that same resource definition will be satisfied with an RDS database.
 
-#### services
+### services
 
 These are the web-facing services of the application. This application has a single service named `web` which is built from the local directory.
 
@@ -69,3 +70,9 @@ Because the resource named `database` appears in the `links:` section of this se
 
 This file is configured to read database credentials from the `DATABASE_URL` environment variable.
 
+## See Also
+
+- [Getting Started](/introduction/getting-started)
+- [Running Locally](/development/running-locally)
+- [convox.yml](/application/convox-yml)
+- [Running Migrations](/deployment/running-migrations)

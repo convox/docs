@@ -1,6 +1,11 @@
 ---
 title: "Load Balancers"
+description: "Gen 1 (End of Life): How Convox configures and manages load balancers for Gen 1 applications, including protocols, health checks, and security."
 ---
+
+# Load Balancers
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Load Balancing](/networking/load-balancing).
 
 Once you have containers running, the next step is to allow them to be accessed from the Internet. Convox automatically sets up and configures load balancers appropriately to route traffic to your containers.
 
@@ -8,7 +13,7 @@ Once you have containers running, the next step is to allow them to be accessed 
 
 Load balancers will be automatically created for any ports listed in your `docker-compose.yml`.
 
-```
+```yaml
 web:
   build: .
   command: bin/web
@@ -29,12 +34,14 @@ Convox will only create a load balancer for ports in your `docker-compose.yml` f
 
 You can find the load balancer hostname(s) for your application using `convox apps info`:
 
-    $ convox apps info
-    Name       docs
-    Status     running
-    Release    RHUFNNNVEAP
-    Processes  web
-    Endpoints  docs-web-R72RMTP-326048479.us-east-1.elb.amazonaws.com:80 (web)
+```bash
+$ convox apps info
+Name       docs
+Status     running
+Release    RHUFNNNVEAP
+Processes  web
+Endpoints  docs-web-R72RMTP-326048479.us-east-1.elb.amazonaws.com:80 (web)
+```
 
 ### Advanced Options
 
@@ -42,7 +49,7 @@ You can find the load balancer hostname(s) for your application using `convox ap
 
 You can create a load balancer that is only accessible inside your Rack by specifying a single port:
 
-```
+```yaml
 web:
   ports:
     - "5000"
@@ -57,7 +64,7 @@ This is due to the fact that while an ELB can have listeners on multiple ports, 
 
 You can specify one of four protocol types for a load balancer port in your `docker-compose.yml`:
 
-```
+```yaml
 web:
   labels:
     - convox.port.443.protocol=https
@@ -98,7 +105,7 @@ By default Convox will set up a `tcp` health check to your application. For more
 
 By default, HTTPS/TLS is terminated at the load balancer, and the resulting data is transmitted unencrypted to your application. This is OK, because traffic between your load balancer and your application happens entirely on your Rack's internal network. However, for extra security you can encrypt the traffic between your load balancer and application by setting the `convox.port.<port>.secure` label.
 
-```
+```yaml
 web:
   labels:
     - convox.port.443.secure=true
@@ -111,9 +118,9 @@ When you use this option you will need to terminate HTTPS or TLS directly inside
 
 #### PROXY protocol
 
-When using the `tcp` or `tls` protocols, standard proxy HTTP headers like `X-Forwarded-For` are not injected. You can get access to information about the remote endpoint using the [PROXY protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt). Once you configure your application to accept this extra header you can configure your load balancer to send it in your `docker-compose.yml`:
+When using the `tcp` or `tls` protocols, standard proxy HTTP headers like `X-Forwarded-For` are not injected. You can get access to information about the remote endpoint using the [PROXY protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt). Once you configure your application to accept this extra header you can configure your load balancer to send it in your `docker-compose.yml`:
 
-```
+```yaml
 web:
   labels:
     - convox.port.443.protocol=tls
@@ -128,18 +135,19 @@ For security reasons, access to an application might need to be limited. To achi
 
 This is done via an [application parameter](/gen1/app-parameters#securitygroup) with a known security group ID:
 
-```
+```bash
 convox apps params --app <name> set SecurityGroup=sg-123456
 ```
 
 Validate the setting has been applied by running:
 
-```
+```bash
 convox apps params --app <name>
 ```
 
-For further reading on security groups, check out the AWS [documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) and [CLI reference](http://docs.aws.amazon.com/cli/latest/userguide/cli-ec2-sg.html).
+For further reading on security groups, check out the AWS [documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) and [CLI reference](https://docs.aws.amazon.com/cli/latest/userguide/cli-ec2-sg.html).
 
-## See also
+## See Also
 
-- [Port mapping](/gen1/port-mapping)
+- [Port Mapping](/gen1/port-mapping)
+- [Health Checks](/gen1/health-checks)

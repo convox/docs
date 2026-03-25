@@ -1,6 +1,11 @@
 ---
 title: "Scheduled Tasks"
+description: "Gen 1 (End of Life): How to configure cron-like scheduled tasks for Gen 1 Convox applications using Docker Compose labels."
 ---
+
+# Scheduled Tasks
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Timers](/application/timers).
 
 Convox can set up `cron`-like recurring tasks on any of your application processes. This can be useful for background work like data dumps, batch jobs, or even queueing other background jobs for a worker.
 
@@ -28,7 +33,7 @@ web:
 
 Cron expressions use the following format. All times are UTC.
 
-```
+```text
 .----------------- minute (0 - 59)
 |  .-------------- hour (0 - 23)
 |  |  .----------- day-of-month (1 - 31)
@@ -86,3 +91,9 @@ See the [Scheduled Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/e
 ## Run options and persistence
 
 The service a scheduled task is associated with does not necessarily need running containers all the time. The service can be [scaled down to `-1` or `0`](/gen1/scaling#scaling-down-unused-services), and the scheduled task will "wake it up," causing a container to be created for the scheduled to task to run in, and exiting when it finishes.
+
+## See Also
+
+- [Timers (Gen 2)](/application/timers)
+- [Docker Compose Labels](/gen1/docker-compose-labels)
+- [Scaling](/gen1/scaling)

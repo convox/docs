@@ -1,6 +1,9 @@
 ---
 title: "Health Checks"
+description: "Configure HTTP health checks that determine deployment success for Convox services exposing a port."
 ---
+
+# Health Checks
 
 The Convox deployment process depends on application Health Checks to determine success.
 
@@ -14,34 +17,18 @@ services:
     health:
       grace: 5
       interval: 5
-      path: /health
-      timeout: 3
+      path: /
+      timeout: 4
 ```
 
-#### Options
+### Options
 
-<table>
-  <tr>
-    <th>Label</th>
-    <th>Notes</th>
-  </tr>
-  <tr>
-    <td><code>grace</code></td>
-    <td>The amount of time to wait for a service to boot before beginning health checks.</td>
-  </tr>
-  <tr>
-    <td><code>interval</code></td>
-    <td>The amount of time between health checks (default 5 seconds).</td>
-  </tr>
-  <tr>
-    <td><code>path</code></td>
-    <td>The HTTP endpoint the load balancer will use to determine the application's health.</td>
-  </tr>
-  <tr>
-    <td><code>timeout</code></td>
-    <td>The time in seconds after which no response means a failed health check (defaults to <code>interval</code> minus 1).</td>
-  </tr>
-</table>
+| Option | Description | Default |
+|--------|-------------|---------|
+| `grace` | The amount of time in seconds to wait for a service to boot before beginning health checks. | Same as `interval` (5 seconds) |
+| `interval` | The amount of time in seconds between health checks. | `5` |
+| `path` | The HTTP endpoint the load balancer will use to determine the application's health. | `/` |
+| `timeout` | The time in seconds after which no response means a failed health check. | `interval - 1` (4 seconds) |
 
 ## Common Failures
 
@@ -53,7 +40,7 @@ services:
 
 
 
-## See also
+## See Also
 
-* [Rolling Updates](/docs/rolling-updates/)
-* [Load Balancing](/deployment/load-balancing)
+- [Rolling Updates](/deployment/rolling-updates)
+- [Load Balancing](/networking/load-balancing)

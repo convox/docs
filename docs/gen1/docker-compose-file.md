@@ -1,6 +1,11 @@
 ---
 title: "Docker Compose File"
+description: "Gen 1 (End of Life): Reference for the docker-compose.yml configuration format used by Gen 1 Convox applications."
 ---
+
+# Docker Compose File
+
+> **This page documents Generation 1, which has reached End of Life.** Gen 1 apps use `docker-compose.yml`. For current documentation, see [Convox.yml](/application/convox-yml).
 
 [Docker Compose](https://docs.docker.com/compose/overview/) makes it easier to configure and run applications made up of multiple containers. For the uninitiated, imagine being able to define three containers -one running a web app, another running postgres, and a third running redis- all in one YAML file and then running those three connected containers with a single command. That file is `docker-compose.yml`, and when using Convox locally, the command is `convox start`.
 
@@ -8,15 +13,19 @@ title: "Docker Compose File"
 
 Please note that service names should not include underscores.
 
-    services:
-      foo_bar: # will not work
-        ...
+```yaml
+services:
+  foo_bar: # will not work
+    ...
+```
 
 Dashed service names are allowed.
 
-    services:
-      foo-bar: # will work
-        ...
+```yaml
+services:
+  foo-bar: # will work
+    ...
+```
 
 ## Supported Docker Compose Configuration Options
 
@@ -75,38 +84,50 @@ Select a key for more information and example usage.
 
 Specify the path to the Dockerfile.
 
-    build: .
+```yaml
+build: .
 
-    build: ./another/dir
+build: ./another/dir
+```
 
 If you are using the Docker Compose v2 file format, you may also need to use the nested build configuration options `context` and `dockerfile` when using a Dockerfile with a non-standard name. This nested structure is not supported by the Docker Compose v1 file format.
 
-    build:
-      context: .
-      dockerfile: Dockerfile.alternate
+```yaml
+build:
+  context: .
+  dockerfile: Dockerfile.alternate
+```
 
 ### Command
 
 Override the default command.
 
-    command: bin/web
+```yaml
+command: bin/web
+```
 
 ### Context
 
 Supported by the Docker Compose v2 file format only. Specify a path to a directory containing a Dockerfile. Must be nested under the `build:` directive.
 
-    build:
-      context: .
+```yaml
+build:
+  context: .
+```
 
 In the v1 and v2 file formats, the following syntax is equivalent to the nested example above.
 
-    build: .
+```yaml
+build: .
+```
 
 The `context` directive is required if you are using the Docker Compose v2 file format and specifying a non-standard name for a Dockerfile with the `dockerfile:` directive.
 
-    build:
-      context: .
-      dockerfile: Dockerfile.alternate
+```yaml
+build:
+  context: .
+  dockerfile: Dockerfile.alternate
+```
 
 ### CPU Shares
 
@@ -116,11 +137,15 @@ Corresponds to the `-c` or `--cpu-shares` flag of the `docker run` command.
 
 This can be specified for the initial deployment in `docker-compose.yml`:
 
-    cpu_shares: 512
+```yaml
+cpu_shares: 512
+```
 
 Or by running `convox scale` (see also [Scaling](/gen1/scaling)):
 
-    convox scale <process> --cpu=512
+```bash
+$ convox scale <process> --cpu=512
+```
 
 The default Convox value is `0`. When set to `0`, Docker will ignore the value and use the default of `1024` instead.
 
@@ -142,29 +167,37 @@ Specify an alternate name if not named `Dockerfile`. Note that the Docker Compos
 
 Docker Compose v1 file format:
 
-    build: .
-    dockerfile: Dockerfile.alternate
+```yaml
+build: .
+dockerfile: Dockerfile.alternate
+```
 
 Docker Compose v2 file format:
 
-    build:
-      context: .
-      dockerfile: Dockerfile.alternate
+```yaml
+build:
+  context: .
+  dockerfile: Dockerfile.alternate
+```
 
 ### Entrypoint
 
 Override the default entrypoint.
 
-    entrypoint: /bin/entrypoint
+```yaml
+entrypoint: /bin/entrypoint
+```
 
 ### Environment
 
 Set environment variables, or allow them to be set, when the container is started.
 
-    environment:
-      - RACK_ENV=development
-      - SECRET_KEY
-      - FOO=
+```yaml
+environment:
+  - RACK_ENV=development
+  - SECRET_KEY
+  - FOO=
+```
 
 Variables can be:
 
@@ -178,26 +211,30 @@ See our [environment documentation](/gen1/environment) for more.
 
 Specify the image used when starting the container.
 
-    image: postgres
-    image: ubuntu:16.04
-    image: convox/rails
+```yaml
+image: postgres
+image: ubuntu:16.04
+image: convox/rails
+```
 
 ### Labels
 
 Add metadata to containers using Docker labels. Convox has several custom labels, which are listed below.
 
-    labels:
-      - convox.cron.<task name>
-      - convox.deployment.maximum
-      - convox.deployment.minimum
-      - convox.health.path
-      - convox.health.port
-      - convox.health.timeout
-      - convox.idle.timeout
-      - convox.port.<number>.protocol
-      - convox.port.<number>.proxy
-      - convox.port.<number>.secure
-      - convox.start.shift
+```yaml
+labels:
+  - convox.cron.<task name>
+  - convox.deployment.maximum
+  - convox.deployment.minimum
+  - convox.health.path
+  - convox.health.port
+  - convox.health.timeout
+  - convox.idle.timeout
+  - convox.port.<number>.protocol
+  - convox.port.<number>.proxy
+  - convox.port.<number>.secure
+  - convox.start.shift
+```
 
 For more details about how to use these labels, visit our [Docker Compose Labels doc](/gen1/docker-compose-labels).
 
@@ -205,13 +242,15 @@ For more details about how to use these labels, visit our [Docker Compose Labels
 
 Specifying a link to another container instructs Convox to provide the linking container with environment variables that allow it to connect to the target container. In the example below, Convox would set `DATABASE_URL=postgres://postgres:password@172.17.0.1:5432/app` in the `web` container, allowing an application there to reference `DATABASE_URL` to easily connect to the Postgres server running in the `database` container.
 
-    services:
-      web:
-        build: .
-        links:
-          - database
-      database:
-        image: convox/postgres
+```yaml
+services:
+  web:
+    build: .
+    links:
+      - database
+  database:
+    image: convox/postgres
+```
 
 See our [linking documentation](/gen1/linking) for more.
 
@@ -219,10 +258,12 @@ See our [linking documentation](/gen1/linking) for more.
 
 Convox currently supports a single use (via `convox start`) of the `networks` configuration option: connecting all services found in your docker-compose.yml to an existing external user-defined network. In the example below, services would be connected to the network named `foo-bar`. To be more specific, the container of each service would be started with a `--net foo-bar` option being passed to `docker run`.
 
-    networks:
-      outside:
-        external:
-          name: foo-bar
+```yaml
+networks:
+  outside:
+    external:
+      name: foo-bar
+```
 
 ### Memory Limit
 
@@ -230,11 +271,15 @@ Amount of memory, in bytes, available to the specified process type.
 
 This can be specified for the initial deployment in `docker-compose.yml`:
 
-    mem_limit: 256MB
+```yaml
+mem_limit: 256MB
+```
 
 Or by running `convox scale` (see also [Scaling](/gen1/scaling)):
 
-    convox scale <process> --memory=256
+```bash
+$ convox scale <process> --memory=256
+```
 
 Minimum is 4 MB. If no unit label (e.g. `MB`) is provided, the amount is interpreted in bytes.
 
@@ -252,9 +297,11 @@ You can view the current memory limit with either of the following commands:
 
 Define the ports on which the process should listen.
 
-    ports:
-      - 5000
-      - 80:5000
+```yaml
+ports:
+  - 5000
+  - 80:5000
+```
 
 See our [port mapping documentation](/gen1/port-mapping) for more.
 
@@ -262,15 +309,26 @@ See our [port mapping documentation](/gen1/port-mapping) for more.
 
 Give extended privileges to the container, including access to host devices.
 
-    privileged: true
+```yaml
+privileged: true
+```
 
 ### Volumes
 
 Share data between Processes of the same type by mounting volumes from the host or a network filesystem (EFS) inside the container.
 
-    volumes:
-      - /var/lib/postgresql/data
+```yaml
+volumes:
+  - /var/lib/postgresql/data
+```
 
 ## Missing Configuration Options
 
 Didn't find what you were looking for? If you encounter critical Docker Compose configuration options that we have not implemented, we invite you to [submit an issue](https://github.com/convox/rack/issues) describing your use case.
+
+## See Also
+
+- [convox.yml (Gen 2)](/application/convox-yml)
+- [Docker Compose Labels](/gen1/docker-compose-labels)
+- [Environment](/gen1/environment)
+- [Port Mapping](/gen1/port-mapping)

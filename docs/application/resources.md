@@ -1,12 +1,15 @@
 ---
-title: Resources
+title: "Resources"
+description: "Define and configure network-attached dependencies such as databases, caches, and shared filesystems for Convox applications."
 ---
+
+# Resources
 
 A resource is a network-attached dependency of your application.
 
 ## Definition
 
-Here we define a resource called `mydb` that is a Postgres database with 100GB of storage, and we then link it to our `web` service, which will be given an [env var](#accessing-resources-through-environment-variables) to connect to the database:
+Here we define a resource called `mydb` that is a Postgres database with 100GB of storage, and we then link it to our `web` service, which will be given an [env var](#accessing-resources) to connect to the database:
 
 ```yaml
 resources:
@@ -23,9 +26,9 @@ services:
       - mydb
 ```
 
-The resource name only affects the [environment variable name](#accessing-resources-through-environment-variables) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
+The resource name only affects the [environment variable name](#accessing-resources) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
 
-You can easily define multiple resources within one `convox.yml`:
+You can define multiple resources within one `convox.yml`:
 
 ```yaml
 resources:
@@ -69,7 +72,7 @@ To create a read replica using Convox resources, reference an existing database 
 
 The value for `readSourceDB` follows this format:
 
-```
+```text
 #convox.resources.<source-database-name>
 ```
 
@@ -145,7 +148,7 @@ The EFS resource lets you share volumes between services in different AZs.
 EFS resources have additional configurations. The definition is different from the database resources. See Available Resources > [EFS](#efs).
 After declaring the resource and the options, the link between the resource and service you want to expose is required. Example:
 
-```
+```yaml
 resources:
   sharedvolume:
     type: efs
@@ -163,7 +166,7 @@ services:
 Once the resource is linked to the service, set the volume and the path you want to expose to the application, e.g. `{efs-resource-name}:/path/to/mount/on/application`.
 The path you want to link the application is not bound to the same you declared in the definition, it's the directory that will be mount in the application container. A full example of EFS resource using the `resources` and `volumes`:
 
-```
+```yaml
 resources:
   sharedvolume:
     type: efs
@@ -195,7 +198,7 @@ resources:
       Environment: ${ENVIRONMENT}
 ```
 
-```
+```bash
 $ convox env set POSTGRES_STORAGE_SIZE=50 ENVIRONMENT=staging --rack=acme/staging
 $ convox env set POSTGRES_STORAGE_SIZE=200 ENVIRONMENT=production --rack=acme/production
 ```
@@ -209,18 +212,18 @@ The environment variable name is the resource name converted to all-caps, with a
 
 This would contain the entire connection string you would need, ie:
 
-```
+```text
 MYDB_URL=postgres://username:password@host.com:5432/databaseName
 ```
 
-#### Additional credentials
+### Additional credentials
 *Available in rack version **20221013170042 or later***
 
-You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, , `_PASS`, `_HOST`, `_PORT`, `_NAME`.
+You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, `_PASS`, `_HOST`, `_PORT`, `_NAME`.
 
 Using the example above, the resource name `mydb` will provide the following environment variable:
 
-```
+```text
 MYDB_USER=username
 MYDB_PASS=password
 MYDB_HOST=host.com
@@ -230,63 +233,77 @@ MYDB_NAME=databaseName
 
 ## Available Resources
 
-#### memcached
+### memcached
 
 | Option    | Default          | Description       |
 |-----------|------------------|-------------------|
 | `class`   | `cache.t2.micro` | Instance class    |
 | `nodes`   | `1`              | Number of nodes   |
-| `version` | `1.4.34`         | Memcached version |
+| `version` | *(required)*     | Memcached version |
 
-#### mariadb
-
-| Option      | Default          | Description                             |
-|-------------|------------------|-----------------------------------------|
-| `class`     | `db.t2.micro`    | Instance class                          |
-| `encrypted` | `false`          | Encrypt data at rest                    |
-| `deletionProtection` | `false` | Enable deletion protection              |
-| `durable`   | `false`          | Multi-AZ automatic failover             |
-| `iops`      |                  | Provisioned IOPS for database disks     |
-| `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `10.4`           | MariaDB version                         |
-| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
-| `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
-| `tags`      |                  | Custom tags to apply to the resource    |
-
-
-
-
-#### mysql
+### mariadb
 
 | Option      | Default          | Description                             |
 |-------------|------------------|-----------------------------------------|
-| `class`     | `db.t2.micro`    | Instance class                          |
-| `encrypted` | `false`          | Encrypt data at rest                    |
+| `class`     | `db.t3.micro`    | Instance class                          |
+| `encrypted` |                  | Encrypt data at rest                    |
 | `deletionProtection` | `false` | Enable deletion protection              |
 | `durable`   | `false`          | Multi-AZ automatic failover             |
 | `iops`      |                  | Provisioned IOPS for database disks     |
+| `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
+| `snapshot`  |                  | ARN of a DB snapshot to restore from    |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `5.7.22`         | MySQL version                           |
-| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `version`   | *(required)*     | MariaDB version                         |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
-| `tags`      |                  | Custom tags to apply to the resource    |
 
-#### postgres
+
+
+
+### mysql
 
 | Option      | Default          | Description                             |
 |-------------|------------------|-----------------------------------------|
-| `class`     | `db.t2.micro`    | Instance class                          |
+| `class`     | `db.t3.micro`    | Instance class                          |
+| `encrypted` |                  | Encrypt data at rest                    |
 | `deletionProtection` | `false` | Enable deletion protection              |
 | `durable`   | `false`          | Multi-AZ automatic failover             |
-| `encrypted` | `false`          | Encrypt data at rest                    |
 | `iops`      |                  | Provisioned IOPS for database disks     |
+| `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
+| `snapshot`  |                  | ARN of a DB snapshot to restore from    |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | `12`             | PostgreSQL version                      |
-| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod`` option. Must be in the format hh24:mi-hh24:mi.Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `version`   | *(required)*     | MySQL version (e.g. `8.0`)              |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
-| `tags`      |                  | Custom tags to apply to the resource    |
 
-#### redis
+### postgres
+
+| Option      | Default          | Description                             |
+|-------------|------------------|-----------------------------------------|
+| `class`     | `db.t3.micro`    | Instance class                          |
+| `deletionProtection` | `false` | Enable deletion protection              |
+| `durable`   | `false`          | Multi-AZ automatic failover             |
+| `encrypted` |                  | Encrypt data at rest                    |
+| `iops`      |                  | Provisioned IOPS for database disks     |
+| `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
+| `snapshot`  |                  | ARN of a DB snapshot to restore from    |
+| `storage`   | `20`             | GB of storage to provision              |
+| `version`   | *(required)*     | PostgreSQL version (e.g. `16`)          |
+| `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
+| `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
+
+### redis
+
+| Option      | Default          | Description                 |
+|-------------|------------------|-----------------------------|
+| `class`     | `cache.t2.micro` | Instance class              |
+| `durable`   | `false`          | Multi-AZ automatic failover. When it is set to `true`, the option `nodes` has to be greater or equal to `2`, otherwise it will fail |
+| `encrypted` | `false`          | Encrypt data at rest        |
+| `engine`    | `redis`          | Cache engine to use (`redis` or `valkey`) |
+| `nodes`     | `1`              | Number of nodes             |
+| `version`   | `7.0`            | Redis version               |
+
+### valkey
 
 | Option      | Default          | Description                 |
 |-------------|------------------|-----------------------------|
@@ -294,9 +311,9 @@ MYDB_NAME=databaseName
 | `durable`   | `false`          | Multi-AZ automatic failover. When it is set to `true`, the option `nodes` has to be greater or equal to `2`, otherwise it will fail |
 | `encrypted` | `false`          | Encrypt data at rest        |
 | `nodes`     | `1`              | Number of nodes             |
-| `version`   | `2.8.24`         | Redis version               |
+| `version`   | `8.1`            | Valkey version              |
 
-#### efs
+### efs
 
 Use to share volumes between the tasks in different AZs and instances.
 
@@ -307,8 +324,14 @@ Use to share volumes between the tasks in different AZs and instances.
 | `owner-uid`   | `1000`   | POSIX user ID to apply to the `path` directory                         |
 | `path`        | `/`      | The path on the file system used as the root directory by the services |
 | `permissions` | `0777`   | POSIX permissions to apply to the `path` directory                     |
-| `tags`      |           | Custom tags to apply to the resource                                    |
 
 ## AutoMinorVersionUpgrade
 
-In case you specify the minor version on your resource definition you have to turn off the [AutoMinorVersionUpgrade](../reference/app-parameters#autominorversionupgrade) on your app parameter. It's enabled by default and it will update the DB instance during the maintenance window.
+In case you specify the minor version on your resource definition you have to turn off the [AutoMinorVersionUpgrade](/reference/app-parameters/AutoMinorVersionUpgrade) on your app parameter. It's enabled by default and it will update the DB instance during the maintenance window.
+
+## See Also
+
+- [Services](/application/services)
+- [Environment](/application/environment)
+- [Volumes](/application/volumes)
+- [Management: Resources](/management/resources)

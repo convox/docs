@@ -1,22 +1,25 @@
 ---
 title: "HIPAA Compliance"
+description: "Configure Convox for HIPAA compliance using private Racks, dedicated hardware, self-hosted Console, and AWS BAA."
 ---
 
-At Convox we understand that for HIPAA-compliant teams, having full control of your customer data is the most important factor when choosing a new technology. We built Convox as a single-tenant solution and made privacy and security fundamental design goals to guarantee that you know exactly who and what has access to your data.
+# HIPAA Compliance
+
+At Convox we understand that for HIPAA-compliant teams, having full control of your customer data is the most important factor when choosing a new technology. Convox is built as a single-tenant solution with privacy and security as fundamental design goals to guarantee that you know exactly who and what has access to your data.
 
 Convox offers HIPAA customer references on request.
 
 ## Steps to ensure HIPAA Compliance with Convox
 
-### Install a private rack on dedicated hardware
+### Install a private Rack on dedicated hardware
 
 Use [EC2 Dedicated Instances](https://aws.amazon.com/ec2/purchasing-options/dedicated-instances/) and isolate them from the Internet.
 
-```
-convox rack install aws Private=Yes Tenancy=dedicated
+```bash
+$ convox rack install aws Private=Yes Tenancy=dedicated
 ```
 
-See our [Private Networking doc](/management/private-networking) for more details.
+See our [Private Networking doc](/networking/private-networking) for more details.
 
 ### Run a private Convox console
 
@@ -44,9 +47,16 @@ Along similar lines, you should be mindful of which AWS services have been deeme
 
 While these are the only services which can process, store, and transmit PHI according to HIPAA regulations, other AWS services can still be used so long as they do not come in direct contact with PHI. For example, ECS can be used when all PHI is actually processed on EC2.
 
-#### Further Reading
+### Further Reading
 
 [AWS HIPAA Compliance Overview](https://aws.amazon.com/compliance/hipaa-compliance/)
 [AWS HIPAA Compliance Whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf)
-[AWS HIPAA Compliance FAQ, Part One](https://blogs.aws.amazon.com/security/post/Tx3TGE4YTL0XK5Z/Frequently-Asked-Questions-About-HIPAA-Compliance-in-the-AWS-Cloud)
-[AWS HIPAA Compliance FAQ, Part Two](https://blogs.aws.amazon.com/security/post/Tx3FDPNNKZ5XFEE/Frequently-Asked-Questions-About-HIPAA-Compliance-in-the-AWS-Cloud-Part-Two)
+[AWS HIPAA Compliance FAQ, Part One](https://aws.amazon.com/compliance/hipaa-compliance/)
+[AWS HIPAA Compliance FAQ, Part Two](https://aws.amazon.com/compliance/hipaa-compliance/)
+
+## See Also
+
+- [Security](/reference/security)
+- [Private Networking](/networking/private-networking)
+- [Console](/core-concepts/console)
+- [AWS Infrastructure Details](/reference/aws)

@@ -1,8 +1,11 @@
 ---
 title: "Security"
+description: "Overview of Convox security features including AWS isolation, VPC networking, load balancers, and dedicated instances."
 ---
 
-Convox always has your security in mind. Below are some of the ways your apps and resources are protected.
+# Security
+
+Convox provides multiple layers of security for your Apps and infrastructure. This page describes the key security features.
 
 ## AWS Isolation
 
@@ -29,8 +32,15 @@ Convox uses AWS Load Balancers to route traffic to your application. Load balanc
 
 ## Private Networking
 
-If you'd like to take network isolation one step further you can run your Rack in private networking mode, where the Rack instances run in private subnets that access the Internet through NATs. These instances are not routable via the public Internet. Read more on the private networking [doc](/management/private-networking/).
+If you'd like to take network isolation one step further you can run your Rack in private networking mode, where the Rack instances run in private subnets that access the Internet through NATs. These instances are not routable via the public Internet. Read more on the private networking [doc](/networking/private-networking).
 
 ## Dedicated Instances
 
 If you would like to ensure hardware single tenancy all the way down to the AWS infrastructure level you can do so by passing `Tenancy=dedicated` option to the `convox rack install` command when setting up your Rack.
+
+## See Also
+
+- [HIPAA Compliance](/reference/hipaa-compliance)
+- [Private Networking](/networking/private-networking)
+- [Console Access Control](/console/access-control)
+- [AWS Infrastructure Details](/reference/aws)

@@ -1,8 +1,11 @@
 ---
 title: "Rack Statuses"
+description: "Reference for Convox Rack lifecycle statuses including installing, running, converging, updating, and rollback."
 ---
 
-As you interact with your Rack, you will notice a variety of statuses displayed in the Console web interface and in the output of CLI commands like `convox rack`. Here's what they mean.
+# Rack Statuses
+
+As you interact with your Rack, you will notice a variety of statuses displayed in the Console web interface and in the output of CLI commands like `convox rack`. Here is what they mean.
 
 ## converging
 
@@ -40,6 +43,8 @@ When you [update a Rack](/management/rack-updates), the Rack will display a stat
 
 This can correspond to `UPDATE_IN_PROGRESS` or `UPDATE_COMPLETE_CLEANUP_IN_PROGRESS` in the AWS CloudFormation console.
 
-## See also
+## See Also
 
-* [Rolling Updates](/deployment/rolling-updates)
+- [Rolling Updates](/deployment/rolling-updates)
+- [Rack Parameters](/reference/rack-parameters)
+- [Troubleshooting](/help/troubleshooting)
