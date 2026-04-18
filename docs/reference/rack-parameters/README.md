@@ -80,6 +80,8 @@ $ convox rack params set Foo=bar Baz=qux
 | [LogRetention](/reference/rack-parameters/LogRetention) | `7` | Days to retain logs |
 | [MaintainTimerState](/reference/rack-parameters/MaintainTimerState) | `No` | Maintain timer enable/disable state across deploys |
 | [MaxAvailabilityZones](/reference/rack-parameters/MaxAvailabilityZones) | `3` | Maximum Availability Zones to use |
+| [NLB](/reference/rack-parameters/NLB) | `No` | Enable a public Network Load Balancer for TCP services |
+| [NLBInternal](/reference/rack-parameters/NLBInternal) | `No` | Enable an internal Network Load Balancer for TCP services |
 | [NoHAAutoscaleExtra](/reference/rack-parameters/NoHAAutoscaleExtra) | `0` | Extra autoscale capacity for non-HA Racks |
 | [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) | `1` | Number of instances for non-HA Racks |
 | [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) | `3` | Minimum on-demand instances when using spot |

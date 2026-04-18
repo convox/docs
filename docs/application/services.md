@@ -173,6 +173,36 @@ links:
 
 This would add a `WEB_URL` environment variable that points to the load balancer of the `web` service on the same app.
 
+### nlb
+
+`nlb` lets a service expose one or more TCP ports through the Rack's shared Network Load Balancer(s). Requires the [NLB](/reference/rack-parameters/NLB) or [NLBInternal](/reference/rack-parameters/NLBInternal) rack parameter to be enabled first.
+
+```yaml
+services:
+  api:
+    port: 3000/http
+    nlb:
+      - port: 8443
+        protocol: tcp
+        containerPort: 8443
+        scheme: public
+      - port: 50051
+        protocol: tcp
+        containerPort: 50051
+        scheme: internal
+```
+
+Each list entry is an object with:
+
+- `port` (required, integer 1..65535) — the TCP port the NLB listens on (what clients connect to). Must be unique per rack for a given scheme.
+- `protocol` — `tcp` only in this release. Defaults to `tcp`.
+- `containerPort` — optional. The container port that receives traffic from this listener. Defaults to `port` when omitted.
+- `scheme` — `public` (routes to the public Rack NLB) or `internal` (routes to the internal Rack NLB). Defaults to `public`.
+
+Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and raw TCP (via the NLB) on the same container port. Services with `agent: enabled: true` cannot use `nlb:` — agent mode pins one task per instance, which is incompatible with horizontally scaled NLB target groups.
+
+See [Network Load Balancing](/networking/nlb) for setup and limitations.
+
 ### port
 
 Defines the port on which an HTTP service is listening.
