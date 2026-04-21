@@ -45,7 +45,7 @@ Before setting `NLBInternal=No`, remove any `nlb:` entries with `scheme: interna
 
 Internal NLBs do not add exposure beyond what the Rack's `InstancesSecurity` security group already permits across the VPC CIDR. They do publish stable DNS names, which slightly lowers discovery cost for an in-VPC attacker pivoting between apps — rely on application-layer authentication, not network obscurity.
 
-See [NLB](/reference/rack-parameters/NLB) for the shared limitations (TCP only, no real client IP preservation, cross-zone load balancing off by default, 50-listener quota).
+See [Network Load Balancing](/networking/nlb#known-limitations) for the shared limitations (no real client IP preservation, cross-zone load balancing off by default, 50-listener quota).
 
 ## See Also
 

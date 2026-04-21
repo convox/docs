@@ -27,6 +27,16 @@ $ convox rack params set InstanceType=t3.medium InstanceCount=5
 Updating parameters... OK
 ```
 
+When a single call transitions [NLB](/reference/rack-parameters/NLB) or [NLBInternal](/reference/rack-parameters/NLBInternal) from a non-`Yes` value to `Yes`, the command prints a provisioning-time hint before returning:
+
+```bash
+$ convox rack params set NLB=Yes
+Updating parameters... OK
+NLB provisioning typically takes 5-10 minutes; check status with 'convox rack'.
+```
+
+The CloudFormation update continues asynchronously — use `convox rack` (or `--wait`) to confirm the NLB is reachable.
+
 ## See Also
 
 - [rack params](/reference/cli-commands/rack-params)

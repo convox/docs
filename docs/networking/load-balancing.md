@@ -68,6 +68,10 @@ For services that should only be reachable within your VPC (not from the public 
 
 Internal services are configured in your `convox.yml` using the `internal: true` directive. See [Internal Services](/networking/internal-services) for details.
 
+## TCP and TLS Services (NLB)
+
+The ALB handles HTTP, HTTPS, and gRPC traffic. Services that need to expose raw TCP (MQTT, Redis, game-server protocols), or a TLS-terminating listener on a non-HTTP port with an ACM certificate, opt in to the Rack's shared Network Load Balancer via the [nlb:](/application/services#nlb) field in `convox.yml`. The NLB operates at Layer 4, uses Elastic IPs for stable public addressing, and is enabled at the Rack level via the [NLB](/reference/rack-parameters/NLB) and [NLBInternal](/reference/rack-parameters/NLBInternal) parameters. See [Network Load Balancing](/networking/nlb) for the full guide.
+
 ## Health Check Integration
 
 The ALB continuously monitors the health of your service containers using the [health check](/application/health-checks) path and interval defined in your `convox.yml`. Only containers passing health checks receive traffic from the load balancer. During [rolling deployments](/deployment/rolling-updates), new containers must pass their health check before the ALB routes traffic to them.
