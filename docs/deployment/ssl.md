@@ -46,6 +46,23 @@ $ convox certs import ~/.ssl/my_cert.pub ~/.ssl/my_key
 Importing certificate... OK, acm-a89c0937f196
 ```
 
+## Certificates on NLB listeners
+
+Services that expose a port through the [Network Load Balancer](/networking/nlb) with `protocol: tls` reference the certificate ARN directly in `convox.yml`:
+
+```yaml
+services:
+  api:
+    nlb:
+      - port: 443
+        protocol: tls
+        containerPort: 3000
+        scheme: public
+        certificate: arn:aws:acm:us-east-1:123456789012:certificate/abcd1234-5678-90ab-cdef-1234567890ab
+```
+
+The ARN must be for an ACM certificate in the Rack's region and account (IAM server-certificate ARNs are also accepted). Cross-region and cross-account ARNs are rejected at release promote. `convox certs` lists the Rack's certificates by Convox short ID (`acm-<hash>`) or IAM server-certificate name, not by full ARN — retrieve the ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. Unlike ALB-routed Services — where Convox auto-provisions ACM certificates for the Service's domain — NLB listeners require the operator to pre-provision the certificate and paste the ARN.
+
 ## Local Rack
 
 The local rack will use DNS names `[process].[app].convox` which resolves to your local rack. The local load balancer uses a certificate from a convox CA. On Firefox, you will need to set `security.enterprise_roots.enabled` to true in `about:config` or else you will not be able to confirm the security exception of the certificate.
@@ -53,6 +70,6 @@ The local rack will use DNS names `[process].[app].convox` which resolves to you
 ## See Also
 
 - [Custom Domains](/deployment/custom-domains)
-- [Port](/application/port)
 - [Load Balancing](/networking/load-balancing)
+- [Network Load Balancing](/networking/nlb)
 - [Security](/reference/security)

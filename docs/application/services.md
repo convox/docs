@@ -93,6 +93,20 @@ If you don't specify a build path then `.` is used by default. The default manif
 
 Override the default command for this service.
 
+### deployment
+
+Control the ECS minimum and maximum healthy-percent values that govern rolling deployments. Defaults are `minimum: 50` and `maximum: 200` — up to 200% of desired capacity can run during a deploy, and at least 50% must remain healthy. Set both to `100` for strict in-place replacement (never more than desired, never less than desired - 1), or tune up for faster rollouts on services that tolerate extra concurrent containers.
+
+```yaml
+services:
+  web:
+    deployment:
+      minimum: 100
+      maximum: 200
+```
+
+For [agent](#agent) and [singleton](#singleton) services, the defaults are `minimum: 0` and `maximum: 100` — matching the replace-before-start behavior those modes require.
+
 ### domain
 
 See [Custom Domains](/deployment/custom-domains)
@@ -175,13 +189,18 @@ This would add a `WEB_URL` environment variable that points to the load balancer
 
 ### nlb
 
-`nlb` lets a service expose one or more TCP ports through the Rack's shared Network Load Balancer(s). Requires the [NLB](/reference/rack-parameters/NLB) or [NLBInternal](/reference/rack-parameters/NLBInternal) rack parameter to be enabled first.
+`nlb` lets a Service expose one or more TCP or TLS ports through the Rack's shared Network Load Balancer(s). Requires the [NLB](/reference/rack-parameters/NLB) or [NLBInternal](/reference/rack-parameters/NLBInternal) rack parameter to be enabled first.
 
 ```yaml
 services:
   api:
     port: 3000/http
     nlb:
+      - port: 443
+        protocol: tls
+        containerPort: 3000
+        scheme: public
+        certificate: arn:aws:acm:us-east-1:123456789012:certificate/abcd1234-5678-90ab-cdef-1234567890ab
       - port: 8443
         protocol: tcp
         containerPort: 8443
@@ -194,14 +213,17 @@ services:
 
 Each list entry is an object with:
 
-- `port` (required, integer 1..65535) — the TCP port the NLB listens on (what clients connect to). Must be unique per rack for a given scheme.
-- `protocol` — `tcp` only in this release. Defaults to `tcp`.
+- `port` (required, integer 1..65535) — the port the NLB listens on (what clients connect to). Within a single App, port values must be unique across all `nlb:` entries regardless of scheme; across Apps, the same port can be used on the public and internal NLB without conflict (they are separate AWS load balancers). See [Network Load Balancing](/networking/nlb#architecture) for cross-App implications.
+- `protocol` — `tcp` (default) or `tls`. `tls` terminates TLS at the NLB and forwards plaintext TCP to the container.
 - `containerPort` — optional. The container port that receives traffic from this listener. Defaults to `port` when omitted.
 - `scheme` — `public` (routes to the public Rack NLB) or `internal` (routes to the internal Rack NLB). Defaults to `public`.
+- `certificate` — required when `protocol: tls`. Accepts a full ACM ARN (`arn:aws:acm:<region>:<account>:certificate/<uuid>`) or an IAM server-certificate ARN (`arn:aws:iam::<account>:server-certificate/<name>`). Must be in the same region and account as the Rack. ACM certificates must be in `ISSUED` state — the release is rejected at promote time otherwise. `convox certs` lists certificates but displays Convox short IDs (`acm-...`) or IAM server-certificate names, not ARNs — copy the full ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. See [Network Load Balancing](/networking/nlb#tls-termination-at-the-nlb) for the full ARN lookup procedure.
 
-Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and raw TCP (via the NLB) on the same container port. Services with `agent: enabled: true` cannot use `nlb:` — agent mode pins one task per instance, which is incompatible with horizontally scaled NLB target groups.
+TLS listeners use `ELBSecurityPolicy-TLS13-1-2-2021-06` (TLS 1.2 and 1.3, ECDHE only). The target group protocol stays TCP — backends never see TLS traffic.
 
-See [Network Load Balancing](/networking/nlb) for setup and limitations.
+Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and raw TCP or TLS (via the NLB) on the same `containerPort`. Services with `agent: enabled: true` cannot use `nlb:` — agent mode pins one task per instance, which is incompatible with horizontally scaled NLB target groups.
+
+See [Network Load Balancing](/networking/nlb) for setup, TLS details, and limitations.
 
 ### port
 
