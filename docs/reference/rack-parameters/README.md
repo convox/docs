@@ -81,7 +81,15 @@ $ convox rack params set Foo=bar Baz=qux
 | [MaintainTimerState](/reference/rack-parameters/MaintainTimerState) | `No` | Maintain timer enable/disable state across deploys |
 | [MaxAvailabilityZones](/reference/rack-parameters/MaxAvailabilityZones) | `3` | Maximum Availability Zones to use |
 | [NLB](/reference/rack-parameters/NLB) | `No` | Enable a public Network Load Balancer for TCP services |
+| [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) | `0.0.0.0/0` | CIDR allowlist for public NLB listeners (max 5 entries) |
+| [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) | `No` | Enable cross-zone load balancing on the public NLB |
+| [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection) | `No` | Block accidental deletion of the public NLB |
 | [NLBInternal](/reference/rack-parameters/NLBInternal) | `No` | Enable an internal Network Load Balancer for TCP services |
+| [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR) | "" | CIDR allowlist for internal NLB listeners (empty = VPC CIDR, max 5) |
+| [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone) | `No` | Enable cross-zone load balancing on the internal NLB |
+| [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection) | `No` | Block accidental deletion of the internal NLB |
+| [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP) | `No` | Forward real client IP to internal NLB target tasks |
+| [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) | `No` | Forward real client IP to public NLB target tasks |
 | [NoHAAutoscaleExtra](/reference/rack-parameters/NoHAAutoscaleExtra) | `0` | Extra autoscale capacity for non-HA Racks |
 | [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) | `1` | Number of instances for non-HA Racks |
 | [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) | `3` | Minimum on-demand instances when using spot |

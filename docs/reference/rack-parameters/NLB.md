@@ -5,7 +5,7 @@ description: "Enable a public Network Load Balancer on a Convox Rack for TCP ser
 
 # NLB
 
-Public Network Load Balancer (NLB) for the Rack. When enabled, creates an internet-facing Layer 4 load balancer that services can opt into via the [nlb:](/application/services#nlb) field in `convox.yml`. The existing Application Load Balancer (ALB) is unaffected — the NLB is a sidecar for TCP workloads that the ALB cannot handle.
+Public Network Load Balancer (NLB) for the Rack. When enabled, creates an internet-facing Layer 4 load balancer that Services can opt into via the [nlb:](/application/services#nlb) field in `convox.yml`. The existing Application Load Balancer (ALB) is unaffected — the NLB is a sidecar for TCP workloads that the ALB cannot handle.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
@@ -29,7 +29,13 @@ The default regional quota is 5 EIPs. Request an increase through AWS Service Qu
 
 ## Additional Information
 
-When set to `Yes`, Convox provisions an `AWS::ElasticLoadBalancingV2::LoadBalancer` of type `network` with `SubnetMappings` that attach the EIPs to the Rack's public subnets. Services opt in per-port using the [nlb:](/application/services#nlb) field in `convox.yml`. Each declared port becomes a dedicated `AWS::ElasticLoadBalancingV2::Listener` + `TargetGroup` on the shared Rack NLB.
+When set to `Yes`, Convox provisions:
+
+- An `AWS::ElasticLoadBalancingV2::LoadBalancer` of type `network` with `SubnetMappings` that attach the EIPs to the Rack's public subnets
+- A dedicated `NLBSecurity` security group (exported as `${Rack}:NLBSecurityGroup`) that gates all inbound traffic to public NLB listeners
+- Ingress rules derived from [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) (defaults to `0.0.0.0/0`) plus any per-port [allow_cidr:](/application/services#nlb) entries declared by Services
+
+Services opt in per-port using the [nlb:](/application/services#nlb) field in `convox.yml`. Each declared port becomes a dedicated `AWS::ElasticLoadBalancingV2::Listener` + `TargetGroup` on the shared Rack NLB.
 
 ```bash
 $ convox rack params set NLB=Yes
@@ -39,16 +45,31 @@ NLB provisioning typically takes 5-10 minutes. Check status with `convox rack`; 
 
 This parameter cannot be enabled on an [InternalOnly](/reference/rack-parameters/InternalOnly) Rack. Use [NLBInternal](/reference/rack-parameters/NLBInternal) instead.
 
+### Related Rack parameters
+
+- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) — CIDR allowlist for ingress to public NLB listeners (default `0.0.0.0/0`, max 5 entries)
+- [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) — enable cross-zone load balancing on public listeners
+- [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) — forward real client IP to target tasks
+- [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection) — block accidental NLB deletion
+
+List all ten NLB-related parameters at once:
+
+```bash
+$ convox rack params -g nlb
+```
+
 ### Disable
 
-Before setting `NLB=No`, remove the `nlb:` field from every service in every app deployed on the Rack and redeploy each. The disable will be refused with a list of blocking apps otherwise. This is intentional — disabling the NLB while apps still reference it would break those apps' next deploy via `Fn::ImportValue` resolution failure.
+Before setting `NLB=No`, remove the `nlb:` field from every Service in every App deployed on the Rack and redeploy each. The disable is refused with a list of blocking Apps otherwise. This is intentional — disabling the NLB while Apps still reference it would break those Apps' next deploy via `Fn::ImportValue` resolution failure.
 
-### Known Limitations (v1)
+If [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection)=`Yes`, `NLB=No` is also rejected pre-flight; disable deletion protection in an earlier `rack params set` call, wait for the update to complete, then toggle `NLB=No` in a follow-up call.
 
-See [Network Load Balancing](/networking/nlb#known-limitations) for the full v1 limitations list.
+### Known Limitations
+
+See [Network Load Balancing](/networking/nlb#known-limitations) for limitations that apply to every NLB listener.
 
 ## See Also
 
 - [NLBInternal](/reference/rack-parameters/NLBInternal)
-- [InternalOnly](/reference/rack-parameters/InternalOnly)
+- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR)
 - [services.nlb field](/application/services#nlb)

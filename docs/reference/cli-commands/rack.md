@@ -28,7 +28,7 @@ Provider  aws
 Region    us-east-1
 Router    router.0a1b2c3d4e5f.convox.cloud
 Status    running
-Version   20260418101514
+Version   20260421192651
 ```
 
 With NLB enabled:
@@ -42,7 +42,7 @@ Router        router.0a1b2c3d4e5f.convox.cloud
 NLB           production-nlb-abc123.elb.us-east-1.amazonaws.com (52.1.2.3, 52.4.5.6, 52.7.8.9)
 NLB Internal  production-nlb-internal-xyz789.elb.us-east-1.amazonaws.com
 Status        running
-Version       20260418101514
+Version       20260421192651
 ```
 
 The parenthesized values after the public NLB are the Elastic IPs bound to the NLB — one per Availability Zone. Use these for clients that connect by IP (e.g., allowlisted firewalls) and the DNS name for clients that resolve hostnames.
