@@ -156,6 +156,36 @@ The `anotherservice` will have `ENABLED, LICENSE, ENVIRONMENT, ANOTHER_LOGGING_L
 If I update any of the `ENABLED, LICENSE, ENVIRONMENT`, or `SHARED` environment variables and promote that update, those values will then be reflected in the `web` and `worker` services, as well as in `anotherservice`.  If I update any of the `WEB_*` or `WORKER_*` variables and promote that update, those values will then be reflected in their respective services, as well as in `anotherservice`.
 If I set a value against a `NEW_VARIABLE` environment variable which wasn't originally declared, and promote that update, it will be reflected and available in the `anotherservice` only.  If I want that to be available to the other services, I should add that declaration to the `convox.yml` and redeploy, at which point they will then pick that up.
 
+## Secrets Manager Injection
+
+Convox controls how the environment variables for a Release are delivered into your running Processes. By default, the encrypted environment is stored in S3 and decrypted by each container at startup. You can switch a Rack (or an individual App) to resolve variables from AWS Secrets Manager instead, so values are injected by ECS when each task launches rather than fetched by the container itself.
+
+### Default delivery (S3 and KMS)
+
+When [SecretsManagerEnv](/reference/rack-parameters/SecretsManagerEnv) is `No` (the default), Convox writes the variables for the Release to an encrypted object in the Rack's S3 settings bucket. Each container receives `CONVOX_ENV_URL`, `CONVOX_ENV_KEY`, and `CONVOX_ENV_VARS` in its task definition. On startup the container fetches the encrypted object from S3 and decrypts it with the Rack's KMS key. The plaintext values never appear in the ECS task definition.
+
+### Secrets Manager delivery
+
+When [SecretsManagerEnv](/reference/rack-parameters/SecretsManagerEnv) is `Yes`, Convox maintains a per-App secret in AWS Secrets Manager named `{rack}/{app}`. The task definition omits the `CONVOX_ENV_URL`, `CONVOX_ENV_KEY`, and `CONVOX_ENV_VARS` variables and instead lists each variable as an ECS secret reference, so ECS resolves the values from the secret and injects them when the task launches. The task execution role is granted read access to that single secret only.
+
+S3 remains the source of truth. Setting or unsetting variables, editing the environment, and restoring values from an earlier Release all behave exactly as described above. The Secrets Manager secret is refreshed during a [Release promote](/deployment/releases), so the secret reflects the environment of whatever Release you promote, not the variables you last set. Promote a Release after enabling the parameter so the secret is populated before any new tasks reference it.
+
+```bash
+$ convox rack params set SecretsManagerEnv=Yes
+$ convox env set FOO=bar --promote
+Setting FOO... OK
+Release: RYFPMIHLPKD
+Promoting RYFPMIHLPKD... OK
+```
+
+The parameter can be set on the Rack to cover every App, or on an individual App stack to opt a single App in. An App-level `Yes` enables Secrets Manager delivery for that App regardless of the Rack value, so you can roll the behavior out one App at a time before enabling it Rack-wide.
+
+### Failure handling and fallback
+
+If the Secrets Manager write fails during promote (for example, an API throttle or a permissions gap), Convox logs a warning and falls back to the default S3 and KMS delivery for that Release. The promote still succeeds and your Processes start with the correct environment. After three consecutive failures for an App, Convox sends a `rack:warning` event so you can investigate or set `SecretsManagerEnv=No`. Because both delivery paths read the same source of truth, switching the parameter off and promoting again returns the App to S3 and KMS delivery with no change to your variables.
+
+Gen1 apps are unaffected by this parameter. They follow a separate promote path that always uses S3 and KMS delivery.
+
 ## See Also
 
 - [convox.yml Reference](/application/convox-yml)

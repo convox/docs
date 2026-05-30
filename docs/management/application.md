@@ -66,6 +66,24 @@ Once you've [created a CloudWatch Dashboard](#create-a-cloudwatch-dashboard), yo
 1. In the "Add to Dashboard" dialog, select the desired dashboard and click the "Add to Dashboard" button.
 1. Consider resizing the widget (by dragging the bottom right corner) for better readability.
 
+## Container Insights
+
+The dashboards, alarms, and metrics described above are built from the standard ECS metrics that CloudWatch publishes for every Rack. CloudWatch Container Insights extends that coverage with higher-resolution, per-Service metrics (CPU, memory, network, and task counts) and a set of prebuilt dashboards, without installing or maintaining any additional tooling.
+
+Container Insights is controlled by the [ContainerInsights](/reference/rack-parameters/ContainerInsights) Rack parameter. It defaults to `No`. Enable it on a Rack with:
+
+```bash
+$ convox rack params set ContainerInsights=Yes
+```
+
+This is an in-place change to the ECS cluster setting. CloudFormation updates the cluster's `containerInsights` setting from `disabled` to `enabled` and the cluster is not replaced, so running Services are unaffected. After the update completes, Container Insights metrics and the automatic dashboards appear in the CloudWatch console under the ECS cluster, which is named after the Rack.
+
+Container Insights is a paid CloudWatch feature. Expect roughly 15 to 25 USD per month per Rack depending on the number of Services and tasks. It is billed separately from the standard ECS metrics, which remain free.
+
+Coverage applies to Fargate workloads on the Rack. Services that run on EC2 instances need the CloudWatch agent running as a daemon on the instances to report container-level metrics, which is a follow-up step beyond enabling this parameter.
+
+To turn the feature off again, set `ContainerInsights=No`. This reverts the cluster setting to `disabled` and stops the associated CloudWatch charges.
+
 ## See Also
 
 - [Logs](/management/logs)

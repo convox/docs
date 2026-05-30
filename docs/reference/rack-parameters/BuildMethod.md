@@ -20,7 +20,7 @@ Build process type for the Rack. Controls whether builds run on dedicated EC2 in
 
 When using `ec2`, build resource allocation is controlled by [BuildCpu](/reference/rack-parameters/BuildCpu), [BuildMemory](/reference/rack-parameters/BuildMemory), and [BuildInstance](/reference/rack-parameters/BuildInstance).
 
-When using `fargate`, resource allocation is controlled by [FargateBuildCpu](/reference/rack-parameters/FargateBuildCpu) and [FargateBuildMemory](/reference/rack-parameters/FargateBuildMemory) instead. Note that Fargate builds do not benefit from Docker layer caching, which may result in longer build times.
+When using `fargate`, resource allocation is controlled by [FargateBuildCpu](/reference/rack-parameters/FargateBuildCpu) and [FargateBuildMemory](/reference/rack-parameters/FargateBuildMemory) instead. By default, Fargate builds do not reuse Docker layers across builds. To cache layers across Fargate builds, enable the persistent [BuildCache](/reference/rack-parameters/BuildCache) parameter.
 
 ```bash
 $ convox rack params set BuildMethod=fargate
@@ -28,6 +28,7 @@ $ convox rack params set BuildMethod=fargate
 
 ## See Also
 
+- [BuildCache](/reference/rack-parameters/BuildCache)
 - [BuildInstance](/reference/rack-parameters/BuildInstance)
 - [BuildCpu](/reference/rack-parameters/BuildCpu)
 - [BuildMemory](/reference/rack-parameters/BuildMemory)

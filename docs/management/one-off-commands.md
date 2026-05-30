@@ -68,6 +68,8 @@ Migrating database... Done
 **Syntax:** `convox exec [container ID] [command]`
 **Use:** Attaches to and executes the command in an existing container on your Convox rack.
 
+> **Note:** When the Rack has `ECSExec=Yes`, `convox exec` connects through AWS SSM Session Manager instead of the Docker daemon. See [exec](/reference/cli-commands/exec) and [ECSExec](/reference/rack-parameters/ECSExec).
+
 > **Note:** Use `convox ps` to get the container ID:
 >
 > ```bash
