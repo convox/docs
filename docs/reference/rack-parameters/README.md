@@ -32,6 +32,9 @@ $ convox rack params set Foo=bar Baz=qux
 | [Autoscale](/reference/rack-parameters/Autoscale) | `Yes` | Enable or disable Rack instance autoscaling |
 | [AutoscaleExtra](/reference/rack-parameters/AutoscaleExtra) | `1` | Extra capacity instances maintained by autoscale |
 | [AvailabilityZones](/reference/rack-parameters/AvailabilityZones) | "" | Override the default Availability Zones |
+| [BuildCache](/reference/rack-parameters/BuildCache) | `No` | Enable persistent build layer caching to a dedicated ECR repository |
+| [BuildCacheCleanup](/reference/rack-parameters/BuildCacheCleanup) | `No` | Automatically expire old build cache images |
+| [BuildCacheRetentionDays](/reference/rack-parameters/BuildCacheRetentionDays) | `30` | Days to retain build cache images before expiry |
 | [BuildCpu](/reference/rack-parameters/BuildCpu) | `256` | CPU units allocated to builds |
 | [BuildImage](/reference/rack-parameters/BuildImage) | "" | Override the default builder image |
 | [BuildInstance](/reference/rack-parameters/BuildInstance) | `t3.small` | EC2 instance type for the dedicated build instance |
@@ -40,6 +43,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [BuildMemory](/reference/rack-parameters/BuildMemory) | `1000` | Memory (MB) allocated to builds |
 | [BuildMethod](/reference/rack-parameters/BuildMethod) | `ec2` | Build process type (EC2 or Fargate) |
 | [BuildVolumeSize](/reference/rack-parameters/BuildVolumeSize) | `100` | Build disk size in GB |
+| [ContainerInsights](/reference/rack-parameters/ContainerInsights) | `No` | Enable CloudWatch Container Insights on the ECS cluster |
 | [CpuCredits](/reference/rack-parameters/CpuCredits) | "" | CPU credit option for T instances |
 | [DefaultAmi](/reference/rack-parameters/DefaultAmi) | `.../amazon-linux-2/recommended/image_id` | Default AMI for x86_64 instances |
 | [DefaultAmiArm](/reference/rack-parameters/DefaultAmiArm) | `.../amazon-linux-2/arm64/recommended/image_id` | Default AMI for ARM64 instances |
@@ -47,6 +51,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [DynamoDbTableDeletionProtectionEnabled](/reference/rack-parameters/DynamoDbTableDeletionProtectionEnabled) | `false` | Enable DynamoDB table deletion protection |
 | [DynamoDbTablePointInTimeRecoveryEnabled](/reference/rack-parameters/DynamoDbTablePointInTimeRecoveryEnabled) | `false` | Enable DynamoDB point-in-time recovery |
 | [EcsContainerStopTimeout](/reference/rack-parameters/EcsContainerStopTimeout) | "" | Custom ECS container stop timeout in seconds |
+| [ECSExec](/reference/rack-parameters/ECSExec) | `No` | Enable ECS Exec for interactive container access via SSM |
 | [EcsPollInterval](/reference/rack-parameters/EcsPollInterval) | `1` | ECS service update poll interval in seconds |
 | [EnableContainerReadonlyRootFilesystem](/reference/rack-parameters/EnableContainerReadonlyRootFilesystem) | `No` | Enable read-only root filesystem for containers |
 | [EnableS3Versioning](/reference/rack-parameters/EnableS3Versioning) | `Suspended` | Enable S3 bucket versioning for Rack buckets |
@@ -106,6 +111,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [RouterSecurityGroup](/reference/rack-parameters/RouterSecurityGroup) | "" | Custom security group for the Rack router |
 | [ScheduleRackScaleDown](/reference/rack-parameters/ScheduleRackScaleDown) | "" | Cron schedule to scale down the Rack |
 | [ScheduleRackScaleUp](/reference/rack-parameters/ScheduleRackScaleUp) | "" | Cron schedule to scale up the Rack |
+| [SecretsManagerEnv](/reference/rack-parameters/SecretsManagerEnv) | `No` | Inject env vars from AWS Secrets Manager at task launch |
 | [SpotFleetAllocationStrategy](/reference/rack-parameters/SpotFleetAllocationStrategy) | `lowestPrice` | Spot Fleet allocation strategy |
 | [SpotFleetAllowedInstanceTypes](/reference/rack-parameters/SpotFleetAllowedInstanceTypes) | "" | Allowed instance types for Spot Fleet |
 | [SpotFleetExcludedInstanceTypes](/reference/rack-parameters/SpotFleetExcludedInstanceTypes) | "" | Excluded instance types for Spot Fleet |

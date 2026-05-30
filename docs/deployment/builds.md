@@ -91,6 +91,46 @@ The `convox build` and `convox deploy` commands accept several flags to customiz
 
 Convox also respects the `ARG` Dockerfile directive. For more information, see [Dockerfile: ARG](/application/dockerfile#arg).
 
+## Build Cache
+
+The `--no-cache` flag described above controls the Docker layer cache local to a single build host. Convox also supports a persistent build-layer cache that survives across builds. Layers produced by one build are stored in a dedicated ECR repository and reused by later builds, so unchanged Dockerfile stages do not have to be rebuilt each time. This is enabled at the Rack level, not per Build.
+
+Enable the persistent cache by setting the [BuildCache](/reference/rack-parameters/BuildCache) parameter on your Rack:
+
+```bash
+$ convox rack params set BuildCache=Yes
+```
+
+When `BuildCache=Yes`, Convox creates an ECR repository named `{rack}-build-cache` and points the builder at it. Cached layers are written to and read from that repository on subsequent builds. The cache works with both [BuildMethod](/reference/rack-parameters/BuildMethod) values:
+
+- On `ec2` builds, the builder uses the Docker `buildx` plugin to push and pull a registry cache.
+- On `fargate` builds, the builder uses Kaniko with a remote cache repository.
+
+Fargate caching is less aggressive than EC2 caching, so the speedup on Fargate builds is smaller. If `BuildCache=Yes` is set on an EC2 build host that does not have the `buildx` plugin available, the build logs print a warning and the build proceeds without the persistent cache.
+
+Setting `--no-cache` on an individual `convox build` or `convox deploy` disables reuse of cached layers for that Build. On Fargate builds the persistent cache is skipped entirely. On EC2 builds the build does not read from the cache, but freshly built layers are still written back to the cache repository.
+
+### Expiring old cache images
+
+By default the cache repository keeps every layer image indefinitely. Two companion parameters control automatic cleanup:
+
+| Parameter | Default | Effect |
+|-----------|---------|--------|
+| [BuildCacheCleanup](/reference/rack-parameters/BuildCacheCleanup) | `No` | When `Yes`, applies an ECR lifecycle policy that expires old cache images. |
+| [BuildCacheRetentionDays](/reference/rack-parameters/BuildCacheRetentionDays) | `30` | Days to retain cache images before expiry (1 to 365). Only applies when `BuildCacheCleanup=Yes`. |
+
+Enable cleanup and set a retention window in a single call:
+
+```bash
+$ convox rack params set BuildCacheCleanup=Yes BuildCacheRetentionDays=14
+```
+
+When `BuildCacheCleanup=No`, cache images are never expired and the repository grows over time.
+
+### Generation 1 apps
+
+Gen1 apps do not use the persistent build cache. They continue to build with the local Docker layer cache only, and no cache repository is provisioned for them even when `BuildCache=Yes` is set on the Rack.
+
 ## See Also
 
 - [Releases](/deployment/releases)
