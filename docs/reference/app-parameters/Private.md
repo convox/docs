@@ -18,7 +18,7 @@ Private subnet placement for the application's ECS tasks. When set to `Yes`, ser
 
 ## Additional Information
 
-This parameter is **independent of the Rack-level `Private` parameter**. Each App can override its networking posture individually -- for example, a single App can be set to `Private=Yes` even if the Rack has `Private=No`, and vice versa.
+This parameter is **independent of the Rack-level `Private` parameter**. Each App can override its networking posture individually. For example, a single App can be set to `Private=Yes` even if the Rack has `Private=No`, and vice versa.
 
 > This parameter controls task-level networking (subnet placement and public IP assignment). It does not affect load balancer scheme. To make a service's load balancer internal, use the [`internal`](/application/services) attribute in `convox.yml`.
 

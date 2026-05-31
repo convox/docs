@@ -5,7 +5,7 @@ description: "Track and review changes made to your Racks and applications throu
 
 # Audit Logs
 
-Audit Logs provide a detailed record of all changes made to your Racks and applications through the Convox API. Every write operation — including deployments, environment variable changes, scaling updates, and infrastructure modifications — is captured with contextual metadata.
+Audit Logs provide a detailed record of all changes made to your Racks and applications through the Convox API. Every write operation, including deployments, environment variable changes, scaling updates, and infrastructure modifications, is captured with contextual metadata.
 
 > Audit Logs are available on Pro and Enterprise [Console plans](/console/support-plans).
 
@@ -49,9 +49,9 @@ For interactive sessions (SSH, `convox exec`), the Console also records terminal
 
 You can filter audit log entries by:
 
-- **User** — Show events from a specific team member
-- **Rack** — Show events from a specific Rack
-- **Action** — Show specific types of events (created, deleted, promoted, updated)
+- **User**: Show events from a specific team member
+- **Rack**: Show events from a specific Rack
+- **Action**: Show specific types of events (created, deleted, promoted, updated)
 
 Combine filters to narrow results. For example, filter by a specific user and Rack to see all changes that person made to a particular environment.
 
@@ -59,9 +59,9 @@ Combine filters to narrow results. For example, filter by a specific user and Ra
 
 Organization administrators can generate shareable audit log URLs for external review (compliance audits, incident investigations). When creating a shareable link, you can configure:
 
-- **Filter** — Pre-apply user, Rack, or action filters
-- **Time range** — Limit to events within a specific window
-- **Expiration** — Set an expiration date for the link (or make it permanent)
+- **Filter**: Pre-apply user, Rack, or action filters
+- **Time range**: Limit to events within a specific window
+- **Expiration**: Set an expiration date for the link (or make it permanent)
 
 Shareable links use a signed token and do not require Console authentication.
 

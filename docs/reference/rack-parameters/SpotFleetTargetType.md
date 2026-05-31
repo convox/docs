@@ -20,9 +20,9 @@ The unit type used for the Spot Fleet target capacity. This determines how the S
 
 The three target types work as follows:
 
-- **units** -- Each instance counts as one unit. The target capacity equals the desired number of instances.
-- **vcpu** -- Each instance contributes its vCPU count toward the target. A target of `8` could be fulfilled by one 8-vCPU instance or two 4-vCPU instances.
-- **memory-mib** -- Each instance contributes its memory (in MiB) toward the target. This is useful when your primary resource constraint is memory.
+- **units**: Each instance counts as one unit. The target capacity equals the desired number of instances.
+- **vcpu**: Each instance contributes its vCPU count toward the target. A target of `8` could be fulfilled by one 8-vCPU instance or two 4-vCPU instances.
+- **memory-mib**: Each instance contributes its memory (in MiB) toward the target. This is useful when your primary resource constraint is memory.
 
 This parameter only takes effect when Spot Fleet is enabled via [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 

@@ -26,11 +26,10 @@ $ convox rack logs
 
 ```bash
 $ convox rack logs --since 10m
-2025-01-15T12:00:00Z system/k8s/scheduler  Successfully assigned myapp/web-abc1234 to node ip-10-0-1-50
-2025-01-15T12:00:02Z system/k8s/web        Pulling image "123456789012.dkr.ecr.us-east-1.amazonaws.com/convox/myapp:web.BABCDEF"
-2025-01-15T12:00:08Z system/k8s/web        Started container main
-2025-01-15T12:00:15Z system/elb             Registered instance i-0a1b2c3d4e on target group myapp-web
-2025-01-15T12:00:20Z system/elb             Health check passed for target i-0a1b2c3d4e
+2025-01-15T12:00:00Z system/cloudformation aws/cfm myapp UPDATE_IN_PROGRESS AWS::CloudFormation::Stack User Initiated
+2025-01-15T12:00:05Z system/ecs aws/ecs (service myapp-web) has started 1 tasks: (task abc1234).
+2025-01-15T12:00:20Z system/ecs aws/ecs (service myapp-web) has reached a steady state.
+2025-01-15T12:00:25Z system/cloudformation aws/cfm myapp UPDATE_COMPLETE AWS::CloudFormation::Stack
 ```
 
 ## See Also

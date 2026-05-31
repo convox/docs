@@ -21,9 +21,9 @@ This parameter is only used when [LogDriver](/reference/app-parameters/LogDriver
 
 The destination must include the protocol prefix. Supported formats include:
 
-- `tcp+tls://logs.example.com:1234` -- TCP with TLS encryption (recommended)
-- `tcp://logs.example.com:1234` -- TCP without encryption
-- `udp://logs.example.com:1234` -- UDP
+- `tcp+tls://logs.example.com:1234`: TCP with TLS encryption (recommended)
+- `tcp://logs.example.com:1234`: TCP without encryption
+- `udp://logs.example.com:1234`: UDP
 
 ```bash
 $ convox apps params set LogDriver=Syslog SyslogDestination=tcp+tls://logs.example.com:1234

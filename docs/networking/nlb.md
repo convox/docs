@@ -5,7 +5,7 @@ description: "Expose TCP and TLS services through a Convox Rack via a shared Net
 
 # Network Load Balancing
 
-Convox v2 Racks can provision Network Load Balancers (NLBs) alongside the default Application Load Balancer. NLBs operate at Layer 4, allowing Services to accept traffic on arbitrary ports — raw TCP for protocols the ALB cannot handle (MQTT, Redis, raw TCP gRPC, game-server protocols) and TLS-terminating listeners when you need ACM-issued certificates on a non-HTTP port.
+Convox v2 Racks can provision Network Load Balancers (NLBs) alongside the default Application Load Balancer. NLBs operate at Layer 4, allowing Services to accept traffic on arbitrary ports: raw TCP for protocols the ALB cannot handle (MQTT, Redis, raw TCP gRPC, game-server protocols) and TLS-terminating listeners when you need ACM-issued certificates on a non-HTTP port.
 
 NLBs are opt-in at the Rack level and again per-Service. The existing ALB routing is unaffected.
 
@@ -13,14 +13,14 @@ NLBs are opt-in at the Rack level and again per-Service. The existing ALB routin
 
 A Rack can host up to two shared NLBs:
 
-- **Public NLB** — internet-facing, allocated one AWS Elastic IP per Availability Zone. Enabled via the [NLB](/reference/rack-parameters/NLB) rack parameter. Mutually exclusive with [InternalOnly](/reference/rack-parameters/InternalOnly)=`Yes`; Racks configured as InternalOnly must use the internal NLB.
-- **Internal NLB** — VPC-internal (no EIPs), scheme `internal`. Enabled via the [NLBInternal](/reference/rack-parameters/NLBInternal) rack parameter, which requires [Internal](/reference/rack-parameters/Internal)=`Yes`.
+- **Public NLB**: internet-facing, allocated one AWS Elastic IP per Availability Zone. Enabled via the [NLB](/reference/rack-parameters/NLB) rack parameter. Mutually exclusive with [InternalOnly](/reference/rack-parameters/InternalOnly)=`Yes`; Racks configured as InternalOnly must use the internal NLB.
+- **Internal NLB**: VPC-internal (no EIPs), scheme `internal`. Enabled via the [NLBInternal](/reference/rack-parameters/NLBInternal) rack parameter, which requires [Internal](/reference/rack-parameters/Internal)=`Yes`.
 
 Each NLB is fronted by a dedicated security group (`NLBSecurity` for the public NLB, `NLBInternalSecurity` for the internal NLB). The security groups are exported from the Rack stack as `${Rack}:NLBSecurityGroup` and `${Rack}:NLBInternalSecurityGroup` for operators who need to reference them from custom infrastructure. Rack-level allowlists ([NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) / [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR)) and per-service `allow_cidr:` entries attach ingress rules to these groups.
 
 Services opt in per-port via the [nlb:](/application/services#nlb) field in `convox.yml`. Each declared port becomes a dedicated Listener and TargetGroup on the appropriate Rack NLB.
 
-Within a single App's `convox.yml`, every NLB port must be unique across all Services regardless of scheme — the manifest validator rejects a second Service declaring the same port number, even if one is `public` and the other `internal`. Across Apps, the public NLB and internal NLB are separate AWS load balancers, so port 443 on App A's public listener and port 443 on App B's internal listener coexist without conflict. Two Apps claiming the same port on the *same* scheme is not caught at manifest time; the second deploy fails later at CloudFormation stack update (see "Two concurrent deploys" under Known Limitations).
+Within a single App's `convox.yml`, every NLB port must be unique across all Services regardless of scheme. The manifest validator rejects a second Service declaring the same port number, even if one is `public` and the other `internal`. Across Apps, the public NLB and internal NLB are separate AWS load balancers, so port 443 on App A's public listener and port 443 on App B's internal listener coexist without conflict. Two Apps claiming the same port on the *same* scheme is not caught at manifest time; the second deploy fails later at CloudFormation stack update (see "Two concurrent deploys" under Known Limitations).
 
 ## Enabling the Rack NLBs
 
@@ -30,7 +30,7 @@ Updating parameters... NLB provisioning typically takes 5-10 minutes; check stat
 OK
 ```
 
-Before running this, verify your AWS account has Elastic IP quota headroom. A public NLB consumes 2 EIPs on a 2-AZ Rack or 3 EIPs on an HA 3-AZ Rack. If the Rack already has `Private=Yes` (which consumes 2-3 EIPs for NAT gateways), a `Private=Yes` HA 3-AZ Rack will need 6 EIPs total — above the AWS default of 5 per region.
+Before running this, verify your AWS account has Elastic IP quota headroom. A public NLB consumes 2 EIPs on a 2-AZ Rack or 3 EIPs on an HA 3-AZ Rack. If the Rack already has `Private=Yes` (which consumes 2-3 EIPs for NAT gateways), a `Private=Yes` HA 3-AZ Rack will need 6 EIPs total, above the AWS default of 5 per region.
 
 ```bash
 $ aws service-quotas get-service-quota \
@@ -75,7 +75,7 @@ services:
 
 ### TLS termination at the NLB
 
-Attach an ACM or IAM server certificate to a listener with `protocol: tls` and a `certificate:` ARN. The NLB terminates TLS and forwards plaintext TCP to the container — backend Services do not need to hold the certificate material.
+Attach an ACM or IAM server certificate to a listener with `protocol: tls` and a `certificate:` ARN. The NLB terminates TLS and forwards plaintext TCP to the container, so backend Services do not need to hold the certificate material.
 
 ```yaml
 services:
@@ -89,9 +89,9 @@ services:
         certificate: arn:aws:acm:us-east-1:123456789012:certificate/abcd1234-5678-90ab-cdef-1234567890ab
 ```
 
-TLS listeners use `ELBSecurityPolicy-TLS13-1-2-2021-06` (TLS 1.2 and 1.3 with ECDHE ciphers). The target group protocol remains TCP — backends never see TLS traffic.
+TLS listeners use `ELBSecurityPolicy-TLS13-1-2-2021-06` (TLS 1.2 and 1.3 with ECDHE ciphers). The target group protocol remains TCP, so backends never see TLS traffic.
 
-The `certificate:` field requires a full AWS ARN. `convox certs` lists both ACM-issued and IAM-imported certificates on the Rack, but displays them by Convox-synthesized short ID (ACM: `acm-<hash>`) or IAM server-certificate name — neither is a full ARN. Retrieve the ARN from AWS directly:
+The `certificate:` field requires a full AWS ARN. `convox certs` lists both ACM-issued and IAM-imported certificates on the Rack, but displays them by Convox-synthesized short ID (ACM: `acm-<hash>`) or IAM server-certificate name, neither of which is a full ARN. Retrieve the ARN from AWS directly:
 
 - **ACM**: copy from the AWS Console Certificate Manager page, or run `aws acm list-certificates --region <rack-region>`.
 - **IAM**: construct as `arn:aws:iam::<account-id>:server-certificate/<name>` using the name `convox certs` already shows; `aws sts get-caller-identity` returns the account ID.
@@ -133,7 +133,7 @@ service api declares public nlb port 443 but rack does not have NLB enabled;
 run 'convox rack params set NLB=Yes' first
 ```
 
-TLS listeners are validated at release promote too — the referenced certificate ARN must exist in the Rack's region and account, and ACM certificates must be in `ISSUED` state. Typical failure messages:
+TLS listeners are validated at release promote too. The referenced certificate ARN must exist in the Rack's region and account, and ACM certificates must be in `ISSUED` state. Typical failure messages:
 
 ```text
 certificate arn:aws:acm:us-east-1:123456789012:certificate/...: not found in
@@ -161,7 +161,7 @@ worker
 
 ## Changing a listener's protocol
 
-Switching an `nlb:` entry from `protocol: tcp` to `protocol: tls` (or vice versa) on an existing port modifies the listener in place via AWS `ModifyListener`. AWS documents this as a no-interruption update, though clients holding an open connection at the exact protocol-boundary moment may observe a brief disruption — switch during a low-traffic window.
+Switching an `nlb:` entry from `protocol: tcp` to `protocol: tls` (or vice versa) on an existing port modifies the listener in place via AWS `ModifyListener`. AWS documents this as a no-interruption update, though clients holding an open connection at the exact protocol-boundary moment may observe a brief disruption, so switch during a low-traffic window.
 
 ## Rack-level NLB configuration
 
@@ -179,8 +179,8 @@ See [rack params](/reference/cli-commands/rack-params) for other group filters a
 
 Traffic reaching an NLB listener is gated by the listener's security group.
 
-- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) — comma-delimited list of CIDRs permitted on the public NLB. Default `0.0.0.0/0`. Maximum 5 entries.
-- [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR) — same for the internal NLB. Empty (default) means the Rack falls back to the VPC CIDR block. Setting an explicit value **replaces** that fallback, so include your VPC CIDR if you still need in-rack reachability.
+- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR): comma-delimited list of CIDRs permitted on the public NLB. Default `0.0.0.0/0`. Maximum 5 entries.
+- [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR): same for the internal NLB. Empty (default) means the Rack falls back to the VPC CIDR block. Setting an explicit value **replaces** that fallback, so include your VPC CIDR if you still need in-rack reachability.
 
 Both accept IPv4 CIDRs only. Non-canonical forms (host bits set, e.g. `10.0.0.1/24`) and IPv6 are rejected at `convox rack params set` with a concrete error. Duplicates and leading/trailing whitespace are rejected for the same reason.
 
@@ -188,16 +188,16 @@ Both accept IPv4 CIDRs only. Non-canonical forms (host bits set, e.g. `10.0.0.1/
 $ convox rack params set NLBAllowCIDR=10.0.0.0/16,192.168.0.0/24
 ```
 
-Per-port overrides are additive: a Service declaring `allow_cidr:` adds ingress rules for those CIDRs in addition to the rack-level list — the per-port entries never replace the rack-level ones. Omit the field entirely to keep rack-level defaults only (an empty `allow_cidr: []` has the same effect as omitting the field).
+Per-port overrides are additive: a Service declaring `allow_cidr:` adds ingress rules for those CIDRs in addition to the rack-level list, and the per-port entries never replace the rack-level ones. Omit the field entirely to keep rack-level defaults only (an empty `allow_cidr: []` has the same effect as omitting the field).
 
-To scope a specific listener **narrower** than the rack default, you have to reduce `NLBAllowCIDR` itself, since per-port entries only add to the accepted set and cannot remove from it. A common pattern is a tight rack-level list plus selective per-port broadenings — e.g. `NLBAllowCIDR=10.0.0.0/16` rack-wide, with a single internet-facing listener declaring `allow_cidr: ["0.0.0.0/0"]`.
+To scope a specific listener **narrower** than the rack default, you have to reduce `NLBAllowCIDR` itself, since per-port entries only add to the accepted set and cannot remove from it. A common pattern is a tight rack-level list plus selective per-port broadenings (for example, `NLBAllowCIDR=10.0.0.0/16` rack-wide, with a single internet-facing listener declaring `allow_cidr: ["0.0.0.0/0"]`).
 
 ### Cross-zone load balancing
 
 By default, AWS NLBs only route traffic to targets in the same Availability Zone as the listener. This minimizes cross-AZ data transfer charges but can hotspot a zone if targets are unevenly distributed.
 
-- [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) — set to `Yes` to enable cross-zone load balancing on every public NLB listener. Off by default.
-- [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone) — same for the internal NLB.
+- [NLBCrossZone](/reference/rack-parameters/NLBCrossZone): set to `Yes` to enable cross-zone load balancing on every public NLB listener. Off by default.
+- [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone): same for the internal NLB.
 
 Enabling cross-zone makes AWS bill you for inter-AZ traffic between the listener and targets. Per-port `cross_zone: true` overrides the rack default for a single listener only, letting you enable it surgically for services that need uniform distribution without paying the cost fleet-wide.
 
@@ -205,12 +205,12 @@ Enabling cross-zone makes AWS bill you for inter-AZ traffic between the listener
 
 By default, NLB target-group traffic is source-NAT'd to the NLB's VPC-internal IP, so application logs record the load balancer's address rather than the real client IP. Enabling preserve-client-IP forwards the real source address.
 
-- [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) — set to `Yes` on the public NLB. Off by default.
-- [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP) — same for the internal NLB.
+- [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP): set to `Yes` on the public NLB. Off by default.
+- [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP): same for the internal NLB.
 
 When enabled, Convox adds an ingress rule on the ECS instance security group sourced from the NLB security group, allowing traffic from arbitrary client IPs to reach targets. Compliance frameworks that require real client IPs (HIPAA §164.312(b), PCI-DSS 10.2.1) are satisfied by this configuration.
 
-This feature is **incompatible with a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot modify a security group it does not own — on Racks where `InstanceSecurityGroup` is set, enabling `NLBPreserveClientIP=Yes` is rejected at `rack params set`:
+This feature is **incompatible with a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot modify a security group it does not own. On Racks where `InstanceSecurityGroup` is set, enabling `NLBPreserveClientIP=Yes` is rejected at `rack params set`:
 
 ```text
 cannot enable NLBPreserveClientIP on a rack with a customer-supplied
@@ -225,8 +225,8 @@ Per-port `preserve_client_ip: true` is also rejected at release-promote on custo
 
 ### Deletion protection
 
-- [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection) — set to `Yes` to block accidental deletion of the public NLB.
-- [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection) — same for the internal NLB.
+- [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection): set to `Yes` to block accidental deletion of the public NLB.
+- [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection): same for the internal NLB.
 
 When deletion protection is on, `NLB=No` (or `NLBInternal=No`) and `convox rack uninstall` are rejected pre-flight:
 
@@ -241,9 +241,9 @@ The interlock catches the common pitfall where a Rack update to `NLB=No` succeed
 
 Three per-port fields on a `services.nlb:` entry override the Rack-level defaults for that single listener without changing the rack-wide value:
 
-- `cross_zone:` — `true` or `false`. Enables or disables cross-zone load balancing on this listener only.
-- `allow_cidr:` — list of IPv4 CIDRs. Adds ingress rules to the scheme's NLB security group scoped to this listener's port. Stacks additively on top of the rack-level [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) or [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR).
-- `preserve_client_ip:` — `true` or `false`. Forwards real client IP for this listener's target group.
+- `cross_zone:` accepts `true` or `false`. Enables or disables cross-zone load balancing on this listener only.
+- `allow_cidr:` takes a list of IPv4 CIDRs. Adds ingress rules to the scheme's NLB security group scoped to this listener's port. Stacks additively on top of the rack-level [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) or [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR).
+- `preserve_client_ip:` accepts `true` or `false`. Forwards real client IP for this listener's target group.
 
 Example combining all three:
 
@@ -277,9 +277,9 @@ worker
 
 Short forms:
 
-- `cz=` — cross-zone override (`true` or `false`)
-- `allow=N` — count of per-port `allow_cidr:` entries (not the rack-level total)
-- `pcip=` — preserve-client-IP override (`true` or `false`)
+- `cz=` is the cross-zone override (`true` or `false`)
+- `allow=N` is the count of per-port `allow_cidr:` entries (not the rack-level total)
+- `pcip=` is the preserve-client-IP override (`true` or `false`)
 
 A key appears only when the listener explicitly overrides the corresponding rack-level default. Reading `pcip=false`, for example, means this listener has `preserve_client_ip: false` set explicitly; it does not imply the rack-level default is `Yes`. Ports that inherit every rack-level default carry no bracket at all.
 
@@ -316,7 +316,7 @@ To fully disable NLB on a production Rack, run the following in order. Each step
    $ convox rack params set NLB=No NLBInternal=No
    ```
 
-The disable releases the EIPs — if you re-enable later, the Rack is assigned new EIPs and a new NLB DNS name. Re-validate any customer DNS pointing at the Rack after a disable/re-enable cycle.
+The disable releases the EIPs. If you re-enable later, the Rack is assigned new EIPs and a new NLB DNS name. Re-validate any customer DNS pointing at the Rack after a disable/re-enable cycle.
 
 ### Two concurrent deploys claiming the same port
 
@@ -328,7 +328,7 @@ Before downgrading a Rack to a version that predates NLB support, set both `NLB=
 
 ### NLB-only Services on EC2 launch type
 
-A Service that declares only `nlb:` ports (no `port:` field) and runs on a default EC2-launch Rack (no Fargate, no [Isolate](/reference/app-parameters/Isolate)) registers targets via the ECS service-linked role `AWSServiceRoleForECS`. AWS creates this role automatically on first ECS usage — if target registration fails on an NLB-only Service, confirm the role exists in the account. Fargate and Isolate Services use `awsvpc` mode and register targets by IP, so the role requirement does not apply.
+A Service that declares only `nlb:` ports (no `port:` field) and runs on a default EC2-launch Rack (no Fargate, no [Isolate](/reference/app-parameters/Isolate)) registers targets via the ECS service-linked role `AWSServiceRoleForECS`. AWS creates this role automatically on first ECS usage. If target registration fails on an NLB-only Service, confirm the role exists in the account. Fargate and Isolate Services use `awsvpc` mode and register targets by IP, so the role requirement does not apply.
 
 ## See Also
 

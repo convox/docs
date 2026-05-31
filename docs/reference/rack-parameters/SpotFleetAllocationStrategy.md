@@ -20,9 +20,9 @@ The Spot Fleet allocation strategy. This parameter can be used only when Spot Fl
 
 The three strategies behave as follows:
 
-- **lowestPrice** -- Spot instances are launched from the pool with the lowest price. This maximizes cost savings but may lead to higher interruption rates if the cheapest pool runs low on capacity.
-- **diversified** -- Spot instances are distributed across all available pools. This reduces the risk of all instances being interrupted simultaneously.
-- **capacityOptimized** -- Spot instances are launched from pools with the most available capacity. This is the best choice for workloads that have a high cost of interruption.
+- **lowestPrice**: Spot instances are launched from the pool with the lowest price. This maximizes cost savings but may lead to higher interruption rates if the cheapest pool runs low on capacity.
+- **diversified**: Spot instances are distributed across all available pools. This reduces the risk of all instances being interrupted simultaneously.
+- **capacityOptimized**: Spot instances are launched from pools with the most available capacity. This is the best choice for workloads that have a high cost of interruption.
 
 This parameter only takes effect when Spot Fleet is enabled via [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 

@@ -18,7 +18,7 @@ Comma-delimited list of up to 5 IPv4 CIDRs permitted to reach listeners on the i
 
 ## Additional Information
 
-The **default is empty**, which is intentionally different from the public [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR). An empty internal-allowlist triggers a CloudFormation fallback that permits the Rack's VPC CIDR — preserving the "reachable from inside the VPC" posture an internal NLB is installed for.
+The **default is empty**, which is intentionally different from the public [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR). An empty internal-allowlist triggers a CloudFormation fallback that permits the Rack's VPC CIDR, preserving the "reachable from inside the VPC" posture an internal NLB is installed for.
 
 ```bash
 $ convox rack params set NLBInternalAllowCIDR=10.0.0.0/16,10.1.0.0/16
@@ -34,7 +34,7 @@ Validation is identical to [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCID
 
 ### Relationship to per-port `allow_cidr`
 
-Same model as the public allowlist: per-port entries add ingress rules to the `NLBInternalSecurity` security group scoped to the listener port — they do not replace the rack-level entries. See [services.nlb](/application/services#nlb).
+Same model as the public allowlist: per-port entries add ingress rules to the `NLBInternalSecurity` security group scoped to the listener port; they do not replace the rack-level entries. See [services.nlb](/application/services#nlb).
 
 ## See Also
 

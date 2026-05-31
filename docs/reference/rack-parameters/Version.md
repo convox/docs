@@ -11,7 +11,7 @@ description: "Specify the Convox release version running on the Rack."
 
 ## Use Cases
 
-- Managed automatically during `convox rack update` — you typically do not set this directly
+- Managed automatically during `convox rack update`, so you typically do not set this directly
 - Pin to a specific version to prevent unintended upgrades in production
 - Roll back to a previous version if a Rack update introduces issues
 

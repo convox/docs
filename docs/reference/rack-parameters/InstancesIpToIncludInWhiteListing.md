@@ -18,10 +18,10 @@ Automatic IP whitelist inclusion for Rack instances. Controls which instance typ
 
 ## Additional Information
 
-- `Both` -- Automatically adds the public IPs of both build and workload instances to the whitelist.
-- `Build` -- Only adds the build instance IPs to the whitelist.
-- `Workload` -- Only adds the workload (runtime) instance IPs to the whitelist.
-- `None` -- Does not automatically add any instance IPs to the whitelist.
+- `Both`: Automatically adds the public IPs of both build and workload instances to the whitelist.
+- `Build`: Only adds the build instance IPs to the whitelist.
+- `Workload`: Only adds the workload (runtime) instance IPs to the whitelist.
+- `None`: Does not automatically add any instance IPs to the whitelist.
 
 This parameter only takes effect when the Rack is public and the [WhiteList](/reference/rack-parameters/WhiteList) parameter is configured. When whitelisting is not in use, this parameter has no effect.
 

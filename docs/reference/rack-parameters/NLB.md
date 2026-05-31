@@ -5,7 +5,7 @@ description: "Enable a public Network Load Balancer on a Convox Rack for TCP ser
 
 # NLB
 
-Public Network Load Balancer (NLB) for the Rack. When enabled, creates an internet-facing Layer 4 load balancer that Services can opt into via the [nlb:](/application/services#nlb) field in `convox.yml`. The existing Application Load Balancer (ALB) is unaffected — the NLB is a sidecar for TCP workloads that the ALB cannot handle.
+Public Network Load Balancer (NLB) for the Rack. When enabled, creates an internet-facing Layer 4 load balancer that Services can opt into via the [nlb:](/application/services#nlb) field in `convox.yml`. The existing Application Load Balancer (ALB) is unaffected. The NLB is a sidecar for TCP workloads that the ALB cannot handle.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
@@ -47,10 +47,10 @@ This parameter cannot be enabled on an [InternalOnly](/reference/rack-parameters
 
 ### Related Rack parameters
 
-- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) — CIDR allowlist for ingress to public NLB listeners (default `0.0.0.0/0`, max 5 entries)
-- [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) — enable cross-zone load balancing on public listeners
-- [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) — forward real client IP to target tasks
-- [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection) — block accidental NLB deletion
+- [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR): CIDR allowlist for ingress to public NLB listeners (default `0.0.0.0/0`, max 5 entries)
+- [NLBCrossZone](/reference/rack-parameters/NLBCrossZone): enable cross-zone load balancing on public listeners
+- [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP): forward real client IP to target tasks
+- [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection): block accidental NLB deletion
 
 List all ten NLB-related parameters at once:
 
@@ -60,7 +60,7 @@ $ convox rack params -g nlb
 
 ### Disable
 
-Before setting `NLB=No`, remove the `nlb:` field from every Service in every App deployed on the Rack and redeploy each. The disable is refused with a list of blocking Apps otherwise. This is intentional — disabling the NLB while Apps still reference it would break those Apps' next deploy via `Fn::ImportValue` resolution failure.
+Before setting `NLB=No`, remove the `nlb:` field from every Service in every App deployed on the Rack and redeploy each. The disable is refused with a list of blocking Apps otherwise. This is intentional, because disabling the NLB while Apps still reference it would break those Apps' next deploy via `Fn::ImportValue` resolution failure.
 
 If [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection)=`Yes`, `NLB=No` is also rejected pre-flight; disable deletion protection in an earlier `rack params set` call, wait for the update to complete, then toggle `NLB=No` in a follow-up call.
 

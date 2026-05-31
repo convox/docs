@@ -38,7 +38,7 @@ Password              **********
 Ssl                   true
 ```
 
-Two parameters — [Password](/reference/rack-parameters/Password) and [HttpProxy](/reference/rack-parameters/HttpProxy) — render as `**********` on a terminal to avoid accidental exposure during screen shares or pasted bug reports. Empty values render as empty (never as `**********`), so a parameter that has never been set is still distinguishable from one that is masked.
+Two parameters, [Password](/reference/rack-parameters/Password) and [HttpProxy](/reference/rack-parameters/HttpProxy), render as `**********` on a terminal to avoid accidental exposure during screen shares or pasted bug reports. Empty values render as empty (never as `**********`), so a parameter that has never been set is still distinguishable from one that is masked.
 
 The mask is a display-only wrapper. Piped output bypasses it so `grep`, `awk`, and backup automation keep working:
 
@@ -77,7 +77,7 @@ NLBInternalPreserveClientIP    No
 NLBPreserveClientIP            No
 ```
 
-Unique prefixes are accepted — `-g net` resolves to `network`, `-g nlb` resolves to `nlb`. Ambiguous prefixes emit an error that names the collisions and suggests shortest-unique alternatives:
+Unique prefixes are accepted: `-g net` resolves to `network`, `-g nlb` resolves to `nlb`. Ambiguous prefixes emit an error that names the collisions and suggests shortest-unique alternatives:
 
 ```text
 $ convox rack params -g n

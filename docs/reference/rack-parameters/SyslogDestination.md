@@ -19,9 +19,9 @@ Syslog address destination. You need to pass the protocol to be used, e.g. `tcp+
 
 This parameter is required when [LogDriver](/reference/rack-parameters/LogDriver) is set to `Syslog`. The destination must include the protocol prefix. Supported formats include:
 
-- `tcp+tls://host:port` -- Syslog over TCP with TLS encryption (recommended)
-- `tcp://host:port` -- Syslog over TCP without encryption
-- `udp://host:port` -- Syslog over UDP
+- `tcp+tls://host:port`: Syslog over TCP with TLS encryption (recommended)
+- `tcp://host:port`: Syslog over TCP without encryption
+- `udp://host:port`: Syslog over UDP
 
 The format of the log messages sent to this destination is controlled by the [SyslogFormat](/reference/rack-parameters/SyslogFormat) parameter.
 

@@ -27,7 +27,7 @@ Convox provides three separate privacy controls that can be combined for differe
 
 ### Private
 
-The [Private](/reference/rack-parameters/Private) parameter places all Rack instances (both workload and build) into private subnets. This is the broadest privacy control. When set to `Yes`, instances have no direct internet access — all outbound traffic passes through a NAT gateway.
+The [Private](/reference/rack-parameters/Private) parameter places all Rack instances (both workload and build) into private subnets. This is the broadest privacy control. When set to `Yes`, instances have no direct internet access, and all outbound traffic passes through a NAT gateway.
 
 ### PrivateBuild
 
@@ -35,7 +35,7 @@ The [PrivateBuild](/reference/rack-parameters/PrivateBuild) parameter places onl
 
 ### PrivateApi
 
-The [PrivateApi](/reference/rack-parameters/PrivateApi) parameter makes the Rack API load balancer internal, so it is only accessible from within the VPC or through a VPN/peering connection. This is independent of `Private` — you can have a private API with public instances, or vice versa. When enabled, you will need VPN, Direct Connect, or VPC peering to manage the Rack via the CLI or CI/CD.
+The [PrivateApi](/reference/rack-parameters/PrivateApi) parameter makes the Rack API load balancer internal, so it is only accessible from within the VPC or through a VPN/peering connection. This is independent of `Private`: you can have a private API with public instances, or vice versa. When enabled, you will need VPN, Direct Connect, or VPC peering to manage the Rack via the CLI or CI/CD.
 
 ## Why Use a Private Rack?
 

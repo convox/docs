@@ -5,7 +5,7 @@ description: "Enable cross-zone load balancing on the public Network Load Balanc
 
 # NLBCrossZone
 
-Enable cross-zone load balancing on the public [NLB](/reference/rack-parameters/NLB). When `No`, each Availability Zone's listener routes only to targets in that AZ — the AWS default. When `Yes`, every listener routes to targets in every AZ, spreading traffic evenly at the cost of cross-AZ data transfer.
+Enable cross-zone load balancing on the public [NLB](/reference/rack-parameters/NLB). When `No`, each Availability Zone's listener routes only to targets in that AZ (the AWS default). When `Yes`, every listener routes to targets in every AZ, spreading traffic evenly at the cost of cross-AZ data transfer.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |

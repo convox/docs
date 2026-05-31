@@ -22,7 +22,7 @@ When set to `Enabled`, S3 retains all versions of every object stored in the Rac
 
 When set to `Suspended`, S3 stops creating new versions but preserves any existing versions that were created while versioning was enabled.
 
-Note that once versioning has been enabled on a bucket, it cannot be fully disabled -- it can only be suspended. Existing object versions will remain until explicitly deleted.
+Note that once versioning has been enabled on a bucket, it cannot be fully disabled; it can only be suspended. Existing object versions will remain until explicitly deleted.
 
 ```bash
 $ convox rack params set EnableS3Versioning=Enabled

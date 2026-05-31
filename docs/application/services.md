@@ -95,7 +95,7 @@ Override the default command for this service.
 
 ### deployment
 
-Control the ECS minimum and maximum healthy-percent values that govern rolling deployments. Defaults are `minimum: 50` and `maximum: 200` — up to 200% of desired capacity can run during a deploy, and at least 50% must remain healthy. Set both to `100` for strict in-place replacement (never more than desired, never less than desired - 1), or tune up for faster rollouts on services that tolerate extra concurrent containers.
+Control the ECS minimum and maximum healthy-percent values that govern rolling deployments. Defaults are `minimum: 50` and `maximum: 200`, so up to 200% of desired capacity can run during a deploy, and at least 50% must remain healthy. Set both to `100` for strict in-place replacement (never more than desired, never less than desired - 1), or tune up for faster rollouts on services that tolerate extra concurrent containers.
 
 ```yaml
 services:
@@ -105,7 +105,7 @@ services:
       maximum: 200
 ```
 
-For [agent](#agent) and [singleton](#singleton) services, the defaults are `minimum: 0` and `maximum: 100` — matching the replace-before-start behavior those modes require.
+For [agent](#agent) and [singleton](#singleton) services, the defaults are `minimum: 0` and `maximum: 100`, matching the replace-before-start behavior those modes require.
 
 ### domain
 
@@ -213,18 +213,18 @@ services:
 
 Each list entry is an object with:
 
-- `port` (required, integer 1..65535) — the port the NLB listens on (what clients connect to). Within a single App, port values must be unique across all `nlb:` entries regardless of scheme; across Apps, the same port can be used on the public and internal NLB without conflict (they are separate AWS load balancers). See [Network Load Balancing](/networking/nlb#architecture) for cross-App implications.
-- `protocol` — `tcp` (default) or `tls`. `tls` terminates TLS at the NLB and forwards plaintext TCP to the container.
-- `containerPort` — optional. The container port that receives traffic from this listener. Defaults to `port` when omitted.
-- `scheme` — `public` (routes to the public Rack NLB) or `internal` (routes to the internal Rack NLB). Defaults to `public`.
-- `certificate` — required when `protocol: tls`. Accepts a full ACM ARN (`arn:aws:acm:<region>:<account>:certificate/<uuid>`) or an IAM server-certificate ARN (`arn:aws:iam::<account>:server-certificate/<name>`). Must be in the same region and account as the Rack. ACM certificates must be in `ISSUED` state — the release is rejected at promote time otherwise. `convox certs` lists certificates but displays Convox short IDs (`acm-...`) or IAM server-certificate names, not ARNs — copy the full ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. See [Network Load Balancing](/networking/nlb#tls-termination-at-the-nlb) for the full ARN lookup procedure.
-- `cross_zone` — optional boolean. Override the Rack-level [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) (public) or [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone) (internal) default for this listener only. Enabling cross-zone load balancing spreads traffic across targets in every AZ and incurs cross-AZ data transfer charges. See [Cross-zone load balancing](/networking/nlb#cross-zone-load-balancing).
-- `allow_cidr` — optional list of IPv4 CIDRs. Adds ingress rules on the NLB security group scoped to this listener's port. Additive on top of the rack-level [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) or [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR). Non-canonical CIDRs (host bits set), IPv6, duplicates, and leading/trailing whitespace are rejected at manifest parse time. See [Ingress allowlist](/networking/nlb#ingress-allowlist).
-- `preserve_client_ip` — optional boolean. Override the Rack-level [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) or [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP) default for this listener only. Forwards the real client source IP to the target task instead of the NLB's VPC-internal IP. Rejected at release promote on Racks that use a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) (the required NLB-source ingress rule cannot be added to an SG Convox does not own). See [Preserve client IP](/networking/nlb#preserve-client-ip).
+- `port` (required, integer 1..65535) sets the port the NLB listens on (what clients connect to). Within a single App, port values must be unique across all `nlb:` entries regardless of scheme; across Apps, the same port can be used on the public and internal NLB without conflict (they are separate AWS load balancers). See [Network Load Balancing](/networking/nlb#architecture) for cross-App implications.
+- `protocol` accepts `tcp` (default) or `tls`. `tls` terminates TLS at the NLB and forwards plaintext TCP to the container.
+- `containerPort` is optional. The container port that receives traffic from this listener. Defaults to `port` when omitted.
+- `scheme` accepts `public` (routes to the public Rack NLB) or `internal` (routes to the internal Rack NLB). Defaults to `public`.
+- `certificate` is required when `protocol: tls`. Accepts a full ACM ARN (`arn:aws:acm:<region>:<account>:certificate/<uuid>`) or an IAM server-certificate ARN (`arn:aws:iam::<account>:server-certificate/<name>`). Must be in the same region and account as the Rack. ACM certificates must be in `ISSUED` state, otherwise the release is rejected at promote time. `convox certs` lists certificates but displays Convox short IDs (`acm-...`) or IAM server-certificate names, not ARNs, so copy the full ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. See [Network Load Balancing](/networking/nlb#tls-termination-at-the-nlb) for the full ARN lookup procedure.
+- `cross_zone` is an optional boolean. Override the Rack-level [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) (public) or [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone) (internal) default for this listener only. Enabling cross-zone load balancing spreads traffic across targets in every AZ and incurs cross-AZ data transfer charges. See [Cross-zone load balancing](/networking/nlb#cross-zone-load-balancing).
+- `allow_cidr` is an optional list of IPv4 CIDRs. Adds ingress rules on the NLB security group scoped to this listener's port. Additive on top of the rack-level [NLBAllowCIDR](/reference/rack-parameters/NLBAllowCIDR) or [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR). Non-canonical CIDRs (host bits set), IPv6, duplicates, and leading/trailing whitespace are rejected at manifest parse time. See [Ingress allowlist](/networking/nlb#ingress-allowlist).
+- `preserve_client_ip` is an optional boolean. Override the Rack-level [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP) or [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP) default for this listener only. Forwards the real client source IP to the target task instead of the NLB's VPC-internal IP. Rejected at release promote on Racks that use a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) (the required NLB-source ingress rule cannot be added to an SG Convox does not own). See [Preserve client IP](/networking/nlb#preserve-client-ip).
 
-TLS listeners use `ELBSecurityPolicy-TLS13-1-2-2021-06` (TLS 1.2 and 1.3, ECDHE only). The target group protocol stays TCP — backends never see TLS traffic.
+TLS listeners use `ELBSecurityPolicy-TLS13-1-2-2021-06` (TLS 1.2 and 1.3, ECDHE only). The target group protocol stays TCP, so backends never see TLS traffic.
 
-Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and raw TCP or TLS (via the NLB) on the same `containerPort`. Services with `agent: enabled: true` cannot use `nlb:` — agent mode pins one task per instance, which is incompatible with horizontally scaled NLB target groups.
+Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and raw TCP or TLS (via the NLB) on the same `containerPort`. Services with `agent: enabled: true` cannot use `nlb:` because agent mode pins one task per instance, which is incompatible with horizontally scaled NLB target groups.
 
 See [Network Load Balancing](/networking/nlb) for setup, TLS details, per-port attribute semantics, and limitations.
 

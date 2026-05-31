@@ -25,7 +25,7 @@ AWS KMS encryption for the default shared EFS volume used for application [volum
 
 When enabled, the shared EFS volume is encrypted at rest using AWS Key Management Service (KMS). All data written to the volume is automatically encrypted, and all reads are automatically decrypted. There is no performance impact noticeable by most workloads.
 
-Because AWS does not support enabling encryption on an existing EFS file system, Convox must delete and recreate the EFS volume when this parameter is changed. This is a **destructive operation** -- all data on the existing shared volume will be permanently lost unless backed up beforehand.
+Because AWS does not support enabling encryption on an existing EFS file system, Convox must delete and recreate the EFS volume when this parameter is changed. This is a **destructive operation**. All data on the existing shared volume will be permanently lost unless backed up beforehand.
 
 After enabling encryption, verify that your applications are functioning correctly and that any restored data is intact.
 

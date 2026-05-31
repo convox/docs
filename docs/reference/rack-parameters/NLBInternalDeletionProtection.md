@@ -24,7 +24,7 @@ $ convox rack params set NLBInternalDeletionProtection=Yes
 
 ### Interlocks
 
-- `convox rack params set NLBInternal=No` while `NLBInternalDeletionProtection=Yes` — rejected pre-flight with:
+- `convox rack params set NLBInternal=No` while `NLBInternalDeletionProtection=Yes` is rejected pre-flight with:
 
   ```
   cannot disable NLBInternal while NLBInternalDeletionProtection=Yes;
@@ -32,7 +32,7 @@ $ convox rack params set NLBInternalDeletionProtection=Yes
   NLBInternal off
   ```
 
-- `convox rack uninstall` while either `NLBDeletionProtection=Yes` or `NLBInternalDeletionProtection=Yes` is enabled — rejected pre-flight. The uninstall interlock is global across both schemes.
+- `convox rack uninstall` while either `NLBDeletionProtection=Yes` or `NLBInternalDeletionProtection=Yes` is enabled is rejected pre-flight. The uninstall interlock is global across both schemes.
 
 See [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection#interlocks) for the rationale.
 

@@ -43,7 +43,7 @@ We have a [CircleCI Orb](https://circleci.com/orbs/registry/orb/convox/orb) as w
 
 ## What kind of apps can I deploy on Convox?
 
-Any Dockerised app (or even Docker wrapper) can be deployed. We have example apps in various languages and frameworks available [here](/example-apps/examples), and we are adding more all the time.
+Any Dockerized app (or even Docker wrapper) can be deployed. We have example apps in various languages and frameworks available [here](/example-apps/examples), and we are adding more all the time.
 
 ## What types of Databases, Block Storage, Message Queues, etc... does Convox support?
 
@@ -51,11 +51,15 @@ Convox provides native support for common [application resources](/application/r
 
 ## How does Convox handle scaling?
 
-You have multiple options to control and configure your scaling. [Application scaling](/scaling/scaling) can be static or automatic, based on CPU, Memory, Traffic or custom metrics. Rack scaling can also be configured, even utilising Spot instances or Fargate for lower pricing and more flexibility!
+You have multiple options to control and configure your scaling. [Application scaling](/scaling/scaling) can be static or automatic, based on CPU, Memory, Traffic or custom metrics. Rack scaling can also be configured, even using Spot instances or Fargate for lower pricing and more flexibility!
 
 ## Is Convox PCI/HIPAA compliant?
 
-Yes, we are an ideal solution for systems which need the highest level of security and accountability. More details on making your installation HIPAA compliant can be found [here](/reference/hipaa-compliance).
+It depends on the level of compliance you need and how you run Convox.
+
+SOC2 and similar fintech compliance requirements are achievable with the SaaS Convox Console, since your applications and infrastructure always run in your own AWS account.
+
+HIPAA is different. To run HIPAA workloads you need an Enterprise self-hosted Rack, including a self-hosted Console deployed into your own AWS account, and you sign the Business Associate Agreement (BAA) directly with AWS. Because Convox runs entirely within your AWS account, this is not a capability of the SaaS-hosted Console. More details on making your installation HIPAA compliant can be found [here](/reference/hipaa-compliance).
 
 ## Can I use Convox with an external Docker Registry?
 
@@ -63,11 +67,11 @@ Yes, you can access your [private Docker images](/integrations/private-registrie
 
 ## Does Convox provide a solution for local development?
 
-Yes. [Local Rack installation](/development/running-locally) works on Mac, Linux, or Windows. This provides a near identical replica to your cloud staging or production environments. Alternatively, developers can utilise cloud development environments to relieve stress and pressure on their local machines.
+Yes. [Local Rack installation](/development/running-locally) works on Mac, Linux, or Windows. This provides a near identical replica to your cloud staging or production environments. Alternatively, developers can use cloud development environments to relieve stress and pressure on their local machines.
 
 ## Can I setup multiple environments (dev/staging/production) with Convox?
 
-A common topology our customers use is to create separate racks for each environment they wish. Each Rack can be installed into any pre-existing VPCs you may have for your different environments to provide appropriate isolation and security between them.
+A common topology our users use is to create separate racks for each environment they wish. Each Rack can be installed into any pre-existing VPCs you may have for your different environments to provide appropriate isolation and security between them.
 
 ## What about EKS-powered Racks?
 
@@ -75,7 +79,7 @@ EKS-powered Racks are available in [Convox v3](https://docs.convox.com/getting-s
 
 ## How many applications can I deploy in a single Rack?
 
-There is no artificially small limit. Some of our customers run up to 100 apps in a single rack. There are many variables to determine, and decide how you configure your deployment environments.
+There is no artificially small limit. Some of our users run up to 100 apps in a single rack. There are many variables to determine, and decide how you configure your deployment environments.
 
 ## Does Convox have a solution for secrets management?
 

@@ -28,7 +28,7 @@ The `create` command provisions the underlying AWS infrastructure (ECR repositor
 
 | Flag | Description |
 |------|-------------|
-| `-g`, `--generation` | App generation: `1` (legacy) or `2` (default). Generation 2 uses Fargate and ALB. |
+| `-g`, `--generation` | App generation: `1` (legacy) or `2` (default). Generation 2 runs services on EC2/ECS by default and routes traffic through an Application Load Balancer; Fargate is opt-in via the `FargateServices` app parameter. |
 | `--wait` | Block until the App is fully created before returning. |
 
 Example creating a Generation 1 App:

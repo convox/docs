@@ -74,10 +74,10 @@ If you see errors like `not enough memory available to start process` or your de
 
 Common build errors and their causes:
 
-- **`no such file: convox.yml`** -- Your application directory does not contain a `convox.yml` (or `docker-compose.yml`). Ensure the manifest file exists in the root of your build context.
-- **`reading manifest` or `loading manifest`** -- Your `convox.yml` has syntax errors. Validate the YAML before deploying.
-- **ECR authentication failures** (`ecr auth token`, `empty authorization data`) -- AWS credentials are missing, expired, or lack ECR permissions. ECR tokens expire after 12 hours, so long-running build environments may encounter this.
-- **Image pull failures** (`could not pull <image>`) -- The base image in your Dockerfile is unavailable. Verify the image name/tag and that your build environment has network access to the registry.
+- **`no such file: convox.yml`**: Your application directory does not contain a `convox.yml` (or `docker-compose.yml`). Ensure the manifest file exists in the root of your build context.
+- **`reading manifest` or `loading manifest`**: Your `convox.yml` has syntax errors. Validate the YAML before deploying.
+- **ECR authentication failures** (`ecr auth token`, `empty authorization data`): AWS credentials are missing, expired, or lack ECR permissions. ECR tokens expire after 12 hours, so long-running build environments may encounter this.
+- **Image pull failures** (`could not pull <image>`): The base image in your Dockerfile is unavailable. Verify the image name/tag and that your build environment has network access to the registry.
 
 ```bash
 $ convox builds -a myapp
@@ -94,9 +94,9 @@ $ convox rack
 
 Common rollback causes:
 
-- **Resource limit exceeded** -- AWS account limits for ALB rules (100 per listener), security groups, or ECS services. Request a limit increase via the AWS console.
-- **Invalid parameter values** -- A Rack or app parameter was set to a value that CloudFormation rejected.
-- **Permission errors** -- The Rack's IAM role lacks permission for a new resource type. This can happen after a Rack update introduces new AWS resources.
+- **Resource limit exceeded**: AWS account limits for ALB rules (100 per listener), security groups, or ECS services. Request a limit increase via the AWS console.
+- **Invalid parameter values**: A Rack or app parameter was set to a value that CloudFormation rejected.
+- **Permission errors**: The Rack's IAM role lacks permission for a new resource type. This can happen after a Rack update introduces new AWS resources.
 
 If a rollback fails (stack stuck in `UPDATE_ROLLBACK_FAILED`), you may need to manually resolve the issue in the AWS CloudFormation console by continuing the rollback with resources to skip.
 

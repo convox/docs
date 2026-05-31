@@ -25,9 +25,11 @@ $ convox rack uninstall <type> <name>
 $ convox rack uninstall aws production
 Uninstalling Rack production...
 This will permanently destroy all infrastructure. Are you sure? (y/n): y
-Deleting EKS cluster...
-Deleting VPC...
-Deleting IAM resources...
+Deleting CloudFormation stack...
+2025-01-15T12:00:00Z system/cloudformation aws/cfm production DELETE_IN_PROGRESS AWS::CloudFormation::Stack User Initiated
+2025-01-15T12:03:00Z system/cloudformation aws/cfm production DELETE_IN_PROGRESS AWS::ECS::Cluster
+2025-01-15T12:06:00Z system/cloudformation aws/cfm production DELETE_IN_PROGRESS AWS::EC2::VPC
+2025-01-15T12:08:00Z system/cloudformation aws/cfm production DELETE_COMPLETE AWS::CloudFormation::Stack
 Rack production uninstalled successfully
 ```
 
@@ -41,7 +43,7 @@ run 'convox rack params set NLBDeletionProtection=No NLBInternalDeletionProtecti
 (current: NLBDeletionProtection=Yes)
 ```
 
-The interlock fires as soon as either flag is set, even if the rack has only a public NLB or only an internal NLB. `convox rack params set NLBDeletionProtection=No NLBInternalDeletionProtection=No` is safe on Racks where one of the two flags was never enabled — setting a parameter to its existing default is a no-op.
+The interlock fires as soon as either flag is set, even if the rack has only a public NLB or only an internal NLB. `convox rack params set NLBDeletionProtection=No NLBInternalDeletionProtection=No` is safe on Racks where one of the two flags was never enabled, because setting a parameter to its existing default is a no-op.
 
 The interlock runs before any destructive output. Clear the protection flags, wait for the rack update to complete, then rerun `convox rack uninstall`.
 
