@@ -20,7 +20,7 @@ Port 80 (HTTP) listener control for the Application Load Balancer. When set to `
 
 By default, Convox configures the ALB to listen on both port 80 (HTTP) and port 443 (HTTPS). Port 80 traffic is always redirected to HTTPS via a 301 redirect. Setting this parameter to `Yes` removes the port 80 listener completely.
 
-> **Note:** This parameter only takes effect when [InternalOnly](/reference/rack-parameters/InternalOnly) is set to `No` (the default). When `InternalOnly` is `Yes`, there is no public router and therefore no port 80 listener — this parameter has no effect in that configuration.
+> **Note:** This parameter only takes effect when [InternalOnly](/reference/rack-parameters/InternalOnly) is set to `No` (the default). When `InternalOnly` is `Yes`, there is no public router and therefore no port 80 listener, so this parameter has no effect in that configuration.
 
 If your applications rely on HTTP-to-HTTPS redirects at the load balancer level, disabling port 80 will prevent those redirects from working. Ensure that all clients are configured to connect directly via HTTPS before enabling this parameter.
 

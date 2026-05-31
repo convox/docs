@@ -53,9 +53,9 @@ worker
 
 Bracket short forms:
 
-- `cz=` — per-port `cross_zone:` override (`true` or `false`)
-- `allow=N` — count of per-port `allow_cidr:` entries (not the rack-level total)
-- `pcip=` — per-port `preserve_client_ip:` override (`true` or `false`)
+- `cz=`: per-port `cross_zone:` override (`true` or `false`)
+- `allow=N`: count of per-port `allow_cidr:` entries (not the rack-level total)
+- `pcip=`: per-port `preserve_client_ip:` override (`true` or `false`)
 
 Ports that do not override any Rack-level default carry no bracket.
 

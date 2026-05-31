@@ -7,8 +7,6 @@ description: "How Convox uses AWS ALB to route traffic, distribute load, enable 
 
 ## High Level Overview
 
-For background on load balancing concepts, see the [Convox blog post on AWS ELB](https://convox.com/blog/AWS_ELB).
-
 When creating a Rack in your cloud infrastructure, Convox will automatically create a Load Balancer to route traffic to the apps that you will deploy there. In AWS, an ALB will be created for this purpose, along with a separate ALB dedicated to handling traffic to the Rack API.
 
 If you have any [internal services](/networking/internal-services) running - and have enabled it - an extra Load Balancer will be created exclusively for the internal traffic.
@@ -53,7 +51,7 @@ Use the hostname from the `Router` output to configure DNS records (e.g., a CNAM
 
 ## Protocol and TLS Termination
 
-The Rack ALB handles TLS termination by default — HTTPS connections from clients are decrypted at the load balancer, and traffic is forwarded to your containers over the Rack's internal network. You do not need to configure TLS certificates within your application.
+The Rack ALB handles TLS termination by default. HTTPS connections from clients are decrypted at the load balancer, and traffic is forwarded to your containers over the Rack's internal network. You do not need to configure TLS certificates within your application.
 
 Convox automatically provisions SSL certificates via [AWS ACM](/deployment/ssl). To control which TLS protocol versions and ciphers the load balancer accepts, use the [SslPolicy](/reference/rack-parameters/SslPolicy) rack parameter.
 

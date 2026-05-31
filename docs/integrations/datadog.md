@@ -23,18 +23,18 @@ services:
       ports:
         - 8125/udp
         - 8126/tcp
-      image: datadog/agent:latest
-      environment:
-        - DD_API_KEY=<DATADOG-API-KEY>
-        - DD_APM_ENABLED=true
-      privileged: true
-      scale:
-        cpu: 128
-        memory: 128
-      volumes:
-        - /sys/fs/cgroup/:/host/sys/fs/cgroup/
-        - /proc/:/host/proc/
-        - /var/run/docker.sock:/var/run/docker.sock
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=<DATADOG-API-KEY>
+      - DD_APM_ENABLED=true
+    privileged: true
+    scale:
+      cpu: 128
+      memory: 128
+    volumes:
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup/
+      - /proc/:/host/proc/
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 Along with a basic `Dockerfile`:

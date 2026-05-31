@@ -45,7 +45,7 @@ Status        running
 Version       20260421192651
 ```
 
-The parenthesized values after the public NLB are the Elastic IPs bound to the NLB — one per Availability Zone. Use these for clients that connect by IP (e.g., allowlisted firewalls) and the DNS name for clients that resolve hostnames.
+The parenthesized values after the public NLB are the Elastic IPs bound to the NLB, one per Availability Zone. Use these for clients that connect by IP (e.g., allowlisted firewalls) and the DNS name for clients that resolve hostnames.
 
 ## See Also
 

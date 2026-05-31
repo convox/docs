@@ -20,9 +20,9 @@ Security mitigation mode for the Rack's load balancer. This controls the AWS ALB
 
 The three modes behave as follows:
 
-- **defensive** -- Blocks requests that are known to be unsafe, but allows ambiguous requests through. This is the recommended default for most applications.
-- **monitor** -- Allows all requests through but logs those that would be blocked in `defensive` or `strictest` mode. Useful for auditing before tightening security.
-- **strictest** -- Enforces strict RFC 7230 compliance. Any request that is ambiguous or non-compliant is rejected. This provides the highest security but may break clients that send non-standard HTTP requests.
+- **defensive**: Blocks requests that are known to be unsafe, but allows ambiguous requests through. This is the recommended default for most applications.
+- **monitor**: Allows all requests through but logs those that would be blocked in `defensive` or `strictest` mode. Useful for auditing before tightening security.
+- **strictest**: Enforces strict RFC 7230 compliance. Any request that is ambiguous or non-compliant is rejected. This provides the highest security but may break clients that send non-standard HTTP requests.
 
 ```bash
 $ convox rack params set RouterMitigationMode=strictest

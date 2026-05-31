@@ -7,7 +7,7 @@ description: "Set a bid price to use EC2 Spot Instances for Convox Rack cluster 
 
 A value, in dollars, that you want to pay for spot instances. If spot instances are available for the bid price, the Rack instances will use spot instances instead of on-demand instances, resulting in significant cost savings. If the parameter is empty, spot instances will not be utilized.
 
-This must be used with the [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) parameter to guarantee some on-demand instances are running if spot instances are not available. You must set `OnDemandMinCount` even if [HighAvailability](/reference/rack-parameters/HighAvailability) is `false` -- if not set, the default value will be used.
+This must be used with the [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) parameter to guarantee some on-demand instances are running if spot instances are not available. You must set `OnDemandMinCount` even if [HighAvailability](/reference/rack-parameters/HighAvailability) is `false`. If not set, the default value will be used.
 
 | Default value  | "" |
 

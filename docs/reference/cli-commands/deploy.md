@@ -48,8 +48,10 @@ Running: docker push convox/myapp:web.BABCDEF
 Build:   BABCDEF
 Release: RABCDEF
 Promoting RABCDEF...
-2025-01-15T12:00:00Z system/k8s/web Scaled up replica set web-abc1234 to 1
-2025-01-15T12:00:01Z system/k8s/web Started container main
+2025-01-15T12:00:00Z system/cloudformation aws/cfm myapp UPDATE_IN_PROGRESS AWS::CloudFormation::Stack User Initiated
+2025-01-15T12:00:05Z system/ecs aws/ecs (service myapp-web) has started 1 tasks: (task abc1234).
+2025-01-15T12:00:20Z system/ecs aws/ecs (service myapp-web) has reached a steady state.
+2025-01-15T12:00:25Z system/cloudformation aws/cfm myapp UPDATE_COMPLETE AWS::CloudFormation::Stack
 OK
 ```
 

@@ -43,4 +43,4 @@ $ convox deploy
 - [Builds](/deployment/builds)
 - [Docker: ARG](https://docs.docker.com/engine/reference/builder/#arg)
 - [Docker: -\-build-arg](https://docs.docker.com/engine/reference/commandline/image_build/#/set-build-time-variables---build-arg)
-- [Docker: Build your own image](https://docs.docker.com/engine/getstarted/step_four/)
+- [Docker: Build your own image](https://docs.docker.com/get-started/)

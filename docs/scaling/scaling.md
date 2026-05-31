@@ -34,25 +34,25 @@ These values are used upon the first deployment. Subsequent changes should be ma
 
 ```bash
 $ convox scale
-NAME  DESIRED  RUNNING  MEMORY
-web   2        1        256
-redis 1        1        256
+SERVICE  DESIRED  RUNNING  CPU  MEMORY
+web      2        1        256  256
+redis    1        1        256  256
 ```
 
 ### Changing the Number of Processes for a Service
 
 ```bash
 $ convox scale web --count=4
-NAME  DESIRED  RUNNING  MEMORY
-web   4        4        256
+SERVICE  DESIRED  RUNNING  CPU  MEMORY
+web      4        4        256  256
 ```
 
 ### Setting New Values for CPU or Memory
 
 ```bash
 $ convox scale web --memory=1024 --cpu=512
-NAME  DESIRED  RUNNING  MEMORY
-web   4        4        1024
+SERVICE  DESIRED  RUNNING  CPU  MEMORY
+web      4        4        512  1024
 ```
 
 > **Warning:** Each Rack instance has 1024 [CPU units](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) per core. This parameter specifies the minimum CPU allocation for a container. Containers share unallocated CPU units with other containers in proportion to their assigned amounts.
@@ -145,7 +145,7 @@ When autoscaling is enabled, manually setting a desired count using:
 $ convox scale serviceName --count=<number> -a appName
 ```
 
-will temporarily adjust the instance count. The autoscaler will monitor the scaling targets and adjust the count again within 3–5 minutes, unless the conditions sustaining the manual count persist.
+will temporarily adjust the instance count. The autoscaler will monitor the scaling targets and adjust the count again within 3 to 5 minutes, unless the conditions sustaining the manual count persist.
 
 Manually scaling can be useful for scenarios such as:
 - **Adjusting to a new desired count after deployment**

@@ -22,9 +22,9 @@ When this parameter is blank, AWS uses its default SSL policy for Application Lo
 
 Common policy choices include:
 
-- **ELBSecurityPolicy-TLS13-1-2-2021-06** -- Supports only TLS 1.2 and TLS 1.3
-- **ELBSecurityPolicy-FS-1-2-Res-2020-10** -- Requires forward secrecy with TLS 1.2 minimum
-- **ELBSecurityPolicy-2016-08** -- The default policy, supporting TLS 1.0 through 1.2
+- **ELBSecurityPolicy-TLS13-1-2-2021-06**: Supports only TLS 1.2 and TLS 1.3
+- **ELBSecurityPolicy-FS-1-2-Res-2020-10**: Requires forward secrecy with TLS 1.2 minimum
+- **ELBSecurityPolicy-2016-08**: The default policy, supporting TLS 1.0 through 1.2
 
 See the [AWS ELB SSL Policies documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies) for the full list of available policies and their supported protocols and ciphers.
 

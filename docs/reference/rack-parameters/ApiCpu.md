@@ -16,7 +16,7 @@ How much CPU should be reserved by the API web process. The value is specified i
 
 ## Additional Information
 
-This value is an ECS CPU reservation. It does not hard-cap the API process to this amount of CPU -- it guarantees at least this much CPU is available when the instance is under contention.
+This value is an ECS CPU reservation. It does not hard-cap the API process to this amount of CPU; it guarantees at least this much CPU is available when the instance is under contention.
 
 ```bash
 $ convox rack params set ApiCpu=256

@@ -18,10 +18,10 @@ The behavior used to customize the Docker image pull process on container instan
 
 ## Additional Information
 
-- `default` -- The ECS agent uses Docker's default image pull behavior, which typically pulls the image if it is not already cached locally.
-- `always` -- The image is always pulled from the registry, even if a cached version exists. This is useful when you want to ensure the latest image tag is always used.
-- `once` -- The image is only pulled once per instance. Subsequent tasks reuse the cached image, even if the tag has been updated in the registry.
-- `prefer-cached` -- The cached image is used if available. If no cached image exists, the image is pulled from the registry. This is the fastest option for startup time.
+- `default`: The ECS agent uses Docker's default image pull behavior, which typically pulls the image if it is not already cached locally.
+- `always`: The image is always pulled from the registry, even if a cached version exists. This is useful when you want to ensure the latest image tag is always used.
+- `once`: The image is only pulled once per instance. Subsequent tasks reuse the cached image, even if the tag has been updated in the registry.
+- `prefer-cached`: The cached image is used if available. If no cached image exists, the image is pulled from the registry. This is the fastest option for startup time.
 
 ```bash
 $ convox rack params set ImagePullBehavior=always

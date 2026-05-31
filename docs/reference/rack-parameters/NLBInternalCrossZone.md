@@ -24,7 +24,7 @@ $ convox rack params set NLBInternalCrossZone=Yes
 
 Applies to every existing and future listener on the internal NLB. No Service redeploy is required.
 
-Cost implications mirror [NLBCrossZone](/reference/rack-parameters/NLBCrossZone#cost-implications) — cross-AZ data transfer charges apply.
+Cost implications mirror [NLBCrossZone](/reference/rack-parameters/NLBCrossZone#cost-implications): cross-AZ data transfer charges apply.
 
 Per-port [cross_zone:](/application/services#nlb) on a Service with `scheme: internal` overrides this rack default for that listener only.
 

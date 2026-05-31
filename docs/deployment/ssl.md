@@ -61,7 +61,7 @@ services:
         certificate: arn:aws:acm:us-east-1:123456789012:certificate/abcd1234-5678-90ab-cdef-1234567890ab
 ```
 
-The ARN must be for an ACM certificate in the Rack's region and account (IAM server-certificate ARNs are also accepted). Cross-region and cross-account ARNs are rejected at release promote. `convox certs` lists the Rack's certificates by Convox short ID (`acm-<hash>`) or IAM server-certificate name, not by full ARN — retrieve the ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. Unlike ALB-routed Services — where Convox auto-provisions ACM certificates for the Service's domain — NLB listeners require the operator to pre-provision the certificate and paste the ARN.
+The ARN must be for an ACM certificate in the Rack's region and account (IAM server-certificate ARNs are also accepted). Cross-region and cross-account ARNs are rejected at release promote. `convox certs` lists the Rack's certificates by Convox short ID (`acm-<hash>`) or IAM server-certificate name, not by full ARN, so retrieve the ARN from the AWS Console or `aws acm list-certificates --region <rack-region>`. Unlike ALB-routed Services, where Convox auto-provisions ACM certificates for the Service's domain, NLB listeners require the operator to pre-provision the certificate and paste the ARN.
 
 ## Local Rack
 

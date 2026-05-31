@@ -20,7 +20,7 @@ Deletion protection for the Rack's DynamoDB table. When enabled, the table canno
 
 When set to `true`, any attempt to delete the DynamoDB table (whether through the AWS Console, CLI, or CloudFormation) will fail until deletion protection is explicitly disabled. This adds a safety layer against accidental data loss.
 
-Note that enabling this parameter does not affect read/write access to the table -- it only prevents the table itself from being deleted.
+Note that enabling this parameter does not affect read/write access to the table; it only prevents the table itself from being deleted.
 
 ```bash
 $ convox rack params set DynamoDbTableDeletionProtectionEnabled=true

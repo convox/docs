@@ -21,7 +21,7 @@ Wildcard patterns are supported. Examples: `m5.8xlarge`, `c5*.*`, `m5a.*`, `r*`,
 
 When this parameter is blank (the default), no instance types are excluded from the Spot Fleet. The fleet considers all types that meet the minimum resource requirements defined by [SpotFleetMinMemoryMiB](/reference/rack-parameters/SpotFleetMinMemoryMiB) and [SpotFleetMinVcpuCount](/reference/rack-parameters/SpotFleetMinVcpuCount).
 
-If you need to define an explicit allow list instead of an exclusion list, use [SpotFleetAllowedInstanceTypes](/reference/rack-parameters/SpotFleetAllowedInstanceTypes). The two parameters are mutually exclusive -- if both are set, `SpotFleetAllowedInstanceTypes` takes precedence.
+If you need to define an explicit allow list instead of an exclusion list, use [SpotFleetAllowedInstanceTypes](/reference/rack-parameters/SpotFleetAllowedInstanceTypes). The two parameters are mutually exclusive. If both are set, `SpotFleetAllowedInstanceTypes` takes precedence.
 
 This parameter only takes effect when Spot Fleet is enabled via [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 

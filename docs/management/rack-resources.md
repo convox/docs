@@ -168,7 +168,7 @@ Versioning  false    Enable versioning
 
 ```bash
 $ convox rack resources info s3-2988 | grep URL
-URL      s3://AKIAUTMLCEATCHNWWFHP:joZJ61gHiak1Teix1ABdeXS2U8N95jnNQxSGqw3m@test-s3-2988
+URL      s3://AKIAIOSFODNN7EXAMPLE:EXAMPLEKEYEXAMPLEKEYEXAMPLEKEYEXAMPLEKEY@test-s3-2988
 ```
 
 ### sns
@@ -183,7 +183,7 @@ Queue           SQS resource name to subscribe to this SNS topic
 
 ```bash
 $ convox rack resources info sns-8309 | grep URL
-URL      sns://AKIAUTLLCEATCAHANQIG:G2JwSb43AndwTDwQde891Hy8JnXvKV0d47b9PLBQ@arn:aws:sns:us-east-1:316441501734:test-sns-8309
+URL      sns://AKIAIOSFODNN7EXAMPLE:EXAMPLEKEYEXAMPLEKEYEXAMPLEKEYEXAMPLEKEY@arn:aws:sns:us-east-1:123456789012:test-sns-8309
 ```
 
 ### sqs
@@ -200,7 +200,7 @@ VisibilityTimeout       30       Number of seconds that a message should wait fo
 
 ```bash
 $ convox rack resources info sqs-5495 | grep URL
-URL      sqs://AKIAUTLLCEATA27HTUUN:t7mfL6nodQzEcN9LrxypYkNooGUJzsBjze37NDkl@sqs.us-east-1.amazonaws.com/316441501734/test-sqs-5495
+URL      sqs://AKIAIOSFODNN7EXAMPLE:EXAMPLEKEYEXAMPLEKEYEXAMPLEKEYEXAMPLEKEY@sqs.us-east-1.amazonaws.com/123456789012/test-sqs-5495
 ```
 
 ### syslog
@@ -253,7 +253,7 @@ services:
 
 ## See Also
 
-- [App Resources](/application/resources) — resources defined in `convox.yml` and linked to services
-- [Accessing Resources](/management/resources) — proxying to App Resources for local management
-- [Syslogs](/deployment/syslogs) — detailed syslog integration configuration
-- [Notifications](/console/notifications) — webhook notification events
+- [App Resources](/application/resources): resources defined in `convox.yml` and linked to services
+- [Accessing Resources](/management/resources): proxying to App Resources for local management
+- [Syslogs](/deployment/syslogs): detailed syslog integration configuration
+- [Notifications](/console/notifications): webhook notification events

@@ -5,14 +5,14 @@ description: "Forward the real client IP to targets behind the public Network Lo
 
 # NLBPreserveClientIP
 
-Forward the real client source IP to targets behind the public [NLB](/reference/rack-parameters/NLB). When `No` (default), the NLB source-NATs incoming connections to its VPC-internal IP — applications see the NLB's address rather than the client's. When `Yes`, target tasks observe the real client IP.
+Forward the real client source IP to targets behind the public [NLB](/reference/rack-parameters/NLB). When `No` (default), the NLB source-NATs incoming connections to its VPC-internal IP, so applications see the NLB's address rather than the client's. When `Yes`, target tasks observe the real client IP.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
 ## Prerequisites
 
-This parameter is **incompatible with a Rack that sets a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot add the required ingress rule to an SG it does not own. If your Rack uses a custom instance SG, add the ingress rule yourself (sourced from `${Rack}:NLBSecurityGroup`) before enabling this parameter — see [Incompatibility with customer InstanceSecurityGroup](#incompatibility-with-customer-instancesecuritygroup) below. Per-port `preserve_client_ip: true` on a Service is blocked on the same Racks.
+This parameter is **incompatible with a Rack that sets a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot add the required ingress rule to an SG it does not own. If your Rack uses a custom instance SG, add the ingress rule yourself (sourced from `${Rack}:NLBSecurityGroup`) before enabling this parameter. See [Incompatibility with customer InstanceSecurityGroup](#incompatibility-with-customer-instancesecuritygroup) below. Per-port `preserve_client_ip: true` on a Service is blocked on the same Racks.
 
 ## Use Cases
 
@@ -33,7 +33,7 @@ The setting applies to every existing and future listener on the public NLB. Per
 
 ### Incompatibility with customer InstanceSecurityGroup
 
-Racks that set [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) to a customer-managed security group cannot enable `NLBPreserveClientIP=Yes` through Convox — the CloudFormation stack cannot attach ingress rules to an SG Convox does not own. The validator rejects the change:
+Racks that set [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) to a customer-managed security group cannot enable `NLBPreserveClientIP=Yes` through Convox, because the CloudFormation stack cannot attach ingress rules to an SG Convox does not own. The validator rejects the change:
 
 ```text
 cannot enable NLBPreserveClientIP on a rack with a customer-supplied
@@ -42,7 +42,7 @@ NLB security group (exported as ${Rack}:NLBSecurityGroup) for the NLB
 listener ports before this feature can be enabled safely
 ```
 
-The fix on customer-SG Racks is to add the ingress rule to your SG manually — sourced from the Rack's exported `${Rack}:NLBSecurityGroup`, one rule per NLB listener port you expose — before attempting to enable preserve-client-IP. Example:
+The fix on customer-SG Racks is to add the ingress rule to your SG manually (sourced from the Rack's exported `${Rack}:NLBSecurityGroup`, one rule per NLB listener port you expose) before attempting to enable preserve-client-IP. Example:
 
 ```bash
 $ aws ec2 authorize-security-group-ingress \
@@ -56,7 +56,7 @@ $ aws ec2 authorize-security-group-ingress \
 
 Repeat the command for each NLB listener port declared in your Apps' `convox.yml`.
 
-The inverse direction is also blocked. Setting `InstanceSecurityGroup` to a non-empty value while `NLBPreserveClientIP=Yes` is already in force is rejected unless the same `rack params set` call also disables preserve-client-IP — preventing a silent-breakage transition where the SG swap leaves the old ingress rule behind but the new SG does not allow the real-IP traffic.
+The inverse direction is also blocked. Setting `InstanceSecurityGroup` to a non-empty value while `NLBPreserveClientIP=Yes` is already in force is rejected unless the same `rack params set` call also disables preserve-client-IP. This prevents a silent-breakage transition where the SG swap leaves the old ingress rule behind but the new SG does not allow the real-IP traffic.
 
 ### Per-port enforcement
 

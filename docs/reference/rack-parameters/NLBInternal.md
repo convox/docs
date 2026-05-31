@@ -24,7 +24,7 @@ Internal Network Load Balancer (NLB) for the Rack. When enabled, creates a VPC-i
 $ convox rack params set Internal=Yes NLBInternal=Yes
 ```
 
-Unlike the public [NLB](/reference/rack-parameters/NLB), the internal NLB does not consume any Elastic IPs — AWS assigns private IPs from the selected subnets.
+Unlike the public [NLB](/reference/rack-parameters/NLB), the internal NLB does not consume any Elastic IPs. AWS assigns private IPs from the selected subnets.
 
 ## Additional Information
 
@@ -45,10 +45,10 @@ The internal NLB's DNS name is visible via `convox rack` once CloudFormation com
 
 ### Related Rack parameters
 
-- [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR) — CIDR allowlist (defaults to VPC CIDR when empty)
-- [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone) — enable cross-zone load balancing on internal listeners
-- [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP) — forward real client IP to target tasks
-- [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection) — block accidental internal NLB deletion
+- [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR): CIDR allowlist (defaults to VPC CIDR when empty)
+- [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone): enable cross-zone load balancing on internal listeners
+- [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP): forward real client IP to target tasks
+- [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection): block accidental internal NLB deletion
 
 ### Disable
 
@@ -58,7 +58,7 @@ If [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletio
 
 ### Known Limitations
 
-Internal NLBs publish stable DNS names, which slightly lowers discovery cost for an in-VPC attacker pivoting between Apps — rely on application-layer authentication, not network obscurity. Tighten reachability with [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR) or per-port [allow_cidr:](/application/services#nlb) if the default VPC-wide posture is broader than needed.
+Internal NLBs publish stable DNS names, which slightly lowers discovery cost for an in-VPC attacker pivoting between Apps, so rely on application-layer authentication, not network obscurity. Tighten reachability with [NLBInternalAllowCIDR](/reference/rack-parameters/NLBInternalAllowCIDR) or per-port [allow_cidr:](/application/services#nlb) if the default VPC-wide posture is broader than needed.
 
 See [Network Load Balancing](/networking/nlb#known-limitations) for the shared limitations list (50-listener quota, concurrent-deploy caveats, downgrade procedure).
 

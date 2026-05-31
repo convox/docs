@@ -9,7 +9,7 @@ Convox apps are composed of one or more processes that run inside Docker contain
 
 In most cases, the Docker images that make up your app are either public images pulled from [Docker Hub](https://hub.docker.com/) or custom images that are built from your codebase. In some cases, however, you might want to pull an image from a private registry.
 
-For example, you might have a private fork of a popular image -- like [postgres](https://hub.docker.com/_/postgres/) -- in your Docker Hub account. You can specify this image in `convox.yml` so that your app will use it:
+For example, you might have a private fork of a popular image (like [postgres](https://hub.docker.com/_/postgres/)) in your Docker Hub account. You can specify this image in `convox.yml` so that your app will use it:
 
 ```yaml
 database:
@@ -68,7 +68,7 @@ Convox is already configured to use ECR in its own AWS account. However, you may
 
 ```yaml
 database:
-  image: 901416387788.dkr.ecr.us-east-1.amazonaws.com/postgres
+  image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/postgres
 ```
 
 Since [ECR authorization tokens expire every 12 hours](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth), you must give Convox IAM access keys that have permission to generate ECR tokens and pull images:
@@ -80,8 +80,8 @@ $ aws iam create-user --user-name ECRReadOnly
         "UserName": "ECRReadOnly",
         "Path": "/",
         "CreateDate": "2025-02-23T00:52:05.930Z",
-        "UserId": "AIDAJ6JPEYYKRY5PEVSU6",
-        "Arn": "arn:aws:iam::901416387788:user/ECRReadOnly"
+        "UserId": "AIDACKCEVSQ6C2EXAMPLE",
+        "Arn": "arn:aws:iam::123456789012:user/ECRReadOnly"
     }
 }
 ```
@@ -97,8 +97,8 @@ $ aws iam create-access-key --user-name ECRReadOnly
         "UserName": "ECRReadOnly",
         "Status": "Active",
         "CreateDate": "2025-02-23T00:54:32.475Z",
-        "SecretAccessKey": "2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f",
-        "AccessKeyId": "AKIAJ7GE3UMOANV37YNQ"
+        "SecretAccessKey": "EXAMPLEKEYEXAMPLEKEYEXAMPLEKEYEXAMPLEKEY",
+        "AccessKeyId": "AKIAIOSFODNN7EXAMPLE"
     }
 }
 ```
@@ -106,17 +106,17 @@ $ aws iam create-access-key --user-name ECRReadOnly
 Now pass the access key info to `convox registries add`:
 
 ```bash
-$ convox registries add 901416387788.dkr.ecr.us-east-1.amazonaws.com AKIAJ7GE3UMOANV37YNQ 2yf2HqhykiGHNKlwbvuS66WOBgSTefWXClOQIy0f
+$ convox registries add 123456789012.dkr.ecr.us-east-1.amazonaws.com AKIAIOSFODNN7EXAMPLE EXAMPLEKEYEXAMPLEKEYEXAMPLEKEYEXAMPLEKEY
 Adding registry... OK
 ```
 
 You can revoke Convox access by deleting the IAM user and removing the registry:
 
 ```bash
-$ aws iam delete-access-key --user-name ECRReadOnly --access-key-id AKIAJ7GE3UMOANV37YNQ
+$ aws iam delete-access-key --user-name ECRReadOnly --access-key-id AKIAIOSFODNN7EXAMPLE
 $ aws iam detach-user-policy --user-name ECRReadOnly --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
 $ aws iam delete-user --user-name ECRReadOnly
-$ convox registries remove 901416387788.dkr.ecr.us-east-1.amazonaws.com
+$ convox registries remove 123456789012.dkr.ecr.us-east-1.amazonaws.com
 Done.
 ```
 

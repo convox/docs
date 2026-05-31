@@ -20,8 +20,8 @@ Syslog format (lowercase) to send to [SyslogDestination](/reference/rack-paramet
 
 The syslog format determines how log messages are structured when sent to the [SyslogDestination](/reference/rack-parameters/SyslogDestination). The two most common formats are:
 
-- **rfc5424** -- The modern syslog format that supports structured data, message IDs, and more precise timestamps. This is the default and recommended format.
-- **rfc3164** -- The legacy BSD syslog format with simpler structure. Use this if your syslog receiver does not support RFC 5424.
+- **rfc5424**: The modern syslog format that supports structured data, message IDs, and more precise timestamps. This is the default and recommended format.
+- **rfc3164**: The legacy BSD syslog format with simpler structure. Use this if your syslog receiver does not support RFC 5424.
 
 This parameter only applies when [LogDriver](/reference/rack-parameters/LogDriver) is set to `Syslog`.
 
