@@ -43,7 +43,9 @@ Gen1 Apps do not use the build cache. The dedicated cache repository is wired on
 
 ### Buildx availability on EC2
 
-On the `ec2` build method, caching requires the Docker buildx plugin. If buildx is not available on the build host, the Build proceeds without caching and prints a warning rather than failing.
+The `ec2` build method caches with the Docker buildx plugin, which is already included in the default Convox build image. No setup is required: setting `BuildCache=Yes` is enough for an `ec2` Rack to start caching.
+
+The only time `ec2` caching is skipped is when you replace the build image with the [BuildImage](/reference/rack-parameters/BuildImage) parameter and your custom image does not ship the buildx plugin. In that case the Build prints a warning and proceeds without the persistent cache rather than failing.
 
 ## See Also
 

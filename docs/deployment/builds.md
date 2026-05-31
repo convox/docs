@@ -106,7 +106,7 @@ When `BuildCache=Yes`, Convox creates an ECR repository named `{rack}-build-cach
 - On `ec2` builds, the builder uses the Docker `buildx` plugin to push and pull a registry cache.
 - On `fargate` builds, the builder uses Kaniko with a remote cache repository.
 
-Fargate caching is less aggressive than EC2 caching, so the speedup on Fargate builds is smaller. If `BuildCache=Yes` is set on an EC2 build host that does not have the `buildx` plugin available, the build logs print a warning and the build proceeds without the persistent cache.
+Fargate caching is less aggressive than EC2 caching, so the speedup on Fargate builds is smaller. The buildx plugin used for EC2 caching is included in the default Convox build image, so EC2 caching works as soon as `BuildCache=Yes` is set. If you replace the build image with the [BuildImage](/reference/rack-parameters/BuildImage) parameter and your image does not include `buildx`, the build logs print a warning and the build proceeds without the persistent cache.
 
 Setting `--no-cache` on an individual `convox build` or `convox deploy` disables reuse of cached layers for that Build. On Fargate builds the persistent cache is skipped entirely. On EC2 builds the build does not read from the cache, but freshly built layers are still written back to the cache repository.
 
