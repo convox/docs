@@ -13,7 +13,7 @@ Releases will automatically be created:
 - When you update your environment variables in the Console.
 - When you update your environment variables from the CLI.
 
-You can see the list of all releases, and which one is currently active for your app in the Console under the 'Releases' tab, or via the CLI by running `convox releases`.
+You can see the list of all releases, and which one is currently active for your App in the Console under the 'Releases' tab, or via the CLI by running `convox releases`.
 
 ```bash
 $ convox releases
@@ -38,7 +38,7 @@ RIHVPQXQWSR          BRMUBCYGSWH  3 weeks ago
 
 If running a `convox deploy` then the Release will automatically be promoted with a rolling deployment across your Rack.  Environment variable changes performed from the Console will cause a new Release to be created and then promoted once you click on 'Apply Changes'.
 
-Releases created from a straight `convox build` or an [environment update from the CLI](/application/environment#setting-and-editing-your-environment-variables) will need to be promoted.  This can be done from the Console by clicking on the 'Promote' button when looking at the Release list for an app.  Alternatively you can `convox releases promote <release id>` from the CLI.
+Releases created from a straight `convox build` or an [environment update from the CLI](/application/environment#setting-and-editing-your-environment-variables) will need to be promoted.  This can be done from the Console by clicking on the 'Promote' button when looking at the Release list for an App.  Alternatively you can `convox releases promote <release id>` from the CLI.
 
 ## Release Descriptions
 

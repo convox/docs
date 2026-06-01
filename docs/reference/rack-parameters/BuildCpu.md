@@ -12,7 +12,7 @@ How much CPU should be allocated to builds. The value is specified in ECS CPU un
 ## Use Cases
 
 - Increasing CPU allocation for large or complex builds that are CPU-bound (e.g., compiling native extensions)
-- Reducing CPU allocation on Racks where builds are I/O-bound rather than CPU-bound to leave more capacity for running services
+- Reducing CPU allocation on Racks where builds are I/O-bound rather than CPU-bound to leave more capacity for running Services
 
 ## Additional Information
 

@@ -5,7 +5,7 @@ description: "Enable AWS ECS Exec for interactive shell access to this applicati
 
 # ECSExec
 
-Routes interactive container access for this application through [ECS Exec](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html) over AWS SSM Session Manager. When enabled, `convox exec` and `convox run` open sessions into running containers over SSM instead of the Docker daemon. On every deploy this app-level value is reset from the [rack-level ECSExec parameter](/reference/rack-parameters/ECSExec), so the durable per-app control is the `params` block in `convox.yml`.
+Routes interactive container access for this application through [ECS Exec](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html) over AWS SSM Session Manager. When enabled, `convox exec` and `convox run` open sessions into running containers over SSM instead of the Docker daemon. On every deploy this app-level value is reset from the [rack-level ECSExec parameter](/reference/rack-parameters/ECSExec), so the durable per-App control is the `params` block in `convox.yml`.
 
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
@@ -24,15 +24,15 @@ Enabling ECSExec affects only tasks launched after the change. Tasks started bef
 
 There are three ways to set this parameter, with different durability:
 
-- `convox rack params set ECSExec=Yes` enables ECS Exec rack-wide for every app on the rack. This is the value the app stack reads on each deploy, so it persists.
+- `convox rack params set ECSExec=Yes` enables ECS Exec rack-wide for every App on the Rack. This is the value the App stack reads on each deploy, so it persists.
 - A `params` block in `convox.yml` pins the value for a single application and survives every deploy, overriding the rack-level value.
-- `convox apps params set ECSExec=Yes -a my-app` updates the app stack immediately, but the next deploy resets it to the rack-level value unless `convox.yml` also pins it.
+- `convox apps params set ECSExec=Yes -a my-app` updates the App stack immediately, but the next deploy resets it to the rack-level value unless `convox.yml` also pins it.
 
 ```bash
 $ convox apps params set ECSExec=Yes
 ```
 
-After enabling, redeploy the application so existing tasks pick up the change. To set ECS Exec for every app on the rack instead, use the [rack-level ECSExec parameter](/reference/rack-parameters/ECSExec).
+After enabling, redeploy the application so existing tasks pick up the change. To set ECS Exec for every App on the Rack instead, use the [rack-level ECSExec parameter](/reference/rack-parameters/ECSExec).
 
 ## See Also
 

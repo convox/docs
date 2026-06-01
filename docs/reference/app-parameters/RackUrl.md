@@ -20,7 +20,7 @@ Rack API URL injection as an environment variable. When set to `Yes`, a `RACK_UR
 
 > Do not change this parameter unless you know what you are doing or are directed to by Convox support. Misconfiguring this value can affect your application's ability to communicate with the Rack API.
 
-The `RACK_URL` environment variable contains a fully authenticated URL including credentials. Treat it as sensitive data. It is injected into both service containers and timer containers.
+The `RACK_URL` environment variable contains a fully authenticated URL including credentials. Treat it as sensitive data. It is injected into both Service containers and timer containers.
 
 ```bash
 $ convox apps params set RackUrl=Yes

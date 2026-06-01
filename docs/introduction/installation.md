@@ -5,7 +5,7 @@ description: "Install the Convox CLI on macOS, Linux, or Windows"
 
 # CLI Installation
 
-The `convox` command line tool makes building, configuring, scaling, and securing your apps straightforward.
+The `convox` command line tool makes building, configuring, scaling, and securing your Apps straightforward.
 
 Here are some of the highlights:
 

@@ -64,7 +64,7 @@ We include events from AWS services in the output of `convox logs` to help you u
 2025-01-15T15:00:04Z system/aws/cfm resource="Instances" status="UPDATE_IN_PROGRESS" reason=""
 ```
 
-These events can be useful for identifying issues with a deployment or an app. For example, when your Rack is in a "converging" state, i.e. some instances or ECS Tasks haven't stabilized yet, there are often AWS events in the app/Rack logs that will show a service crashing, a health check failing, or a placement error due to insufficient resources.
+These events can be useful for identifying issues with a deployment or an App. For example, when your Rack is in a "converging" state, i.e. some instances or ECS Tasks haven't stabilized yet, there are often AWS events in the App/Rack logs that will show a Service crashing, a health check failing, or a placement error due to insufficient resources.
 
 ### Rack Logs
 

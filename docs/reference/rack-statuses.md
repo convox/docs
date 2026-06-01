@@ -9,7 +9,7 @@ As you interact with your Rack, you will notice a variety of statuses displayed 
 
 ## converging
 
-Your Rack is running, but it is rearranging itself. For example, you might see the _converging_ status during a routine instance replacement, or when deploying an app to the Rack. If it seems like your Rack is _converging_ for a long time, you can run `convox apps` to see if any of your applications are still updating.
+Your Rack is running, but it is rearranging itself. For example, you might see the _converging_ status during a routine instance replacement, or when deploying an App to the Rack. If it seems like your Rack is _converging_ for a long time, you can run `convox apps` to see if any of your applications are still updating.
 
 ## deleting
 

@@ -5,13 +5,13 @@ description: "Configure SSL certificates for Convox Services using AWS ACM, incl
 
 # SSL
 
-Convox will, if needed, automatically generate a valid SSL certificate for your service via [AWS ACM](https://aws.amazon.com/certificate-manager/). If you _already_ have a single matching certificate in AWS ACM, in the same region as the Rack is installed, for the domain(s) in your service's configuration, Convox will use the existing certificate.
+Convox will, if needed, automatically generate a valid SSL certificate for your Service via [AWS ACM](https://aws.amazon.com/certificate-manager/). If you _already_ have a single matching certificate in AWS ACM, in the same region as the Rack is installed, for the domain(s) in your Service's configuration, Convox will use the existing certificate.
 
-If you specify a custom `domain:` attribute for your service be on the lookout for a validation email that will come the first time you deploy.
+If you specify a custom `domain:` attribute for your Service be on the lookout for a validation email that will come the first time you deploy.
 
 ## Pre-generate your certificate
 
-Convox allows you to generate your certificate ahead of time to ensure minimal delay before having your service available during your first deploy.
+Convox allows you to generate your certificate ahead of time to ensure minimal delay before having your Service available during your first deploy.
 
 ```sh
 $ convox certs generate "*.example.org" "myapp.example.org"
@@ -65,7 +65,7 @@ The ARN must be for an ACM certificate in the Rack's region and account (IAM ser
 
 ## Local Rack
 
-The local rack will use DNS names `[process].[app].convox` which resolves to your local rack. The local load balancer uses a certificate from a convox CA. On Firefox, you will need to set `security.enterprise_roots.enabled` to true in `about:config` or else you will not be able to confirm the security exception of the certificate.
+The local Rack will use DNS names `[process].[app].convox` which resolves to your local Rack. The local load balancer uses a certificate from a convox CA. On Firefox, you will need to set `security.enterprise_roots.enabled` to true in `about:config` or else you will not be able to confirm the security exception of the certificate.
 
 ## See Also
 

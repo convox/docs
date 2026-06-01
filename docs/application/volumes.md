@@ -5,7 +5,7 @@ description: "Configure persistent data volumes for Convox services, including s
 
 # Volumes
 
-You can use Docker volumes to make data persist between runs of a given service's containers across restarts and instance replacements. This is useful for applications like WordPress or Jenkins that need to store data on the filesystem.
+You can use Docker volumes to make data persist between runs of a given Service's containers across restarts and instance replacements. This is useful for applications like WordPress or Jenkins that need to store data on the filesystem.
 
 ## Definition
 

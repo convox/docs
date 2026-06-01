@@ -22,7 +22,7 @@ By default, this value is unset, meaning ECS will use its default 30-second stop
 
 When ECS stops a container, it first sends a `SIGTERM` signal to the container's main process. The container then has the configured timeout period to shut down gracefully before ECS sends a `SIGKILL` to force termination. If your application does not handle `SIGTERM`, it will be forcibly killed after the timeout expires.
 
-This parameter maps to the `ECS_CONTAINER_STOP_TIMEOUT` ECS agent configuration variable and is written to `/etc/ecs/ecs.config` on each EC2 instance. Because it is an agent-level setting, it applies to **all containers on the instance**, not individual services. This parameter has no effect on Fargate tasks, which use the `stopTimeout` setting in the task definition instead.
+This parameter maps to the `ECS_CONTAINER_STOP_TIMEOUT` ECS agent configuration variable and is written to `/etc/ecs/ecs.config` on each EC2 instance. Because it is an agent-level setting, it applies to **all containers on the instance**, not individual Services. This parameter has no effect on Fargate tasks, which use the `stopTimeout` setting in the task definition instead.
 
 For more details, see the [ECS Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) documentation.
 

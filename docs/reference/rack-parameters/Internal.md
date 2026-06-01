@@ -12,15 +12,15 @@ Internal load balancer for the Rack, enabling private service routing within the
 
 ## Use Cases
 
-- Enabling internal routing for services that should only be accessible within the VPC, such as backend APIs or microservices
+- Enabling internal routing for Services that should only be accessible within the VPC, such as backend APIs or microservices
 - Supporting a mix of public-facing and internal-only applications on the same Rack
-- Restricting access to sensitive services while keeping other services publicly routable
+- Restricting access to sensitive Services while keeping other Services publicly routable
 
 ## Additional Information
 
 When set to `Yes`, Convox creates an additional internal (non-internet-facing) Application Load Balancer. Services can then be configured as internal in `convox.yml` to route traffic only through this internal ALB.
 
-This is different from [InternalOnly](/reference/rack-parameters/InternalOnly), which removes the public-facing router entirely. With `Internal` set to `Yes`, the Rack supports both public and internal services simultaneously.
+This is different from [InternalOnly](/reference/rack-parameters/InternalOnly), which removes the public-facing router entirely. With `Internal` set to `Yes`, the Rack supports both public and internal Services simultaneously.
 
 ```bash
 $ convox rack params set Internal=Yes

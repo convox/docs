@@ -13,7 +13,7 @@ If you don't have an account already, [sign up for Datadog](https://app.datadogh
 
 ## Deploy the Datadog Agent
 
-You can deploy the datadog agent as a Convox app with a very simple `convox.yml` manifest:
+You can deploy the datadog agent as a Convox App with a very simple `convox.yml` manifest:
 
 ```yaml
 services:
@@ -65,7 +65,7 @@ For example:
 $ convox rack resources create syslog Format="123457890abcdef1234567890 <22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - - [metas ddsource=\"{GROUP}\" ddtags=\"container_id:{CONTAINER}\"] {MESSAGE}" Url=tcp+tls://intake.logs.datadoghq.com:10516
 ```
 
-Link the created Syslog resource to your app:
+Link the created Syslog resource to your App:
 
 ```bash
 $ convox rack resources link syslog-3785 --app example

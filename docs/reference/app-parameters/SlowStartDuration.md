@@ -5,12 +5,12 @@ description: "Sets the ramp-up period during which a newly deployed service grad
 
 # SlowStartDuration
 
-Traffic ramp-up period (in seconds) for newly deployed services.
+Traffic ramp-up period (in seconds) for newly deployed Services.
 
 | Default value  | `0` |
 | Allowed values | `0`, `30-900` seconds |
 
-Once the duration expires, the full share of traffic will be directed to the new service.
+Once the duration expires, the full share of traffic will be directed to the new Service.
 
 ## Use Cases
 

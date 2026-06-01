@@ -5,11 +5,11 @@ description: "Pull Docker images from private registries including Docker Hub an
 
 # Private Registries
 
-Convox apps are composed of one or more processes that run inside Docker containers.
+Convox Apps are composed of one or more processes that run inside Docker containers.
 
-In most cases, the Docker images that make up your app are either public images pulled from [Docker Hub](https://hub.docker.com/) or custom images that are built from your codebase. In some cases, however, you might want to pull an image from a private registry.
+In most cases, the Docker images that make up your App are either public images pulled from [Docker Hub](https://hub.docker.com/) or custom images that are built from your codebase. In some cases, however, you might want to pull an image from a private registry.
 
-For example, you might have a private fork of a popular image (like [postgres](https://hub.docker.com/_/postgres/)) in your Docker Hub account. You can specify this image in `convox.yml` so that your app will use it:
+For example, you might have a private fork of a popular image (like [postgres](https://hub.docker.com/_/postgres/)) in your Docker Hub account. You can specify this image in `convox.yml` so that your App will use it:
 
 ```yaml
 database:

@@ -5,7 +5,7 @@ description: "Run all services for this application on AWS Fargate or Fargate Sp
 
 # FargateServices
 
-Launch type override for application services. Set to `Yes` to run all services in [Fargate](https://aws.amazon.com/fargate/), or `Spot` for [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
+Launch type override for application Services. Set to `Yes` to run all Services in [Fargate](https://aws.amazon.com/fargate/), or `Spot` for [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
 
 | Default value  | `No` |
 | Allowed values | `Yes`, `Spot`, `No` |
@@ -18,11 +18,11 @@ Launch type override for application services. Set to `Yes` to run all services 
 
 ## Additional Information
 
-When set to `Yes`, all services in the application run on AWS Fargate with on-demand pricing. When set to `Spot`, services run on Fargate Spot, which can provide up to 70% cost savings but may be interrupted when AWS reclaims capacity.
+When set to `Yes`, all Services in the application run on AWS Fargate with on-demand pricing. When set to `Spot`, Services run on Fargate Spot, which can provide up to 70% cost savings but may be interrupted when AWS reclaims capacity.
 
-Individual services can also be configured to run on Fargate at the service level by setting the launch type in the service's `Formation` parameter to `FARGATE` or `FARGATE_SPOT`. The app-level `FargateServices` parameter acts as a blanket override for all services.
+Individual Services can also be configured to run on Fargate at the service level by setting the launch type in the Service's `Formation` parameter to `FARGATE` or `FARGATE_SPOT`. The app-level `FargateServices` parameter acts as a blanket override for all Services.
 
-Fargate services do not require the Rack to have EC2 instances available. This can simplify capacity planning and eliminate the need to manage instance types or autoscaling groups.
+Fargate Services do not require the Rack to have EC2 instances available. This can simplify capacity planning and eliminate the need to manage instance types or autoscaling groups.
 
 ```bash
 $ convox apps params set FargateServices=Yes

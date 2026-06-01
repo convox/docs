@@ -17,7 +17,7 @@ Comma-delimited list of security group IDs to assign to the internal Rack router
 
 ## Additional Information
 
-The internal router is only created when [Internal](/reference/rack-parameters/Internal) is set to `Yes`. It handles traffic for services configured with `internal: true` in their `convox.yml`, making them accessible only from within the VPC.
+The internal router is only created when [Internal](/reference/rack-parameters/Internal) is set to `Yes`. It handles traffic for Services configured with `internal: true` in their `convox.yml`, making them accessible only from within the VPC.
 
 When this parameter is blank, the Rack creates a default security group that permits inbound TCP on ports 80 and 443 from the [VPCCIDR](/reference/rack-parameters/VPCCIDR) range. If you provide custom security group IDs, you are fully responsible for ensuring the correct ingress rules are in place.
 

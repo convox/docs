@@ -11,7 +11,7 @@ If there are errors starting new processes, new processes are not [verified as h
 
 The number of new processes started at a time is configurable so large Apps can be fully rolled out in 10 minutes.
 
-Rollouts and rollbacks do not cause any service downtime.
+Rollouts and rollbacks do not cause any Service downtime.
 
 ## Rollout
 

@@ -19,7 +19,7 @@ AWS KMS encryption for the default shared EFS volume used for application [volum
 
 - Meet compliance requirements (e.g., HIPAA, PCI-DSS) that mandate encryption at rest for all persistent storage.
 - Protect sensitive application data stored on shared volumes from unauthorized access at the storage layer.
-- Enable encryption for racks that were initially created without EFS encryption.
+- Enable encryption for Racks that were initially created without EFS encryption.
 
 ## Additional Information
 

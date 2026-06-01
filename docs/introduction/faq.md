@@ -19,7 +19,7 @@ Yes. Business Day support is available on Pro plans and 24/7 support is availabl
 
 ## Can I use my own AWS account with Convox?
 
-Yes, that's how it works. You maintain control and direct access to all of your infrastructure. Convox makes managing it easier, with no markup based on how many instances or apps you run.
+Yes, that's how it works. You maintain control and direct access to all of your infrastructure. Convox makes managing it easier, with no markup based on how many instances or Apps you run.
 
 ## Can I use my AWS credits with Convox?
 
@@ -41,13 +41,13 @@ Convox v2 Racks are AWS-only. For multi-cloud support across AWS (EKS), Google C
 
 We have a [CircleCI Orb](https://circleci.com/orbs/registry/orb/convox/orb) as well as a set of [GitHub Actions](/integrations/github-actions) ready for use to make your CI/CD easier. Jenkins and other solutions are also well supported with the use of the Convox CLI and unique [deploy keys](/console/deploy-keys) to provide access from your automated processes.
 
-## What kind of apps can I deploy on Convox?
+## What kind of Apps can I deploy on Convox?
 
-Any Dockerized app (or even Docker wrapper) can be deployed. We have example apps in various languages and frameworks available [here](/example-apps/examples), and we are adding more all the time.
+Any Dockerized App (or even Docker wrapper) can be deployed. We have example Apps in various languages and frameworks available [here](/example-apps/examples), and we are adding more all the time.
 
 ## What types of Databases, Block Storage, Message Queues, etc... does Convox support?
 
-Convox provides native support for common [application resources](/application/resources) such as MariaDB/MySQL/Postgres/Redis/Memcached. [Rack level resources](/management/rack-resources) also provide support for S3/SQS/SNS/Syslog available to all apps. We add others on a regular basis. Anything not directly supported can be integrated by passing the endpoint for your external resource into the app with an [environment variable](/application/environment).
+Convox provides native support for common [application resources](/application/resources) such as MariaDB/MySQL/Postgres/Redis/Memcached. [Rack level resources](/management/rack-resources) also provide support for S3/SQS/SNS/Syslog available to all Apps. We add others on a regular basis. Anything not directly supported can be integrated by passing the endpoint for your external resource into the App with an [environment variable](/application/environment).
 
 ## How does Convox handle scaling?
 
@@ -71,7 +71,7 @@ Yes. [Local Rack installation](/development/running-locally) works on Mac, Linux
 
 ## Can I setup multiple environments (dev/staging/production) with Convox?
 
-A common topology our users use is to create separate racks for each environment they wish. Each Rack can be installed into any pre-existing VPCs you may have for your different environments to provide appropriate isolation and security between them.
+A common topology our users use is to create separate Racks for each environment they wish. Each Rack can be installed into any pre-existing VPCs you may have for your different environments to provide appropriate isolation and security between them.
 
 ## What about EKS-powered Racks?
 
@@ -79,7 +79,7 @@ EKS-powered Racks are available in [Convox v3](https://docs.convox.com/getting-s
 
 ## How many applications can I deploy in a single Rack?
 
-There is no artificially small limit. Some of our users run up to 100 apps in a single rack. There are many variables to determine, and decide how you configure your deployment environments.
+There is no artificially small limit. Some of our users run up to 100 Apps in a single Rack. There are many variables to determine, and decide how you configure your deployment environments.
 
 ## Does Convox have a solution for secrets management?
 

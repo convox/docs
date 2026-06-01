@@ -56,7 +56,7 @@ $ convox instances ssh i-0234d285
 
 ### convox restart
 
-If all else fails and you wish to restart all running instances of your app you can perform a remote restart from the CLI with:
+If all else fails and you wish to restart all running instances of your App you can perform a remote restart from the CLI with:
 
 ```bash
 $ convox restart -a app1

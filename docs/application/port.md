@@ -15,7 +15,7 @@ services:
     port: 3000
 ```
 
-Your service should listen for HTTP requests on this port.
+Your Service should listen for HTTP requests on this port.
 
 ### End-to-End Encryption
 

@@ -7,21 +7,21 @@ description: "How Convox uses AWS ALB to route traffic, distribute load, enable 
 
 ## High Level Overview
 
-When creating a Rack in your cloud infrastructure, Convox will automatically create a Load Balancer to route traffic to the apps that you will deploy there. In AWS, an ALB will be created for this purpose, along with a separate ALB dedicated to handling traffic to the Rack API.
+When creating a Rack in your cloud infrastructure, Convox will automatically create a Load Balancer to route traffic to the Apps that you will deploy there. In AWS, an ALB will be created for this purpose, along with a separate ALB dedicated to handling traffic to the Rack API.
 
-If you have any [internal services](/networking/internal-services) running - and have enabled it - an extra Load Balancer will be created exclusively for the internal traffic.
+If you have any [internal Services](/networking/internal-services) running - and have enabled it - an extra Load Balancer will be created exclusively for the internal traffic.
 
-When you first deploy your app, Convox will use your configuration provided in the `convox.yml` to set up the Load Balancer rules to route traffic to your app, based on the originating domain.
+When you first deploy your App, Convox will use your configuration provided in the `convox.yml` to set up the Load Balancer rules to route traffic to your App, based on the originating domain.
 
-The Load Balancer will also check the health of your services, based on the [health check](/application/health-checks) information you provide.
+The Load Balancer will also check the health of your Services, based on the [health check](/application/health-checks) information you provide.
 
 ### Traffic Balancing and Scaling
 
-The Load Balancer will distribute incoming requests amongst the currently healthy instances of your service evenly.  If you have [automatic scaling rules](/scaling/scaling#service-autoscaling) configured for your app, then as the load grows on your backend instances, and scaling thresholds are reached, then new instances will be automatically spun up and, once healthy, brought into the pool of available instances for the Load Balancer to direct traffic to.  During times when load decreases, then unnecessary instances will be spun down and traffic redirected as appropriate.
+The Load Balancer will distribute incoming requests amongst the currently healthy instances of your Service evenly.  If you have [automatic scaling rules](/scaling/scaling#service-autoscaling) configured for your App, then as the load grows on your backend instances, and scaling thresholds are reached, then new instances will be automatically spun up and, once healthy, brought into the pool of available instances for the Load Balancer to direct traffic to.  During times when load decreases, then unnecessary instances will be spun down and traffic redirected as appropriate.
 
 ### Sticky Sessions
 
-If your client supports sticky sessions and wishes to utilise it, sticky sessions are enabled by default.  The ALB will generate an `AWSALB` named cookie that is returned with the first response from a backend app to the client.  If that cookie is passed back by the client on subsequent requests, the ALB will attempt to route the request to the same backend instance.  If it unable to, then the ALB will attempt to route the request to another available backend instance.  If you wish to disable sticky sessions, you can do so within your [`convox.yml`](/application/services#sticky).
+If your client supports sticky sessions and wishes to utilise it, sticky sessions are enabled by default.  The ALB will generate an `AWSALB` named cookie that is returned with the first response from a backend App to the client.  If that cookie is passed back by the client on subsequent requests, the ALB will attempt to route the request to the same backend instance.  If it unable to, then the ALB will attempt to route the request to another available backend instance.  If you wish to disable sticky sessions, you can do so within your [`convox.yml`](/application/services#sticky).
 
 ### Rolling Deployments
 
@@ -31,7 +31,7 @@ The Load Balancer will continue to route traffic to healthy instances throughout
 
 ### Limitations
 
-Currently, AWS ALBs have a 100 rule limit. Because of this, there is a limit to the number of routable apps that should be deployed on any one Rack. If you run out of available rules on your load balancer, spread your apps across multiple Racks to overcome this limitation. Alternatively change the [InternalDomains](/reference/app-parameters/InternalDomains) app parameter to disable the internal domains from utilising some of those rules.
+Currently, AWS ALBs have a 100 rule limit. Because of this, there is a limit to the number of routable Apps that should be deployed on any one Rack. If you run out of available rules on your load balancer, spread your Apps across multiple Racks to overcome this limitation. Alternatively change the [InternalDomains](/reference/app-parameters/InternalDomains) app parameter to disable the internal domains from utilising some of those rules.
 
 ## Finding Your Load Balancer Hostname
 
@@ -59,12 +59,12 @@ HTTP traffic is automatically redirected to HTTPS by default. To allow plain HTT
 
 ## Internal Load Balancers
 
-For services that should only be reachable within your VPC (not from the public internet), Convox supports internal load balancers:
+For Services that should only be reachable within your VPC (not from the public internet), Convox supports internal load balancers:
 
 - Set the [Internal](/reference/rack-parameters/Internal) rack parameter to `Yes` to enable an internal load balancer alongside the public one.
 - Set [InternalOnly](/reference/rack-parameters/InternalOnly) to `Yes` if you want the Rack to only support internal applications (no public-facing load balancer).
 
-Internal services are configured in your `convox.yml` using the `internal: true` directive. See [Internal Services](/networking/internal-services) for details.
+Internal Services are configured in your `convox.yml` using the `internal: true` directive. See [Internal Services](/networking/internal-services) for details.
 
 ## TCP and TLS Services (NLB)
 
@@ -72,7 +72,7 @@ The ALB handles HTTP, HTTPS, and gRPC traffic. Services that need to expose raw 
 
 ## Health Check Integration
 
-The ALB continuously monitors the health of your service containers using the [health check](/application/health-checks) path and interval defined in your `convox.yml`. Only containers passing health checks receive traffic from the load balancer. During [rolling deployments](/deployment/rolling-updates), new containers must pass their health check before the ALB routes traffic to them.
+The ALB continuously monitors the health of your Service containers using the [health check](/application/health-checks) path and interval defined in your `convox.yml`. Only containers passing health checks receive traffic from the load balancer. During [rolling deployments](/deployment/rolling-updates), new containers must pass their health check before the ALB routes traffic to them.
 
 ## Access Control
 

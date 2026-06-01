@@ -45,7 +45,7 @@ To install a private Rack into an existing VPC:
    - `SubnetPrivate1CIDR=172.0.5.0/24`
    - `SubnetPrivate2CIDR=172.0.6.0/24`
    - `VPCCIDR=172.0.0.0/16`
-3. If you want a Private rack, also add `Private=Yes`.
+3. If you want a Private Rack, also add `Private=Yes`.
 
 Even when running in non-private mode (`Private=No`) we still use private subnets for creating endpoints with some AWS services, so don't forget to specify them.
 

@@ -7,14 +7,14 @@ description: "Set up availability monitoring, CloudWatch dashboards, alarms, and
 
 Once you have an App running on Convox, setting up monitoring can help you keep it running smoothly. As a starting point, the following baseline monitoring coverage is recommended when using Convox:
 
-1. [Set up availability monitoring](#set-up-availability-monitoring) to be notified if your app stops responding.
-1. [Create a CloudWatch Dashboard](#create-a-cloudwatch-dashboard) to help track multiple metrics of your app.
-1. [Create CloudWatch Alarms](#create-cloudwatch-alarms) to be notified of critical changes to your app's metrics.
+1. [Set up availability monitoring](#set-up-availability-monitoring) to be notified if your App stops responding.
+1. [Create a CloudWatch Dashboard](#create-a-cloudwatch-dashboard) to help track multiple metrics of your App.
+1. [Create CloudWatch Alarms](#create-cloudwatch-alarms) to be notified of critical changes to your App's metrics.
 1. [Track CloudWatch Metrics](#track-cloudwatch-metrics) to keep tabs on your database, etc.
 
 ## Set up availability monitoring
 
-Let's say your app runs at example.com. By having a third-party service like [Pingdom](https://www.pingdom.com) send an HTTP request to example.com at frequent intervals, you can ensure that you'll be notified as soon as part of your system fails. Whether you are having problems with your infrastructure, database, web application, or DNS, simple availability monitoring can be used to help you catch many major problems quickly.
+Let's say your App runs at example.com. By having a third-party service like [Pingdom](https://www.pingdom.com) send an HTTP request to example.com at frequent intervals, you can ensure that you'll be notified as soon as part of your system fails. Whether you are having problems with your infrastructure, database, web application, or DNS, simple availability monitoring can be used to help you catch many major problems quickly.
 
 We recommend using an availability monitoring service not run on AWS so that an AWS outage doesn't leave you blind to the problem.
 
@@ -28,25 +28,25 @@ We recommend using an availability monitoring service not run on AWS so that an 
 
 Sometimes it's hard to diagnose a problem without stepping back and looking at the bigger picture. By creating a CloudWatch Dashboard that tracks multiple metrics of your application over time, you can spot abnormalities, warning signs, bottlenecks, and more.
 
-To set up a CloudWatch Dashboard with a single widget that tracks CPU and memory utilization of a given app, follow these instructions:
+To set up a CloudWatch Dashboard with a single widget that tracks CPU and memory utilization of a given App, follow these instructions:
 
 1. Visit your CloudWatch console and navigate to Dashboards.
 1. Click the "Create Dashboard" button.
 1. Enter a name for the new dashboard. Consider `<rack-name>-<app-name>`, e.g. production-site.
 1. Select the "Metric graph" widget type.
 1. From the ECS Metrics category, select "ClusterName,ServiceName."
-1. Select the CPUUtilization and MemoryUtilization graphs for the service you'd like to monitor. For example, if you wanted to monitor the `web` process of a `foo-bar` app that is running in your `production` Rack, the service name would look like `production-foo-bar-ServiceWeb-B3YF4EMQCN89`.
+1. Select the CPUUtilization and MemoryUtilization graphs for the Service you'd like to monitor. For example, if you wanted to monitor the `web` process of a `foo-bar` app that is running in your `production` Rack, the service name would look like `production-foo-bar-ServiceWeb-B3YF4EMQCN89`.
 1. Click the "Create widget" button.
 1. Consider resizing the widget (by dragging the bottom right corner) for better readability.
 
 ## Create CloudWatch Alarms
 
-If, in addition to being able to monitor your new CloudWatch Dashboard, you'd like to be notified any time a certain metric enters a specific range of values, you can set up a CloudWatch Alarm. For example, if you want to be emailed when your app exceeds an average CPU utilization of 95% for a period of 30 minutes, you could set up that CloudWatch Alarm by taking the following steps:
+If, in addition to being able to monitor your new CloudWatch Dashboard, you'd like to be notified any time a certain metric enters a specific range of values, you can set up a CloudWatch Alarm. For example, if you want to be emailed when your App exceeds an average CPU utilization of 95% for a period of 30 minutes, you could set up that CloudWatch Alarm by taking the following steps:
 
 1. Visit your CloudWatch console and navigate to Alarms.
 1. Click the "Create Alarm" button.
 1. From the ECS Metrics category, select "ClusterName,ServiceName."
-1. Select CPUUtilization for the service you'd like to monitor. For example, if you wanted to monitor the `web` process of a `foo-bar` app that is running in your `production` Rack, the service name would look like `production-foo-bar-ServiceWeb-B3YF4EMQCN89`.
+1. Select CPUUtilization for the Service you'd like to monitor. For example, if you wanted to monitor the `web` process of a `foo-bar` app that is running in your `production` Rack, the service name would look like `production-foo-bar-ServiceWeb-B3YF4EMQCN89`.
 1. Click the "Next" button to move to the "Define Alarm" step.
 1. In the Alarm Threshold section, specify a name like "High CPU utilization," and then fill out the inputs to complete the phrase, "Whenever CPUUtilization is > 90 for 2 consecutive periods."
 1. In the Actions section, next to "Send notification to:," click "New list," then enter a new notification list topic name and the email addresses that should be notified. Note that this will result in the creation of a new SNS Topic.

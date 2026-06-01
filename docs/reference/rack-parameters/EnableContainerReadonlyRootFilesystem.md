@@ -22,7 +22,7 @@ When enabled, the container's root filesystem is mounted as read-only. Any attem
 
 Applications that need to write temporary files should use writable [volumes](/application/volumes) or the `/tmp` directory (if mounted as a `tmpfs`). Review your application's file I/O patterns before enabling this parameter to avoid unexpected failures.
 
-This setting is configured at the Rack level and pushed to all application stacks during deployment. It cannot be selectively enabled for individual services within an app.
+This setting is configured at the Rack level and pushed to all application stacks during deployment. It cannot be selectively enabled for individual Services within an App.
 
 ```bash
 $ convox rack params set EnableContainerReadonlyRootFilesystem=Yes

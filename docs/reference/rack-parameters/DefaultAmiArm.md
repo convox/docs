@@ -5,12 +5,12 @@ description: "Defines the default ECS-optimized AMI used for ARM64-based Convox 
 
 # DefaultAmiArm
 
-Default Amazon Machine Image (AMI) for ARM64-based Rack instances. This ensures ARM-based racks always use the latest ECS-optimized AMI unless manually overridden.
+Default Amazon Machine Image (AMI) for ARM64-based Rack instances. This ensures ARM-based Racks always use the latest ECS-optimized AMI unless manually overridden.
 
 | Default value  | `/aws/service/ecs/optimized-ami/amazon-linux-2/arm64/recommended/image_id` |
 | Allowed values | AWS SSM AMI path (e.g., `/aws/service/ecs/optimized-ami/amazon-linux-2023/arm64/recommended/image_id`) |
 
-If your rack runs on **ARM64 architecture**, it will use the **Amazon Linux 2 (AL2) ARM64 ECS-optimized AMI** by default. You can switch to **Amazon Linux 2023 for ARM** by setting:
+If your Rack runs on **ARM64 architecture**, it will use the **Amazon Linux 2 (AL2) ARM64 ECS-optimized AMI** by default. You can switch to **Amazon Linux 2023 for ARM** by setting:
 
 ```bash
 $ convox rack params set DefaultAmiArm="/aws/service/ecs/optimized-ami/amazon-linux-2023/arm64/recommended/image_id"
@@ -20,9 +20,9 @@ If the `Ami` rack parameter is set, `DefaultAmiArm` will be ignored, and the exp
 
 ## Use Cases
 
-- Upgrade ARM64 racks to Amazon Linux 2023 for extended support and updated packages.
+- Upgrade ARM64 Racks to Amazon Linux 2023 for extended support and updated packages.
 - Run cost-efficient Graviton-based instances (e.g., `t4g`, `m6g`, `c7g`) with the correct ARM-optimized AMI.
-- Test a new ARM64 AMI path before applying it across production racks.
+- Test a new ARM64 AMI path before applying it across production Racks.
 
 ## Additional Information
 

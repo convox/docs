@@ -23,7 +23,7 @@ The basic steps are:
 
 - If you haven't already you will need to [sign up](https://console.convox.com/signup)
 - Install the [Convox CLI](/introduction/installation) on your local computer
-- Install a [local rack](/development/running-locally)
+- Install a [local Rack](/development/running-locally)
 - [Connect your AWS account to Convox](/console/aws-integration)
 
 ## Containerize Your Application
@@ -43,14 +43,14 @@ COPY . /myapp
 
 ## Write Your Convox Manifest
 
-All of our [sample applications](https://github.com/convox-examples/) have sample [convox.yml](/application/convox-yml) files that you can copy. For a typical application that is running on heroku you will define a single database [resource](/application/resources) such as postgres and a primary [service](/application/services) for your application. The key fields to set are:
+All of our [sample applications](https://github.com/convox-examples/) have sample [convox.yml](/application/convox-yml) files that you can copy. For a typical application that is running on heroku you will define a single database [resource](/application/resources) such as postgres and a primary [Service](/application/services) for your application. The key fields to set are:
 
 | Field | Value | Notes |
 |-------|-------|-------|
 | `resources` | a database such as `postgres` | Maps to your Heroku add-on database |
 | `build` | `.` | Instructs Convox to build the current directory |
 | `command` | the command from your Procfile | Whatever you currently run as your web process |
-| `port` | the port your app listens on | The service exposes this port |
+| `port` | the port your App listens on | The Service exposes this port |
 
 Again for a simple rails app your `convox.yml` might look like:
 
@@ -69,17 +69,17 @@ services:
 
 ## Run Your Application Locally
 
-One of the great advantages of Convox is the built in [local development environment](/development/running-locally) that mimics your production environment. This means no more dealing with setting up your dev environment every time you get a new laptop or add a new team member. It also means no more "it works on my machine" problems. To run locally, type `convox start` in a terminal window from your the base directory for your application. Open another terminal and run `convox switch local` followed by `convox services` to find the URL of your locally running app.
+One of the great advantages of Convox is the built in [local development environment](/development/running-locally) that mimics your production environment. This means no more dealing with setting up your dev environment every time you get a new laptop or add a new team member. It also means no more "it works on my machine" problems. To run locally, type `convox start` in a terminal window from your the base directory for your application. Open another terminal and run `convox switch local` followed by `convox services` to find the URL of your locally running App.
 
 ## Deploy To Convox
 
-Once you have your app running locally and everything looks good it's time to deploy. First make sure you have created a [production rack](/introduction/getting-started#rack-installation), then:
+Once you have your App running locally and everything looks good it's time to deploy. First make sure you have created a [production Rack](/introduction/getting-started#rack-installation), then:
 
-1. List your racks with `convox racks`.
-2. Switch to your production rack with `convox switch [rack name]`.
+1. List your Racks with `convox racks`.
+2. Switch to your production Rack with `convox switch [rack name]`.
 3. Create an application with `convox apps create --wait`.
 4. Deploy with `convox deploy --wait`.
-5. Once complete, grab the load balancer hostname for your app with `convox services`.
+5. Once complete, grab the load balancer hostname for your App with `convox services`.
 
 ## (Optional) Migrate Heroku Scheduler Jobs To Timers
 
@@ -114,14 +114,14 @@ For the purposes of this example we will assume you are using Postgres as your d
 
 Now that you are sure everything is running correctly on Convox it's time to make the production switch. There will be some small amount of downtime associated with the move so you will likely want to plan your move during off hours and make whatever preparations are appropriate for your application to be down for a short period of time. Once you are all set here are the steps:
 
-1. (1 day ahead) Lower the TTL for the DNS host record that you are going to migrate. For example if your app's URL is www.mycompany.com then you are going to want to go to your DNS provider and lower the TTL for the A record or Cname for www.mycompany.com to something short (typically 60 seconds is reasonable). You can see instructions for how to do this with AWS route 53 [here](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html#rrsets-values-basic-ttl). This will ensure that your DNS change propagates as quickly as possible.
+1. (1 day ahead) Lower the TTL for the DNS host record that you are going to migrate. For example if your App's URL is www.mycompany.com then you are going to want to go to your DNS provider and lower the TTL for the A record or Cname for www.mycompany.com to something short (typically 60 seconds is reasonable). You can see instructions for how to do this with AWS route 53 [here](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-basic.html#rrsets-values-basic-ttl). This will ensure that your DNS change propagates as quickly as possible.
 2. (1 day ahead) Create a certificate. Use `convox certs generate <domain>` to have Convox generate a certificate for your domain. Have your AWS account administrator be on the lookout for a certificate approval email from AWS and make sure they approve it.
 3. (1 day ahead) Update the [domain](/deployment/custom-domains) section of your `convox.yml` to the hostname you are migrating (ex: www.mycompany.com) and redeploy your Convox application.
 4. (right before you are ready to make the switch) Disable any [heroku scheduler jobs](https://devcenter.heroku.com/articles/scheduler) you may have. This will ensure that nothing writes to your Heroku database once you have put your app in maintenance mode. You can always recreate these jobs using [timers](#optional-migrate-heroku-scheduler-jobs-to-timers) in Convox.
 5. Put your heroku app in [maintenance mode](https://devcenter.heroku.com/articles/maintenance-mode). At this point your Heroku application will be offline.
 6. If you have any [worker dynos](https://devcenter.heroku.com/articles/background-jobs-queueing) you will want to give them a few seconds to complete any open tasks and then scale them down to zero.
 7. Follow the database migration steps outlined [above](#migrate-your-data).
-8. Grab the router value for your convox rack using `convox rack` and update the CNAME record for your desired url (ex: www.mycompany.com) to [point to that location](/deployment/custom-domains#configuring-dns).
+8. Grab the router value for your convox Rack using `convox rack` and update the CNAME record for your desired url (ex: www.mycompany.com) to [point to that location](/deployment/custom-domains#configuring-dns).
 9. Wait a few minutes for your DNS to update (you may need to flush your DNS cache on your computer) and verify that your site is live.
 
 Congratulations you are migrated to Convox! Enjoy those much smaller hosting bills.

@@ -13,7 +13,7 @@ The number of EC2 instances in your Rack cluster. This parameter is only used fo
 ## Use Cases
 
 - Increasing instance count to handle higher application workloads or run more containers
-- Setting to a higher value when deploying multiple services that require dedicated instance capacity
+- Setting to a higher value when deploying multiple Services that require dedicated instance capacity
 - Adjusting alongside [Autoscale](/reference/rack-parameters/Autoscale) to set a minimum floor for the cluster size
 
 ## Additional Information

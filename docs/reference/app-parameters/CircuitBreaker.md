@@ -20,7 +20,7 @@ ECS deployment circuit breaker. When enabled, ECS automatically rolls back deplo
 
 The ECS deployment circuit breaker monitors the health of tasks during a deployment. If new tasks fail to reach a steady state, ECS will automatically stop the deployment and optionally roll back to the last completed deployment.
 
-The circuit breaker can be overly aggressive in environments where new instances need to be launched to accommodate the deployment. In these cases, the time required for new EC2 instances to join the cluster may exceed the circuit breaker's failure threshold, causing a premature rollback. To avoid this, ensure your Rack has enough spare capacity before enabling this parameter, or use Fargate-based services where capacity provisioning is faster.
+The circuit breaker can be overly aggressive in environments where new instances need to be launched to accommodate the deployment. In these cases, the time required for new EC2 instances to join the cluster may exceed the circuit breaker's failure threshold, causing a premature rollback. To avoid this, ensure your Rack has enough spare capacity before enabling this parameter, or use Fargate-based Services where capacity provisioning is faster.
 
 ```bash
 $ convox apps params set CircuitBreaker=Yes

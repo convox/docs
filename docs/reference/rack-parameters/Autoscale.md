@@ -14,7 +14,7 @@ When enabled, the Rack automatically adjusts the number of EC2 instances based o
 
 ## Use Cases
 
-- Keeping enabled (default) so the Rack automatically adds instances when deploying new services or scaling up processes
+- Keeping enabled (default) so the Rack automatically adds instances when deploying new Services or scaling up processes
 - Disabling for Racks where you want full manual control over instance count, such as cost-sensitive environments with predictable workloads
 - Disabling temporarily during maintenance operations to prevent unwanted scaling events
 

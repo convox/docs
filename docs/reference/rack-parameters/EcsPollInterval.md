@@ -5,15 +5,15 @@ description: "Controls how frequently the Convox Rack polls ECS for service even
 
 # EcsPollInterval
 
-How often (in seconds) to poll ECS for service updates (to inject into the app logs).
+How often (in seconds) to poll ECS for service updates (to inject into the App logs).
 
 | Default value  | `1` |
 
 ## Use Cases
 
-- Increase the polling interval if you experience ECS API rate limiting or throttling, especially on racks with many services.
+- Increase the polling interval if you experience ECS API rate limiting or throttling, especially on Racks with many Services.
 - Reduce to sub-second if faster event visibility is needed (note: the minimum effective value is `1`).
-- Set to a higher value (e.g., `5` or `10`) on large racks to reduce the number of ECS API calls and stay within AWS service limits.
+- Set to a higher value (e.g., `5` or `10`) on large Racks to reduce the number of ECS API calls and stay within AWS service limits.
 
 ## Additional Information
 
