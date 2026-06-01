@@ -27,7 +27,7 @@ WordPress is a popular PHP blogging platform. It expects a persistent filesystem
 ```yaml
 services:
   web:
-    image: wordpress:4.5.2-apache
+    image: wordpress:7-apache
     port: 80
     volumes:
       - /var/www/html

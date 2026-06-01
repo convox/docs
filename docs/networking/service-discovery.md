@@ -28,7 +28,9 @@ services:
       - web
 ```
 
-This would set an `WEB_URL` environment variable on the `worker` service pointing at the load balancer for the `web` service.  No matter where or how many `web` service instances are deployed, the `worker` instances will be able to access them via the load balancer.
+This would set a `WEB_URL` environment variable on the `worker` service pointing at the load balancer for the `web` service. The variable name is the linked service name uppercased with hyphens converted to underscores (for example `api` becomes `API_URL`), and its value is the linked service's load balancer URL `https://<app>-<service>.<RouterHost>` (or `<RouterInternalHost>` when the linked service is internal). No matter where or how many `web` service instances are deployed, the `worker` instances will be able to access them via the load balancer.
+
+This link-injected `<SERVICE>_URL` is distinct from the variables injected by [resources](/application/resources), which set `<NAME>_URL`, `<NAME>_USER`, `<NAME>_PASS`, `<NAME>_HOST`, `<NAME>_PORT`, and `<NAME>_NAME`.
 
 ## To Discover Services/Apps on the Same Rack
 

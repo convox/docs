@@ -102,6 +102,5 @@ $ convox rack params set SyslogFormat=rfc5424micro
 ## See Also
 
 - [Logs](/management/logs)
-- [Papertrail Integration](/integrations/papertrail)
 - [Datadog Integration](/integrations/datadog)
 - [Rack Parameters](/reference/rack-parameters)

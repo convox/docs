@@ -9,16 +9,14 @@ You can deploy to Convox using our [GitHub Actions](https://github.com/marketpla
 
 ## Available Actions
 Convox provides a full set of Actions to enable a wide variety of deployment workflows. The following actions are available:
-### [Deploy](https://github.com/convox/action-deploy)
-Authenticates, builds, and deploys in a single step
-### [Login](https://github.com/convox/action-login)
-Authenticates your Convox account. You should run this action as the first step in your workflow
-### [Build](https://github.com/convox/action-build)
-Builds an app and creates a release which can be promoted later
-### [Run](https://github.com/convox/action-run)
-Runs a command (such as a migration) using a previously built release before or after it is promoted
-### [Promote](https://github.com/convox/action-promote)
-Promotes a release
+
+| Action | Purpose |
+|--------|---------|
+| [Deploy](https://github.com/convox/action-deploy) | Authenticates, builds, and deploys in a single step |
+| [Login](https://github.com/convox/action-login) | Authenticates your Convox account. You should run this action as the first step in your workflow |
+| [Build](https://github.com/convox/action-build) | Builds an app and creates a release which can be promoted later |
+| [Run](https://github.com/convox/action-run) | Runs a command (such as a migration) using a previously built release before or after it is promoted |
+| [Promote](https://github.com/convox/action-promote) | Promotes a release |
 
 
 ## Adding a GitHub Workflow to Your Repository
@@ -47,9 +45,10 @@ jobs:
         password: ${{ secrets.CONVOX_DEPLOY_KEY }}
 ```
 The steps are very simple.
-* Trigger on push
-* Checkout the latest code
-* Run the Convox Deploy Action
+
+1. Trigger on push.
+2. Checkout the latest code.
+3. Run the Convox Deploy Action.
 ## More Advanced Workflows
 You can create more advanced workflows by combining the [individual Convox GitHub Actions](#available-actions). For example, if we want to build the same Rails app but run migrations before promoting we would a create a `deployment.yml` that looks something like
 ```yaml
@@ -74,7 +73,7 @@ jobs:
         rack: staging
         app: myrailsapp
     - name: migrate
-      id:migrate
+      id: migrate
       uses: convox/action-run@v1
       with:
         rack: staging
@@ -90,13 +89,14 @@ jobs:
         app: myrailsapp
         release: ${{ steps.build.outputs.release }}
 ```
-In this case the steps are as follows
-* Trigger on push
-* Checkout the latest code
-* Authenticate with the [`login`](#loginhttpsgithubcomconvoxaction-login) action
-* Build with the [`build`](#buildhttpsgithubcomconvoxaction-build) action
-* Run our migrations with the [`run`](#runhttpsgithubcomconvoxaction-run) action using the `release` output variable from the build step to target that specific release for our run
-* Promote our release with the [`promote`](#promotehttpsgithubcomconvoxaction-promote) action also using the `release` output variable from the build step
+In this case the steps are as follows:
+
+1. Trigger on push.
+2. Checkout the latest code.
+3. Authenticate with the [`login`](#available-actions) action.
+4. Build with the [`build`](#available-actions) action.
+5. Run our migrations with the [`run`](#available-actions) action using the `release` output variable from the build step to target that specific release for our run.
+6. Promote our release with the [`promote`](#available-actions) action also using the `release` output variable from the build step.
 
 Remember to check and use the latest version available.
 

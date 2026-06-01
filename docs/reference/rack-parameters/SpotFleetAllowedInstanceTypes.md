@@ -11,12 +11,6 @@ Comma-separated list of allowed instance types in the Spot Fleet. This parameter
 
 Wildcard patterns are supported. Examples: `m5.8xlarge`, `c5*.*`, `m5a.*`, `r*`, `*3*`.
 
-## Use Cases
-
-- Restricting the Spot Fleet to specific instance families (e.g., `m5.*`, `c5.*`) that are known to work well with your workloads
-- Limiting to instances with specific hardware capabilities such as enhanced networking or NVMe storage
-- Targeting only current-generation instance types to ensure consistent performance
-
 ## Additional Information
 
 When this parameter is blank (the default), the Spot Fleet considers all instance types that meet the minimum resource requirements defined by [SpotFleetMinMemoryMiB](/reference/rack-parameters/SpotFleetMinMemoryMiB) and [SpotFleetMinVcpuCount](/reference/rack-parameters/SpotFleetMinVcpuCount).
@@ -28,6 +22,12 @@ This parameter only takes effect when Spot Fleet is enabled via [SpotFleetMaxPri
 ```bash
 $ convox rack params set SpotFleetAllowedInstanceTypes="m5.large,m5.xlarge,c5.large"
 ```
+
+## Use Cases
+
+- Restricting the Spot Fleet to specific instance families (e.g., `m5.*`, `c5.*`) that are known to work well with your workloads
+- Limiting to instances with specific hardware capabilities such as enhanced networking or NVMe storage
+- Targeting only current-generation instance types to ensure consistent performance
 
 ## See Also
 

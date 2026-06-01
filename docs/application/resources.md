@@ -7,6 +7,8 @@ description: "Define and configure network-attached dependencies such as databas
 
 A resource is a network-attached dependency of your application.
 
+Resources are declared in `convox.yml`, the gen2 manifest format that is the current, actively-developed generation; the legacy gen1 format is End-of-Life and is not covered here.
+
 ## Definition
 
 Here we define a resource called `mydb` that is a Postgres database with 100GB of storage, and we then link it to our `web` service, which will be given an [env var](#accessing-resources) to connect to the database:
@@ -57,16 +59,61 @@ services:
       - cache
 ```
 
+## Accessing Resources
 
+You can access defined resources from services with environment variables.
+In the above example, the `mydb` resource provides a `MYDB_URL` variable that is accessible from the `web` service.
+
+The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.
+
+This would contain the entire connection string you would need, ie:
+
+```text
+MYDB_URL=postgres://username:password@host.com:5432/databaseName
+```
+
+### Additional credentials
+*Available in rack version **20221013170042 or later***
+
+You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, `_PASS`, `_HOST`, `_PORT`, `_NAME`.
+
+Using the example above, the resource name `mydb` will provide the following environment variable:
+
+```text
+MYDB_USER=username
+MYDB_PASS=password
+MYDB_HOST=host.com
+MYDB_PORT=5432
+MYDB_NAME=databaseName
+```
+
+### Dynamic Configuration
+
+If you'd like to make your resource configuration variable (e.g. to produce different results between environments like staging vs production) you can use environment variable interpolation:
+
+```yaml
+resources:
+  mydb:
+    type: postgres
+    options:
+      storage: ${POSTGRES_STORAGE_SIZE}
+    tags:
+      Environment: ${ENVIRONMENT}
+```
+
+```bash
+$ convox env set POSTGRES_STORAGE_SIZE=50 ENVIRONMENT=staging --rack=acme/staging
+$ convox env set POSTGRES_STORAGE_SIZE=200 ENVIRONMENT=production --rack=acme/production
+```
 
 ## Read Replica Support
 *Available in rack version **20240513194424 or later***
 
-Read replicas allow you to scale out read-heavy workloads by creating **read-only copies** of an existing database. This helps distribute database traffic, improve performance, and enhance application scalability without affecting the primary database.
+Read replicas allow you to scale out read-heavy workloads by creating read-only copies of an existing database. This helps distribute database traffic, improve performance, and enhance application scalability without affecting the primary database.
 
 ### Defining a Read Replica
 
-To create a read replica using Convox resources, reference an existing database as the `readSourceDB` in your `convox.yml` file. The source database **must exist** before deploying a read replica.
+To create a read replica using Convox resources, reference an existing database as the `readSourceDB` in your `convox.yml` file. The source database must exist before deploying a read replica.
 
 #### How to Set `readSourceDB`
 
@@ -76,7 +123,7 @@ The value for `readSourceDB` follows this format:
 #convox.resources.<source-database-name>
 ```
 
-The **`#convox.resources.`** prefix is constant, and the **`<source-database-name>`** must match the name of the database resource you want to replicate. For example, if your primary database resource is named `maindb`, then the correct `readSourceDB` reference would be:
+The `#convox.resources.` prefix is constant, and the `<source-database-name>` must match the name of the database resource you want to replicate. For example, if your primary database resource is named `maindb`, then the correct `readSourceDB` reference would be:
 
 ```yaml
 readSourceDB: "#convox.resources.maindb"
@@ -84,26 +131,23 @@ readSourceDB: "#convox.resources.maindb"
 
 ### Configurable Read Replica Options
 
-While read replicas inherit most configurations from their primary database, certain parameters **can be adjusted**:
+While read replicas inherit most configurations from their primary database, certain parameters can be adjusted. The following constraints apply:
 
-#### Encryption Rules
-- If the primary database is **unencrypted**, the read replica **must** also be **unencrypted**.
-- If the primary database is **encrypted**, the read replica can be **either encrypted or unencrypted**.
-- **You cannot create an encrypted read replica from an unencrypted primary database.**
-
-#### Storage Capacity Rules
-- A read replica **can have more storage than the primary database**, but **not less**.
-- **Storage capacity cannot be reduced** once allocated.
-
-#### Multi-AZ Failover (`durable`)
-- **Multi-AZ failover is optional** for read replicas.
-- A read replica **is not required** to have `durable: true`, even if the primary database does.
+| Area | Constraint |
+|------|------------|
+| Encryption | If the primary database is unencrypted, the read replica must also be unencrypted. |
+| Encryption | If the primary database is encrypted, the read replica can be either encrypted or unencrypted. |
+| Encryption | You cannot create an encrypted read replica from an unencrypted primary database. |
+| Storage capacity | A read replica can have more storage than the primary database, but not less. |
+| Storage capacity | Storage capacity cannot be reduced once allocated. |
+| Multi-AZ failover (`durable`) | Multi-AZ failover is optional for read replicas. |
+| Multi-AZ failover (`durable`) | A read replica is not required to have `durable: true`, even if the primary database does. |
 
 ### Important: Ensure the Database Version Matches
 
-When creating a read replica, it is **mandatory** to explicitly set the **same database version** as the primary database. A mismatch can lead to **deployment failures** or **unexpected behavior**. 
+When creating a read replica, it is mandatory to explicitly set the same database version as the primary database. A mismatch can lead to deployment failures or unexpected behavior.
 
-Always ensure the `version` field in the read replica **matches the source database exactly**.
+Always ensure the `version` field in the read replica matches the source database exactly.
 
 ### Example Configuration
 
@@ -137,9 +181,9 @@ resources:
 
 ### Converting a Read Replica to an Active Database
 
-If you want to convert a read replica into an independent database, remove the `readSourceDB` option from `convox.yml` and redeploy the application. This process **does not affect** the original primary database, and the read replica retains the same name.
+If you want to convert a read replica into an independent database, remove the `readSourceDB` option from `convox.yml` and redeploy the application. This process does not affect the original primary database, and the read replica retains the same name.
 
-### EFS Resource
+## EFS Resource
 *Available in rack version **20221214201933 or later***
 
 
@@ -182,53 +226,6 @@ services:
       - sharedvolume:/app/dir
     resources:
       - sharedvolume
-```
-
-#### Dynamic Configuration
-
-If you'd like to make your resource configuration variable (e.g. to produce different results between environments like staging vs production) you can use environment variable interpolation:
-
-```yaml
-resources:
-  mydb:
-    type: postgres
-    options:
-      storage: ${POSTGRES_STORAGE_SIZE}
-    tags:
-      Environment: ${ENVIRONMENT}
-```
-
-```bash
-$ convox env set POSTGRES_STORAGE_SIZE=50 ENVIRONMENT=staging --rack=acme/staging
-$ convox env set POSTGRES_STORAGE_SIZE=200 ENVIRONMENT=production --rack=acme/production
-```
-
-## Accessing Resources
-
-You can access defined resources from services with environment variables.
-In the above example, the `mydb` resource provides a `MYDB_URL` variable that is accessible from the `web` service.
-
-The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.
-
-This would contain the entire connection string you would need, ie:
-
-```text
-MYDB_URL=postgres://username:password@host.com:5432/databaseName
-```
-
-### Additional credentials
-*Available in rack version **20221013170042 or later***
-
-You can also use the additional credentials to connect to the resource, the credentials will be provided in the environment variables with the resource name prefix and the following suffix: `_USER`, `_PASS`, `_HOST`, `_PORT`, `_NAME`.
-
-Using the example above, the resource name `mydb` will provide the following environment variable:
-
-```text
-MYDB_USER=username
-MYDB_PASS=password
-MYDB_HOST=host.com
-MYDB_PORT=5432
-MYDB_NAME=databaseName
 ```
 
 ## Available Resources

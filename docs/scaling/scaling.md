@@ -93,9 +93,9 @@ services:
 
 Setting scale targets for a service will cause the service autoscaler to dynamically adjust the number of running containers to meet the targets.
 
-- `cpu`: Average CPU utilization (%) across all instances
-- `memory`: Average Memory utilization (%) across all instances
-- `requests`: Requests per minute per process
+- `cpu`: Average CPU utilization (%) across all containers (`ECSServiceAverageCPUUtilization`)
+- `memory`: Average Memory utilization (%) across all containers (`ECSServiceAverageMemoryUtilization`)
+- `requests`: Average ALB request count per target (container) over the target-tracking window (`ALBRequestCountPerTarget`), with no per-minute normalization
 
 You can also use custom CloudWatch metrics to define scaling behavior:
 

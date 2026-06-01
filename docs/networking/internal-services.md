@@ -68,7 +68,9 @@ services:
     internal: true
 ```
 
-The `web` Service receives an `API_URL` environment variable pointing to the internal `api` Service endpoint.
+Declaring `links: [api]` auto-injects an `API_URL` environment variable into the `web` Service. The variable name is the linked Service name uppercased with hyphens converted to underscores (for example `api` becomes `API_URL`), and its value is the linked Service's load balancer URL `https://<app>-<service>.<RouterHost>`. Because `api` is internal, Convox substitutes `<RouterInternalHost>` instead, so the URL resolves to the internal ALB.
+
+This link-injected `<SERVICE>_URL` is distinct from the variables injected by `resources:`, which set `<NAME>_URL`, `<NAME>_USER`, `<NAME>_PASS`, `<NAME>_HOST`, `<NAME>_PORT`, and `<NAME>_NAME`.
 
 ## Internal and External Access
 

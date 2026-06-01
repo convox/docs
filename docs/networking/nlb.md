@@ -9,6 +9,23 @@ Convox v2 Racks can provision Network Load Balancers (NLBs) alongside the defaul
 
 NLBs are opt-in at the Rack level and again per-Service. The existing ALB routing is unaffected.
 
+NLB `nlb:` ports are configured in `convox.yml`, so this feature applies to gen2 Apps. The default ALB routing continues to serve every App on the Rack.
+
+## When to use NLB vs ALB
+
+The ALB is the default and serves most Services. Reach for an NLB only when a Service needs Layer 4 transport or a capability the ALB cannot provide.
+
+| Need | Use |
+|------|-----|
+| HTTP / HTTPS with host and path routing | ALB (default, no setup) |
+| Raw TCP for a non-HTTP protocol (MQTT, Redis, raw TCP gRPC, game-server) | NLB, `protocol: tcp` |
+| TLS termination on a non-HTTP port with an ACM or IAM certificate | NLB, `protocol: tls` |
+| A static IP per Availability Zone (Elastic IP) clients can target | NLB (public NLB allocates one EIP per AZ) |
+| The real client IP recorded at the backend rather than the load balancer address | NLB, `NLBPreserveClientIP=Yes` |
+| Ultra-low-latency Layer 4 pass-through | NLB |
+
+UDP is not supported. An `nlb:` port must use `protocol: tcp` or `protocol: tls`.
+
 ## Architecture
 
 A Rack can host up to two shared NLBs:
@@ -20,7 +37,11 @@ Each NLB is fronted by a dedicated security group (`NLBSecurity` for the public 
 
 Services opt in per-port via the [nlb:](/application/services#nlb) field in `convox.yml`. Each declared port becomes a dedicated Listener and TargetGroup on the appropriate Rack NLB.
 
-Within a single App's `convox.yml`, every NLB port must be unique across all Services regardless of scheme. The manifest validator rejects a second Service declaring the same port number, even if one is `public` and the other `internal`. Across Apps, the public NLB and internal NLB are separate AWS load balancers, so port 443 on App A's public listener and port 443 on App B's internal listener coexist without conflict. Two Apps claiming the same port on the *same* scheme is not caught at manifest time; the second deploy fails later at CloudFormation stack update (see "Two concurrent deploys" under Known Limitations).
+Port uniqueness rules:
+
+- **Within a single App's `convox.yml`**, every NLB port must be unique across all Services regardless of scheme. The manifest validator rejects a second Service declaring the same port number, even if one is `public` and the other `internal`.
+- **Across Apps on different schemes**, the public NLB and internal NLB are separate AWS load balancers, so port 443 on App A's public listener and port 443 on App B's internal listener coexist without conflict.
+- **Across Apps on the *same* scheme**, two Apps claiming the same port is not caught at manifest time; the second deploy fails later at CloudFormation stack update (see "Two concurrent deploys" under Known Limitations).
 
 ## Enabling the Rack NLBs
 
@@ -30,7 +51,11 @@ Updating parameters... NLB provisioning typically takes 5-10 minutes; check stat
 OK
 ```
 
-Before running this, verify your AWS account has Elastic IP quota headroom. A public NLB consumes 2 EIPs on a 2-AZ Rack or 3 EIPs on an HA 3-AZ Rack. If the Rack already has `Private=Yes` (which consumes 2-3 EIPs for NAT gateways), a `Private=Yes` HA 3-AZ Rack will need 6 EIPs total, above the AWS default of 5 per region.
+Before running this, verify your AWS account has Elastic IP quota headroom:
+
+- A public NLB consumes 2 EIPs on a 2-AZ Rack or 3 EIPs on an HA 3-AZ Rack.
+- `Private=Yes` separately consumes 2-3 EIPs for NAT gateways.
+- A `Private=Yes` HA 3-AZ Rack therefore needs 6 EIPs total, above the AWS default of 5 per region.
 
 ```bash
 $ aws service-quotas get-service-quota \

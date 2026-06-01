@@ -9,6 +9,10 @@ The RBAC feature allows you to define granular access control by assigning speci
 
 Users who have not been assigned a custom role retain a **Legacy Role** that preserves their original Console permissions. Organizations can create, test, and assign new roles at their own pace.
 
+RBAC is the newer access model. It replaces the fixed roles described in [Access Control](/console/access-control) with granular, custom roles. The two models coexist: a legacy user with full access maps to Administrator-equivalent permissions, while custom RBAC roles let you grant only the specific resources and actions a user needs.
+
+Custom RBAC roles require the Pro plan or higher. On the Pro plan and above, only the **Administrator** role grants full organization access, and other users can be scoped with fixed or custom roles. On plans below Pro, custom roles are not available and every user in the organization is effectively an **Administrator** with full access.
+
 > RBAC roles apply to both the Console and the CLI, ensuring unified permission management across interfaces.
 
 > Restrict write access to the **Roles** resource. If a user has write access to roles, they could potentially modify or escalate their own permissions, undermining the security of the RBAC configuration. Follow the principle of least privilege to mitigate this risk.
@@ -33,15 +37,15 @@ To assign a custom role to a user:
 
 To make role assignment easier, Convox provides a set of **pre-created roles**. These roles come with pre-configured permissions and are managed by Convox to cover common use cases and best practices for platform access. The managed roles apply to both the Console and CLI, ensuring consistent permissions across interfaces. These roles are cumulative, with each level adding more permissions than the last.
 
-### Administrator
+### DeveloperV2
 
-The **Administrator** role provides full access across all resources and permissions within the platform.
+The **DeveloperV2** role is focused on application development and deployment. This role grants control over applications while providing read-only visibility into certain organizational resources.
 
-An Administrator can:
-- **Write All Resources**: Full control over all platform resources, including:
-  - Billing
-  - Users
-  - Audit Logs
+A DeveloperV2 can:
+- **Write Applications**: Full control over application deployment and management.
+- **Read Dashboard**: View-only access to the organization dashboard.
+- **Read Jobs**: View-only access to job statuses and logs.
+- **Read Racks**: View-only access to rack details.
 
 ### OperatorV2
 
@@ -56,15 +60,15 @@ An OperatorV2 can:
 - **Read Dashboard**: View-only access to the organization dashboard.
 - **Read Jobs**: View-only access to job statuses and logs.
 
-### DeveloperV2
+### Administrator
 
-The **DeveloperV2** role is focused on application development and deployment. This role grants control over applications while providing read-only visibility into certain organizational resources.
+The **Administrator** role provides full access across all resources and permissions within the platform.
 
-A DeveloperV2 can:
-- **Write Applications**: Full control over application deployment and management.
-- **Read Dashboard**: View-only access to the organization dashboard.
-- **Read Jobs**: View-only access to job statuses and logs.
-- **Read Racks**: View-only access to rack details.
+An Administrator can:
+- **Write All Resources**: Full control over all platform resources, including:
+  - Billing
+  - Users
+  - Audit Logs
 
 ## Defining Role Permissions
 

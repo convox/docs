@@ -7,6 +7,8 @@ description: "Create and configure a Convox Application to deploy your codebase.
 
 An Application represents a single codebase deployed to a Convox Rack. Each App has its own set of Services, environment variables, and resources defined by a [convox.yml](/application/convox-yml) manifest.
 
+Convox applications use the `convox.yml` manifest for the current (gen2) generation, which is the default; gen1 (using `docker-compose.yml`) is End-of-Life.
+
 ## Creating an App
 
 Select the Rack where you want the Application to live, then create it:

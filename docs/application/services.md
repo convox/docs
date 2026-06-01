@@ -5,6 +5,10 @@ description: "Configure application services in convox.yml, including build sett
 
 # Services
 
+A service is a single container process in your application. Each service you define under `services:` in `convox.yml` maps to a container that Convox builds (or pulls), runs, scales, and routes traffic to. A typical app has a `web` service for HTTP traffic plus any number of worker, agent, or internal services.
+
+This page documents the keys you can set on a service in gen2 (`convox.yml`), the current and only actively developed generation. gen1 (`docker-compose.yml`) is End-of-Life.
+
 ## Definition
 
 ```yaml
@@ -39,31 +43,7 @@ services:
     privileged: true
 ```
 
-### agent
-
-The `agent` attribute may be used to define that this service should start one container on every instance.
-
-This is useful for services that gather metrics or perform other instance-level behaviors.
-
-You can use this attribute in one of two format:
-
-```yaml
-services:
-  monitor:
-    agent: true
-```
-
-or if your agent needs to open host-level ports then use this format:
-
-```yaml
-services:
-  datadog:
-    agent:
-      enabled: true
-      ports:
-        - 8125/udp
-        - 8126/tcp
-```
+## Image and Build
 
 ### build
 
@@ -89,55 +69,38 @@ services:
 
 If you don't specify a build path then `.` is used by default. The default manifest is `Dockerfile`.
 
-### command
-
-Override the default command for this service.
-
-### deployment
-
-Control the ECS minimum and maximum healthy-percent values that govern rolling deployments. Defaults are `minimum: 50` and `maximum: 200`, so up to 200% of desired capacity can run during a deploy, and at least 50% must remain healthy. Set both to `100` for strict in-place replacement (never more than desired, never less than desired - 1), or tune up for faster rollouts on services that tolerate extra concurrent containers.
-
-```yaml
-services:
-  web:
-    deployment:
-      minimum: 100
-      maximum: 200
-```
-
-For [agent](#agent) and [singleton](#singleton) services, the defaults are `minimum: 0` and `maximum: 100`, matching the replace-before-start behavior those modes require.
-
-### domain
-
-See [Custom Domains](/deployment/custom-domains)
-
-### drain
-
-Specifies the timeout in seconds during which connections are allowed to drain for a service before terminating during a rolling deploy. Defaults to `30`.
-
-### environment
-
-A list of strings that define the service's environment variables.
-
-A pair like `FOO=bar` creates an environment variable named `FOO` with a default value of `bar`.
-
-Defining a name without a value like `HOST` will require that variable to be set in the application's environment to deploy successfully.
-
-You should not configure secrets here, as they would be recorded in version control. For secrets, specify the variable name, then set the actual value using the CLI `convox env set` command.
-
-Only environment variables that are listed here will be provided to the service at runtime.
-
-### health
-
-See [Health Checks](/application/health-checks)
-
 ### image
 
 Use an external Docker image to back this service.
 
+### command
+
+Override the default command for this service.
+
 ### init
 
 Use a Docker-provided pid1 for intracontainer process management.
+
+## Networking
+
+### port
+
+Defines the port on which an HTTP service is listening.
+
+If you'd like to use end-to-end encryption, have your application listenin on HTTPS (self-signed certificates are fine) and prefix the port with `https:`
+
+If you'd like to run the GRPC service, then prefix the port with `grpc:` for insecure grpc and `secure-grpc:` for secure grpc
+
+#### Examples
+
+* `port: 3000`
+* `port: https:3001`
+* `port: grpc:50051`
+* `port: secure-grpc:50051`
+
+### domain
+
+See [Custom Domains](/deployment/custom-domains)
 
 ### internal
 
@@ -173,19 +136,6 @@ web      host.internal(internal), host.external(external)                    443
 ```
 
 If the Service has a custom [domain](/deployment/custom-domains), listener rules for that domain are registered on both routers.
-
-### links
-
-Set up links between services on the same app.
-
-#### Example
-
-```yaml
-links:
-  - web
-```
-
-This would add a `WEB_URL` environment variable that points to the load balancer of the `web` service on the same app.
 
 ### nlb
 
@@ -228,20 +178,108 @@ Services can combine `nlb:` with `port:` to expose both HTTP (via the ALB) and r
 
 See [Network Load Balancing](/networking/nlb) for setup, TLS details, per-port attribute semantics, and limitations.
 
-### port
+### sticky
 
-Defines the port on which an HTTP service is listening.
+Toggle load balancer stickiness (using a cookie to keep a user associated with a single container) which helps some applications maintain consistency during rolling deploys. Defaults to `true`.
 
-If you'd like to use end-to-end encryption, have your application listenin on HTTPS (self-signed certificates are fine) and prefix the port with `https:`
+## Scaling and Resources
 
-If you'd like to run the GRPC service, then prefix the port with `grpc:` for insecure grpc and `secure-grpc:` for secure grpc
+### scale
 
-#### Examples
+Set the initial scale parameters for this service. Default CPU is `256` (0.25 vCPU) and default memory is `512` (MiB).
 
-* `port: 3000`
-* `port: https:3001`
-* `port: grpc:50051`
-* `port: secure-grpc:50051`
+### agent
+
+The `agent` attribute may be used to define that this service should start one container on every instance.
+
+This is useful for services that gather metrics or perform other instance-level behaviors.
+
+You can use this attribute in one of two format:
+
+```yaml
+services:
+  monitor:
+    agent: true
+```
+
+or if your agent needs to open host-level ports then use this format:
+
+```yaml
+services:
+  datadog:
+    agent:
+      enabled: true
+      ports:
+        - 8125/udp
+        - 8126/tcp
+```
+
+### singleton
+
+Controls deployment behavior. When set to true existing containers for this service will be stopped before new containers are deployed.
+
+## Environment and Links
+
+### environment
+
+A list of strings that define the service's environment variables.
+
+A pair like `FOO=bar` creates an environment variable named `FOO` with a default value of `bar`.
+
+Defining a name without a value like `HOST` will require that variable to be set in the application's environment to deploy successfully.
+
+You should not configure secrets here, as they would be recorded in version control. For secrets, specify the variable name, then set the actual value using the CLI `convox env set` command.
+
+Only environment variables that are listed here will be provided to the service at runtime.
+
+### links
+
+Set up links between services on the same app.
+
+Declaring `links: [<service>]` auto-injects a `<SERVICE>_URL` environment variable into this service. The variable name is the linked service name uppercased with hyphens converted to underscores (for example `api` becomes `API_URL`). Its value is the linked service's load-balancer URL `https://<app>-<service>.<RouterHost>`, or `<RouterInternalHost>` when the linked service is internal. This is distinct from [resources](#resources), which inject `<NAME>_URL`, `_USER`, `_PASS`, `_HOST`, `_PORT`, and `_NAME`.
+
+#### Example
+
+```yaml
+links:
+  - web
+```
+
+This would add a `WEB_URL` environment variable that points to the load balancer of the `web` service on the same app.
+
+### resources
+
+The resources enumerated in the `resources` section that will be available to the service as environment variables. For a resource named `foo`, Convox injects `FOO_URL`, `FOO_USER`, `FOO_PASS`, `FOO_HOST`, `FOO_PORT`, and `FOO_NAME` (the name is uppercased with hyphens converted to underscores). The network endpoint is `FOO_URL`.
+
+## Health and Lifecycle
+
+### health
+
+See [Health Checks](/application/health-checks)
+
+### deployment
+
+Control the ECS minimum and maximum healthy-percent values that govern rolling deployments. Defaults are `minimum: 50` and `maximum: 200`, so up to 200% of desired capacity can run during a deploy, and at least 50% must remain healthy. Set both to `100` for strict in-place replacement (never more than desired, never less than desired - 1), or tune up for faster rollouts on services that tolerate extra concurrent containers.
+
+```yaml
+services:
+  web:
+    deployment:
+      minimum: 100
+      maximum: 200
+```
+
+For [agent](#agent) and [singleton](#singleton) services, the defaults are `minimum: 0` and `maximum: 100`, matching the replace-before-start behavior those modes require.
+
+### drain
+
+Specifies the timeout in seconds during which connections are allowed to drain for a service before terminating during a rolling deploy. Defaults to `30`.
+
+### termination
+
+Sets the grace period after which a container will be forcefully killed if it does not gracefully exit during a shutdown.  Defaults to 30 seconds.
+
+## Security and IAM
 
 ### policies
 
@@ -251,25 +289,7 @@ A list of ARN of IAM policies to attach to the service's role. It must be create
 
 Enabling this parameter results in the container being granted elevated privileges on the host container instance, similar to the root user. If the privileged parameter is set to true for a service to which a timer is linked, the timer container will also be granted privileged access.
 
-### resources
-
-The resources enumerated in the `resources` section that will be available to the service as environment variables. The network endpoint for a resource named `foo` would be `FOO_URL`.
-
-### scale
-
-Set the initial scale parameters for this service. Default CPU is `256` (0.25 vCPU) and default memory is `512` (MiB).
-
-### singleton
-
-Controls deployment behavior. When set to true existing containers for this service will be stopped before new containers are deployed.
-
-### sticky
-
-Toggle load balancer stickiness (using a cookie to keep a user associated with a single container) which helps some applications maintain consistency during rolling deploys. Defaults to `true`.
-
-### termination
-
-Sets the grace period after which a container will be forcefully killed if it does not gracefully exit during a shutdown.  Defaults to 30 seconds.
+## Other
 
 ### tags
 
