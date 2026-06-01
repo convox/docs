@@ -13,9 +13,9 @@ Convox can forward application and system logs to external logging services usin
 |-------------|-------------|
 | [Syslogs](/deployment/syslogs) | Configure syslog forwarding to any syslog-compatible endpoint |
 | [Datadog](/integrations/datadog) | Forward logs and metrics to Datadog |
-| [Papertrail](/integrations/papertrail) | Stream logs to Papertrail for search and alerting |
-| [Loggly](/integrations/loggly) | Forward logs to Loggly for analysis |
-| [Mezmo](/integrations/logdna) | Send logs to Mezmo (formerly LogDNA) |
+| [Papertrail](/deployment/syslogs) | Stream logs to Papertrail for search and alerting |
+| [Loggly](/deployment/syslogs) | Forward logs to Loggly for analysis |
+| [Mezmo](/deployment/syslogs) | Send logs to Mezmo (formerly LogDNA) |
 
 ## How It Works
 

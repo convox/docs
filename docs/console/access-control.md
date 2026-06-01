@@ -15,9 +15,17 @@ Here you can modify the organization name or delete the organization entirely.
 
 On this page you can manage which users have access to your team and Racks.
 
-**On the Pro plan and above**, you can assign one of the following roles to each of the users you've added: _Administrator_, _Operator_, or _Developer_. For details about the permissions of each role, see the [Permissions](#permissions) section below.
+**On the Pro plan and above**, you can assign one of the following roles to each of the users you've added: _Developer_, _Operator_, or _Administrator_, listed below from least to most access. For details about the permissions of each role, see the [Permissions](#permissions) section below.
 
 When users join your organization, each will be assigned a unique API Key that grants access to the organization's Racks.
+
+### Access Model and RBAC
+
+The roles described on this page are the original access model. The newer [Role-Based Access Control (RBAC)](/console/rbac) model lets you define granular, custom roles instead of choosing from these fixed roles.
+
+Custom RBAC roles require the Pro plan or higher. On the Pro plan and above, only the _Administrator_ role grants full organization access, and you can scope every other user with a fixed or custom role. On plans below Pro, custom roles are not available and every user in the organization is effectively an _Administrator_ with full access.
+
+Users who have not been assigned a custom role keep their original permissions. See [RBAC](/console/rbac) for how to create and assign granular roles.
 
 ## Deploy Keys
 

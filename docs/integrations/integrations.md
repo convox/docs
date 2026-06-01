@@ -25,9 +25,9 @@ Forward application logs to third-party log aggregation services using syslog.
 |-------------|-------------|
 | [Syslogs](/deployment/syslogs) | Configure syslog forwarding to any compatible provider |
 | [Datadog](/integrations/datadog) | Send logs and metrics to Datadog for operational visibility |
-| [Papertrail](/integrations/papertrail) | Forward logs to Papertrail via syslog |
-| [Loggly](/integrations/loggly) | Forward logs to Loggly via syslog |
-| [Mezmo](/integrations/logdna) | Forward logs to Mezmo (formerly LogDNA) via syslog |
+| [Papertrail](/deployment/syslogs) | Forward logs to Papertrail via syslog |
+| [Loggly](/deployment/syslogs) | Forward logs to Loggly via syslog |
+| [Mezmo](/deployment/syslogs) | Forward logs to Mezmo (formerly LogDNA) via syslog |
 
 ## Private Registries
 

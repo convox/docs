@@ -7,6 +7,8 @@ description: The application manifest that defines Services, Resources, Environm
 
 The `convox.yml` file is the application manifest that describes your App and its infrastructure. Convox reads this file to build, configure, and deploy your application on AWS.
 
+`convox.yml` is the manifest for current (gen2) applications; the older `docker-compose.yml` manifest belongs to gen1, which is End-of-Life.
+
 ## Top-Level Sections
 
 A `convox.yml` file supports five top-level sections:

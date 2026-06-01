@@ -5,6 +5,8 @@ description: "Reference for all application-level parameters that configure Conv
 
 # App Parameters
 
+An App parameter configures the behavior of a single App, such as its task launch type, networking, logging, and load balancer settings. You set App parameters with `convox apps params set ParameterName=Value`, scoped to one App rather than the whole Rack. App parameters are distinct from [Rack Parameters](/reference/rack-parameters), which configure shared infrastructure across every App on the Rack.
+
 ## Setting Parameters
 
 App parameters configure specific behaviors at the application level. Parameters can be set using the following command:
@@ -21,6 +23,7 @@ $ convox apps params set ParameterName=Value
 |:----------|:--------|:------------|
 | [AutoMinorVersionUpgrade](/reference/app-parameters/AutoMinorVersionUpgrade) | `true` | Auto-upgrade minor versions for database resources |
 | [CircuitBreaker](/reference/app-parameters/CircuitBreaker) | `No` | Enable ECS Circuit Breaker deployments |
+| [ECSExec](/reference/app-parameters/ECSExec) | `No` | Enable ECS Exec for interactive container access |
 | [EnableContainerReadonlyRootFilesystem](/reference/app-parameters/EnableContainerReadonlyRootFilesystem) | `No` | Enable read-only root filesystem for containers |
 | [FargateServices](/reference/app-parameters/FargateServices) | `No` | Run services on AWS Fargate |
 | [FargateTimers](/reference/app-parameters/FargateTimers) | `No` | Run timers on AWS Fargate |
@@ -39,6 +42,7 @@ $ convox apps params set ParameterName=Value
 | [RackUrl](/reference/app-parameters/RackUrl) | `No` | Inject RACK_URL environment variable |
 | [RedirectHttps](/reference/app-parameters/RedirectHttps) | `Yes` | Redirect HTTP to HTTPS |
 | [ResourcePassword](/reference/app-parameters/ResourcePassword) | "" | Override password for embedded resources |
+| [SecretsManagerEnv](/reference/app-parameters/SecretsManagerEnv) | `No` | Inject environment variables from AWS Secrets Manager |
 | [SlowStartDuration](/reference/app-parameters/SlowStartDuration) | `0` | Ramp-up period for new services (seconds) |
 | [SyslogDestination](/reference/app-parameters/SyslogDestination) | "" | Syslog endpoint URL |
 | [SyslogFormat](/reference/app-parameters/SyslogFormat) | `rfc5424` | Syslog message format |

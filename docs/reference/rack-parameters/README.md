@@ -5,6 +5,8 @@ description: "Reference for all Rack-level parameters that configure Convox infr
 
 # Rack Parameters
 
+A Rack parameter is a CloudFormation parameter on the Rack's stack that controls how the underlying AWS infrastructure, networking, scaling, and security are configured. You set Rack parameters with `convox rack params set`, which applies them by updating the Rack's CloudFormation stack. The update runs asynchronously, so the command returns once the stack update has been requested while the change is still rolling out.
+
 ## Setting Parameters
 
 Parameters can be set using the following command:

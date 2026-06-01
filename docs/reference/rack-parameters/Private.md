@@ -5,9 +5,7 @@ description: "Create Rack resources in private subnets with no direct public int
 
 # Private
 
-Private subnet placement for all Rack instances. When set to `Yes`, instances have no direct internet access and all outbound traffic passes through a NAT gateway. See the [Private Networking](/networking/private-networking) documentation for more information.
-
-When set to `Yes`, EC2 instances, ECS tasks, and other Rack resources are placed in private subnets that do not have direct routes to the internet. Outbound internet access is provided through NAT Gateways.
+Private subnet placement for all Rack instances. When set to `Yes`, EC2 instances, ECS tasks, and other Rack resources are placed in private subnets that have no direct route to the internet, and all outbound traffic passes through NAT Gateways. See the [Private Networking](/networking/private-networking) documentation for more information.
 
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |

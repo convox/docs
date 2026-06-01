@@ -11,12 +11,6 @@ Comma-separated list of excluded instance types in the Spot Fleet. This paramete
 
 Wildcard patterns are supported. Examples: `m5.8xlarge`, `c5*.*`, `m5a.*`, `r*`, `*3*`.
 
-## Use Cases
-
-- Excluding older-generation instance types that may have lower performance characteristics
-- Blocking specific instance families known to have high interruption rates in your region
-- Removing instance types that are incompatible with your application's resource profile
-
 ## Additional Information
 
 When this parameter is blank (the default), no instance types are excluded from the Spot Fleet. The fleet considers all types that meet the minimum resource requirements defined by [SpotFleetMinMemoryMiB](/reference/rack-parameters/SpotFleetMinMemoryMiB) and [SpotFleetMinVcpuCount](/reference/rack-parameters/SpotFleetMinVcpuCount).
@@ -28,6 +22,12 @@ This parameter only takes effect when Spot Fleet is enabled via [SpotFleetMaxPri
 ```bash
 $ convox rack params set SpotFleetExcludedInstanceTypes="t2.nano,t2.micro"
 ```
+
+## Use Cases
+
+- Excluding older-generation instance types that may have lower performance characteristics
+- Blocking specific instance families known to have high interruption rates in your region
+- Removing instance types that are incompatible with your application's resource profile
 
 ## See Also
 

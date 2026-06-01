@@ -74,7 +74,7 @@ If you see errors like `not enough memory available to start process` or your de
 
 Common build errors and their causes:
 
-- **`no such file: convox.yml`**: Your application directory does not contain a `convox.yml` (or `docker-compose.yml`). Ensure the manifest file exists in the root of your build context.
+- **`no such file: convox.yml`**: Your application directory does not contain a `convox.yml` (or `docker-compose.yml`). Ensure the manifest file exists in the root of your build context. Convox uses the [`convox.yml`](/application/convox-yml) manifest for current (gen2) applications, not a `docker-compose.yml`. The `docker-compose.yml` filename is only read for legacy gen1 apps.
 - **`reading manifest` or `loading manifest`**: Your `convox.yml` has syntax errors. Validate the YAML before deploying.
 - **ECR authentication failures** (`ecr auth token`, `empty authorization data`): AWS credentials are missing, expired, or lack ECR permissions. ECR tokens expire after 12 hours, so long-running build environments may encounter this.
 - **Image pull failures** (`could not pull <image>`): The base image in your Dockerfile is unavailable. Verify the image name/tag and that your build environment has network access to the registry.
