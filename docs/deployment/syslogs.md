@@ -50,7 +50,7 @@ Options  Format=<22>1 {DATE} {GROUP} {SERVICE} {CONTAINER} - - {MESSAGE}
 URL      tcp+tls://logs1.papertrailapp.com:12345
 ```
 
-In order to start sending logs from an app to the forwarder you need to link it to the app with `convox rack resources link`
+In order to start sending logs from an App to the forwarder you need to link it to the App with `convox rack resources link`
 
 ```bash
 $ convox rack resources link syslog-3785 --app example
@@ -81,13 +81,13 @@ Some common 3rd party logging services include:
 
 ### Syslog as the LogDriver
 
-Using Syslog as the LogDriver will disable CloudWatch, all Rack and app logs will be redirected directly to your Syslog destination, be aware that `convox logs` and `convox rack logs` will not work if CloudWatch is not enabled. You must provide `SyslogDestination` when enabling Syslog as `LogDriver`. You can create a Rack with:
+Using Syslog as the LogDriver will disable CloudWatch, all Rack and App logs will be redirected directly to your Syslog destination, be aware that `convox logs` and `convox rack logs` will not work if CloudWatch is not enabled. You must provide `SyslogDestination` when enabling Syslog as `LogDriver`. You can create a Rack with:
 
 ```bash
 $ convox rack install aws -n ${rack-name} LogDriver=Syslog SyslogDestination="tcp+tls://logsX.syslog.com:1234"
 ```
 
-Or you can set on an existing rack by setting the parameters:
+Or you can set on an existing Rack by setting the parameters:
 
 ```bash
 $ convox rack params set LogDriver=Syslog SyslogDestination="tcp+tls://logsX.syslog.com:1234"

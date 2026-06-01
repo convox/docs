@@ -5,7 +5,7 @@ description: "Configure the log driver used by the Rack and services to send log
 
 # LogDriver
 
-Log driver used by the Rack and services to send logs. Defaults to CloudWatch. You must provide the [SyslogDestination](/reference/rack-parameters/SyslogDestination) when setting this to `Syslog`. Setting this to blank disables logging.
+Log driver used by the Rack and Services to send logs. Defaults to CloudWatch. You must provide the [SyslogDestination](/reference/rack-parameters/SyslogDestination) when setting this to `Syslog`. Setting this to blank disables logging.
 
 **Attention:** Disabling CloudWatch will impact `convox logs` and `convox rack logs`. Use the Syslog resource if you still want to use convox logs. See [Resource Syslog](/deployment/syslogs) for more information.
 
@@ -20,7 +20,7 @@ Log driver used by the Rack and services to send logs. Defaults to CloudWatch. Y
 
 ## Additional Information
 
-When set to `CloudWatch` (the default), logs from all Rack services and applications are sent to CloudWatch Logs. This enables the `convox logs` and `convox rack logs` CLI commands.
+When set to `CloudWatch` (the default), logs from all Rack Services and applications are sent to CloudWatch Logs. This enables the `convox logs` and `convox rack logs` CLI commands.
 
 When set to `Syslog`, logs are forwarded to the destination specified by the [SyslogDestination](/reference/rack-parameters/SyslogDestination) parameter. You must set `SyslogDestination` before or at the same time as switching to `Syslog`.
 

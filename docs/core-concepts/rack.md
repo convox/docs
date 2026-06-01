@@ -5,7 +5,7 @@ description: "Convox Rack is an open-source deployment platform installed into y
 
 # Convox Rack
 
-Convox Rack is an [open source](https://github.com/convox/rack) deployment platform that is installed into your AWS account. A Rack creates and manages all of the underlying infrastructure needed to run and monitor your applications. A Rack is the unit of network isolation: applications and services on a Rack can only communicate with other applications and services on the same Rack.
+Convox Rack is an [open source](https://github.com/convox/rack) deployment platform that is installed into your AWS account. A Rack creates and manages all of the underlying infrastructure needed to run and monitor your applications. A Rack is the unit of network isolation: applications and Services on a Rack can only communicate with other applications and Services on the same Rack.
 
 ![](/assets/images/docs/what-is-a-rack/convox-rack-diagram.jpg)
 (Rack architecture when running on AWS)

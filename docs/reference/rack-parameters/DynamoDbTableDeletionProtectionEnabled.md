@@ -12,7 +12,7 @@ Deletion protection for the Rack's DynamoDB table. When enabled, the table canno
 
 ## Use Cases
 
-- Enable on production racks to prevent accidental deletion of DynamoDB tables that store critical Rack state.
+- Enable on production Racks to prevent accidental deletion of DynamoDB tables that store critical Rack state.
 - Required by compliance frameworks that mandate deletion protection on persistent data stores.
 - Protect against infrastructure-as-code mistakes or manual CloudFormation stack operations that could remove tables.
 

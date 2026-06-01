@@ -25,12 +25,12 @@ $ convox apps params set ParameterName=Value
 | [CircuitBreaker](/reference/app-parameters/CircuitBreaker) | `No` | Enable ECS Circuit Breaker deployments |
 | [ECSExec](/reference/app-parameters/ECSExec) | `No` | Enable ECS Exec for interactive container access |
 | [EnableContainerReadonlyRootFilesystem](/reference/app-parameters/EnableContainerReadonlyRootFilesystem) | `No` | Enable read-only root filesystem for containers |
-| [FargateServices](/reference/app-parameters/FargateServices) | `No` | Run services on AWS Fargate |
+| [FargateServices](/reference/app-parameters/FargateServices) | `No` | Run Services on AWS Fargate |
 | [FargateTimers](/reference/app-parameters/FargateTimers) | `No` | Run timers on AWS Fargate |
 | [IamPolicy](/reference/app-parameters/IamPolicy) | "" | Custom IAM policy ARN for the task role |
 | [IgnoreManualScaleCount](/reference/app-parameters/IgnoreManualScaleCount) | `No` | Ignore manual scale counts during autoscaling |
 | [InternalDomains](/reference/app-parameters/InternalDomains) | `Yes` | Enable internal domain routing |
-| [Isolate](/reference/app-parameters/Isolate) | `No` | Run services in isolated network configuration |
+| [Isolate](/reference/app-parameters/Isolate) | `No` | Run Services in isolated network configuration |
 | [LoadBalancerAlgorithm](/reference/app-parameters/LoadBalancerAlgorithm) | `round_robin` | Load balancer routing algorithm |
 | [LoadBalancerGrpcSuccessCodes](/reference/app-parameters/LoadBalancerGrpcSuccessCodes) | `12` | GRPC health check success codes |
 | [LoadBalancerSuccessCodes](/reference/app-parameters/LoadBalancerSuccessCodes) | `200-399,401` | HTTP health check success codes |
@@ -43,7 +43,7 @@ $ convox apps params set ParameterName=Value
 | [RedirectHttps](/reference/app-parameters/RedirectHttps) | `Yes` | Redirect HTTP to HTTPS |
 | [ResourcePassword](/reference/app-parameters/ResourcePassword) | "" | Override password for embedded resources |
 | [SecretsManagerEnv](/reference/app-parameters/SecretsManagerEnv) | `No` | Inject environment variables from AWS Secrets Manager |
-| [SlowStartDuration](/reference/app-parameters/SlowStartDuration) | `0` | Ramp-up period for new services (seconds) |
+| [SlowStartDuration](/reference/app-parameters/SlowStartDuration) | `0` | Ramp-up period for new Services (seconds) |
 | [SyslogDestination](/reference/app-parameters/SyslogDestination) | "" | Syslog endpoint URL |
 | [SyslogFormat](/reference/app-parameters/SyslogFormat) | `rfc5424` | Syslog message format |
 | [TaskTags](/reference/app-parameters/TaskTags) | `No` | Propagate ECS tags to task level |

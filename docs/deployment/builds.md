@@ -13,7 +13,7 @@ Builds can either be created:
 - As part of a Convox [workflow](/console/workflows).  Workflows can connect to your code repository and initiate builds and subsequent activities from code pushes or pull requests.
 - As part of an external CI process.  Convox has a [CircleCI Orb](/integrations/circleci) as well as a set of [Github Actions](/integrations/github-actions) for integration.  Other CI services can also integrate with Convox by [installing the Convox CLI](/introduction/installation) in your CI environment, utilising [deploy keys](/console/deploy-keys) to keep your credentials secure, and running the `build` or `deploy` commands as appropriate in your CI workflow.
 
-You can see a list of all the builds for your app by running `convox builds` from the CLI.
+You can see a list of all the builds for your App by running `convox builds` from the CLI.
 
 ```bash
 $ convox builds
@@ -44,7 +44,7 @@ When you run this command the following steps are executed:
 
 The newly created release will not be promoted (made active) until you run `convox releases promote <release ID>`.
 
-If you'd like to build your app and promote the release in a single step, you can run `convox deploy` rather than `convox build`.
+If you'd like to build your App and promote the release in a single step, you can run `convox deploy` rather than `convox build`.
 
 ## Inspecting Builds
 
@@ -54,7 +54,7 @@ Run `convox builds logs <build ID>` to view the logs for a particular build.
 
 ## Moving Builds
 
-It's possible to export a build from one app and import it to another app, even if the apps are on different Racks.
+It's possible to export a build from one App and import it to another App, even if the Apps are on different Racks.
 
 To move a build, first export it:
 
@@ -127,9 +127,9 @@ $ convox rack params set BuildCacheCleanup=Yes BuildCacheRetentionDays=14
 
 When `BuildCacheCleanup=No`, cache images are never expired and the repository grows over time.
 
-### Generation 1 apps
+### Generation 1 Apps
 
-Gen1 apps do not use the persistent build cache. They continue to build with the local Docker layer cache only, and no cache repository is provisioned for them even when `BuildCache=Yes` is set on the Rack.
+Gen1 Apps do not use the persistent build cache. They continue to build with the local Docker layer cache only, and no cache repository is provisioned for them even when `BuildCache=Yes` is set on the Rack.
 
 ## See Also
 

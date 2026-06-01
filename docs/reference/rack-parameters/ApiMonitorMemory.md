@@ -11,7 +11,7 @@ How much memory (in MB) should be reserved by the API monitor process. The monit
 
 ## Use Cases
 
-- Increasing memory if the monitor process is being OOM-killed on busy Racks with many services
+- Increasing memory if the monitor process is being OOM-killed on busy Racks with many Services
 - Reducing memory on small development Racks to leave more capacity for application workloads
 
 ## Additional Information

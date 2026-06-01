@@ -13,7 +13,7 @@ All environment variables defined in your `convox.yml` are required to start up 
 
 ### Global
 
-Environment variables specified in the top level `environment:` section will be available to all services in the application:
+Environment variables specified in the top level `environment:` section will be available to all Services in the application:
 
 ```yaml
 environment:
@@ -27,7 +27,7 @@ In this example the `ENABLED` variable has a default value of `true`, the `LICEN
 
 ### Service
 
-You can also configure each service individually to limit secrets to the services that need them:
+You can also configure each Service individually to limit secrets to the Services that need them:
 
 ```yaml
 services:
@@ -41,11 +41,11 @@ services:
 
 In this example the `LOG_LEVEL` variable has a default value of `debug`, `DEFAULT_CLIENT` will be empty and the `MULTI_TENANT` variable must be defined using the CLI or Web console before the application will start.
 
-Environment variables defined at the service level will not be shared or visible to other services in the same app.  You can have a variable with the same name in separate services with different declared values, but note that updating this variable after deployment will update the value in all services with that variable name.  
+Environment variables defined at the service level will not be shared or visible to other Services in the same App.  You can have a variable with the same name in separate Services with different declared values, but note that updating this variable after deployment will update the value in all Services with that variable name.  
 
 ### Wildcard
 
-You can use the wildcard syntax to provide all available environment variables to a service:
+You can use the wildcard syntax to provide all available environment variables to a Service:
 
 ```yaml
 services:
@@ -88,7 +88,7 @@ Next, examine the release's environment variables with `convox releases info <RE
 
 Copy the desired variables.
 
-Finally run `convox env edit` paste and save the variables to create and promote a new `RELEASE` for your app with updated environment variables.
+Finally run `convox env edit` paste and save the variables to create and promote a new `RELEASE` for your App with updated environment variables.
 
 ## Promoting your environment variable changes
 
@@ -184,7 +184,7 @@ The parameter can be set on the Rack to cover every App, or on an individual App
 
 If the Secrets Manager write fails during promote (for example, an API throttle or a permissions gap), Convox logs a warning and falls back to the default S3 and KMS delivery for that Release. The promote still succeeds and your Processes start with the correct environment. After three consecutive failures for an App, Convox sends a `rack:warning` event so you can investigate or set `SecretsManagerEnv=No`. Because both delivery paths read the same source of truth, switching the parameter off and promoting again returns the App to S3 and KMS delivery with no change to your variables.
 
-Gen1 apps are unaffected by this parameter. They follow a separate promote path that always uses S3 and KMS delivery.
+Gen1 Apps are unaffected by this parameter. They follow a separate promote path that always uses S3 and KMS delivery.
 
 ## See Also
 

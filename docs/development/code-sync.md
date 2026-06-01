@@ -19,7 +19,7 @@ By default, `convox start` will synchronize all files or directories that appear
 
 Volumes are useful in many scenarios, but are not ideal for code syncing.
 
-Docker volumes use overlay mounts. That means the host directory is mounted over the corresponding container directory, making any files that previously existed exclusively on the container unavailable. This is problematic if you want to build useful files into a base Docker image that your app's Dockerfile inherits from.
+Docker volumes use overlay mounts. That means the host directory is mounted over the corresponding container directory, making any files that previously existed exclusively on the container unavailable. This is problematic if you want to build useful files into a base Docker image that your App's Dockerfile inherits from.
 
 There are also known performance problems using Docker volumes to sync large numbers of small files in non-Linux environments.
 

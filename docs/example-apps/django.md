@@ -18,9 +18,9 @@ A few steps to get started:
 3. Install the [Convox CLI](/introduction/installation).
 4. Install the [Convox local Rack](/development/running-locally)
 
-Once you are all setup you can switch to your local rack with `convox switch local` and start your local application with `convox start` (make sure you are in the root directory).
+Once you are all setup you can switch to your local Rack with `convox switch local` and start your local application with `convox start` (make sure you are in the root directory).
 
-Now that your app is up and running you will need to run the migrations with a [one-off command](/management/one-off-commands):
+Now that your App is up and running you will need to run the migrations with a [one-off command](/management/one-off-commands):
 
 ```bash
 $ convox run web python manage.py migrate
@@ -50,7 +50,7 @@ The [convox.yml](https://github.com/convox-examples/django/blob/master/convox.ym
 
 1. Resources: These are network-attached dependencies of your application. In this case we have a single resource which is a postgres database. When [running locally](/development/running-locally) Convox will automatically startup up a container running Postgres and will inject a `DATABASE_URL` environment variable into your application container that points to the Postgres database. When your application is [deployed](/deployment/creating-an-application) to production Convox will startup an RDS postgres database for your application to use.
 
-2. Services: This is where we define our application(s). In this case we have a single application called `web` which is built from our dockerfile, executes the [Gunicorn](https://gunicorn.org/) web server, and uses the postgres resource for a database. You will also notice we have an [environment](/application/environment) section where we are setting a default secret key for development. In a production application you may have additional services defined for things like Celery task workers.
+2. Services: This is where we define our application(s). In this case we have a single application called `web` which is built from our dockerfile, executes the [Gunicorn](https://gunicorn.org/) web server, and uses the postgres resource for a database. You will also notice we have an [environment](/application/environment) section where we are setting a default secret key for development. In a production application you may have additional Services defined for things like Celery task workers.
 
 ## Deploying to production
 
@@ -61,19 +61,19 @@ In order to deploy to production we have to ensure we have completed the followi
 3. [Install an AWS Rack](/introduction/getting-started#rack-installation)
 4. Make sure your CLI is [logged in](/introduction/installation) to your Convox account using `convox login` and your [CLI Key](https://console.convox.com/account)
 
-Once you are all set here you can see the name of your production rack
+Once you are all set here you can see the name of your production Rack
 
 ```bash
 $ convox racks
 ```
 
-And switch your CLI to your production rack
+And switch your CLI to your production Rack
 
 ```bash
 $ convox switch [rack name]
 ```
 
-Now you can create an empty application in your production rack
+Now you can create an empty application in your production Rack
 
 ```bash
 $ convox apps create --wait
@@ -85,7 +85,7 @@ And you can deploy your application to production (the first time you do this it
 $ convox deploy --wait
 ```
 
-Then you can run your migrations and create your super user same as you did against your local rack
+Then you can run your migrations and create your super user same as you did against your local Rack
 
 ```bash
 $ convox run web python manage.py migrate

@@ -25,7 +25,7 @@ This parameter applies to all embedded resources in the application. You cannot 
 $ convox apps params set ResourcePassword=my-secure-password
 ```
 
-> Changing this parameter on an existing application will update the password for the resource, which may cause connection failures if running services still have the old password cached. Plan a deployment immediately after changing this value.
+> Changing this parameter on an existing application will update the password for the resource, which may cause connection failures if running Services still have the old password cached. Plan a deployment immediately after changing this value.
 
 ## See Also
 

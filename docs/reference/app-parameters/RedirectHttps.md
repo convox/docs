@@ -14,13 +14,13 @@ HTTP-to-HTTPS redirect control. When set to `Yes` (default), all HTTP requests a
 
 - Keep as `Yes` (default) to enforce HTTPS for all traffic, which is recommended for production applications
 - Set to `No` when your application is behind an upstream proxy or CDN that already handles TLS termination and sends traffic over HTTP
-- Set to `No` for internal-only services where TLS is not required
+- Set to `No` for internal-only Services where TLS is not required
 
 ## Additional Information
 
-When set to `Yes`, the Rack's application load balancer returns an HTTP 301 redirect from port 80 to port 443 for all incoming requests to this app. This ensures all client traffic uses HTTPS.
+When set to `Yes`, the Rack's application load balancer returns an HTTP 301 redirect from port 80 to port 443 for all incoming requests to this App. This ensures all client traffic uses HTTPS.
 
-When set to `No`, a port 80 forwarding rule is created for the app, allowing the load balancer to accept HTTP traffic without redirecting. The application receives the requests as-is over HTTP.
+When set to `No`, a port 80 forwarding rule is created for the App, allowing the load balancer to accept HTTP traffic without redirecting. The application receives the requests as-is over HTTP.
 
 This parameter applies at the load balancer level. If your application needs to enforce HTTPS at the application layer as well, you should implement that separately in your application code.
 

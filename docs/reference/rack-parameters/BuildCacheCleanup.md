@@ -38,7 +38,7 @@ Pair this with [BuildCacheRetentionDays](/reference/rack-parameters/BuildCacheRe
 $ convox rack params set BuildCache=Yes BuildCacheCleanup=Yes BuildCacheRetentionDays=30
 ```
 
-Gen1 apps do not use the build cache, so this parameter has no effect on gen1 Builds.
+Gen1 Apps do not use the build cache, so this parameter has no effect on gen1 Builds.
 
 ### Disable
 

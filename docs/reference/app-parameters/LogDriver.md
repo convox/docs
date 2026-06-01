@@ -24,7 +24,7 @@ When set to `Syslog`, you must also configure [SyslogDestination](/reference/app
 
 Setting the value to blank (`""`) disables all log collection. No CloudWatch log group is created and no syslog driver is configured.
 
-The Rack also has a `LogDriver` parameter that controls logging for the Rack infrastructure itself. The app-level parameter only affects this application's services and timers.
+The Rack also has a `LogDriver` parameter that controls logging for the Rack infrastructure itself. The app-level parameter only affects this application's Services and timers.
 
 ```bash
 $ convox apps params set LogDriver=Syslog

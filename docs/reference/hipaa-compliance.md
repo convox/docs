@@ -23,7 +23,7 @@ See our [Private Networking doc](/networking/private-networking) for more detail
 
 ### Run a private Convox console
 
-Instead of managing your teams and racks through the Convox-hosted console at [console.convox.com](https://console.convox.com), deploy a self-hosted console into a rack in your own AWS account. The self-hosted console is available to all [Enterprise Plan](https://convox.com/pricing) customers.
+Instead of managing your teams and Racks through the Convox-hosted console at [console.convox.com](https://console.convox.com), deploy a self-hosted console into a Rack in your own AWS account. The self-hosted console is available to all [Enterprise Plan](https://convox.com/pricing) customers.
 
 ### Sign a BAA with AWS
 

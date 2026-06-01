@@ -5,12 +5,12 @@ description: "Defines the default ECS-optimized AMI used for x86_64-based Convox
 
 # DefaultAmi
 
-Default Amazon Machine Image (AMI) for x86_64-based Rack instances. This allows racks to automatically use the latest recommended ECS-optimized AMI without manual intervention.
+Default Amazon Machine Image (AMI) for x86_64-based Rack instances. This allows Racks to automatically use the latest recommended ECS-optimized AMI without manual intervention.
 
 | Default value  | `/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id` |
 | Allowed values | AWS SSM AMI path (e.g., `/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id`) |
 
-By default, Convox racks use the **Amazon Linux 2 (AL2) ECS-optimized AMI**. However, with AL2 nearing deprecation, you can switch to **Amazon Linux 2023 (AL2023)** by setting:
+By default, Convox Racks use the **Amazon Linux 2 (AL2) ECS-optimized AMI**. However, with AL2 nearing deprecation, you can switch to **Amazon Linux 2023 (AL2023)** by setting:
 
 ```bash
 $ convox rack params set DefaultAmi="/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
@@ -21,7 +21,7 @@ If the `Ami` rack parameter is set, `DefaultAmi` will be ignored, and the explic
 ## Use Cases
 
 - Upgrade to Amazon Linux 2023 for longer support lifecycle, improved security defaults, and updated packages.
-- Pin a specific AMI path for testing before rolling it out across all racks.
+- Pin a specific AMI path for testing before rolling it out across all Racks.
 - Roll back to a known-good AMI path if a new ECS-optimized AMI introduces regressions.
 
 ## Additional Information

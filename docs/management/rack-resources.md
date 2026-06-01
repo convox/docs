@@ -234,7 +234,7 @@ For example, to connect an App to an externally managed MariaDB instance:
 $ convox env set MARIADB_URL=jdbc:mariadb://mariadb-instance1.123456789012.us-east-1.rds.amazonaws.com:3306/DB?user=myUsername&password=myPassword -a myapplication -r acme/production
 ```
 
-Add the variable to your service's `environment` configuration in `convox.yml`:
+Add the variable to your Service's `environment` configuration in `convox.yml`:
 
 ```yaml
 services:
@@ -253,7 +253,7 @@ services:
 
 ## See Also
 
-- [App Resources](/application/resources): resources defined in `convox.yml` and linked to services
+- [App Resources](/application/resources): resources defined in `convox.yml` and linked to Services
 - [Accessing Resources](/management/resources): proxying to App Resources for local management
 - [Syslogs](/deployment/syslogs): detailed syslog integration configuration
 - [Notifications](/console/notifications): webhook notification events

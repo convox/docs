@@ -28,7 +28,7 @@ services:
       - mydb
 ```
 
-The resource name only affects the [environment variable name](#accessing-resources) that is passed to your services.  You are free to name it what you wish with no regard to the type of resource.
+The resource name only affects the [environment variable name](#accessing-resources) that is passed to your Services.  You are free to name it what you wish with no regard to the type of resource.
 
 You can define multiple resources within one `convox.yml`:
 
@@ -61,7 +61,7 @@ services:
 
 ## Accessing Resources
 
-You can access defined resources from services with environment variables.
+You can access defined resources from Services with environment variables.
 In the above example, the `mydb` resource provides a `MYDB_URL` variable that is accessible from the `web` service.
 
 The environment variable name is the resource name converted to all-caps, with a `_URL` suffix.
@@ -187,10 +187,10 @@ If you want to convert a read replica into an independent database, remove the `
 *Available in rack version **20221214201933 or later***
 
 
-The EFS resource lets you share volumes between services in different AZs.
+The EFS resource lets you share volumes between Services in different AZs.
 
 EFS resources have additional configurations. The definition is different from the database resources. See Available Resources > [EFS](#efs).
-After declaring the resource and the options, the link between the resource and service you want to expose is required. Example:
+After declaring the resource and the options, the link between the resource and Service you want to expose is required. Example:
 
 ```yaml
 resources:
@@ -207,7 +207,7 @@ services:
       - sharedvolume
 ```
 
-Once the resource is linked to the service, set the volume and the path you want to expose to the application, e.g. `{efs-resource-name}:/path/to/mount/on/application`.
+Once the resource is linked to the Service, set the volume and the path you want to expose to the application, e.g. `{efs-resource-name}:/path/to/mount/on/application`.
 The path you want to link the application is not bound to the same you declared in the definition, it's the directory that will be mount in the application container. A full example of EFS resource using the `resources` and `volumes`:
 
 ```yaml
@@ -319,7 +319,7 @@ Use to share volumes between the tasks in different AZs and instances.
 | `encrypted`   | `false`  | Encrypt data at rest                                                   |
 | `owner-gid`   | `1000`   | POSIX group ID to apply to the `path` directory                        |
 | `owner-uid`   | `1000`   | POSIX user ID to apply to the `path` directory                         |
-| `path`        | `/`      | The path on the file system used as the root directory by the services |
+| `path`        | `/`      | The path on the file system used as the root directory by the Services |
 | `permissions` | `0777`   | POSIX permissions to apply to the `path` directory                     |
 
 ## AutoMinorVersionUpgrade

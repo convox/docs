@@ -14,7 +14,7 @@ Encryption at rest for EBS volumes attached to Rack instances.
 
 - Meet compliance requirements (e.g., HIPAA, PCI-DSS, SOC 2) that mandate encryption at rest for all block storage.
 - Protect data on instance volumes from unauthorized physical access to the underlying storage hardware.
-- Enable encryption for racks that were initially provisioned without EBS encryption.
+- Enable encryption for Racks that were initially provisioned without EBS encryption.
 
 ## Additional Information
 

@@ -9,7 +9,7 @@ Convox Racks are installed using best practices for privacy and security. In cas
 
 ## Public vs. Private Racks
 
-Convox Rack creates a cluster of server instances into which your apps are deployed. In the default "public" mode, these instances are connected to a public subnet. Security Groups are used to keep out unwanted inbound traffic, and outbound traffic to the Internet is unrestricted.
+Convox Rack creates a cluster of server instances into which your Apps are deployed. In the default "public" mode, these instances are connected to a public subnet. Security Groups are used to keep out unwanted inbound traffic, and outbound traffic to the Internet is unrestricted.
 
 By contrast, server instances in a private Rack have no direct connection to the Internet. Inbound traffic is routed from the load balancer to a private subnet, and outbound traffic passes through a NAT gateway.
 
@@ -19,7 +19,7 @@ A Rack can be installed as private by setting the parameter `Private` to `Yes` i
 
 ## Converting an Existing Rack to Private
 
-It's not currently possible to toggle a rack between Public and Private due to how EFS mount targets work (one subnet per AZ at a time, so it's not possible to switch from public to private subnets, or vice versa).
+It's not currently possible to toggle a Rack between Public and Private due to how EFS mount targets work (one subnet per AZ at a time, so it's not possible to switch from public to private subnets, or vice versa).
 
 ## Privacy Parameters
 
@@ -47,7 +47,7 @@ The benefits of running a Rack in private mode include:
 
 ## Cost
 
-Private networking mode requires the provisioning of up to three NAT gateways (one for each availability zone) which are charged based on time and traffic. This will increase the monthly cost of your rack. More pricing details can be found in the [AWS docs](https://aws.amazon.com/vpc/pricing/).
+Private networking mode requires the provisioning of up to three NAT gateways (one for each availability zone) which are charged based on time and traffic. This will increase the monthly cost of your Rack. More pricing details can be found in the [AWS docs](https://aws.amazon.com/vpc/pricing/).
 
 ## See Also
 

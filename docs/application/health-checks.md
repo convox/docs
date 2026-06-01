@@ -25,7 +25,7 @@ services:
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `grace` | The amount of time in seconds to wait for a service to boot before beginning health checks. | Same as `interval` (5 seconds) |
+| `grace` | The amount of time in seconds to wait for a Service to boot before beginning health checks. | Same as `interval` (5 seconds) |
 | `interval` | The amount of time in seconds between health checks. | `5` |
 | `path` | The HTTP endpoint the load balancer will use to determine the application's health. | `/` |
 | `timeout` | The time in seconds after which no response means a failed health check. | `interval - 1` (4 seconds) |

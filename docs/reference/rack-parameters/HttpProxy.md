@@ -25,7 +25,7 @@ For more information, see [HTTP Proxy Configuration](https://docs.aws.amazon.com
 $ convox rack params set HttpProxy=proxy.example.com:8080
 ```
 
-The `HttpProxy` parameter will not change how your apps access the internet. App traffic will not go through the proxy. Only the instances' own requests will use the proxy for outbound connections. If you want your apps to use the proxy, you must configure it in your `convox.yml`:
+The `HttpProxy` parameter will not change how your Apps access the internet. App traffic will not go through the proxy. Only the instances' own requests will use the proxy for outbound connections. If you want your Apps to use the proxy, you must configure it in your `convox.yml`:
 
 ```yaml
 services:

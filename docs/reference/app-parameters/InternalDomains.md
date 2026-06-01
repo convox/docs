@@ -15,11 +15,11 @@ Use this parameter if you are running out of available rules on your load balanc
 
 - Set to `No` to free up load balancer listener rules when you are approaching the AWS limit
 - Set to `No` for applications that do not need internal service-to-service routing via Convox-managed domain names
-- Leave as `Yes` (default) to enable internal routing between services using `internal-<service>.<app>.<rack>.convox` domain names
+- Leave as `Yes` (default) to enable internal routing between Services using `internal-<service>.<app>.<rack>.convox` domain names
 
 ## Additional Information
 
-AWS Application Load Balancers have a limit on the number of listener rules (default 100). Each service with `InternalDomains=Yes` consumes additional listener rules for its internal domain entries. If you have many apps or services on a single Rack, you may need to disable internal domains on some applications to stay within this limit.
+AWS Application Load Balancers have a limit on the number of listener rules (default 100). Each Service with `InternalDomains=Yes` consumes additional listener rules for its internal domain entries. If you have many Apps or Services on a single Rack, you may need to disable internal domains on some applications to stay within this limit.
 
 Disabling this parameter does not affect external domain routing or custom domains configured in `convox.yml`. It only prevents the automatic creation of the `convox.site` and `.convox` internal DNS records for the application.
 

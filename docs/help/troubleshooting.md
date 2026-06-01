@@ -11,9 +11,9 @@ Look at the AWS [Cloudformation Management Console](https://console.aws.amazon.c
 
 Post in the new [Community Forum](https://community.convox.com/) with any errors you see in these events.
 
-## I get an error when I deploy my app to Convox
+## I get an error when I deploy my App to Convox
 
-During a deployment, CloudFormation will not complete an update until the ECS Services stabilize. If newly deployed processes crash or fail to pass health checks, eventually the update will time out and roll back. To figure out what's going wrong, you can look at the [app logs](/management/logs) via `convox logs` to check for crashes and [health check](/application/health-checks) failures.
+During a deployment, CloudFormation will not complete an update until the ECS Services stabilize. If newly deployed processes crash or fail to pass health checks, eventually the update will time out and roll back. To figure out what's going wrong, you can look at the [App logs](/management/logs) via `convox logs` to check for crashes and [health check](/application/health-checks) failures.
 
 ECS events can be found in the application logs as well. Use `convox logs --filter=ECS` to find them.
 
@@ -21,17 +21,17 @@ When you know there is an issue and want to stop a deployment, you can run the `
 
 ### I get a `CREATE_FAILED BalancerListenerRule443Internal Priority 'xxxx' is currently in use`
 
-As ALB routing rules must have a unique priority, Convox will generate a random one for each service in the range 1-50000 (the range allowed by AWS). This is generated from a checksum of the app name, service name, domain name, and a couple of other tweaks. It is very unlikely, but it is possible to have a collision between two separate services on the same rack. To solve this, amend your app or service name to generate a different checksum.
+As ALB routing rules must have a unique priority, Convox will generate a random one for each Service in the range 1-50000 (the range allowed by AWS). This is generated from a checksum of the app name, service name, domain name, and a couple of other tweaks. It is very unlikely, but it is possible to have a collision between two separate Services on the same Rack. To solve this, amend your app or service name to generate a different checksum.
 
-## My app deployed but I cannot access it
+## My App deployed but I cannot access it
 
 Run `convox services` to find the load balancer endpoints for your application.
 
 Run `convox ps` to determine if your application is booting successfully.
 
-Run `convox logs` to inspect your application logs and cluster events for problems placing your container, starting your app, or registering with the load balancer.
+Run `convox logs` to inspect your application logs and cluster events for problems placing your container, starting your App, or registering with the load balancer.
 
-## My app stopped working and I want to restart it
+## My App stopped working and I want to restart it
 
 You can perform a remote restart of an entire App (all running processes) from the CLI with:
 
@@ -51,11 +51,11 @@ If you're encountering problems like any of the following:
 
 - deployments seem stuck in `UPDATE_IN_PROGRESS` CloudFormation state
 - your Rack seems stuck in `converging`
-- your deploys seem stuck with services continuously being killed via SIGKILL and restarted
+- your deploys seem stuck with Services continuously being killed via SIGKILL and restarted
 
 check out the logs for your application. You will see messages from CloudFormation and ECS about the current rollout of your application.
 
-If the listed reason is `Instance has failed at least the UnhealthyThreshold number of health checks consecutively`, this means your app is failing its [health checks](/deployment/rolling-updates#health-checks). Often this is because your app is not actually listening on the port(s) specified for the service in your `convox.yml`. Or your Rack might be missing an environment variable defined in your `convox.yml`. It might also be an error from your application itself (check the [app logs with `convox logs`](/management/debugging#convox-logs), or use [`convox instances ssh`](/management/debugging#convox-instances-ssh) to check docker logs).
+If the listed reason is `Instance has failed at least the UnhealthyThreshold number of health checks consecutively`, this means your App is failing its [health checks](/deployment/rolling-updates#health-checks). Often this is because your App is not actually listening on the port(s) specified for the Service in your `convox.yml`. Or your Rack might be missing an environment variable defined in your `convox.yml`. It might also be an error from your application itself (check the [App logs with `convox logs`](/management/debugging#convox-logs), or use [`convox instances ssh`](/management/debugging#convox-instances-ssh) to check docker logs).
 
 Once you've found the reason, you can run `convox apps cancel -a app_name` to cancel this deployment. Once it rolls back, you can fix the error and try to deploy again.
 
@@ -86,7 +86,7 @@ $ convox builds logs <build-id> -a myapp
 
 ## CloudFormation rollback
 
-If a Rack update or app deployment triggers a CloudFormation rollback, check the stack events for the specific failure reason:
+If a Rack update or App deployment triggers a CloudFormation rollback, check the stack events for the specific failure reason:
 
 ```bash
 $ convox rack
@@ -104,11 +104,11 @@ If a rollback fails (stack stuck in `UPDATE_ROLLBACK_FAILED`), you may need to m
 
 To have ECS use Fargate instead of regular EC2 you will need the following:
 
-- have a rack installed in [a region where Fargate is available](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
+- have a Rack installed in [a region where Fargate is available](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
 - specify `cpu` and `memory` in [convox.yml](/application/convox-yml) that is [compatible with Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html)
 - either
-   - run _all_ your services and/or tasks in Fargate by setting the relevant [App Parameters](/reference/app-parameters)
-   - enable Fargate on a _per service_ basis via the ProcessName Formation parameter
+   - run _all_ your Services and/or tasks in Fargate by setting the relevant [App Parameters](/reference/app-parameters)
+   - enable Fargate on a _per Service_ basis via the ProcessName Formation parameter
       - e.g. `convox apps params set WebFormation=2,256,512,FARGATE` for running on Fargate
       - e.g. `convox apps params set WebFormation=2,256,512,FARGATE_SPOT` for running on Fargate Spot
 

@@ -23,7 +23,7 @@ Each of these commands is described in more detail below.
 ## convox run
 
 **Syntax:** `convox run [service] [command]`
-**Use:** Spawns a new container in your Convox rack to run the desired command.
+**Use:** Spawns a new container in your Convox Rack to run the desired command.
 
 **Examples:**
 
@@ -66,7 +66,7 @@ Migrating database... Done
 ## convox exec
 
 **Syntax:** `convox exec [container ID] [command]`
-**Use:** Attaches to and executes the command in an existing container on your Convox rack.
+**Use:** Attaches to and executes the command in an existing container on your Convox Rack.
 
 > **Note:** When the Rack has `ECSExec=Yes`, `convox exec` connects through AWS SSM Session Manager instead of the Docker daemon. See [exec](/reference/cli-commands/exec) and [ECSExec](/reference/rack-parameters/ECSExec).
 

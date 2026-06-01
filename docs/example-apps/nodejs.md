@@ -18,7 +18,7 @@ A few steps to get started:
 3. Install the [Convox CLI](/introduction/installation).
 4. Install the [Convox local Rack](/development/running-locally)
 
-Once you are all setup you can switch to your local rack with `convox switch local` and start your local application with `convox start` (make sure you are in the root directory).
+Once you are all setup you can switch to your local Rack with `convox switch local` and start your local application with `convox start` (make sure you are in the root directory).
 
 You should now be able to access your application by going to [https://web.nodejs.convox](https://web.nodejs.convox). If you renamed anything you may need to modify your local URL. The format is https://[service name].[app name].convox
 
@@ -43,19 +43,19 @@ In order to deploy to production we have to ensure we have completed the followi
 3. [Install an AWS Rack](/introduction/getting-started#rack-installation)
 4. Make sure your CLI is [logged in](/introduction/installation) to your Convox account using `convox login` and your [CLI Key](https://console.convox.com/account)
 
-Once you are all set here you can see the name of your production rack
+Once you are all set here you can see the name of your production Rack
 
 ```bash
 $ convox racks
 ```
 
-And switch your CLI to your production rack
+And switch your CLI to your production Rack
 
 ```bash
 $ convox switch [rack name]
 ```
 
-Now you can create an empty application in your production rack
+Now you can create an empty application in your production Rack
 
 ```bash
 $ convox apps create --wait

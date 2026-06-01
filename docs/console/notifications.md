@@ -23,7 +23,7 @@ An app build failed. Run `convox builds info <id>` to view build logs.
 
 ### [*rack*] Created release `RMDKLNZIACD` for app *example*
 
-A new release has been created and is ready to be deployed. Releases are created when new builds complete or when the app’s environment variables are changed. You can promote a new release with the `convox releases promote` command.
+A new release has been created and is ready to be deployed. Releases are created when new builds complete or when the App’s environment variables are changed. You can promote a new release with the `convox releases promote` command.
 
 ### [*rack*] Finished rolling deploy of release `RMDKLNZIACD` for app *example*
 
@@ -47,7 +47,7 @@ A resource has been deleted by Convox, as with `convox resources delete`.
 
 ### [*rack*] Updating rack to: version *20160405223647*
 
-A rack update has been initiated. Rack updates can take from a few seconds to several minutes to complete, depending on whether they require the backing EC2 instances to be restarted. Most updates do not require instance restarts.
+A Rack update has been initiated. Rack updates can take from a few seconds to several minutes to complete, depending on whether they require the backing EC2 instances to be restarted. Most updates do not require instance restarts.
 
 ### [*rack*] Updating rack to: count *3*
 

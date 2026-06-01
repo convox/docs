@@ -25,7 +25,7 @@ In CircleCI, add an [environment variable](https://circleci.com/docs/2.0/env-var
 
 > **Note:** You must specify `version: 2.1` in your config.yml in order to use [Orbs](https://circleci.com/docs/2.0/using-orbs/)
 
-The Convox Orb contains a single `deploy` command and matching job for deploying your app to Convox using CircleCI.
+The Convox Orb contains a single `deploy` command and matching job for deploying your App to Convox using CircleCI.
 
 The job is self contained. If you would prefer to use the command you must run the `checkout` command before using `deploy`.
 
@@ -52,7 +52,7 @@ workflows:
           rack: production
           app: example
 ```
-This will build and deploy your app in a single step
+This will build and deploy your App in a single step
 
 If you would prefer to use the Convox Orb commands directly you need to run the `checkout` command before deploy:
 ```yaml

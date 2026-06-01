@@ -20,7 +20,7 @@ Launch type override for application timers. Set to `Yes` to run all timers in [
 
 When set to `Yes`, all timers in the application are launched as Fargate tasks. When set to `Spot`, timers run on Fargate Spot for cost savings. Timer tasks are short-lived by nature, making them good candidates for Fargate Spot since interruptions are less impactful on short-running workloads.
 
-This parameter is independent of [FargateServices](/reference/app-parameters/FargateServices). You can run services on EC2 while running timers on Fargate, or vice versa.
+This parameter is independent of [FargateServices](/reference/app-parameters/FargateServices). You can run Services on EC2 while running timers on Fargate, or vice versa.
 
 ```bash
 $ convox apps params set FargateTimers=Yes

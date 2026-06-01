@@ -9,7 +9,7 @@ Convox allows you to scale your application's concurrency, memory allocation, an
 
 ## Setting Initial Defaults
 
-You can specify initial default values for a service in the [convox.yml](/application/convox-yml):
+You can specify initial default values for a Service in the [convox.yml](/application/convox-yml):
 
 ```yaml
 services:
@@ -62,7 +62,7 @@ web      4        4        512  1024
 There are two dimensions of scaling in a Convox Rack:
 
 - **Rack-level scaling** (the number of instances available to run containers)
-- **Service-level scaling** (the number of containers running per service)
+- **Service-level scaling** (the number of containers running per Service)
 
 Convox supports autoscaling for both.
 
@@ -91,7 +91,7 @@ services:
         requests: 200
 ```
 
-Setting scale targets for a service will cause the service autoscaler to dynamically adjust the number of running containers to meet the targets.
+Setting scale targets for a Service will cause the service autoscaler to dynamically adjust the number of running containers to meet the targets.
 
 - `cpu`: Average CPU utilization (%) across all containers (`ECSServiceAverageCPUUtilization`)
 - `memory`: Average Memory utilization (%) across all containers (`ECSServiceAverageMemoryUtilization`)
@@ -149,7 +149,7 @@ will temporarily adjust the instance count. The autoscaler will monitor the scal
 
 Manually scaling can be useful for scenarios such as:
 - **Adjusting to a new desired count after deployment**
-- **Pre-scaling a service in anticipation of a traffic spike** (e.g., a scheduled event, sale, or product launch)
+- **Pre-scaling a Service in anticipation of a traffic spike** (e.g., a scheduled event, sale, or product launch)
 
 If traffic sustains at the increased level, the autoscaler will continue scaling accordingly. However, if traffic subsides, the autoscaler will adjust back within the configured range.
 
@@ -174,7 +174,7 @@ For full details, refer to the [IgnoreManualScaleCount](/reference/app-parameter
 ## Summary
 
 - **Rack Autoscaling** dynamically adjusts instance counts based on workload.
-- **Service Autoscaling** scales service containers based on defined targets.
+- **Service Autoscaling** scales Service containers based on defined targets.
 - **Manual Scaling** can temporarily override desired counts but is corrected by the autoscaler.
 - **IgnoreManualScaleCount** ensures full autoscaler control by ignoring manually set values.
 

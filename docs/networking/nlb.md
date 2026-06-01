@@ -224,7 +224,7 @@ By default, AWS NLBs only route traffic to targets in the same Availability Zone
 - [NLBCrossZone](/reference/rack-parameters/NLBCrossZone): set to `Yes` to enable cross-zone load balancing on every public NLB listener. Off by default.
 - [NLBInternalCrossZone](/reference/rack-parameters/NLBInternalCrossZone): same for the internal NLB.
 
-Enabling cross-zone makes AWS bill you for inter-AZ traffic between the listener and targets. Per-port `cross_zone: true` overrides the rack default for a single listener only, letting you enable it surgically for services that need uniform distribution without paying the cost fleet-wide.
+Enabling cross-zone makes AWS bill you for inter-AZ traffic between the listener and targets. Per-port `cross_zone: true` overrides the rack default for a single listener only, letting you enable it surgically for Services that need uniform distribution without paying the cost fleet-wide.
 
 ### Preserve client IP
 

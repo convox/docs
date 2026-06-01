@@ -12,7 +12,7 @@ Point-in-time recovery for the Rack's DynamoDB table.
 
 ## Use Cases
 
-- Enable on production racks to allow restoring DynamoDB table data to any point within the last 35 days.
+- Enable on production Racks to allow restoring DynamoDB table data to any point within the last 35 days.
 - Required by compliance standards (e.g., SOC 2, HIPAA) that mandate continuous backup capabilities for data stores.
 - Provides an additional safety net against accidental data corruption or deletion at the item level.
 

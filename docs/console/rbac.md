@@ -99,13 +99,13 @@ Here are the available resource types that can be selected when defining permiss
 
 ### Relation Between Rack and App Permissions
 
-**Rack** permissions and **App** permissions are related. A user must have access to the **Rack** to make use of **App** permissions. If a user is granted app-level permissions but lacks permissions for the associated rack, the app permissions will not grant access. Rack permissions act as a foundational requirement for app-related actions.
+**Rack** permissions and **App** permissions are related. A user must have access to the **Rack** to make use of **App** permissions. If a user is granted app-level permissions but lacks permissions for the associated Rack, the app permissions will not grant access. Rack permissions act as a foundational requirement for app-related actions.
 
 ### Resource Name Options
 
 For resources requiring a name, you can specify the target resource using one of the following options:
 
-- **Name (string)**: Manually input the name of the app or rack.
+- **Name (string)**: Manually input the name of the App or Rack.
 - **List**: Select from a dropdown list of available resources.
 - **Regex**: Apply a regular expression filter to match resource names.
 - **Allow-All**: Grants access to all resource names under the selected resource type.

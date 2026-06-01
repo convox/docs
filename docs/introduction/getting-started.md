@@ -44,7 +44,7 @@ If you already have a [Dockerized](https://docs.docker.com/engine/examples/) app
 
 ### Deploy your application
 
-Before deploying, create a new app in your Rack.
+Before deploying, create a new App in your Rack.
 
 ```bash
 $ convox apps create --wait
