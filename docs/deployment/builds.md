@@ -87,6 +87,10 @@ The `convox build` and `convox deploy` commands accept several flags to customiz
 | `--no-cache` | Build without using the Docker layer cache. |
 | `--wildcard-domain` | Enable wildcard domain support for the Release created from this Build. Adds `*.<app>-<service>.<rack-host>` listener rules and provisions a wildcard ACM certificate. |
 
+### Build disk size
+
+Build disk size is set per build method: [BuildVolumeSize](/reference/rack-parameters/BuildVolumeSize) for `ec2` builds, [FargateBuildVolumeSize](/reference/rack-parameters/FargateBuildVolumeSize) for `fargate` builds. Increase the one that matches your Rack's [BuildMethod](/reference/rack-parameters/BuildMethod) when a Build fails with "No space left on device".
+
 ### Build arguments
 
 Convox also respects the `ARG` Dockerfile directive. For more information, see [Dockerfile: ARG](/application/dockerfile#arg).
@@ -130,6 +134,8 @@ When `BuildCacheCleanup=No`, cache images are never expired and the repository g
 ### Generation 1 Apps
 
 Gen1 Apps do not use the persistent build cache. They continue to build with the local Docker layer cache only, and no cache repository is provisioned for them even when `BuildCache=Yes` is set on the Rack.
+
+Gen1 Apps also cannot build on a Fargate builder at all. On a Rack with [BuildMethod](/reference/rack-parameters/BuildMethod)=`fargate`, a gen1 Build fails with `exec: "docker": executable file not found in $PATH`, because the Fargate builder image is kaniko and gen1 builds require the `docker` binary. The Build is marked `failed`, no Release is created, and the App keeps serving its current Release. `BuildMethod` applies to the whole Rack, so a Rack that still runs gen1 Apps must stay on `ec2`.
 
 ## See Also
 

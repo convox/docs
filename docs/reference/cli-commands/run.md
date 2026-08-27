@@ -39,6 +39,33 @@ $ convox run web bin/report --detach -a myapp
 Running detached process... OK, web-pqr3456-stu7
 ```
 
+## Passing a Command
+
+Everything after the Service name is joined into a single command string, which the new Process runs with `sh -c`. Quoting is not preserved across that join, so a command that contains shell syntax must be passed as one quoted argument:
+
+```bash
+$ convox run web 'bin/migrate && bin/seed' -a myapp
+Migrating database... Done
+Seeding database... Done
+```
+
+A command with no shell syntax needs no quoting, which is why the examples above pass `bin/rails db:migrate` directly.
+
+If your command takes flags of its own, put `--` after the `convox` flags so the CLI stops parsing:
+
+```bash
+$ convox run web -a myapp -- bin/report --verbose
+```
+
+Without `--`, the CLI claims the flag for itself:
+
+```bash
+$ convox run web bin/report --verbose -a myapp
+ERROR: unknown flag: --verbose
+```
+
+Do not add an `sh -c` of your own. The command string is already run through a shell, so an inner `sh -c` nests a second shell and produces confusing output rather than an error. See [exec](/reference/cli-commands/exec) for a worked example.
+
 ## See Also
 
 - [exec](/reference/cli-commands/exec)
