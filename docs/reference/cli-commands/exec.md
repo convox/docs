@@ -30,11 +30,50 @@ root@web-abc1234-def5:/app# exit
 $
 ```
 
+## Passing a Command
+
+Everything after the Process ID is joined into a single command string. On the default Docker exec path, the Rack runs that string in the container with `sh -c`.
+
+Quoting is not preserved across the join, so a command that contains shell syntax must be passed as one quoted argument:
+
+```bash
+$ convox exec web-abc1234-def5 'echo A; echo B' -a myapp
+A
+B
+```
+
+A command with no shell syntax needs no quoting, which is why the Example Usage above passes `bash` directly.
+
+If your command takes flags of its own, put `--` after the `convox` flags so the CLI stops parsing:
+
+```bash
+$ convox exec web-abc1234-def5 -a myapp -- ls -la /app
+```
+
+Without `--`, the CLI claims the flag for itself:
+
+```bash
+$ convox exec web-abc1234-def5 ls -la /app -a myapp
+ERROR: unknown flag: -la
+```
+
+Do not add an `sh -c` of your own. The command string is already run through a shell, so an inner `sh -c` is flattened into that same string and produces confusing output rather than an error:
+
+```bash
+$ convox exec web-abc1234-def5 -a myapp -- sh -c 'echo A; echo B'
+
+B
+```
+
+That arrives as the string `sh -c echo A; echo B`. The shell splits it on `;` and runs `sh -c echo A` as the first statement, where `echo` is the command and `A` becomes `$0`, so it prints a blank line. The shell then runs `echo B` itself and `A` is never printed.
+
 ## ECS Exec
 
 When the Rack has [ECSExec](/reference/rack-parameters/ECSExec)=`Yes`, `convox exec` tunnels the session through AWS SSM Session Manager (the ECS Exec feature) instead of connecting to the Docker daemon on the host instance. SSM brokers the connection to the container, so you can exec into Fargate tasks and into tasks running on EC2 instances the Rack API cannot reach directly.
 
 `ECSExec` defaults to `No`. With the default, `convox exec` continues to use Docker exec against the host instance, and the behavior of this command is unchanged.
+
+The command is still joined into a single string, but on this path the Rack hands it to the ECS `ExecuteCommand` API rather than running it through its own `sh -c` wrapper. If a command containing shell syntax does not behave as it does on the Docker exec path, start a shell with `convox exec <pid> sh -a <app>` and run the command inside the session.
 
 ECS Exec requires the AWS `session-manager-plugin` binary on the machine running the `convox` CLI. The CLI launches the plugin to carry the interactive stream, and reports an error with installation instructions if the plugin is not found on your `PATH`. Install it from the [AWS Session Manager plugin guide](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html).
 

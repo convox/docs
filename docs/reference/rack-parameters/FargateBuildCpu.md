@@ -21,15 +21,28 @@ This parameter is only effective when [BuildMethod](/reference/rack-parameters/B
 
 The value is specified in CPU units. Fargate supports specific CPU and memory combinations. Valid CPU values are `256` (0.25 vCPU), `512` (0.5 vCPU), `1024` (1 vCPU), `2048` (2 vCPU), and `4096` (4 vCPU). The available memory values depend on the CPU value selected. See [AWS Fargate task size](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size) for valid combinations.
 
-When left blank, Convox uses a default Fargate CPU allocation appropriate for general-purpose builds.
+When left blank, the builder runs at `1024` CPU units.
 
 ```bash
 $ convox rack params set FargateBuildCpu=1024
 ```
 
+AWS enforces the pairing, so a CPU value that is not legal for the current memory value is rejected even though each value is valid on its own. Setting `FargateBuildCpu=4096` while [FargateBuildMemory](/reference/rack-parameters/FargateBuildMemory) is `4096` fails with:
+
+```
+No Fargate configuration exists for given values: 4096 CPU, 4096 memory
+```
+
+The Rack rolls back cleanly and keeps running on its previous parameters, but the change does not apply. Set both values together to move between task sizes:
+
+```bash
+$ convox rack params set FargateBuildCpu=4096 FargateBuildMemory=8192
+```
+
 ## See Also
 
 - [FargateBuildMemory](/reference/rack-parameters/FargateBuildMemory)
+- [FargateBuildVolumeSize](/reference/rack-parameters/FargateBuildVolumeSize)
 - [BuildMethod](/reference/rack-parameters/BuildMethod)
 - [BuildCpu](/reference/rack-parameters/BuildCpu)
 - [Rack Parameters](/reference/rack-parameters) for a full list of available parameters

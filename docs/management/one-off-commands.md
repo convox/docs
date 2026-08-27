@@ -19,6 +19,14 @@ Convox allows you to execute individual commands on your containers in several d
 
 Each of these commands is described in more detail below.
 
+> **Note:** `convox run` and `convox exec` join everything after the Service name or container ID into a single command string and run it in the container with `sh -c`. Pass a command that contains shell syntax as one quoted argument, and do not add an `sh -c` of your own. If the command takes flags of its own, put `--` after the `convox` flags:
+>
+> ```bash
+> $ convox exec 5e3c8576b942 'echo A; echo B' -a myapp
+> $ convox run web -a myapp -- bin/report --verbose
+> ```
+>
+> See [exec](/reference/cli-commands/exec) and [run](/reference/cli-commands/run) for the full rules.
 
 ## convox run
 

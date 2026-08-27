@@ -63,6 +63,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [ExistingVpc](/reference/rack-parameters/ExistingVpc) | "" | Use an existing VPC by ID |
 | [FargateBuildCpu](/reference/rack-parameters/FargateBuildCpu) | "" | CPU for Fargate builds |
 | [FargateBuildMemory](/reference/rack-parameters/FargateBuildMemory) | "" | Memory for Fargate builds |
+| [FargateBuildVolumeSize](/reference/rack-parameters/FargateBuildVolumeSize) | "" | Build disk size in GiB for the Fargate builder |
 | [HighAvailability](/reference/rack-parameters/HighAvailability) | `true` | Enable High Availability mode (immutable after creation) |
 | [HttpProxy](/reference/rack-parameters/HttpProxy) | "" | HTTP proxy for outbound connections |
 | [ImagePullBehavior](/reference/rack-parameters/ImagePullBehavior) | `default` | Docker image pull behavior |
