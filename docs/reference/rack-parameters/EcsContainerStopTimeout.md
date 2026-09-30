@@ -9,6 +9,8 @@ Custom timeout duration for stopping ECS containers on Rack instances. This para
 
 By default, this value is unset, meaning ECS will use its default 30-second stop timeout or any custom configuration already set at the ECS level.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 | Allowed values | Numerical values in seconds (e.g., `10`, `60`, `120`) |
 

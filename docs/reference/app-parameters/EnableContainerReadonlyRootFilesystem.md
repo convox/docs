@@ -7,6 +7,8 @@ description: "Controls whether ECS containers run with a read-only root filesyst
 
 Read-only root filesystem enforcement for the application's ECS containers, enhancing security by preventing modifications to critical system files.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

@@ -7,6 +7,8 @@ description: "Specifies the HTTP status codes that healthy targets must return w
 
 HTTP success codes for load balancer health checks.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `200-399,401` |
 | Allowed values | `200-499` |
 

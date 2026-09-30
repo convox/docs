@@ -7,6 +7,8 @@ description: "Enables AWS KMS encryption on the shared EFS volume used by Convox
 
 AWS KMS encryption for the default shared EFS volume used for application [volumes](/application/volumes).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `false`         |
 | Allowed values | `true`, `false` |
 

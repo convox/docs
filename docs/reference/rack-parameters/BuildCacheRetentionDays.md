@@ -7,6 +7,8 @@ description: "Set how many days build cache images are retained in the Rack buil
 
 Number of days to retain cache images in the `{rack}-build-cache` ECR repository before the lifecycle policy expires them. This value applies only when [BuildCacheCleanup](/reference/rack-parameters/BuildCacheCleanup) is `Yes`. With cleanup off there is no expiry policy and this value has no effect.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `30`         |
 | Allowed values | `1` to `365` |
 

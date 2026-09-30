@@ -8,6 +8,8 @@ description: "Attach a custom IAM policy to the application's ECS Task Role for 
 ARN of a custom IAM policy to attach to the application's ECS [Task Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html).
 If the Service has the [Policies](/application/services) parameter set, this will not apply at the service level.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases
@@ -22,6 +24,8 @@ The value must be a valid IAM policy ARN (e.g., `arn:aws:iam::123456789012:polic
 
 If a Service defines its own `Policies` attribute in `convox.yml`, the service-level policies take precedence and this app-level `IamPolicy` will **not** be applied to that Service. Services without explicit policies will use the app-level `IamPolicy`.
 
+On a Rack with [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary) set, the boundary caps the App's roles, so permissions in this policy beyond the boundary do not apply.
+
 ```bash
 $ convox apps params set IamPolicy=arn:aws:iam::123456789012:policy/my-app-policy
 ```
@@ -29,4 +33,5 @@ $ convox apps params set IamPolicy=arn:aws:iam::123456789012:policy/my-app-polic
 ## See Also
 
 - [Services](/application/services)
+- [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary)
 - [Rack Parameters](/reference/rack-parameters)

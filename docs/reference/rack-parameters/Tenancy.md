@@ -7,12 +7,14 @@ description: "Configure whether Convox Rack EC2 instances run on shared or dedic
 
 Dedicated hardware. This controls the tenancy of EC2 instances and the VPC created by the Rack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `default`                  |
 | Allowed values | `default`, `dedicated` |
 
 ## Use Cases
 
-- Using `dedicated` tenancy for regulatory or compliance requirements that mandate physical isolation from other AWS customers
+- Using `dedicated` tenancy for regulatory or compliance requirements that mandate physical isolation from other AWS accounts
 - Keeping `default` (shared) tenancy for most workloads to benefit from lower costs
 - Enabling dedicated tenancy when running security-sensitive workloads that require hardware-level isolation
 

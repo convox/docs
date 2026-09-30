@@ -9,6 +9,8 @@ Custom availability zone selection for the Rack. When blank, zones are selected 
 
 When left blank (the default), the Rack automatically selects availability zones in the region where it is installed.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

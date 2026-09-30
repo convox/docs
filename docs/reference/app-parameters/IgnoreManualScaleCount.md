@@ -7,6 +7,8 @@ description: "When autoscaling is enabled, ignore manually set desired counts so
 
 Manual scaling suppression when autoscaling is enabled. When set to `Yes`, manually set desired counts are ignored in favor of autoscaler-managed scaling.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

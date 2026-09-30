@@ -7,6 +7,8 @@ description: "Set the minimum number of on-demand instances to maintain alongsid
 
 Spot Fleet's minimum on-demand instance count. This ensures a baseline of guaranteed, non-interruptible capacity alongside your Spot instances. The instance type for on-demand instances is taken from the [InstanceType](/reference/rack-parameters/InstanceType) parameter. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value (if HighAvailability disabled) | `1` |
 | Default value (if HighAvailability enabled)  | `2` |
 

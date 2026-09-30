@@ -7,6 +7,8 @@ description: "Set the CIDR block for the VPC created by the Convox Rack."
 
 VPC CIDR Block. This defines the overall IP address range for the Rack's VPC. All subnet CIDR blocks must fall within this range.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `10.0.0.0/16` |
 
 ## Use Cases

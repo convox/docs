@@ -7,6 +7,8 @@ description: "Attach an additional IAM policy to the Convox Rack build instances
 
 ARN of an additional IAM policy to add to the build cluster instances. This is similar to [InstancePolicy](/reference/rack-parameters/InstancePolicy) but applies only to build instances.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

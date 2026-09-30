@@ -7,6 +7,8 @@ description: "Inject this application's environment variables into ECS tasks fro
 
 Source this application's [environment variables](/application/environment) from [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) when ECS tasks launch, rather than the default S3-based delivery. This parameter applies to gen2 applications only and changes only the delivery mechanism, so you continue to manage variables normally with `convox env set`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

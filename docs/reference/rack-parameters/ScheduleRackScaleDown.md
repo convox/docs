@@ -7,6 +7,8 @@ description: "Define a cron schedule for automatically shutting down the Convox 
 
 The recurring schedule for when the Rack will be shut down. Use this parameter together with [ScheduleRackScaleUp](/reference/rack-parameters/ScheduleRackScaleUp) to turn the Rack on and off on a schedule. Both parameters must be set for scheduling to work.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 The supported cron expression format consists of five fields separated by white spaces: `[Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]`.

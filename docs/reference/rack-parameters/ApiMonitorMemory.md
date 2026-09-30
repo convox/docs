@@ -7,6 +7,8 @@ description: "Configure the memory reserved by the Convox Rack API monitor proce
 
 How much memory (in MB) should be reserved by the API monitor process. The monitor process handles background Rack operations such as monitoring ECS services and managing instance health.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `128` |
 
 ## Use Cases

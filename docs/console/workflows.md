@@ -49,7 +49,7 @@ A deployment workflow is how you can manage the regular deployment of your appli
 | After Promote | Here you can specify a Service (as defined in your convox.yml file) and a command to be run after your application is promoted. This can be useful for things like notifications or cleanup scripts. |
 | Demo Environment | Here you can specify any environment variables you want set or overridden for your demo application. |
 
-While deployment workflows are triggered by merges to the specified repository/branch you can also run a deployment workflow manually by clicking <img src="/assets/images/docs/workflows/workflow-play.png"  style="height: 1.5em;">
+While deployment workflows are triggered by merges to the specified repository/branch you can also run a deployment workflow manually by clicking its play button.
 
 ## Workflow Jobs
 

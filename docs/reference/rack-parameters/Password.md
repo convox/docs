@@ -7,6 +7,8 @@ description: "The required API HTTP password used to authenticate with the Convo
 
 (REQUIRED) API HTTP password. This is the password used to authenticate API requests to the Rack. It is set during Rack installation and is required for all Rack operations.
 
+| Setting | Value |
+|:--|:--|
 | Minimum length | `1`  |
 | Maximum length | `50` |
 

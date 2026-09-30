@@ -7,6 +7,8 @@ description: "Place Convox-related Lambda functions inside the VPC when the Rack
 
 VPC placement control for Convox-related Lambda functions. When set to `Yes` and [Private](/reference/app-parameters/Private) is enabled, Lambda functions are placed inside the VPC.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

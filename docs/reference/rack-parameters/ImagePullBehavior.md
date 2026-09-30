@@ -7,6 +7,8 @@ description: "Control the Docker image pull strategy on Convox Rack ECS containe
 
 The behavior used to customize the Docker image pull process on container instances. See [ECS_IMAGE_PULL_BEHAVIOR](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) in the AWS docs.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `default`                                    |
 | Allowed values | `default`, `always`, `once`, `prefer-cached` |
 

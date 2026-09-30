@@ -19,7 +19,7 @@ A convox app has been deleted, as with `convox apps delete`.
 
 ### [*rack*] Build `BNJFGEQEXOK` failed for app *example*
 
-An app build failed. Run `convox builds info <id>` to view build logs.
+An app build failed. Run `convox builds logs <id>` to view build logs.
 
 ### [*rack*] Created release `RMDKLNZIACD` for app *example*
 
@@ -53,7 +53,7 @@ A Rack update has been initiated. Rack updates can take from a few seconds to se
 
 A request has been received to alter the number of instances in your Rack’s cluster. In some cases this can require processes to be re-launched and can take a few minutes to complete.
 
-### [*rack*] Updating rack to: instance type *db.t2.medium*
+### [*rack*] Updating rack to: instance type *t3.medium*
 
 A request has been received to alter the type of instances in your Rack’s cluster. This will require processes to be re-launched and can take a few minutes to complete.
 

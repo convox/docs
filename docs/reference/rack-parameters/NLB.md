@@ -7,6 +7,8 @@ description: "Enable a public Network Load Balancer on a Convox Rack for TCP ser
 
 Public Network Load Balancer (NLB) for the Rack. When enabled, creates an internet-facing Layer 4 load balancer that Services can opt into via the [nlb:](/application/services#nlb) field in `convox.yml`. The existing Application Load Balancer (ALB) is unaffected. The NLB is a sidecar for TCP workloads that the ALB cannot handle.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

@@ -7,6 +7,8 @@ description: "Disables port 80 (HTTP) on the Application Load Balancer for a Con
 
 Port 80 (HTTP) listener control for the Application Load Balancer. When set to `Yes`, the ALB will no longer listen on port 80 (HTTP), and only HTTPS traffic on port 443 will be accepted.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

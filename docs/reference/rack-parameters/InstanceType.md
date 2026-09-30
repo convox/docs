@@ -7,6 +7,8 @@ description: "Set the EC2 instance type for runtime instances in a Convox Rack c
 
 The type of EC2 instance to run in your Rack cluster.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `t3.small`                                                       |
 | Allowed values | [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/) |
 

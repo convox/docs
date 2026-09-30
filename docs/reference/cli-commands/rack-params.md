@@ -19,23 +19,26 @@ $ convox rack params
 |:-----|:------|:------------|
 | `--group` | `-g` | Filter output to one parameter group (see [Groups](#groups) below) |
 | `--rack` | `-r` | Rack name |
-| `--reveal` | | Show the real value of masked parameters on a TTY |
+| `--reveal` | | Show masked parameters unmasked on a TTY (`Password` still shows `****`) |
 
 ## Example Usage
 
 ```bash
 $ convox rack params
-BuildInstance
-CertDuration          2160
-HighAvailability      true
-HttpProxy             **********
-IdleTimeout           3600
-InstanceCount         3
-InstanceType          t3.medium
-Internal              false
-NodeDisk              20
-Password              **********
-Ssl                   true
+Ami
+ApiCount                                 2
+ApiCpu                                   128
+...
+HighAvailability                         true
+HttpProxy                                **********
+...
+InstanceCount                            3
+InstanceType                             t3.small
+...
+Internal                                 No
+...
+Password                                 **********
+...
 ```
 
 Two parameters, [Password](/reference/rack-parameters/Password) and [HttpProxy](/reference/rack-parameters/HttpProxy), render as `**********` on a terminal to avoid accidental exposure during screen shares or pasted bug reports. Empty values render as empty (never as `**********`), so a parameter that has never been set is still distinguishable from one that is masked.
@@ -44,24 +47,26 @@ The mask is a display-only wrapper. Piped output bypasses it so `grep`, `awk`, a
 
 ```bash
 $ convox rack params | grep -E '^Password|^HttpProxy'
-HttpProxy  http://user:secret@corp-proxy.example.com:3128
-Password   correct-horse-battery-staple
+HttpProxy                                http://user:secret@corp-proxy.example.com:3128
+Password                                 ****
 ```
 
-Pass `--reveal` to show the real values on a terminal:
+CloudFormation stores [Password](/reference/rack-parameters/Password) as a `NoEcho` parameter, so the Rack reports it as `****` in every listing, piped or not.
+
+Pass `--reveal` to show unmasked values on a terminal:
 
 ```bash
 $ convox rack params --reveal
 ...
-HttpProxy             http://user:secret@corp-proxy.example.com:3128
+HttpProxy                                http://user:secret@corp-proxy.example.com:3128
 ...
-Password              correct-horse-battery-staple
+Password                                 ****
 ...
 ```
 
 ### Groups
 
-The 110-parameter Rack surface is partitioned into ten logical groups. Filter to one with `-g` / `--group`:
+Rack parameters are partitioned into ten logical groups. Filter to one with `-g` / `--group`:
 
 ```bash
 $ convox rack params -g nlb
@@ -83,8 +88,8 @@ Unique prefixes are accepted: `-g net` resolves to `network`, `-g nlb` resolves 
 $ convox rack params -g n
 ERROR: group 'n' matches multiple groups: network, nlb (use 'net' or 'nlb')
   available groups:
-  api        Rack API web process config, router, ingress toggles
-  build      Build method, build instance, Fargate build, image pruning
+  api          Rack API web process config, router, ingress toggles
+  build        Build method, build instance, Fargate build, image pruning
   ...
 ```
 

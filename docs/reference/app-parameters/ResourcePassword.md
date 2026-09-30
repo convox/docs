@@ -7,6 +7,8 @@ description: "Override the auto-generated password for embedded database resourc
 
 Password override for embedded database resources defined in `convox.yml`. When blank, a password is generated automatically from the CloudFormation stack ID.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

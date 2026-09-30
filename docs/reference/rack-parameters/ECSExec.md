@@ -7,6 +7,8 @@ description: "Enable interactive container access through ECS Exec over AWS SSM 
 
 Routes interactive container access through ECS Exec instead of the Docker daemon. When enabled, `convox exec` opens an interactive session into a running container over AWS SSM Session Manager, and `convox run` enables the execute-command capability on each new task it starts.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

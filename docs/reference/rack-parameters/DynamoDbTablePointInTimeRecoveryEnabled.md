@@ -7,6 +7,8 @@ description: "Enables point-in-time recovery (PITR) on DynamoDB tables created b
 
 Point-in-time recovery for the Rack's DynamoDB table.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `false`         |
 | Allowed values | `true`, `false` |
 

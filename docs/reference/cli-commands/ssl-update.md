@@ -5,9 +5,9 @@ description: "Update the certificate for an App endpoint."
 
 # ssl update
 
-Update the certificate for an App endpoint (generation 1 only). Associates a certificate with a specific Service port. Use this after importing a new certificate to bind it to your Service's HTTPS endpoint.
+Update the certificate for an App endpoint (generation 1 only). Associates a certificate with a specific Service port. Use this after importing a new certificate to bind it to your Service's HTTPS endpoint. The certificate id must be one that [`convox certs`](/reference/cli-commands/certs) lists.
 
-> **Note:** Gen 2 Apps manage SSL automatically via the `domain` and `tls` settings in `convox.yml`. This command is only needed for Gen 1 Apps.
+> **Note:** Gen 2 Apps get certificates from each Service's `domain:` setting, or from `certificate:` on `nlb:` ports, in `convox.yml`. For a Gen 2 App this command returns `ERROR: command not valid for generation 2 applications`.
 
 ## Syntax
 
@@ -26,7 +26,7 @@ $ convox ssl update <process:port> <certificate>
 ## Example Usage
 
 ```bash
-$ convox ssl update web:443 cert-ef34gh -a myapp
+$ convox ssl update web:443 acm-3f9d27c1b6a4 -a myapp
 Updating certificate... OK
 ```
 

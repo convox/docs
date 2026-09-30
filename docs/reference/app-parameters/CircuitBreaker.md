@@ -7,6 +7,8 @@ description: "Enables ECS deployment circuit breaker to automatically roll back 
 
 ECS deployment circuit breaker. When enabled, ECS automatically rolls back deployments that fail to reach a steady state. However, if a deployment requires the Rack to scale up, it may trip the circuit breaker prematurely. Best used when sufficient capacity is available.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

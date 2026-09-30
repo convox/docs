@@ -7,6 +7,8 @@ description: "Configure how frequently Docker image pruning runs on Convox Rack 
 
 Cron frequency to prune older Docker images on Rack instances. This automated cleanup prevents disk space exhaustion by removing unused Docker images on a recurring schedule.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `daily`                         |
 | Allowed values | `hourly`, `daily`, `weekly` |
 

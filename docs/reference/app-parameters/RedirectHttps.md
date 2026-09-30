@@ -7,6 +7,8 @@ description: "Controls whether HTTP requests are automatically redirected to HTT
 
 HTTP-to-HTTPS redirect control. When set to `Yes` (default), all HTTP requests are automatically redirected to HTTPS via a 301 response. Set to `No` to allow HTTP traffic.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Yes` |
 | Allowed values | `Yes`, `No` |
 

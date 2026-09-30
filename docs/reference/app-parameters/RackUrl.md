@@ -7,6 +7,8 @@ description: "Injects a RACK_URL environment variable into containers for progra
 
 Rack API URL injection as an environment variable. When set to `Yes`, a `RACK_URL` environment variable is injected into all Service and Timer containers. This variable contains the authenticated URL for the Rack API, allowing applications to communicate with the Rack control plane programmatically using the Convox SDK.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

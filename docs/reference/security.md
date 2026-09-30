@@ -1,6 +1,6 @@
 ---
 title: "Security"
-description: "Overview of Convox security features including AWS isolation, VPC networking, load balancers, and dedicated instances."
+description: "Overview of Convox security features including AWS isolation, IAM permissions, VPC networking, load balancers, and dedicated instances."
 ---
 
 # Security
@@ -15,12 +15,17 @@ Your Convox Rack is installed in your own AWS account. Unlike a multi-tenant Paa
 
 ## AWS Permissions
 
-Convox strives to limit the scope of AWS permissions needed to manage a Rack. When you install a Rack, an IAM "KernelUser" is created and granted only the permissions required. Additionally, many of the permissions are scoped down further to only apply to the Rack's resources. As with security in general, this is an ongoing process. Future Rack updates will continue to limit these permissions as much as possible.
+The Rack API, builds and the instance autoscaler run as one IAM role, `ApiRole`, which is also the role CloudFormation uses for Rack, App and resource updates. `ApiRole` carries these managed policies:
 
-Some examples of limited permissions include:
-- Access to IAM resources (roles, users, policies, etc) that belong to the `/convox/` path
-- Access to DynamoDB tables that only begin with the name of the Rack as a prefix
-- Access to RDS instances that only begin with the name of the Rack as a prefix
+| Policy | Grants |
+|:-------|:-------|
+| `PowerUserAccess` (AWS managed), or the Rack's `ApiPolicyScoped` when [ApiRoleScoped](/reference/rack-parameters/ApiRoleScoped) is `Yes` | Every AWS service except IAM, AWS Organizations and account management. `ApiPolicyScoped` limits this to the services the Rack uses |
+| `ApiPolicyV2` | IAM writes on roles, policies, instance profiles and users under the `/convox/` path in the Rack's own account; `iam:GetRole` and `iam:PassRole` on every role in the account; IAM server certificates |
+| `CMKPolicy` | The Rack's KMS key |
+
+Its inline policies add `lambda:GetFunction`, read access to the Rack's own API secret in Systems Manager Parameter Store, Secrets Manager access to the Rack's own secrets, ECR image pushes and pulls, and ECR Public pulls.
+
+Every IAM role, policy, instance profile and user the Rack creates is under `/convox/`. To cap what those roles and users can do, including App roles that get grants from [IamPolicy](/reference/app-parameters/IamPolicy) or a Service's `policies`, set [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary).
 
 ## VPC Isolation
 
@@ -41,6 +46,8 @@ If you would like to ensure hardware single tenancy all the way down to the AWS 
 ## See Also
 
 - [HIPAA Compliance](/reference/hipaa-compliance)
+- [ApiRoleScoped](/reference/rack-parameters/ApiRoleScoped)
+- [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary)
 - [Private Networking](/networking/private-networking)
 - [Console Access Control](/console/access-control)
 - [AWS Infrastructure Details](/reference/aws)

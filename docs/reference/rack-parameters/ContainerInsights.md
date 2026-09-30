@@ -7,6 +7,8 @@ description: "Enable CloudWatch Container Insights on a Convox Rack's ECS cluste
 
 Enables CloudWatch Container Insights on the Rack's ECS cluster. When set to `Yes`, the cluster reports CPU, memory, network, and task-level metrics to the CloudWatch Container Insights dashboards. The setting is applied in place on the existing cluster, which is never replaced.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

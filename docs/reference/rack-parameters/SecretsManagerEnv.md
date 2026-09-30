@@ -7,6 +7,8 @@ description: "Inject App environment variables into ECS tasks from AWS Secrets M
 
 Resolve App environment variables from AWS Secrets Manager at ECS task launch. When enabled, each task reads its environment from a per-App secret rather than fetching the encrypted env from S3 and decrypting it with KMS at startup. S3 remains the source of truth (this is a write-through model), and the Secrets Manager secret is populated during `convox releases promote`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

@@ -75,7 +75,8 @@ $ convox rack
 Name          production
 Provider      aws
 Region        us-east-1
-Router        router.0a1b2c3d4e5f.convox.cloud
+Router        produc-Route-1A2B3C4D5E6F-1234567890.us-east-1.elb.amazonaws.com (external)
+              internal-production-rti-987654321.us-east-1.elb.amazonaws.com (internal)
 NLB           production-nlb-abc123.elb.us-east-1.amazonaws.com (52.1.2.3, 52.4.5.6, 52.7.8.9)
 NLB Internal  production-nlb-internal-xyz789.elb.us-east-1.amazonaws.com
 Status        running
@@ -154,21 +155,16 @@ services:
 If a Service declares an `nlb:` port whose `scheme` does not match an enabled Rack NLB, the deploy is rejected at release promote with a clear error:
 
 ```text
-service api declares public nlb port 443 but rack does not have NLB enabled;
-run 'convox rack params set NLB=Yes' first
+service api declares public nlb port 443 but rack does not have NLB enabled; run 'convox rack params set NLB=Yes' first
 ```
 
 TLS listeners are validated at release promote too. The referenced certificate ARN must exist in the Rack's region and account, and ACM certificates must be in `ISSUED` state. Typical failure messages:
 
 ```text
-certificate arn:aws:acm:us-east-1:123456789012:certificate/...: not found in
-  this region (is this cert in another region?)
-certificate arn:aws:acm:us-east-1:123456789012:certificate/...: not usable
-  (status: PENDING_VALIDATION)
-certificate arn:aws:acm:us-east-1:999999999999:certificate/...: access denied
-  (cross-account certificates are not supported)
-certificate arn:aws:iam::123456789012:server-certificate/legacy: IAM server
-  certificate not found
+certificate arn:aws:acm:us-east-1:123456789012:certificate/...: not found in this region (is this cert in another region?)
+certificate arn:aws:acm:us-east-1:123456789012:certificate/...: not usable (status: PENDING_VALIDATION)
+certificate arn:aws:acm:us-east-1:999999999999:certificate/...: access denied (cross-account certificates are not supported)
+certificate arn:aws:iam::123456789012:server-certificate/legacy: IAM server certificate not found
 ```
 
 These fail immediately on `convox releases promote`, not as an opaque CloudFormation error ten minutes later.
@@ -233,20 +229,17 @@ By default, NLB target-group traffic is source-NAT'd to the NLB's VPC-internal I
 - [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP): set to `Yes` on the public NLB. Off by default.
 - [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP): same for the internal NLB.
 
-When enabled, Convox adds an ingress rule on the ECS instance security group sourced from the NLB security group, allowing traffic from arbitrary client IPs to reach targets. Compliance frameworks that require real client IPs (HIPAA §164.312(b), PCI-DSS 10.2.1) are satisfied by this configuration.
+Targets accept the forwarded traffic through ingress rules sourced from the NLB security groups, which Convox adds to the ECS instance security group and to the security group of each Fargate or [Isolate](/reference/app-parameters/Isolate) Service. An App's listeners pick up a change to either parameter on the App's next release promote (`convox deploy` or `convox releases promote`). Compliance frameworks that require real client IPs (HIPAA §164.312(b), PCI-DSS 10.2.1) are satisfied by this configuration.
 
-This feature is **incompatible with a customer-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot modify a security group it does not own. On Racks where `InstanceSecurityGroup` is set, enabling `NLBPreserveClientIP=Yes` is rejected at `rack params set`:
+This feature is **incompatible with a user-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot modify a security group it does not own. On Racks where `InstanceSecurityGroup` is set, enabling `NLBPreserveClientIP=Yes` is rejected at `rack params set`:
 
 ```text
-cannot enable NLBPreserveClientIP on a rack with a customer-supplied
-InstanceSecurityGroup; your instance SG must add an ingress rule from the
-NLB security group (exported as ${Rack}:NLBSecurityGroup) for the NLB
-listener ports before this feature can be enabled safely
+cannot enable NLBPreserveClientIP on a rack with a user-supplied InstanceSecurityGroup; your instance SG must add an ingress rule from the NLB security group (exported as ${Rack}:NLBSecurityGroup) for the NLB listener ports before this feature can be enabled safely
 ```
 
-Operators on custom-SG racks must add an ingress rule on their SG sourced from the Rack's NLB security group (exported as `${Rack}:NLBSecurityGroup` or `${Rack}:NLBInternalSecurityGroup`) before enabling preserve-client-IP. The inverse direction is also blocked: setting `InstanceSecurityGroup` while `NLBPreserveClientIP=Yes` is already in force is rejected unless the same call also disables preserve-client-IP.
+`NLBInternalPreserveClientIP=Yes` is rejected the same way. Operators on Racks with a custom InstanceSecurityGroup must add an ingress rule on their security group sourced from the Rack's NLB security group (exported as `${Rack}:NLBSecurityGroup` or `${Rack}:NLBInternalSecurityGroup`), allowing all protocols, before enabling preserve-client-IP. The inverse direction is also blocked: setting `InstanceSecurityGroup` while `NLBPreserveClientIP=Yes` is already in force is rejected unless the same call also disables preserve-client-IP.
 
-Per-port `preserve_client_ip: true` is also rejected at release-promote on custom-SG racks.
+Per-port `preserve_client_ip: true` is also rejected at release promote on Racks with a custom InstanceSecurityGroup.
 
 ### Deletion protection
 
@@ -256,8 +249,7 @@ Per-port `preserve_client_ip: true` is also rejected at release-promote on custo
 When deletion protection is on, `NLB=No` (or `NLBInternal=No`) and `convox rack uninstall` are rejected pre-flight:
 
 ```text
-cannot disable NLB while NLBDeletionProtection=Yes; unset protection first,
-wait for the update to complete, then toggle NLB off
+cannot disable NLB while NLBDeletionProtection=Yes; unset protection first, wait for the update to complete, then toggle NLB off
 ```
 
 The interlock catches the common pitfall where a Rack update to `NLB=No` succeeds but CloudFormation then fails to delete the protected load balancer, leaving the stack in `UPDATE_ROLLBACK_FAILED`. Disable protection first, wait for the update to complete, then run the disable command in a follow-up call.
@@ -331,8 +323,7 @@ To fully disable NLB on a production Rack, run the following in order. Each step
 2. **Remove every `nlb:` block** from `convox.yml` for every App that declares one and `convox deploy` each. A Rack with at least one App still referencing the NLB rejects the disable:
 
    ```text
-   cannot disable NLB: apps myapp/web still declare public nlb ports;
-   remove nlb: from their manifests and redeploy first
+   cannot disable NLB: apps myapp/web still declare public nlb ports; remove nlb: from their manifests and redeploy first
    ```
 
 3. **Flip the Rack parameters off**:
@@ -341,7 +332,7 @@ To fully disable NLB on a production Rack, run the following in order. Each step
    $ convox rack params set NLB=No NLBInternal=No
    ```
 
-The disable releases the EIPs. If you re-enable later, the Rack is assigned new EIPs and a new NLB DNS name. Re-validate any customer DNS pointing at the Rack after a disable/re-enable cycle.
+The disable releases the EIPs. If you re-enable later, the Rack is assigned new EIPs and a new NLB DNS name. Re-validate any DNS records pointing at the Rack after a disable/re-enable cycle.
 
 ### Two concurrent deploys claiming the same port
 
@@ -349,7 +340,7 @@ Two Apps concurrently deploying with the same NLB listener port both pass releas
 
 ### Downgrade
 
-Before downgrading a Rack to a version that predates NLB support, set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. Otherwise the downgrade fails with `Parameters: [NLB, NLBInternal] do not exist in the template`.
+Before downgrading a Rack to a version that predates NLB support, remove every `nlb:` block and redeploy each App, then set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. The downgrade is not rejected while an NLB is enabled: the older template does not declare the NLB parameters or resources, so CloudFormation deletes the NLBs and their EIPs.
 
 ### NLB-only Services on EC2 launch type
 

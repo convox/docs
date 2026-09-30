@@ -7,6 +7,8 @@ description: "Sets the syslog message format used when sending logs to the confi
 
 Syslog message format for log delivery to [SyslogDestination](/reference/app-parameters/SyslogDestination).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `rfc5424` |
 | Allowed values | `rfc5424`, `rfc3164` |
 

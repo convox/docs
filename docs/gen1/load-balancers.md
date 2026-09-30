@@ -9,7 +9,7 @@ description: "Gen 1 (End of Life): How Convox configures and manages load balanc
 
 Once you have containers running, the next step is to allow them to be accessed from the Internet. Convox automatically sets up and configures load balancers appropriately to route traffic to your containers.
 
-### Configuration
+## Configuration
 
 Load balancers will be automatically created for any ports listed in your `docker-compose.yml`.
 
@@ -26,11 +26,9 @@ worker:
 
 In this example, Convox will create a load balancer in front of the `web` process. This load balancer will accept traffic from the Internet on port 80 and forward it to the `web` containers on port `5000`.
 
-<div class="block-callout block-show-callout type-warning" markdown="1">
-Convox will only create a load balancer for ports in your `docker-compose.yml` file, not in your `Dockerfile`.
-</div>
+> **Warning:** Convox creates load balancers only for the `ports` in your `docker-compose.yml` file. Ports exposed in your `Dockerfile` do not create one.
 
-### Balancer Hostname
+## Balancer Hostname
 
 You can find the load balancer hostname(s) for your application using `convox apps info`:
 
@@ -43,9 +41,9 @@ Processes  web
 Endpoints  docs-web-R72RMTP-326048479.us-east-1.elb.amazonaws.com:80 (web)
 ```
 
-### Advanced Options
+## Advanced Options
 
-#### Internal Load Balancers
+### Internal Load Balancers
 
 You can create a load balancer that is only accessible inside your Rack by specifying a single port:
 
@@ -55,12 +53,9 @@ web:
     - "5000"
 ```
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-**Note: Convox creates only one load balancer per service.** If you specify both internal and external ports, only an internal load balancer will be created.
-This is due to the fact that while an ELB can have listeners on multiple ports, an ELB itself can only be either internal or external.
-</div>
+> **Note:** Convox creates one load balancer per service. A load balancer can listen on multiple ports but is either internal or internet-facing, so a service with both internal and external ports gets one internal load balancer that listens on both.
 
-#### Balancer Protocol
+### Balancer Protocol
 
 You can specify one of four protocol types for a load balancer port in your `docker-compose.yml`:
 
@@ -72,36 +67,20 @@ web:
     - "443:5000"
 ```
 
-<table>
-  <tr>
-    <th>Protocol</th>
-    <th>Notes</th>
-  </tr>
-  <tr>
-    <td><code>http</code></td>
-    <td>Unencrypted HTTP <em><strong>(includes common HTTP headers but does not support websockets)</strong></em></td>
-  </tr>
-  <tr>
-    <td><code>https</code></td>
-    <td>Encrypted HTTP <em><strong>(includes common HTTP headers but does not support websockets)</strong></em></td>
-  </tr>
-  <tr>
-    <td><code>tcp</code></td>
-    <td>Unencrypted TCP <em><strong>(arbitrary TCP including websockets, no HTTP header injection)</strong></em></td>
-  </tr>
-  <tr>
-    <td><code>tls</code></td>
-    <td>Encrypted TCP <em><strong>(arbitrary TCP including websockets, no HTTP header injection)</strong></em></td>
-  </tr>
-</table>
+| Protocol | Notes |
+|:--|:--|
+| `http` | Unencrypted HTTP (includes common HTTP headers but does not support websockets) |
+| `https` | Encrypted HTTP (includes common HTTP headers but does not support websockets) |
+| `tcp` | Unencrypted TCP (arbitrary TCP including websockets, no HTTP header injection) |
+| `tls` | Encrypted TCP (arbitrary TCP including websockets, no HTTP header injection) |
 
 If no protocol label is specified, the default of `tcp` will be used.
 
-#### Health Check Options
+### Health Check Options
 
 By default Convox will set up a `tcp` health check to your application. For more information, see [Health Checks](/gen1/health-checks).
 
-#### End-to-end encryption
+### End-to-end encryption
 
 By default, HTTPS/TLS is terminated at the load balancer, and the resulting data is transmitted unencrypted to your application. This is OK, because traffic between your load balancer and your application happens entirely on your Rack's internal network. However, for extra security you can encrypt the traffic between your load balancer and application by setting the `convox.port.<port>.secure` label.
 
@@ -116,7 +95,7 @@ web:
 
 When you use this option you will need to terminate HTTPS or TLS directly inside your application or with a reverse proxy like nginx or haproxy.
 
-#### PROXY protocol
+### PROXY protocol
 
 When using the `tcp` or `tls` protocols, standard proxy HTTP headers like `X-Forwarded-For` are not injected. You can get access to information about the remote endpoint using the [PROXY protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt). Once you configure your application to accept this extra header you can configure your load balancer to send it in your `docker-compose.yml`:
 
@@ -129,7 +108,7 @@ web:
     - "443:5000"
 ```
 
-#### Limited Application Access
+### Limited Application Access
 
 For security reasons, access to an application might need to be limited. To achieve this, an existing security group can be applied to an application's load balancer. For example, within said security group, access can be granted only to an office VPN.
 

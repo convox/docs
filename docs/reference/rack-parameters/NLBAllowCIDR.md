@@ -7,6 +7,8 @@ description: "Comma-delimited IPv4 CIDR allowlist for the public Network Load Ba
 
 Comma-delimited list of up to 5 IPv4 CIDRs permitted to reach listeners on the public [NLB](/reference/rack-parameters/NLB). Each non-empty entry becomes an ingress rule on the `NLBSecurity` security group. Per-port `allow_cidr:` entries declared in a Service's [nlb:](/application/services#nlb) field stack additively on top of this list; they never remove rack-level entries. **IPv4 only**; IPv6 CIDRs are rejected at `rack params set`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `0.0.0.0/0` (all IPv4 addresses)                     |
 | Allowed values | Comma-delimited list of up to 5 canonical IPv4 CIDRs |
 

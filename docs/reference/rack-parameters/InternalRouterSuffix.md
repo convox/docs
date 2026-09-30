@@ -7,6 +7,8 @@ description: "Customize the DNS suffix appended to the internal router domain on
 
 Suffix appended to the internal router domain name. This controls how internal service endpoints are named within the Rack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `-rti` |
 
 ## Use Cases

@@ -7,6 +7,8 @@ description: "Restrict which EC2 instance types are allowed in the Convox Rack S
 
 Comma-separated list of allowed instance types in the Spot Fleet. This parameter cannot be used together with [SpotFleetExcludedInstanceTypes](/reference/rack-parameters/SpotFleetExcludedInstanceTypes). If both are set, `SpotFleetAllowedInstanceTypes` takes precedence. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 Wildcard patterns are supported. Examples: `m5.8xlarge`, `c5*.*`, `m5a.*`, `r*`, `*3*`.

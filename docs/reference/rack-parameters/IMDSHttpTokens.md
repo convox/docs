@@ -7,6 +7,8 @@ description: "Control whether Convox Rack EC2 instances require IMDSv2 tokens fo
 
 Instance Metadata Service (IMDS) token requirement for Rack instances. You can set EC2 instances to use only IMDSv2 by setting `IMDSHttpTokens` to `required`. See [Configure the instance metadata options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html#configuring-IMDS-new-instances) in the AWS docs.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `optional`             |
 | Allowed values | `optional`, `required` |
 

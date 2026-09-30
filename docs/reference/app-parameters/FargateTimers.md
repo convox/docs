@@ -7,6 +7,8 @@ description: "Run all timers for this application on AWS Fargate or Fargate Spot
 
 Launch type override for application timers. Set to `Yes` to run all timers in [Fargate](https://aws.amazon.com/fargate/), or `Spot` for [Fargate Spot](https://aws.amazon.com/blogs/aws/aws-fargate-spot-now-generally-available/).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `Spot`, `No` |
 

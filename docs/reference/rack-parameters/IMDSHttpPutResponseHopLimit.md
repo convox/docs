@@ -7,6 +7,8 @@ description: "Set the maximum network hop count for EC2 instance metadata PUT re
 
 Maximum number of network hops for IMDS PUT response packets. This parameter is particularly relevant when `IMDSHttpTokens` is set to `required`, ensuring enhanced security by enforcing IMDSv2.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1`      |
 | Allowed values | `1`-`64` |
 

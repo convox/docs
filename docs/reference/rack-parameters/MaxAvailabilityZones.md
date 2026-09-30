@@ -7,6 +7,8 @@ description: "Set the maximum number of AWS Availability Zones used by the Convo
 
 The maximum number of Availability Zones that the Rack cluster should use. This controls how many AZs the Rack's subnets and resources are distributed across.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `3`      |
 | Allowed values | `2`, `3` |
 

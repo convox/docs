@@ -7,6 +7,8 @@ description: "Specify an S3 bucket to receive application load balancer access l
 
 S3 bucket name for application load balancer access logs. When blank, access logging is disabled.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

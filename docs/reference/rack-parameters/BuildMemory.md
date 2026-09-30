@@ -7,6 +7,8 @@ description: "Configure the memory allocated to Convox build containers."
 
 Memory allocation (in MB) for build containers on each build.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1000` |
 
 ## Use Cases

@@ -9,6 +9,8 @@ Log driver used by the Rack and Services to send logs. Defaults to CloudWatch. Y
 
 **Attention:** Disabling CloudWatch will impact `convox logs` and `convox rack logs`. Use the Syslog resource if you still want to use convox logs. See [Resource Syslog](/deployment/syslogs) for more information.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `CloudWatch` |
 | Allowed values | `CloudWatch`, `Syslog`, "" |
 

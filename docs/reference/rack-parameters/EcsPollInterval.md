@@ -7,6 +7,8 @@ description: "Controls how frequently the Convox Rack polls ECS for service even
 
 How often (in seconds) to poll ECS for service updates (to inject into the App logs).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1` |
 
 ## Use Cases

@@ -7,6 +7,8 @@ description: "Set the minimum number of on-demand EC2 instances in the Rack clus
 
 Minimum number of on-demand instances to maintain when using spot instances. This should be set to a value that will guarantee the minimum acceptable service availability. You must set it even if you are using [HighAvailability](/reference/rack-parameters/HighAvailability) as `false`, as this will be used to create the minimum on-demand instances.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `3` |
 | Minimum value | `1` |
 

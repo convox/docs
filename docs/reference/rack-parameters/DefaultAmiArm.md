@@ -7,6 +7,8 @@ description: "Defines the default ECS-optimized AMI used for ARM64-based Convox 
 
 Default Amazon Machine Image (AMI) for ARM64-based Rack instances. This ensures ARM-based Racks always use the latest ECS-optimized AMI unless manually overridden.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `/aws/service/ecs/optimized-ami/amazon-linux-2/arm64/recommended/image_id` |
 | Allowed values | AWS SSM AMI path (e.g., `/aws/service/ecs/optimized-ami/amazon-linux-2023/arm64/recommended/image_id`) |
 

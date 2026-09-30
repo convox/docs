@@ -7,6 +7,8 @@ description: "Attach an additional IAM policy to Convox Rack cluster instances f
 
 ARN of an additional IAM policy to add to the instance-level role. This allows your containers running on the Rack instances to access additional AWS services beyond the default permissions.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

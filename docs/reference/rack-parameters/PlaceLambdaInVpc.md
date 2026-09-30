@@ -7,6 +7,8 @@ description: "Place Convox-managed Lambda functions inside the Rack VPC for priv
 
 VPC placement for Convox-related Lambda functions. This is useful when the Rack is configured as [Private](/reference/rack-parameters/Private) and the Lambda functions need access to resources within the VPC.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

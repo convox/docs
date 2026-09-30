@@ -9,6 +9,8 @@ Custom Amazon Machine Image (AMI) for the Rack's EC2 instances. When blank, the 
 
 When left blank (the default), the Rack automatically uses the latest ECS-optimized AMI via AWS SSM parameter lookup based on your instance architecture.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

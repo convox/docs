@@ -7,6 +7,8 @@ description: "Run application services in an isolated network configuration when
 
 Isolated network configuration for application Services. When set to `Yes`, Services run on dedicated Fargate tasks with network-level isolation. Only takes effect when the App is running in a Private Rack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

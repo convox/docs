@@ -7,6 +7,8 @@ description: "Set the unit type used for Spot Fleet target capacity in a Convox 
 
 The unit type used for the Spot Fleet target capacity. This determines how the Spot Fleet measures whether it has reached its target capacity. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `units`                           |
 | Allowed values | `memory-mib`, `units`, `vcpu` |
 

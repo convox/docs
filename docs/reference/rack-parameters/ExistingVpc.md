@@ -7,6 +7,8 @@ description: "Specifies an existing AWS VPC ID to use instead of creating a new 
 
 Existing VPC ID from AWS. If blank, a VPC will be created. The additional parameter [InternetGateway](/reference/rack-parameters/InternetGateway) must be set to use **ExistingVpc**.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 | Allowed values | VPC ID    |
 

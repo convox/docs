@@ -9,6 +9,8 @@ A value, in dollars, that you want to pay for spot instances. If spot instances 
 
 This must be used with the [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) parameter to guarantee some on-demand instances are running if spot instances are not available. You must set `OnDemandMinCount` even if [HighAvailability](/reference/rack-parameters/HighAvailability) is `false`. If not set, the default value will be used.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

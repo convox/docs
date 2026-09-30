@@ -7,6 +7,8 @@ description: "Set the build disk size in GiB for the Fargate builder in a Convox
 
 Build disk size in GiB for the Fargate builder. Only used when [BuildMethod](/reference/rack-parameters/BuildMethod) is set to `fargate`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | ""                                          |
 | Allowed values | blank, or a whole number from `21` to `200` |
 

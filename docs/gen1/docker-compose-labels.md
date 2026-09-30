@@ -9,24 +9,21 @@ description: "Gen 1 (End of Life): Reference for Convox-specific Docker Compose 
 
 Convox uses [Docker Compose Labels](https://docs.docker.com/compose/compose-file/#/labels) to add metadata to containers. These labels serve as a convenient way to specify Convox-specific configuration alongside the rest of your more standard container configuration.
 
-<pre>
-labels:
-  - <a href="#convoxagent">convox.agent</a>
-  - <a href="#convoxbalancer">convox.balancer</a>
-  - <a href="#convoxcron">convox.cron.&lt;task name&gt;</a>
-  - <a href="#convoxdeployment">convox.deployment.maximum</a>
-  - <a href="#convoxdeployment">convox.deployment.minimum</a>
-  - <a href="#convoxdrainingtimeout">convox.draining.timeout</a>
-  - <a href="#convoxenvironmentsecure">convox.environment.secure</a>
-  - <a href="#convoxhealth">convox.health.path</a>
-  - <a href="#convoxhealth">convox.health.port</a>
-  - <a href="#convoxhealth">convox.health.timeout</a>
-  - <a href="#convoxidle">convox.idle.timeout</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.protocol</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.proxy</a>
-  - <a href="#convoxport">convox.port.&lt;number&gt;.secure</a>
-  - <a href="#convoxstartshift">convox.start.shift</a>
-</pre>
+- [`convox.agent`](#convoxagent)
+- [`convox.balancer`](#convoxbalancer)
+- [`convox.cron.<task name>`](#convoxcron)
+- [`convox.deployment.maximum`](#convoxdeployment)
+- [`convox.deployment.minimum`](#convoxdeployment)
+- [`convox.draining.timeout`](#convoxdrainingtimeout)
+- [`convox.environment.secure`](#convoxenvironmentsecure)
+- [`convox.health.path`](#convoxhealth)
+- [`convox.health.port`](#convoxhealth)
+- [`convox.health.timeout`](#convoxhealth)
+- [`convox.idle.timeout`](#convoxidle)
+- [`convox.port.<number>.protocol`](#convoxport)
+- [`convox.port.<number>.proxy`](#convoxport)
+- [`convox.port.<number>.secure`](#convoxport)
+- [`convox.start.shift`](#convoxstartshift)
 
 ## convox.agent
 

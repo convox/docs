@@ -7,6 +7,8 @@ description: "Restrict access to the Convox Rack API by specifying allowed CIDR 
 
 Comma-delimited list of CIDRs to allow access to the Rack API. For example: `10.0.0.0/24,172.10.0.1/32`. A maximum of 4 CIDRs can be specified.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

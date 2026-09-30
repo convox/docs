@@ -7,6 +7,8 @@ description: "Enables encryption at rest for EBS volumes attached to Convox Rack
 
 Encryption at rest for EBS volumes attached to Rack instances.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

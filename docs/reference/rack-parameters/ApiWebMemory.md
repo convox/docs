@@ -7,6 +7,8 @@ description: "Configure the memory reserved by the Convox Rack API web process."
 
 How much memory (in MB) should be reserved by the API web process. This controls the memory allocation for each Rack API container.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `256` |
 
 ## Use Cases

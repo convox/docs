@@ -7,6 +7,8 @@ description: "Configure how the Convox Rack load balancer handles potentially ma
 
 Security mitigation mode for the Rack's load balancer. This controls the AWS ALB desync mitigation mode, which protects against HTTP desync attacks. See [AWS desync mitigation mode announcement](https://aws.amazon.com/about-aws/whats-new/2020/08/application-and-classic-load-balancers-adding-defense-in-depth-with-introduction-of-desync-mitigation-mode/) for more information.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `defensive`                             |
 | Allowed values | `defensive`, `monitor`, `strictest` |
 

@@ -7,6 +7,8 @@ description: "Choose between EC2 and Fargate for the Convox Rack build process."
 
 Build process type for the Rack. Controls whether builds run on dedicated EC2 instances or Fargate. `ec2` uses a dedicated build instance; `fargate` uses a Fargate task.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `ec2`            |
 | Allowed values | `ec2`, `fargate` |
 

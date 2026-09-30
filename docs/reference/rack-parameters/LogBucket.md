@@ -9,6 +9,8 @@ An existing S3 bucket to receive load balancer access logs and other Rack logs. 
 
 When set, ALB access logs and other infrastructure logs are delivered to the specified S3 bucket. The bucket must already exist and must have the proper bucket policy to allow Elastic Load Balancing to write logs to it.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

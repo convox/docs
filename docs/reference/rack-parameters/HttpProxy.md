@@ -9,6 +9,8 @@ HTTP proxy for outbound HTTP connections (for network-restricted Racks).
 
 Set this value to the hostname (or IP address) and port number of an HTTP proxy for all outbound connections from Rack instances. This configures the `http_proxy`, `https_proxy`, `HTTP_PROXY`, and `HTTPS_PROXY` environment variables on each instance.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

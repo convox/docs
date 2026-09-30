@@ -7,6 +7,8 @@ description: "Controls whether the application's ECS tasks are deployed to priva
 
 Private subnet placement for the application's ECS tasks. When set to `Yes`, Services run in private subnets with public IP assignment disabled. When set to `No`, Services run in public subnets with public IPs assigned.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

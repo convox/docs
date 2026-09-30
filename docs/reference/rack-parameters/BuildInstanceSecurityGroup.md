@@ -7,6 +7,8 @@ description: "Assign a custom security group to the Convox Rack build instances.
 
 The security group to assign to build instances. If blank, the Rack uses the same security group as the runtime instances (or the value of [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) if set).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

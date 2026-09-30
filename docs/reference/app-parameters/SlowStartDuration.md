@@ -7,6 +7,8 @@ description: "Sets the ramp-up period during which a newly deployed service grad
 
 Traffic ramp-up period (in seconds) for newly deployed Services.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `0` |
 | Allowed values | `0`, `30-900` seconds |
 

@@ -7,6 +7,8 @@ description: "Assign custom security groups to the public-facing Convox Rack rou
 
 Comma-delimited list of security group IDs to assign to the Rack's public router. If blank, the Rack creates its own router security group that allows inbound TCP traffic on ports 80 and 443 from all IP addresses (`0.0.0.0/0`).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

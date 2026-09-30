@@ -7,6 +7,8 @@ description: "Set the minimum vCPU count for instance types in the Convox Rack S
 
 Spot Fleet's minimum vCPU count. Instance types with fewer vCPUs than this value are excluded from the Spot Fleet's instance selection. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `0` |
 
 ## Use Cases

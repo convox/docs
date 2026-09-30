@@ -7,6 +7,8 @@ description: "Place only the Rack's build instances into a private subnet."
 
 Private subnet placement for build instances only. This parameter is unused if [Private](/reference/rack-parameters/Private) is set to `Yes`, since all instances are already in private subnets in that case.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

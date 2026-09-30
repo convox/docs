@@ -9,6 +9,8 @@ Number of days to keep logs (blank for unlimited). This controls the retention p
 
 Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, and 3653. See [Logs retention](/management/logs#retention) for more information.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `7` |
 
 ## Use Cases

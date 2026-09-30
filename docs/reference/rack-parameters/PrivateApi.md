@@ -7,6 +7,8 @@ description: "Place the Rack API Load Balancer in a private network, making it u
 
 Private network placement for the Rack API load balancer. When set to `Yes`, the Rack API endpoint is only accessible from within the VPC or through a VPN/peering connection, preventing any direct access to the Rack API from the public internet.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
