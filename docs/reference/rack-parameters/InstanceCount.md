@@ -7,6 +7,8 @@ description: "Set the number of EC2 instances in a high-availability Convox Rack
 
 The number of EC2 instances in your Rack cluster. This parameter is only used for clusters with [HighAvailability](/reference/rack-parameters/HighAvailability) set to `true`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `3` |
 | Minimum value | `3` |
 

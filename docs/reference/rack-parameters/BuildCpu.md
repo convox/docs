@@ -7,6 +7,8 @@ description: "Configure the CPU units allocated to Convox build containers."
 
 How much CPU should be allocated to builds. The value is specified in ECS CPU units, where 1024 units equals one full vCPU.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `256` |
 
 ## Use Cases

@@ -7,6 +7,8 @@ description: "Restrict access to the private Rack API by specifying an allowed s
 
 Custom security group for restricting access to the private Rack API endpoint. This allows you to lock down the private API to only accept connections from instances or resources that belong to the specified security group when [PrivateApi](/reference/rack-parameters/PrivateApi) is set to `Yes`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

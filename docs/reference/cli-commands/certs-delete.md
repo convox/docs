@@ -1,11 +1,15 @@
 ---
 title: "certs delete"
-description: "Delete a certificate from the Rack."
+description: "Delete an ACM certificate or IAM server certificate by its id."
 ---
 
 # certs delete
 
-Delete a certificate from the Rack. The certificate must not be in use by any App. If the certificate is currently associated with a Service endpoint, remove the association first using `ssl update`.
+Delete an ACM certificate in the Rack's region or an IAM server certificate in the Rack's AWS account. Pass the full certificate id printed by `convox certs generate` or listed by `convox certs`. A certificate still waiting for validation is not listed; delete it with the id `convox certs generate` printed.
+
+An id that starts with `acm-` deletes that ACM certificate. A partial `acm-` id, or `acm-` alone, returns `ERROR: certificate not found` and deletes nothing. Any other id, including a name such as `acme-2019`, deletes the IAM server certificate with that exact name.
+
+The certificate must not be in use by any App. For a Gen 1 App, apply a different certificate to the endpoint first with [`convox ssl update`](/reference/cli-commands/ssl-update). A Gen 2 App keeps using a certificate until the App is deployed without it, with no Service `domain:` selecting it and no `nlb:` port `certificate:` naming its ARN.
 
 ## Syntax
 
@@ -22,8 +26,8 @@ $ convox certs delete <cert>
 ## Example Usage
 
 ```bash
-$ convox certs delete cert-ab12cd
-Deleting certificate cert-ab12cd... OK
+$ convox certs delete acm-74ec8b405093
+Deleting certificate acm-74ec8b405093... OK
 ```
 
 ## See Also

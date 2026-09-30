@@ -7,6 +7,8 @@ description: "Configure the idle timeout for the Rack's Application Load Balance
 
 The idle timeout value for the Rack's Application Load Balancer (ALB), in seconds. This controls how long the ALB waits before closing idle connections. The valid range is 1-4000 seconds.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `3600` |
 | Allowed values | `1` - `4000` |
 

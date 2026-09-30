@@ -19,13 +19,11 @@ Convox applications are configured using environment variables. Environment mana
 
 ## Local
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-The priority for evaluating env values is:
-
-1. [`.env`](/gen1/environment#env)
-2. [host environment](/gen1/environment#host-environment)
-3. [`docker-compose.yml`](/gen1/environment#docker-composeyml)
-</div>
+> **Note:** The priority for evaluating env values is:
+>
+> 1. [`.env`](/gen1/environment#env)
+> 2. [host environment](/gen1/environment#host-environment)
+> 3. [`docker-compose.yml`](/gen1/environment#docker-composeyml)
 
 ### `.env`
 

@@ -10,15 +10,15 @@ Convox Rack is an [open source](https://github.com/convox/rack) deployment platf
 ![](/assets/images/docs/what-is-a-rack/convox-rack-diagram.jpg)
 (Rack architecture when running on AWS)
 
-### Dynamic Runtime
+## Dynamic Runtime
 
 A Rack will start multiple identical servers on which it will containerize and run your applications. By using a homogenous runtime we can treat each individual server as disposable and recover from common failure scenarios.
 
-### Private Network
+## Private Network
 
 Each Rack creates a private network inside which it runs its servers and services. All access from the internet comes through load balancers which are specifically configured to route traffic to your containers.
 
-### S3 Buckets
+## S3 Buckets
 
 The Rack will create one S3 bucket to hold logs and rack settings information as well and one bucket for each new Application - used to store Release artifacts, CF Templates, etc.
 
@@ -38,7 +38,7 @@ See [AWS Integration](/console/aws-integration) for more details.
 
 ### Install an AWS Rack
 
-Next, click on  ***Racks*** in the main navigation and click the <img src="/assets/images/docs/add-rack-new.png" alt="Add Rack" style="height: 1.5em;"> button and select your AWS account.  Choose an ECS-based rack from the drop-down. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
+Next, click on  ***Racks*** in the main navigation and click the **Install** button and select your AWS integration from the menu. Choose an ECS-based rack in the install form. Enter a descriptive Rack name such as `production` if you plan to deploy production services, or `staging` if this is for testing.
 
 Alternatively, you can use the CLI to install a Rack: `convox rack install aws -n {RACK_NAME}`.
 

@@ -7,6 +7,8 @@ description: "Controls whether Convox Rack secrets are encrypted using AWS KMS."
 
 Encryption is always on. Convox uses an AWS KMS key to encrypt all Rack-managed secrets regardless of this parameter's value.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Yes`       |
 | Allowed values | `Yes`, `No` |
 

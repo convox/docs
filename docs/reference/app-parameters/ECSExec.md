@@ -7,6 +7,8 @@ description: "Enable AWS ECS Exec for interactive shell access to this applicati
 
 Routes interactive container access for this application through [ECS Exec](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-exec.html) over AWS SSM Session Manager. When enabled, `convox exec` and `convox run` open sessions into running containers over SSM instead of the Docker daemon. On every deploy this app-level value is reset from the [rack-level ECSExec parameter](/reference/rack-parameters/ECSExec), so the durable per-App control is the `params` block in `convox.yml`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

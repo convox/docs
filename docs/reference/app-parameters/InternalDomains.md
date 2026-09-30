@@ -8,6 +8,8 @@ description: "Controls whether internal .convox.site and .convox domain names ro
 Internal domain name registration for the application. When set to `No`, internal `.convox.site` and `.convox` domain names are not created.
 Use this parameter if you are running out of available rules on your load balancer.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Yes` |
 | Allowed values | `Yes`, `No` |
 

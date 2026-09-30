@@ -9,9 +9,9 @@ description: "Gen 1 (End of Life): How to scale Gen 1 Convox application concurr
 
 Convox allows you to scale your application's concurrency, memory allocation, and the resources available in the underlying Rack.
 
-### Scaling an application
+## Scaling an application
 
-#### Show current application scaling
+### Show current application scaling
 
 ```bash
 $ convox scale
@@ -20,7 +20,7 @@ web   2        1        256
 redis 1        1        256
 ```
 
-#### Concurrency
+### Concurrency
 
 ```bash
 $ convox scale web --count=4
@@ -28,7 +28,7 @@ NAME  DESIRED  RUNNING  MEMORY
 web   2        1        256
 ```
 
-#### Memory
+### Memory
 
 ```bash
 $ convox scale web --memory=1024
@@ -36,7 +36,7 @@ NAME  DESIRED  RUNNING  MEMORY
 web   2        1        1024
 ```
 
-#### CPU
+### CPU
 
 Each rack instance has 1,024 [cpu units](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDefinition.html#ECS-Type-ContainerDefinition-cpu) for every CPU core. This parameter specifies the minimum amount of CPU to reserve for a container. Containers share unallocated CPU units with other containers on the instance with the same ratio as their allocated amount.
 
@@ -46,7 +46,7 @@ NAME  DESIRED  RUNNING  CPU
 web   1        1        1024
 ```
 
-#### Scaling down unused services
+### Scaling down unused services
 
 It's often convenient to run a service like Redis in a container locally. You can do so by defining a `redis` process in your `docker-compose.yml`. However, when you've deployed the app to your rack, you should use a hosted resource like ElastiCache. In this case, you can scale redis down and destroy the ELB which was created:
 
@@ -58,7 +58,7 @@ redis   -1        1        256
 
 Note: If you scale this service back up, the ELB will be recreated, but will have a different domain name associated with it. If you want to scale a service down, but keep the ELB, you can set `--count=0`.
 
-### Scaling the Rack
+## Scaling the Rack
 
 You can define both the type and count of instances being run in your Rack.
 
@@ -70,11 +70,10 @@ Version  20160409181028
 Count    3
 Type     m4.xlarge
 ```
-<div class="block-callout block-show-callout type-warning" markdown="1">
-  The minimum instance count for a Rack is 3. See the [PR](https://github.com/convox/rack/pull/1395#issuecomment-261961713) for details.
-</div>
 
-#### Autoscale
+> **Warning:** `convox rack scale --count` sets the [InstanceCount](/reference/rack-parameters/InstanceCount) parameter, which has a minimum of 3. It applies only to Racks with [HighAvailability](/reference/rack-parameters/HighAvailability) set to `true` (the default). A Rack installed with `HighAvailability=false` uses [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) instead, which has a minimum of 1.
+
+### Autoscale
 
 Your Rack can scale its own instance count based on the needs of the containers it provisions. Autoscaling is enabled by default. To disable it, set the `Autoscale` parameter:
 
@@ -88,7 +87,7 @@ To monitor for autoscaling events, use `convox rack logs` with the `--filter` op
 $ convox rack logs --filter="autoscaleRack change="
 ```
 
-##### Under the hood
+#### Under the hood
 
 Every minute, your Rack runs an autoscale calculation to determine how many instances you need in your cluster. This calculation involves ports, memory, and CPU required by your services. When appropriate, autoscale will update your Rack instance count via a CloudFormation stack update. Autoscale will not change your instance type.
 
@@ -96,7 +95,7 @@ During a deployment, the calculation gets more nuanced, since processes from an 
 
 When a deployment finishes, the old ECS tasks get terminated, and autoscale scales the Rack back down to the original instance count. This scaling down happens gradually--one instance at a time, every 5 minutes--to give ECS time to rebalance tasks across the instances in your cluster.
 
-##### Why does my Rack keep autoscaling?
+#### Why does my Rack keep autoscaling?
 
 If your Rack shows more autoscaling activity than expected, there are a few possible explanations.
 

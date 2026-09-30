@@ -7,6 +7,8 @@ description: "Enables a read-only root filesystem for containers running in a Co
 
 Read-only root filesystem enforcement for ECS containers on the Rack. Enabling this will remove write access to the root filesystem.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

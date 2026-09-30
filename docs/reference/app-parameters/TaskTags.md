@@ -7,6 +7,8 @@ description: "Enable ECS tag propagation to the task level for cost allocation a
 
 ECS tag propagation to the task level. When enabled, service-level tags are propagated to individual tasks.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

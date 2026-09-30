@@ -11,6 +11,8 @@ High Availability mode for the Rack, choosing between failure resiliency and cos
 
 If HighAvailability is set to `true`, the [InstanceCount](/reference/rack-parameters/InstanceCount) parameter is used as the initial cluster size. If set to `false`, the [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) is used as the initial cluster size. Both can be scaled up to 1000 instances.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `true`          |
 | Allowed values | `true`, `false` |
 

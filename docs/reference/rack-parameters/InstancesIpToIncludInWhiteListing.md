@@ -7,6 +7,8 @@ description: "Control which instance IPs are automatically added to the whitelis
 
 Automatic IP whitelist inclusion for Rack instances. Controls which instance types (build, workload, or both) have their IPs added to the whitelist.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Both`                                |
 | Allowed values | `Both`, `Build`, `Workload`, `None`   |
 

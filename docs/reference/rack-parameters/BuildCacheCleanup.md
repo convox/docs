@@ -7,6 +7,8 @@ description: "Automatically expire old build cache images in the dedicated ECR c
 
 Controls whether the Rack attaches an ECR lifecycle policy that expires old images in the build cache repository. When enabled, cache images older than [BuildCacheRetentionDays](/reference/rack-parameters/BuildCacheRetentionDays) are expired automatically. This parameter has effect only when [BuildCache](/reference/rack-parameters/BuildCache) is set to `Yes`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

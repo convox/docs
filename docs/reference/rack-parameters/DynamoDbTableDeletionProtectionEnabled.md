@@ -7,6 +7,8 @@ description: "Enables deletion protection on DynamoDB tables created by a Convox
 
 Deletion protection for the Rack's DynamoDB table. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `false`         |
 | Allowed values | `true`, `false` |
 

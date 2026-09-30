@@ -11,6 +11,8 @@ For more information about using cloud-init with EC2, see the AWS doc [Running C
 
 The `InstanceBootCommand` will also apply to any [build instance](/reference/rack-parameters/BuildInstance) associated with the Rack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

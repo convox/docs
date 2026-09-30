@@ -7,6 +7,8 @@ description: "Sets the routing algorithm used by the application load balancer f
 
 Routing algorithm for the application load balancer.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `round_robin` |
 | Allowed values | `round_robin`, `least_outstanding_requests` |
 

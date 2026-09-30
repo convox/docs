@@ -7,6 +7,8 @@ description: "Set the number of EC2 instances for non-high-availability Convox R
 
 The number of EC2 instances in your non-High Availability Rack cluster. This parameter is only used when [HighAvailability](/reference/rack-parameters/HighAvailability) is set to `false`. For HA Racks, see [InstanceCount](/reference/rack-parameters/InstanceCount).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1` |
 | Minimum value | `1` |
 

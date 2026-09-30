@@ -7,6 +7,8 @@ description: "Set the age threshold in hours for pruning old Docker images on Co
 
 Age threshold (in hours) for pruning Docker images on Rack instances. Images that exceed this age threshold are removed during the next scheduled cleanup run, helping to reclaim disk space.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `96` |
 | Minimum value  | `1`  |
 

@@ -7,6 +7,8 @@ description: "Restrict a Convox Rack to only support VPC-internal applications w
 
 VPC-only mode for the Rack. When set to `Yes`, no public router is created and applications are only accessible from within the VPC.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

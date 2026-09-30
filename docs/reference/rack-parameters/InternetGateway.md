@@ -7,6 +7,8 @@ description: "Specify the Internet Gateway ID when installing a Convox Rack into
 
 Internet Gateway ID for use with an existing VPC. Required when [ExistingVpc](/reference/rack-parameters/ExistingVpc) is set.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

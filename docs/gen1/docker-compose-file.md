@@ -31,54 +31,51 @@ services:
 
 Though there are [50+ configuration options](https://docs.docker.com/compose/compose-file/) supported by Docker Compose, Convox curates a smaller list of options to keep configuration simple and to ensure that the majority of users can get their multi-container applications up and running quickly.
 
-Select a key for more information and example usage.
+Each key is described in its own section below.
 
-<pre>
-  version: '2'
-  services:
-    web:
-      <a href="#build">build</a>: .
-      <a href="#build">build</a>:
-        <a href="#context">context</a>: .
-        <a href="#dockerfile">dockerfile</a>: Dockerfile.alternate
-      <a href="#command">command</a>: bin/web
-      <a href="#cpu-shares">cpu_shares</a>: 73
-      <a href="#entrypoint">entrypoint</a>: /bin/entrypoint
-      <a href="#environment">environment</a>:
-        - RACK_ENV=development
-        - SECRET_KEY
-        - FOO=
-      <a href="#image">image</a>: convox/rails
-      <a href="#labels">labels</a>:
-        - convox.port.443.protocol=tls
-        - convox.port.443.proxy=true
-      <a href="#links">links</a>:
-        - database
-      <a href="#memory-limit">mem_limit</a>: 1024MB
-      <a href="#ports">ports</a>:
-        - 80:4000
-        - 443:4001
-      <a href="#privileged">privileged</a>: true
-    database:
-      <a href="#image">image</a>: convox/postgres
-      <a href="#ports">ports</a>:
-        - 5432
-      <a href="#volumes">volumes</a>:
-        - /var/lib/postgresql/data
-  <a href="#networks">networks</a>:
-    outside:
-      external:
-        name: foo-bar
-</pre>
+```yaml
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.alternate
+    command: bin/web
+    cpu_shares: 73
+    entrypoint: /bin/entrypoint
+    environment:
+      - RACK_ENV=development
+      - SECRET_KEY
+      - FOO=
+    image: convox/rails
+    labels:
+      - convox.port.443.protocol=tls
+      - convox.port.443.proxy=true
+    links:
+      - database
+    mem_limit: 1024MB
+    ports:
+      - 80:4000
+      - 443:4001
+    privileged: true
+  database:
+    image: convox/postgres
+    ports:
+      - 5432
+    volumes:
+      - /var/lib/postgresql/data
+networks:
+  outside:
+    external:
+      name: foo-bar
+```
 
-<div class="block-callout block-show-callout type-info" markdown="1">
-  There are two versions of the Docker Compose file format:<br />
-  <br />
-  <strong>Version 1</strong> is specified by omitting a version key at the root of the YAML.<br />
-  <strong>Version 2</strong> is specified with a <code class="highlighter-rouge">version: '2'</code> entry at the root of the YAML.<br />
-  <br />
-  Convox recommends using the version 2 format, but supports the legacy version 1 format as well.
-</div>
+> **Note:** Convox reads two versions of the Docker Compose file format:
+>
+> - **Version 1** is specified by omitting the `version` key at the root of the YAML.
+> - **Version 2** is specified with a `version` key at the root of the YAML set to `'2'`, `'2.0'`, `'2.1'`, or `'2.2'`.
+>
+> Any other `version` value, including `'3'`, fails with `unknown manifest version`. Setting `version: '1'` explicitly also fails to load, so omit the key for version 1. Convox recommends the version 2 format, which is required for the top-level `networks` key. The legacy version 1 format is also supported.
 
 ### Build
 

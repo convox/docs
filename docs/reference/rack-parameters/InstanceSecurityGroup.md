@@ -7,6 +7,8 @@ description: "Assign a custom security group to Convox Rack ECS instances for fi
 
 The security group to assign to the ECS instances. If blank, the Rack creates a security group open to all IPs in your VPC.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

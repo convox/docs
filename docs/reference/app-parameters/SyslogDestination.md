@@ -7,6 +7,8 @@ description: "The syslog endpoint URL to send application logs to when LogDriver
 
 The syslog endpoint to send logs to when [LogDriver](/reference/app-parameters/LogDriver) is set to `Syslog`. Include the protocol prefix (e.g., `tcp+tls://logs.example.com:1234`).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

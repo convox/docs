@@ -7,6 +7,8 @@ description: "Set the swap volume size in GB for Convox Rack EC2 instances."
 
 Default swap volume size in GB. Set this value to `0` to disable swap.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `5` |
 
 ## Use Cases

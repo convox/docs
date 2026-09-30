@@ -7,6 +7,8 @@ description: "Sets the log driver used by the application to send logs to CloudW
 
 Log driver for the application. When set to `Syslog`, you must also set [SyslogDestination](/reference/app-parameters/SyslogDestination). Set to blank (`""`) to disable logging entirely.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `CloudWatch` |
 | Allowed values | `CloudWatch`, `Syslog`, `""` |
 

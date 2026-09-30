@@ -7,6 +7,8 @@ description: "Enable cross-zone load balancing on the internal Network Load Bala
 
 Enable cross-zone load balancing on the internal [NLBInternal](/reference/rack-parameters/NLBInternal). Same semantics as [NLBCrossZone](/reference/rack-parameters/NLBCrossZone) but scoped to the internal NLB.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

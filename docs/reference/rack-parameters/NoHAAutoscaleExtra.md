@@ -7,6 +7,8 @@ description: "Set the number of extra autoscale capacity instances for non-high-
 
 Extra instance capacity for autoscaling in non-HA Rack clusters. This only applies when [HighAvailability](/reference/rack-parameters/HighAvailability) is set to `false`. This functions similarly to the [AutoscaleExtra](/reference/rack-parameters/AutoscaleExtra) parameter but is used exclusively in non-HA configurations.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `0` |
 
 ## Use Cases

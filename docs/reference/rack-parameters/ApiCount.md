@@ -7,6 +7,8 @@ description: "Set the number of Rack API containers to run for improved availabi
 
 How many Rack API containers to run. Setting this higher than 2 will guarantee better Rack API availability for mission critical clusters.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `2` |
 
 ## Use Cases

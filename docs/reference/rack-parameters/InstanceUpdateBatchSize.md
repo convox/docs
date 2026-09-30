@@ -7,6 +7,8 @@ description: "Control how many Convox Rack EC2 instances are updated simultaneou
 
 The number of instances to update in a batch during rolling updates.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1` |
 | Minimum value | `1` |
 

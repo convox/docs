@@ -7,6 +7,8 @@ description: "Enable an internal load balancer on a Convox Rack for VPC-only acc
 
 Internal load balancer for the Rack, enabling private service routing within the VPC. See [Internal Services](/networking/internal-services) for more information.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

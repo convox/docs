@@ -7,6 +7,8 @@ description: "Add custom AWS resource tags to all resources created by the Convo
 
 Custom tags to add to AWS resources created by the Rack. Tags are applied to all taggable resources managed by the Rack's CloudFormation stack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 | Format        | `<key>=<val>,<key>=<val>` |
 

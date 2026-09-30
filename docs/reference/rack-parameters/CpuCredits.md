@@ -9,6 +9,8 @@ The credit option for CPU usage of a T instance. AWS T-family instances (e.g., `
 
 When left blank, the instance uses the AWS account-level default for T instance CPU credits.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 | Allowed values | `standard`, `unlimited`, "" |
 

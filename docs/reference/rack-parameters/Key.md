@@ -9,6 +9,8 @@ SSH key name for access to cluster instances. Set this to the name of an existin
 
 When left blank (the default), SSH access to cluster instances is disabled. This is the recommended setting for production environments where instance access should be managed through other mechanisms such as ECS Exec or SSM Session Manager.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

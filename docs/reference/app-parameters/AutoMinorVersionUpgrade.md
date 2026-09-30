@@ -7,6 +7,8 @@ description: "Controls whether automatic minor version upgrades are enabled for 
 
 Automatic minor version upgrade control for database resources. Set to `false` to disable. When enabled, AWS will automatically apply minor engine version upgrades to RDS instances, ElastiCache clusters, and other supported database resources during their maintenance windows.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `true` |
 | Allowed values | `true`, `false` |
 

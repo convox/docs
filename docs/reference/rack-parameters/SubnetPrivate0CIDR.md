@@ -7,6 +7,8 @@ description: "Set the CIDR block for Private Subnet 0 in the Convox Rack VPC."
 
 Private Subnet 0 CIDR Block. This defines the IP address range for the first private subnet in the Rack's VPC. The CIDR block must fall within the [VPCCIDR](/reference/rack-parameters/VPCCIDR) range.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `10.0.4.0/24` |
 
 ## Use Cases

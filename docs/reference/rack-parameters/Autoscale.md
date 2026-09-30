@@ -9,6 +9,8 @@ Automatic scaling of Rack cluster instances based on resource utilization. See t
 
 When enabled, the Rack automatically adjusts the number of EC2 instances based on the resource requirements of running containers. When disabled, you must manually manage the instance count.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Yes`       |
 | Allowed values | `Yes`, `No` |
 

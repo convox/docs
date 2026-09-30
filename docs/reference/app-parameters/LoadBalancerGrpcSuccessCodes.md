@@ -7,6 +7,8 @@ description: "Specifies the gRPC status codes that healthy targets must return w
 
 GRPC success codes for load balancer health checks.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `12` |
 | Allowed values | `0-99` |
 

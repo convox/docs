@@ -7,6 +7,8 @@ description: "Assign custom security groups to the internal Convox Rack router f
 
 Comma-delimited list of security group IDs to assign to the internal Rack router. If blank, the Rack creates its own internal router security group that allows TCP traffic on ports 80 and 443 from within the VPC CIDR range.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

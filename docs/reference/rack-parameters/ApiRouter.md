@@ -7,6 +7,8 @@ description: "Legacy load balancer type label for the Convox Rack API."
 
 A legacy label for the Rack API load balancer type. The Rack API always uses an Application Load Balancer (ALBv2) regardless of this setting.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `ELB`        |
 | Allowed values | `ALB`, `ELB` |
 

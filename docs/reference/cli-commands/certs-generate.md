@@ -1,11 +1,13 @@
 ---
 title: "certs generate"
-description: "Generate a self-signed certificate for one or more domains."
+description: "Request an AWS Certificate Manager (ACM) certificate for one or more domains."
 ---
 
 # certs generate
 
-Generate a self-signed certificate for one or more domains. Self-signed certificates are useful for development and testing. For production use, import a certificate from a trusted authority using `certs import`.
+Request a certificate from AWS Certificate Manager (ACM) in the Rack's region. The first domain is the certificate's domain name and any other domains are added as subject alternative names. The command prints the new certificate's id.
+
+Each run requests a new certificate, and each one must be validated separately. Keep the id this command prints: `convox certs` does not list the certificate until ACM issues it, and [`convox certs delete`](/reference/cli-commands/certs-delete) takes that id to remove a certificate you no longer need.
 
 ## Syntax
 
@@ -24,7 +26,7 @@ $ convox certs generate <domain> [domain...]
 
 ```bash
 $ convox certs generate example.com
-Generating certificate... OK, cert-ab12cd
+Generating certificate... OK, acm-74ec8b405093
 ```
 
 ## See Also

@@ -7,6 +7,8 @@ description: "Override the default builder image used during Convox builds."
 
 Custom builder image for `convox build`. When blank, the default Convox builder image is used.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

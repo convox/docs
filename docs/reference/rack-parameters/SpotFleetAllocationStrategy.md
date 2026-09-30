@@ -7,6 +7,8 @@ description: "Set the allocation strategy for EC2 Spot Fleet instances in a Conv
 
 The Spot Fleet allocation strategy. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `lowestPrice`                                         |
 | Allowed values | `lowestPrice`, `diversified`, `capacityOptimized` |
 

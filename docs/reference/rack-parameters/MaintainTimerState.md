@@ -7,6 +7,8 @@ description: "Preserve the enabled or disabled state of timer event rules across
 
 Timer event rule state preservation across deployments. If you disable a timer in the AWS Console (by disabling its CloudWatch Event Rule), enabling this parameter will keep it disabled across subsequent deployments. By default, the timer state is not explicitly maintained and the behavior of state changes depends on CloudFormation's default handling.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

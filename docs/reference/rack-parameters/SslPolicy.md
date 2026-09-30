@@ -7,6 +7,8 @@ description: "Specify the SSL/TLS security policy for the Convox Rack load balan
 
 SSL/TLS policy for the primary Rack load balancer. This controls the SSL/TLS protocols and ciphers that the load balancer supports when terminating HTTPS connections.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 | Allowed values | [ELB SSL Policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies) |
 

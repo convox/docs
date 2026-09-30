@@ -5,14 +5,16 @@ description: "Block accidental deletion of the public Network Load Balancer."
 
 # NLBDeletionProtection
 
-Enable AWS deletion protection on the public [NLB](/reference/rack-parameters/NLB). When `Yes`, any operation that would delete the load balancer is rejected pre-flight, including `convox rack params set NLB=No` and `convox rack uninstall`. Unset this before intentionally tearing down the NLB.
+Enable AWS deletion protection on the public [NLB](/reference/rack-parameters/NLB). When `Yes`, `convox rack params set NLB=No` and `convox rack uninstall` are rejected pre-flight. A version change to a release without NLB support is not checked. Unset this before intentionally tearing down the NLB.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
 ## Use Cases
 
-- Production Racks where accidental disable of the public NLB would take down customer-facing TCP listeners
+- Production Racks where accidental disable of the public NLB would take down public-facing TCP listeners
 - Racks with `rack params set` automation where an errant flag could flip `NLB=No` unintentionally
 - Shared Racks where multiple operators have `params set` permission
 
@@ -30,9 +32,8 @@ Convox refuses to accept the destructive operations while protection is on, befo
 
 - `convox rack params set NLB=No` while `NLBDeletionProtection=Yes` is rejected with:
 
-  ```
-  cannot disable NLB while NLBDeletionProtection=Yes; unset protection
-  first, wait for the update to complete, then toggle NLB off
+  ```text
+  cannot disable NLB while NLBDeletionProtection=Yes; unset protection first, wait for the update to complete, then toggle NLB off
   ```
 
 - `convox rack uninstall` while either `NLBDeletionProtection=Yes` or `NLBInternalDeletionProtection=Yes` is rejected pre-flight with a parallel error.

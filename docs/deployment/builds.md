@@ -42,6 +42,8 @@ When you run this command the following steps are executed:
 - Build metadata is saved to the Rack
 - A new [Release](/deployment/releases) is created from the build and its metadata is saved too
 
+The CLI prints `Starting build... OK` once the Rack launches the build task, then streams the build output, which begins when the task starts.
+
 The newly created release will not be promoted (made active) until you run `convox releases promote <release ID>`.
 
 If you'd like to build your App and promote the release in a single step, you can run `convox deploy` rather than `convox build`.
@@ -51,6 +53,26 @@ If you'd like to build your App and promote the release in a single step, you ca
 Run `convox builds info <build ID>` to view metadata for a particular build.
 
 Run `convox builds logs <build ID>` to view the logs for a particular build.
+
+## Build Failures
+
+A Build that fails is marked `failed` in `convox builds` and creates no Release. When the build fails while it runs, its build output ends with `ERROR: <message>`.
+
+When the build task stops before the build runs, for example because the build image cannot be pulled, the Build is marked `failed` and the build output prints `build task stopped: <reason>`. `convox builds logs` prints the same line later:
+
+```bash
+$ convox builds logs BPNRIHAOQGM
+build task stopped: Task failed to start: CannotPullImageManifestError: Error response from daemon: manifest unknown: manifest unknown
+```
+
+A build task that has not started after 60 minutes is stopped, and the Build is marked `failed` with the reason `task did not start within 60 minutes`.
+
+A build task that stops after it starts without reporting a result, for example because it ran out of memory or was stopped with `convox ps stop`, is marked `failed` with the reason it stopped when its build output is read. The output then ends with the `build task stopped: <reason>` line. Which command reads the output depends on the Rack's [BuildMethod](/reference/rack-parameters/BuildMethod):
+
+| BuildMethod | Command that reads the build output |
+|:------------|:------------------------------------|
+| `fargate` | The `convox build` or `convox deploy` output stream |
+| `ec2` | `convox builds logs <build ID>` |
 
 ## Moving Builds
 

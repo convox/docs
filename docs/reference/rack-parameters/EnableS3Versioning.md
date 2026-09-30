@@ -7,6 +7,8 @@ description: "Controls S3 bucket versioning for all buckets created by a Convox 
 
 S3 bucket versioning for Rack-managed buckets. This affects all the buckets created for this Rack.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `Suspended`              |
 | Allowed values | `Enabled`, `Suspended`   |
 

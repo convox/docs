@@ -7,6 +7,8 @@ description: "Defines how many days CloudWatch logs are retained for the applica
 
 Log retention period for the application's CloudWatch Log Groups.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `7` |
 
 ## Use Cases

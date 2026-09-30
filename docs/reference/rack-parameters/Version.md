@@ -7,6 +7,8 @@ description: "Specify the Convox release version running on the Rack."
 
 (REQUIRED) Convox release version. This parameter is set automatically when a Rack is installed or updated and determines which version of the Convox software is running on the Rack.
 
+| Setting | Value |
+|:--|:--|
 | Minimum length | `1` |
 
 ## Use Cases

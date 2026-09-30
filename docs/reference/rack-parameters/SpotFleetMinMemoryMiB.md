@@ -7,6 +7,8 @@ description: "Set the minimum memory requirement in MiB for instance types in th
 
 Spot Fleet's minimum memory in MiB. Instance types with less memory than this value are excluded from the Spot Fleet's instance selection. This parameter can be used only when Spot Fleet is enabled by setting [SpotFleetMaxPrice](/reference/rack-parameters/SpotFleetMaxPrice).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1000` |
 
 ## Use Cases

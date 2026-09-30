@@ -29,6 +29,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [ApiCount](/reference/rack-parameters/ApiCount) | `2` | Number of Rack API containers to run |
 | [ApiCpu](/reference/rack-parameters/ApiCpu) | `128` | CPU units reserved by the API web process |
 | [ApiMonitorMemory](/reference/rack-parameters/ApiMonitorMemory) | `128` | Memory (MB) reserved by the API monitor process |
+| [ApiRoleScoped](/reference/rack-parameters/ApiRoleScoped) | `No` | Replace `PowerUserAccess` on the Rack API role with a policy limited to the services the Rack uses |
 | [ApiRouter](/reference/rack-parameters/ApiRouter) | `ELB` | Legacy load balancer type label for the Rack API |
 | [ApiWebMemory](/reference/rack-parameters/ApiWebMemory) | `256` | Memory (MB) reserved by the API web process |
 | [Autoscale](/reference/rack-parameters/Autoscale) | `Yes` | Enable or disable Rack instance autoscaling |
@@ -102,6 +103,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) | `1` | Number of instances for non-HA Racks |
 | [OnDemandMinCount](/reference/rack-parameters/OnDemandMinCount) | `3` | Minimum on-demand instances when using spot |
 | [Password](/reference/rack-parameters/Password) | *(required)* | API HTTP password |
+| [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary) | "" | IAM permissions boundary for the roles and users the Rack creates, except `ApiRole` |
 | [PlaceLambdaInVpc](/reference/rack-parameters/PlaceLambdaInVpc) | `No` | Place Convox Lambda functions inside the VPC |
 | [Private](/reference/rack-parameters/Private) | `No` | Create resources in private subnets |
 | [PrivateApi](/reference/rack-parameters/PrivateApi) | `No` | Place the Rack API load balancer in a private network |

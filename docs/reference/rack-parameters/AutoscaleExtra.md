@@ -7,6 +7,8 @@ description: "Set the number of extra capacity instances that the Rack autoscale
 
 The number of instances of extra capacity that autoscale should keep running. This provides headroom so that new deployments or scaling events do not have to wait for new instances to launch.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `1` |
 
 ## Use Cases

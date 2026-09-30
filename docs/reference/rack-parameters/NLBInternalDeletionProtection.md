@@ -7,6 +7,8 @@ description: "Block accidental deletion of the internal Network Load Balancer."
 
 Enable AWS deletion protection on the internal [NLBInternal](/reference/rack-parameters/NLBInternal). Same semantics as [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection) but scoped to the internal NLB.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

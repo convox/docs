@@ -24,7 +24,7 @@ Common causes for not passing health checks are:
 * A process takes too long to initialize its server and therefore fails a network health check
 
 
-#### Health Check Options
+## Health Check Options
 
 By default Convox will set up a `tcp` health check to your application, defining that a process must boot and pass the network health check in 3 seconds. If your app takes longer to boot, you may need to increase this to up to 60 seconds by adding a label by adding one or more of the following labels to your `docker-compose.yml` file.
 
@@ -42,36 +42,15 @@ services:
     ports:
       - "443:5000"
 ```
-<table>
-  <tr>
-    <th>Label</th>
-    <th>Notes</th>
-  </tr>
-  <tr>
-    <td><code>interval</code></td>
-    <td>The amount of time in between health checks. Default is <code>timeout + 2</code> seconds.</td>
-  </tr>
-  <tr>
-    <td><code>path</code></td>
-    <td>The endpoint the load balancer will use to determine the application's health.</td>
-  </tr>
-  <tr>
-    <td><code>port</code></td>
-    <td>This is the port that your container is set up to listen on, not the load balancer port.</td>
-  </tr>
-  <tr>
-    <td><code>threshold.healthy</code></td>
-    <td>The number of consecutive successful health checks that must occur before declaring an EC2 instance healthy. Default is 2.</td>
-  </tr>
-  <tr>
-    <td><code>threshold.unhealthy</code></td>
-    <td>The number of consecutive failed health checks that must occur before declaring an EC2 instance unhealthy. Default is 2.</td>
-  </tr>
-  <tr>
-    <td><code>timeout</code></td>
-    <td>The time in seconds after which no response means a failed health check (3 seconds by default; 60 seconds maximum).</td>
-  </tr>
-</table>
+
+| Label | Notes |
+|:--|:--|
+| `interval` | The amount of time in between health checks. Default is `timeout + 2` seconds. |
+| `path` | The endpoint the load balancer will use to determine the application's health. |
+| `port` | This is the port that your container is set up to listen on, not the load balancer port. |
+| `threshold.healthy` | The number of consecutive successful health checks that must occur before declaring an EC2 instance healthy. Default is 2. |
+| `threshold.unhealthy` | The number of consecutive failed health checks that must occur before declaring an EC2 instance unhealthy. Default is 2. |
+| `timeout` | The time in seconds after which no response means a failed health check (3 seconds by default; 60 seconds maximum). |
 
 ## See Also
 

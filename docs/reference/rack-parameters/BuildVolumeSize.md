@@ -7,6 +7,8 @@ description: "Set the default build disk size in GB for the Convox Rack build in
 
 Build disk size in GB for the dedicated build instance's EBS volume.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `100` |
 
 ## Use Cases

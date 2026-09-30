@@ -7,6 +7,8 @@ description: "Set the default EBS volume size in GB for Convox Rack EC2 instance
 
 Default disk size (in gibibytes) of the EBS volume attached to each EC2 instance in the cluster. This is the root volume that stores the operating system, Docker images, and container data for running applications.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `50` |
 
 ## Use Cases

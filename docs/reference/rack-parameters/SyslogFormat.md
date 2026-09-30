@@ -7,6 +7,8 @@ description: "Set the syslog message format used when forwarding Convox Rack log
 
 Syslog format (lowercase) to send to [SyslogDestination](/reference/rack-parameters/SyslogDestination). See [Docker Syslog logging driver](https://docs.docker.com/config/containers/logging/syslog/) and [RFC 5424](https://www.rfc-editor.org/rfc/rfc5424#section-6) for format details.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `rfc5424` |
 | Allowed values | `rfc5424`, `rfc3164` |
 

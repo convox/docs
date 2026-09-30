@@ -7,6 +7,8 @@ description: "Enable an internal Network Load Balancer on a Convox Rack for TCP 
 
 Internal Network Load Balancer (NLB) for the Rack. When enabled, creates a VPC-internal Layer 4 load balancer that Services can opt into via the [nlb:](/application/services#nlb) field (`scheme: internal`) in `convox.yml`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 

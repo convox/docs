@@ -7,6 +7,8 @@ description: "Configure the syslog endpoint for forwarding Convox Rack and servi
 
 Syslog address destination. You need to pass the protocol to be used, e.g. `tcp+tls://logsX.syslog.com:1234`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

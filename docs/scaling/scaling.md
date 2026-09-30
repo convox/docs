@@ -168,6 +168,8 @@ $ convox apps params set IgnoreManualScaleCount=Yes -a appName
 
 For full details, refer to the [IgnoreManualScaleCount](/reference/app-parameters/IgnoreManualScaleCount).
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No` |
 | Allowed values | `Yes`, `No` |
 

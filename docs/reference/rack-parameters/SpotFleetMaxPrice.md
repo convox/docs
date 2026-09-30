@@ -7,6 +7,8 @@ description: "Set the maximum hourly price for EC2 Spot Fleet instances and enab
 
 The maximum price for instances in the Spot Fleet per hour. Setting this parameter enables Spot Fleet mode, which uses AWS EC2 Spot Fleet requests to fulfill instance demand instead of an Auto Scaling group. The fleet will try to launch instances until it crosses the price threshold, even if the target [InstanceCount](/reference/rack-parameters/InstanceCount) or [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) is not fulfilled.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

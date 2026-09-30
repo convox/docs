@@ -7,6 +7,8 @@ description: "Sets the CPU allocation for Fargate-based builds in a Convox Rack.
 
 How much CPU to reserve for the builder. Only used when [BuildMethod](/reference/rack-parameters/BuildMethod) is set to `fargate`.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | "" |
 
 ## Use Cases

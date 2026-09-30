@@ -7,6 +7,8 @@ description: "Configure the CPU units reserved by the Convox Rack API web proces
 
 How much CPU should be reserved by the API web process. The value is specified in ECS CPU units, where 1024 units equals one full vCPU.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `128` |
 
 ## Use Cases

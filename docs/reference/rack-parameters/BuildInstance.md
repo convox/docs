@@ -9,6 +9,8 @@ EC2 instance type to create and use as the Rack's [dedicated build instance](/de
 
 The build instance will also use the [InstanceBootCommand](/reference/rack-parameters/InstanceBootCommand) and [InstanceRunCommand](/reference/rack-parameters/InstanceRunCommand) Rack params, if defined.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `t3.small`                                                       |
 | Allowed values | [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/) |
 

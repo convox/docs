@@ -7,6 +7,8 @@ description: "Enable persistent Docker layer caching for Convox Rack builds usin
 
 Persistent build layer caching for the Rack. When enabled, App builds push their Docker layers to a dedicated `{rack}-build-cache` ECR repository and reuse those layers on later builds, which speeds up rebuilds when the relevant Dockerfile stages have not changed. The cache repository is separate from the per-App image registries that hold built Releases.
 
+| Setting | Value |
+|:--|:--|
 | Default value  | `No`        |
 | Allowed values | `Yes`, `No` |
 
