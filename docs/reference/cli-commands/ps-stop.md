@@ -23,8 +23,8 @@ $ convox ps stop <pid>
 ## Example Usage
 
 ```bash
-$ convox ps stop web-abc1234-def5 -a myapp
-Stopping web-abc1234-def5... OK
+$ convox ps stop 5e3c8576b942 -a myapp
+Stopping 5e3c8576b942... OK
 ```
 
 ## See Also

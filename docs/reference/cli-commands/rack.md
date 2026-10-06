@@ -26,7 +26,7 @@ $ convox rack
 Name      production
 Provider  aws
 Region    us-east-1
-Router    router.0a1b2c3d4e5f.convox.cloud
+Router    produc-Route-1A2B3C4D5E6F-1234567890.us-east-1.elb.amazonaws.com
 Status    running
 Version   20260421192651
 ```
@@ -38,7 +38,7 @@ $ convox rack
 Name          production
 Provider      aws
 Region        us-east-1
-Router        router.0a1b2c3d4e5f.convox.cloud
+Router        produc-Route-1A2B3C4D5E6F-1234567890.us-east-1.elb.amazonaws.com
 NLB           production-nlb-abc123.elb.us-east-1.amazonaws.com (52.1.2.3, 52.4.5.6, 52.7.8.9)
 NLB Internal  production-nlb-internal-xyz789.elb.us-east-1.amazonaws.com
 Status        running

@@ -45,15 +45,10 @@ Step 4/4 : CMD ["bundle", "exec", "rails", "server"]
 Successfully built a1b2c3d4e5f6
 Running: docker tag 9836064b convox/myapp:web.BABCDEF
 Running: docker push convox/myapp:web.BABCDEF
-Build:   BABCDEF
-Release: RABCDEF
-Promoting RABCDEF...
-2025-01-15T12:00:00Z system/cloudformation aws/cfm myapp UPDATE_IN_PROGRESS AWS::CloudFormation::Stack User Initiated
-2025-01-15T12:00:05Z system/ecs aws/ecs (service myapp-web) has started 1 tasks: (task abc1234).
-2025-01-15T12:00:20Z system/ecs aws/ecs (service myapp-web) has reached a steady state.
-2025-01-15T12:00:25Z system/cloudformation aws/cfm myapp UPDATE_COMPLETE AWS::CloudFormation::Stack
-OK
+Promoting RABCDEF... OK
 ```
+
+With `--wait`, the CLI prints the App's CloudFormation and ECS events after `Promoting` and prints `OK` once the App finishes updating. It exits with `ERROR: rollback` if the App does not end on the new Release.
 
 ## See Also
 

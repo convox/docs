@@ -26,10 +26,10 @@ $ convox ps
 
 ```bash
 $ convox ps -a myapp
-ID                SERVICE  STATUS   RELEASE  STARTED      COMMAND
-web-abc1234-def5  web      running  RABCDEF  2 hours ago  bundle exec rails server
-web-ghi6789-jkl0  web      running  RABCDEF  2 hours ago  bundle exec rails server
-worker-mno1234    worker   running  RABCDEF  2 hours ago  bundle exec sidekiq
+ID            SERVICE  STATUS   RELEASE  STARTED      COMMAND
+5e3c8576b942  web      running  RABCDEF  2 hours ago  bundle exec rails server
+310481bf223f  web      running  RABCDEF  2 hours ago  bundle exec rails server
+7d1e2f3a4b5c  worker   running  RABCDEF  2 hours ago  bundle exec sidekiq
 ```
 
 ## See Also

@@ -36,7 +36,7 @@ $ convox run web bin/rails db:migrate -a myapp
 
 ```bash
 $ convox run web bin/report --detach -a myapp
-Running detached process... OK, web-pqr3456-stu7
+Running detached process... OK, 9a8b7c6d5e4f
 ```
 
 ## Passing a Command
@@ -65,6 +65,10 @@ ERROR: unknown flag: --verbose
 ```
 
 Do not add an `sh -c` of your own. The command string is already run through a shell, so an inner `sh -c` nests a second shell and produces confusing output rather than an error. See [exec](/reference/cli-commands/exec) for a worked example.
+
+## Running Without a Terminal
+
+When stdin is not a terminal, for example in a CI job, output and the exit code follow the same rules as [exec](/reference/cli-commands/exec#running-without-a-terminal).
 
 ## See Also
 

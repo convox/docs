@@ -69,6 +69,8 @@ $ convox ssl update web:443 acm-5d0c7e2b91f4
 Updating certificate... OK
 ```
 
+> **Note:** A Gen 1 load balancer is a Classic Load Balancer by default, and it takes only RSA 1024-bit and 2048-bit certificates from ACM. On a Classic Load Balancer, `convox ssl update` refuses an ACM certificate with any other key type and leaves the App unchanged. See [ssl update](/reference/cli-commands/ssl-update#key-types).
+
 ### Inspect SSL Configuration
 
 You can use the Convox CLI to view SSL configuration for an app.

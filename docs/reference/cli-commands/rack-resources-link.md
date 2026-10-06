@@ -5,7 +5,7 @@ description: "Link a Rack Resource to an App."
 
 # rack resources link
 
-Link a Rack Resource to an App, making the Resource's connection URL available as an environment variable within the App.
+Link a `syslog` Rack Resource to an App so the App's logs are sent to the syslog destination. Other Resource types cannot be linked.
 
 ## Syntax
 
@@ -24,7 +24,7 @@ $ convox rack resources link <resource>
 ## Example Usage
 
 ```bash
-$ convox rack resources link shared-postgres -a myapp --wait
+$ convox rack resources link syslog-3785 -a myapp --wait
 Linking to myapp... OK
 ```
 

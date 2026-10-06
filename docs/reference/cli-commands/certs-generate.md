@@ -9,6 +9,8 @@ Request a certificate from AWS Certificate Manager (ACM) in the Rack's region. T
 
 Each run requests a new certificate, and each one must be validated separately. Keep the id this command prints: `convox certs` does not list the certificate until ACM issues it, and [`convox certs delete`](/reference/cli-commands/certs-delete) takes that id to remove a certificate you no longer need.
 
+The command returns once ACM lists the new request, so `convox certs delete` accepts the printed id straight away. The wait adds a few seconds, about 13 seconds at most. Requires rack version 20261005214736 or newer.
+
 ## Syntax
 
 ```bash

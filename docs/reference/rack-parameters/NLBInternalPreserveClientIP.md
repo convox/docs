@@ -14,7 +14,7 @@ Forward the real client source IP to targets behind the internal [NLBInternal](/
 
 ## Prerequisites
 
-Same constraint as [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP#prerequisites): this parameter cannot be enabled on a Rack that sets a user-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup). On such Racks, add an ingress rule to your custom security group (all protocols, sourced from `${Rack}:NLBInternalSecurityGroup`) before attempting to enable this parameter. The example on the [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP#incompatibility-with-a-custom-instancesecuritygroup) page applies with `` OutputKey==`NLBInternalSecurityGroup` `` in the query.
+Same requirement as [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP#prerequisites): on a Rack that sets a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), add an ingress rule to that group allowing all traffic from the internal NLB security group (exported as `${Rack}:NLBInternalSecurityGroup`) before enabling this parameter. The example on the [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP#custom-instancesecuritygroup) page applies with `` OutputKey==`NLBInternalSecurityGroup` `` in the query.
 
 ## Use Cases
 
@@ -31,15 +31,17 @@ $ convox rack params set NLBInternalPreserveClientIP=Yes
 
 Applies to every listener on the internal NLB. An App's listeners pick up a change on the App's next release promote (`convox deploy` or `convox releases promote`). Per-port [preserve_client_ip:](/application/services#nlb) on a Service with `scheme: internal` overrides this Rack default for a single listener.
 
-### Incompatibility with a custom InstanceSecurityGroup
+### Custom InstanceSecurityGroup
 
-Racks that set [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) cannot enable this parameter. The Rack rejects the change with an error that references `${Rack}:NLBInternalSecurityGroup`:
+Requires rack version 20261005214736 or newer.
+
+On a Rack with a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), the Rack accepts this parameter once that group has an ingress rule allowing all traffic from `${Rack}:NLBInternalSecurityGroup`, and refuses it otherwise:
 
 ```text
-cannot enable NLBInternalPreserveClientIP on a rack with a user-supplied InstanceSecurityGroup; your instance SG must add an ingress rule from the NLB security group (exported as ${Rack}:NLBInternalSecurityGroup) for the NLB listener ports before this feature can be enabled safely
+preserve client IP on the internal NLB needs an ingress rule on InstanceSecurityGroup sg-0123456789abcdef0 allowing all traffic from the NLB security group sg-0fedcba9876543210 (production:NLBInternalSecurityGroup); add that rule and retry
 ```
 
-The inverse direction (setting `InstanceSecurityGroup` while this is already `Yes`) is also blocked unless the same call disables preserve-client-IP. See [NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP#incompatibility-with-a-custom-instancesecuritygroup) for the full rationale.
+The rest of [Custom InstanceSecurityGroup](/reference/rack-parameters/NLBPreserveClientIP#custom-instancesecuritygroup) on the NLBPreserveClientIP page applies to the internal NLB, with `NLBInternal`, `NLBInternalPreserveClientIP`, `${Rack}:NLBInternalSecurityGroup`, and `scheme: internal` ports in place of the public ones: setting `InstanceSecurityGroup` to a new group needs the rule, `NLBInternal=Yes` is refused while this parameter is `Yes`, and the rule must be removed before `NLBInternal=No` or an uninstall.
 
 ## See Also
 

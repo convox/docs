@@ -23,8 +23,8 @@ $ convox ps info <pid>
 ## Example Usage
 
 ```bash
-$ convox ps info web-abc1234-def5 -a myapp
-Id        web-abc1234-def5
+$ convox ps info 5e3c8576b942 -a myapp
+Id        5e3c8576b942
 App       myapp
 Command   bundle exec rails server
 Instance  i-0a1b2c3d4e5f67890

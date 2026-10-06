@@ -24,6 +24,8 @@ When enabled, tags defined on the ECS service (such as `App`, `Name`, and `Type`
 
 Task-level tags are useful for AWS Cost Explorer when you want to attribute costs to specific applications or Services at the task granularity rather than the cluster or service level.
 
+Tasks keep the tags they started with. Tasks already running when you enable `TaskTags`, or when the App's [Tags](/reference/app-parameters/Tags) change, carry the new tags only after they are replaced, for example by `convox restart`.
+
 ```bash
 $ convox apps params set TaskTags=Yes
 ```
@@ -31,4 +33,6 @@ $ convox apps params set TaskTags=Yes
 ## See Also
 
 - [FargateServices](/reference/app-parameters/FargateServices)
+- [Tags](/reference/app-parameters/Tags)
+- [Service Tags](/management/service-tags)
 - [Rack Parameters](/reference/rack-parameters)

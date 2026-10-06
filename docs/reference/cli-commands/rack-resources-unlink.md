@@ -5,7 +5,7 @@ description: "Unlink a Rack Resource from an App."
 
 # rack resources unlink
 
-Unlink a Rack Resource from an App, removing the Resource's connection URL from the App's environment variables.
+Unlink a `syslog` Rack Resource from an App, which stops sending the App's logs to the syslog destination.
 
 ## Syntax
 
@@ -24,7 +24,7 @@ $ convox rack resources unlink <resource>
 ## Example Usage
 
 ```bash
-$ convox rack resources unlink shared-postgres -a myapp --wait
+$ convox rack resources unlink syslog-3785 -a myapp --wait
 Unlinking from myapp... OK
 ```
 

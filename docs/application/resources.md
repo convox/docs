@@ -42,7 +42,7 @@ resources:
   gisdb:
     type: postgres
     options:
-      version: 12
+      version: 17
     tags:
       Name: gis-database
       Project: mapping
@@ -156,7 +156,7 @@ resources:
   primary-db:
     type: mysql
     options:
-      version: "8.0"  # Ensure the version matches the primary database
+      version: "8.4"  # Ensure the version matches the primary database
       class: db.t3.medium
       storage: 50
       encrypted: true
@@ -169,7 +169,7 @@ resources:
     type: mysql
     options:
       readSourceDB: "#convox.resources.primary-db"
-      version: "8.0"  # The read replica must use the same version as the primary database
+      version: "8.4"  # The read replica must use the same version as the primary database
       class: db.t3.medium
       storage: 50
       encrypted: true
@@ -234,9 +234,9 @@ services:
 
 | Option    | Default          | Description       |
 |-----------|------------------|-------------------|
-| `class`   | `cache.t2.micro` | Instance class    |
+| `class`   | `cache.t3.micro` | Instance class    |
 | `nodes`   | `1`              | Number of nodes   |
-| `version` | *(required)*     | Memcached version |
+| `version` | `1.4`            | Memcached version |
 
 ### mariadb
 
@@ -250,7 +250,7 @@ services:
 | `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
 | `snapshot`  |                  | ARN of a DB snapshot to restore from    |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | *(required)*     | MariaDB version                         |
+| `version`   | `11.4`           | MariaDB version. See [Default Versions and Classes](#default-versions-and-classes) |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
 
@@ -269,7 +269,7 @@ services:
 | `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
 | `snapshot`  |                  | ARN of a DB snapshot to restore from    |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | *(required)*     | MySQL version (e.g. `8.0`)              |
+| `version`   | `8.4`            | MySQL version. See [Default Versions and Classes](#default-versions-and-classes) |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
 
@@ -285,7 +285,7 @@ services:
 | `parameterGroupName` |        | Custom DB parameter group name. When blank, uses the default parameter group for the engine version |
 | `snapshot`  |                  | ARN of a DB snapshot to restore from    |
 | `storage`   | `20`             | GB of storage to provision              |
-| `version`   | *(required)*     | PostgreSQL version (e.g. `16`)          |
+| `version`   | `17`             | PostgreSQL version. See [Default Versions and Classes](#default-versions-and-classes) |
 | `preferredBackupWindow` |  | The daily time range during which automated backups are created if automated backups are enabled, using the `backupRetentionPeriod` option. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.              |
 | `backupRetentionPeriod`   | `1`           | The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. |
 
@@ -293,9 +293,9 @@ services:
 
 | Option      | Default          | Description                 |
 |-------------|------------------|-----------------------------|
-| `class`     | `cache.t2.micro` | Instance class              |
+| `class`     | `cache.t3.micro` | Instance class              |
 | `durable`   | `false`          | Multi-AZ automatic failover. When it is set to `true`, the option `nodes` has to be greater or equal to `2`, otherwise it will fail |
-| `encrypted` | `false`          | Encrypt data at rest        |
+| `encrypted` | `false`          | Encrypt data at rest and in transit. When `true`, the URL uses `rediss://` and includes an auth token |
 | `engine`    | `redis`          | Cache engine to use (`redis` or `valkey`) |
 | `nodes`     | `1`              | Number of nodes             |
 | `version`   | `7.0`            | Redis version               |
@@ -304,9 +304,9 @@ services:
 
 | Option      | Default          | Description                 |
 |-------------|------------------|-----------------------------|
-| `class`     | `cache.t2.micro` | Instance class              |
+| `class`     | `cache.t3.micro` | Instance class              |
 | `durable`   | `false`          | Multi-AZ automatic failover. When it is set to `true`, the option `nodes` has to be greater or equal to `2`, otherwise it will fail |
-| `encrypted` | `false`          | Encrypt data at rest        |
+| `encrypted` | `false`          | Encrypt data at rest and in transit. When `true`, the URL uses `rediss://` and includes an auth token |
 | `nodes`     | `1`              | Number of nodes             |
 | `version`   | `8.1`            | Valkey version              |
 
@@ -321,6 +321,34 @@ Use to share volumes between the tasks in different AZs and instances.
 | `owner-uid`   | `1000`   | POSIX user ID to apply to the `path` directory                         |
 | `path`        | `/`      | The path on the file system used as the root directory by the Services |
 | `permissions` | `0777`   | POSIX permissions to apply to the `path` directory                     |
+
+## Default Versions and Classes
+
+| Resource | Option | Default | Before rack version 20261005214736 |
+|----------|--------|---------|------------------------------------|
+| `postgres` | `version` | `17` | `12` |
+| `mysql` | `version` | `8.4` | `5.7` |
+| `mariadb` | `version` | `11.4` | `10.4` |
+| `memcached`, `redis`, `valkey` | `class` | `cache.t3.micro` | `cache.t2.micro` |
+
+A new resource without `version` or `class` gets the default of the Rack version it is created on. An existing resource keeps its engine version, parameter group and class: removing `version` or `class` from `convox.yml` does not change it, and neither does a Rack update that changes a default.
+
+Changing `version` on an existing database upgrades it in place, including to a new major version. RDS supports only certain upgrade paths; MySQL 5.7, for example, upgrades to 8.0 and not directly to 8.4. RDS bills Extended Support for a database on a major version past its end of standard support until you upgrade it.
+
+We recommend setting `version` on every database and `class` on every cache. Without them, Apps created later from the same `convox.yml`, such as [review workflow](/console/workflows#review-workflows) Apps or a rebuilt staging App, can start on a different version than your existing Apps.
+
+When restoring from `snapshot`, set `version` to the snapshot's engine version. Without it, the restore requests the default version, and the deploy fails when the snapshot is on a different major version.
+
+### TLS Connections
+
+New databases on these versions with the default parameter group need clients that connect with TLS:
+
+| Engine | Default on a new database | Client requirement |
+|--------|---------------------------|--------------------|
+| PostgreSQL 15 and later | `rds.force_ssl` is `1` | Connect with TLS. A connection without TLS is refused with `no pg_hba.conf entry for host ..., no encryption` |
+| MySQL 8.4 | users are created with `caching_sha2_password` | The client must support `caching_sha2_password`. A login without TLS can be refused, so connect with TLS |
+
+The `_URL` environment variable has no TLS parameters. If your database client does not use TLS by default, enable it in the client's connection settings.
 
 ## AutoMinorVersionUpgrade
 

@@ -5,7 +5,7 @@ description: "Import an App from a previously exported tarball."
 
 # apps import
 
-Import an App from a previously exported tarball. The tarball should have been created with `convox apps export`. This restores the App's Build and environment onto the target Rack.
+Import an App from a previously exported tarball. The tarball should have been created with `convox apps export`. This restores the App's Build, environment and App parameters onto the target Rack. When the exported parameters differ from the new App's, the import applies them in a final `Updating parameters` step.
 
 ## Syntax
 

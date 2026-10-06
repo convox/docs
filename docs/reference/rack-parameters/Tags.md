@@ -30,9 +30,27 @@ $ convox rack params set Tags="Environment=staging,Team=engineering,CostCenter=1
 
 AWS tags are useful for organizing resources, controlling access via IAM policies, filtering in the AWS console, and tracking costs in AWS Cost Explorer. Convox automatically adds `Name` and `Rack` tags to resources; your custom tags are added in addition to these.
 
-> **Note:** AWS has a limit of 50 tags per resource. Convox uses some tags internally, so ensure your custom tags do not exceed the remaining capacity.
+Each set adds or changes the keys it lists. Keys left out keep their current values, and a Rack tag cannot be removed through Convox.
+
+> **Note:** AWS has a limit of 50 tags per resource. Convox uses some tags internally, so keep Rack and App custom keys together under 40.
+
+### Rack Tags on Apps
+
+Rack `Tags` values reach a Generation 2 App when the App deploys. Generation 1 Apps do not receive them.
+
+| Case | Result |
+|:--|:--|
+| An App deploys after a Rack key is set | The App copies the Rack value for that key |
+| The Rack value changes for a key an App already carries | The App keeps the value it carries |
+| An App sets its own value with the [Tags](/reference/app-parameters/Tags) App parameter | The App's value overrides the Rack value on that App, across later deploys and Rack `Tags` changes |
+
+To move an App to a new Rack value for a key it already carries, set that key on the App, for example `convox apps params set Tags=CostCenter=12345 -a myapp`. Use CLI version 3.25.10 or newer, or 20261005214736 or newer. Older CLI versions apply the value but can print an error (a date-versioned CLI only with `--wait`), because the App's value then equals the Rack's.
+
+> **Note:** Do not change only the case of a Rack `Tags` key, for example from `CostCenter` to `costcenter`. A Rack tag cannot be removed, so the Rack stack then carries both spellings. Tag keys are case-insensitive on resources such as IAM roles, which the Rack and its Generation 2 Apps tag, so the two spellings conflict.
 
 ## See Also
 
 - [Tenancy](/reference/rack-parameters/Tenancy)
 - [Private](/reference/rack-parameters/Private)
+- [Tags App Parameter](/reference/app-parameters/Tags)
+- [Service Tags](/management/service-tags)

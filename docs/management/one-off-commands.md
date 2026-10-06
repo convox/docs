@@ -82,9 +82,9 @@ Migrating database... Done
 >
 > ```bash
 > $ convox ps
-> ID            NAME  RELEASE      SIZE  STARTED     COMMAND
-> 310481bf223f  web   RSPZQWVWGOP  256   5 days ago  bin/web
-> 5e3c8576b942  web   RSPZQWVWGOP  256   4 days ago  bin/web
+> ID            SERVICE  STATUS   RELEASE      STARTED     COMMAND
+> 310481bf223f  web      running  RSPZQWVWGOP  5 days ago  bin/web
+> 5e3c8576b942  web      running  RSPZQWVWGOP  4 days ago  bin/web
 > ```
 
 **Examples:**
@@ -123,9 +123,9 @@ BAZ=qux
 >
 > ```bash
 > $ convox ps
-> ID            NAME  RELEASE      SIZE  STARTED     COMMAND
-> 310481bf223f  web   RSPZQWVWGOP  256   5 days ago  bin/web
-> 5e3c8576b942  web   RSPZQWVWGOP  256   4 days ago  bin/web
+> ID            SERVICE  STATUS   RELEASE      STARTED     COMMAND
+> 310481bf223f  web      running  RSPZQWVWGOP  5 days ago  bin/web
+> 5e3c8576b942  web      running  RSPZQWVWGOP  4 days ago  bin/web
 > ```
 
  **Examples:**

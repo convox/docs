@@ -46,6 +46,7 @@ $ convox apps params set ParameterName=Value
 | [SlowStartDuration](/reference/app-parameters/SlowStartDuration) | `0` | Ramp-up period for new Services (seconds) |
 | [SyslogDestination](/reference/app-parameters/SyslogDestination) | "" | Syslog endpoint URL |
 | [SyslogFormat](/reference/app-parameters/SyslogFormat) | `rfc5424` | Syslog message format |
+| [Tags](/reference/app-parameters/Tags) | "" | Custom AWS tags for a Generation 2 App's stack and resources |
 | [TaskTags](/reference/app-parameters/TaskTags) | `No` | Propagate ECS tags to task level |
 
 ## See Also

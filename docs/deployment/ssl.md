@@ -5,7 +5,7 @@ description: "Configure SSL certificates for Convox Services using AWS ACM, incl
 
 # SSL
 
-Convox will, if needed, automatically generate a valid SSL certificate for your Service via [AWS ACM](https://aws.amazon.com/certificate-manager/). If you _already_ have an issued certificate in AWS ACM, in the same region as the Rack is installed, that `convox certs` lists and that covers every domain in your Service's configuration, Convox will use the existing certificate.
+Convox will, if needed, automatically generate a valid SSL certificate for your Service via [AWS ACM](https://aws.amazon.com/certificate-manager/). If you _already_ have an issued certificate in AWS ACM, in the same region as the Rack is installed, that `convox certs` lists, that has an RSA 1024-bit or 2048-bit key, and that covers every domain in your Service's configuration, Convox will use the existing certificate.
 
 If you specify a custom `domain:` attribute for your Service be on the lookout for a validation email that will come the first time you deploy.
 
@@ -33,6 +33,8 @@ acm-89ea927329d7            *.test-router-uactd9og6b40-1310739275.us-east-1.conv
 acm-eeae31f242e9            *.example.org                                                1 year from now
 cert-test-1580524125-66328  *.*.elb.amazonaws.com                                        10 months from now
 ```
+
+`convox certs` lists ACM certificates of every key type. A Service `domain:` uses only an RSA 1024-bit or 2048-bit certificate, so it never selects a listed ECDSA or 3072-bit or 4096-bit RSA certificate. Listing ECDSA and 3072-bit or 4096-bit RSA certificates requires rack version 20261005214736 or newer.
 
 To delete an existing certificate, pass its full id:
 
@@ -64,6 +66,8 @@ services:
 ```
 
 The ARN must be for an ACM certificate in the Rack's region and account (IAM server-certificate ARNs are also accepted). Cross-region and cross-account ARNs are rejected at release promote. `convox certs` lists certificates by Convox ID (`acm-` followed by the last 12 characters of the ARN) or IAM server-certificate name, not by full ARN, so retrieve the ARN from the AWS Console or `aws acm list-certificates --region <rack-region>` (add `--includes keyTypes=RSA_1024,RSA_2048,RSA_3072,RSA_4096,EC_prime256v1,EC_secp384r1,EC_secp521r1` to list certificates of every key type; by default it omits ECDSA and larger RSA certificates). Unlike ALB-routed Services, where Convox auto-provisions ACM certificates for the Service's domain, NLB listeners require the operator to pre-provision the certificate and paste the ARN.
+
+An NLB TLS listener takes RSA certificates of up to 3072 bits and ECDSA P-256, P-384 and P-521 certificates. AWS rejects a 4096-bit RSA certificate from ACM on an NLB listener, and an IAM certificate with a 4096-bit RSA key puts the listener in a non-functional state.
 
 ## Local Rack
 

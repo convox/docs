@@ -23,11 +23,11 @@ $ convox cp <[pid:]src> <[pid:]dst>
 ## Example Usage
 
 ```bash
-$ convox cp web-abc1234-def5:/app/log/production.log ./production.log -a myapp
+$ convox cp 5e3c8576b942:/app/log/production.log ./production.log -a myapp
 ```
 
 ```bash
-$ convox cp ./config.yml web-abc1234-def5:/app/config/config.yml -a myapp
+$ convox cp ./config.yml 5e3c8576b942:/app/config/config.yml -a myapp
 ```
 
 ## See Also

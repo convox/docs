@@ -30,6 +30,8 @@ RedirectHttps    Yes
 TaskTags         No
 ```
 
+On Racks running 20261005214736 or newer, a Generation 2 App with its own [Tags](/reference/app-parameters/Tags) values shows a `Tags` row listing the values that differ from the Rack's `Tags`. The row can appear without a `Tags` set when the App carries a Rack `Tags` value that the Rack later changed.
+
 ## See Also
 
 - [apps params set](/reference/cli-commands/apps-params-set)
