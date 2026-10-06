@@ -27,11 +27,11 @@ Creating resource... OK, postgres-2871
 
 ```bash
 $ convox rack resources
-NAME                  TYPE     STATUS
-console-175092fe6ab1  webhook  running
-syslog-2984           syslog   running
-postgres-8458         postgres running
-postgres-2871         postgres running
+NAME                     TYPE      STATUS
+console-v1-175092fe6ab1  webhook   running
+syslog-2984              syslog    running
+postgres-8458            postgres  running
+postgres-2871            postgres  running
 ```
 
 ### Viewing Resource Info
@@ -45,7 +45,7 @@ $ convox rack resources info postgres-8458
 ```bash
 $ convox rack resources options memcached
 NAME           DEFAULT         DESCRIPTION
-InstanceType   cache.t2.micro  The type of instance to use
+InstanceType   cache.t3.micro  The type of instance to use
 NumCacheNodes  1               The number of cache clusters for this replication group
 ```
 
@@ -63,23 +63,27 @@ $ convox rack resources update postgres-8458 MultiAZ=true
 
 ### Linking a Resource to an App
 
-Rack Resources can be linked to Apps, which injects a connection URL as an environment variable:
+Only `syslog` Rack Resources can be linked to an App. Linking sends the App's logs to the syslog destination:
 
 ```bash
-$ convox rack resources link postgres-8458 --app myapp
+$ convox rack resources link syslog-2984 --app myapp
+Linking to myapp... OK
 ```
 
 To remove the link:
 
 ```bash
-$ convox rack resources unlink postgres-8458 --app myapp
+$ convox rack resources unlink syslog-2984 --app myapp
+Unlinking from myapp... OK
 ```
+
+To use a Rack database or cache from an App, get its URL with `convox rack resources url` and set it as an App environment variable, as described in [External Resources](#external-resources).
 
 ### Deleting a Resource
 
 ```bash
 $ convox rack resources delete postgres-8458
-Deleting postgres-8458... OK
+Deleting resource... OK
 ```
 
 ## Available Rack Resource Types
@@ -91,7 +95,7 @@ On AWS, creates an [ElastiCache](https://docs.aws.amazon.com/elasticache/) Memca
 ```bash
 $ convox rack resources options memcached
 NAME           DEFAULT         DESCRIPTION
-InstanceType   cache.t2.micro  The type of instance to use
+InstanceType   cache.t3.micro  The type of instance to use
 NumCacheNodes  1               The number of cache clusters for this replication group
 ```
 
@@ -105,12 +109,28 @@ NAME                      DEFAULT         DESCRIPTION
 AutomaticFailoverEnabled  false           Indicates whether Multi-AZ is enabled. Must be accompanied with NumCacheClusters=2 or higher.
 Database                  0               Default database index
 Encrypted                 false           Encrypt at rest and in transit
-EngineVersion             3.2.6
-InstanceType              cache.t2.micro  The type of instance to use
+Engine                    redis           The cache engine to use (redis or valkey)
+EngineVersion             7.0             The version of the cache engine
+InstanceType              cache.t3.micro  The type of instance to use
 NumCacheClusters          1               The number of cache clusters for this replication group
 ```
 
-> While memcached and redis are available as Rack Resources, there are advantages to using them as [App Resources](/application/resources) instead: configuration is version controlled in `convox.yml`, and App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
+### valkey
+
+On AWS, creates an [ElastiCache](https://docs.aws.amazon.com/elasticache/) Valkey cluster.
+
+```bash
+$ convox rack resources options valkey
+NAME                      DEFAULT         DESCRIPTION
+AutomaticFailoverEnabled  false           Indicates whether Multi-AZ is enabled. Must be accompanied with NumCacheClusters=2 or higher.
+Database                  0               Default database index
+Encrypted                 false           Encrypt at rest and in transit
+EngineVersion             8.1             The version of the cache engine
+InstanceType              cache.t3.micro  The type of instance to use
+NumCacheClusters          1               The number of cache clusters for this replication group
+```
+
+> While memcached, redis and valkey are available as Rack Resources, there are advantages to using them as [App Resources](/application/resources) instead: configuration is version controlled in `convox.yml`, and App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
 
 ### mysql
 
@@ -119,13 +139,14 @@ On AWS, creates an [RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/
 ```bash
 $ convox rack resources options mysql
 NAME                        DEFAULT      DESCRIPTION
-AllocatedStorage            10           Allocated storage size (GB)
-AutoMinorVersionUpgrade     true         Automatically update minor versions
+AllocatedStorage            20           Allocated storage size (GB)
+AllowMajorVersionUpgrade    false
+AutoMinorVersionUpgrade     true
 Database                    app          Default database name
 DatabaseSnapshotIdentifier               ARN of database snapshot to restore
 Encrypted                   false        Encrypt database with KMS
-EngineVersion               5.7.16       Version of MySQL
-InstanceType                db.t2.micro  Instance class for database nodes
+EngineVersion               8.4          Version of MySQL
+InstanceType                db.t3.micro  Instance class for database nodes
 MultiAZ                     false        Multiple availability zone
 Password                    (generated)  Server password
 Username                    app          Server username
@@ -138,15 +159,16 @@ On AWS, creates an [RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/
 ```bash
 $ convox rack resources options postgres
 NAME                        DEFAULT      DESCRIPTION
-AllocatedStorage            10           Allocated storage size (GB)
-AutoMinorVersionUpgrade     true         Automatically update minor versions
+AllocatedStorage            20           Allocated storage size (GB)
+AllowMajorVersionUpgrade    false
+AutoMinorVersionUpgrade     true
 BackupRetentionPeriod       1            The automatic RDS backup retention period, (default 1 day)
 Database                    app          Default database name
 DatabaseSnapshotIdentifier               ARN of database snapshot to restore
 Encrypted                   false        Encrypt database with KMS
-EngineVersion               12           Version of Postgres
-Family                      postgres12   Postgres version family
-InstanceType                db.t2.micro  Instance class for database nodes
+EngineVersion               17           Version of Postgres
+Family                      postgres17   Postgres version family
+InstanceType                db.t3.micro  Instance class for database nodes
 MaxConnections                           ParameterGroup max_connections value, i.e. '{DBInstanceClassMemory/15000000}'
 MultiAZ                     false        Multiple availability zone
 Password                    (generated)  Server password
@@ -154,6 +176,28 @@ Username                    postgres     Server username
 ```
 
 > While mysql and postgres are available as Rack Resources, there are advantages to using them as [App Resources](/application/resources) instead: configuration is version controlled in `convox.yml`, and App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
+
+### Database Versions
+
+`convox rack resources options` shows the default `EngineVersion` for mysql and postgres on your Rack. Existing mysql and postgres Resources keep their `EngineVersion` and `Family` through Rack updates and `convox rack resources update`.
+
+For postgres, an `EngineVersion` without `Family` sets the matching `Family` on create. Requires rack version 20261005214736 or newer; on earlier Racks, pass `Family` with `EngineVersion`.
+
+```bash
+$ convox rack resources create postgres EngineVersion=16 --name reports-db --wait
+Creating resource... OK, reports-db
+```
+
+To restore from `DatabaseSnapshotIdentifier`, also pass the snapshot's `EngineVersion`. Without it, the restore requests the default version, and a postgres restore from a snapshot on a different major version fails.
+
+To upgrade an existing database to a new major version, pass `AllowMajorVersionUpgrade=true` with the new `EngineVersion`, and for postgres the matching `Family`. Requires rack version 20260212195551 or newer.
+
+```bash
+$ convox rack resources update reports-db AllowMajorVersionUpgrade=true EngineVersion=17 Family=postgres17 --wait
+Updating resource... OK
+```
+
+New PostgreSQL 15 and later and MySQL 8.4 databases need clients that connect with TLS. See [TLS Connections](/application/resources#tls-connections).
 
 ### s3
 
@@ -216,13 +260,60 @@ Url                                                               Syslog URL, e.
 
 ### webhook
 
-Sends [notifications](/console/notifications) about events within your Apps and Rack to an HTTP endpoint. Convox uses this internally for Slack integration.
+Sends [notifications](/console/notifications) about events within your Apps and Rack to an HTTP endpoint. Console creates one on each Rack it manages, named `console-v1-<id>`, to feed the Console Events tab and notification integrations such as Slack.
 
 ```bash
 $ convox rack resources options webhook
 NAME  DEFAULT  DESCRIPTION
 Url            Webhook URL
 ```
+
+`Url` is required and takes an `http://` or `https://` URL. Use `https://` where the receiver supports it, since `http://` deliveries are unencrypted. Delivery to `http://` URLs requires rack version 20261005214736 or newer.
+
+```bash
+$ convox rack resources create webhook Url=https://hooks.example.com/convox --name my-hook --wait
+Creating resource... OK, my-hook
+```
+
+Each event is a `POST` to the URL with the event JSON as the body:
+
+```json
+{"action":"release:create","data":{"app":"myapp","id":"RABCDEFGHIJ","rack":"production"},"status":"success","timestamp":"2026-10-02T12:00:00.123456789Z"}
+```
+
+A `release:promote` event has `"status":"start"` when the promotion begins. An event for a failed operation has `"status":"error"` and the error text in `data.message`.
+
+Redirects are not followed: when a receiver redirects `http://` to `https://`, the event never reaches the `https://` URL, so give the webhook the `https://` URL. Events are sent from AWS Lambda, not from your Rack's instances or NAT gateway, so the receiver must be reachable from the internet and cannot allowlist your Rack's egress IPs. An address reachable only inside the Rack's VPC, such as an [internal Service](/networking/internal-services) or the router of an [InternalOnly](/reference/rack-parameters/InternalOnly) Rack, receives nothing.
+
+#### Changing a Webhook URL
+
+Requires rack version 20261005214736 or newer. On older racks the webhook keeps its URL; delete it and create it again with the new URL.
+
+```bash
+$ convox rack resources update my-hook Url=https://hooks.example.com/new --wait
+Updating resource... OK
+
+$ convox rack resources url my-hook
+https://hooks.example.com/new
+```
+
+The option name is case-sensitive on update: a lowercase `url=` is ignored and the webhook keeps its URL.
+
+| Command | Result |
+|:--|:--|
+| `convox rack resources update <name> Url=<http or https URL>` | Events go to the new URL |
+| `convox rack resources update <name>` | The webhook keeps its URL |
+| `convox rack resources update <name> Url=` | `ERROR: must specify a URL`, webhook unchanged |
+| `convox rack resources update <name> Url=ftp://...` | `ERROR: invalid URL scheme: ftp. Allowed schemes are: http, https`, webhook unchanged |
+| `convox rack resources update console-v1-<id> Url=...` | `ERROR: webhook console-v1-<id> is managed by Console and its Url cannot be changed`, webhook unchanged |
+
+Any webhook whose name starts with `console-v1-` is treated as Console's and refuses a `Url` update, so give your own webhooks a different name.
+
+#### Applying Webhook Fixes
+
+`convox rack update` does not update existing webhooks. After a Rack update completes (`convox rack update --wait`), run `convox rack resources update <name>` with no options to apply webhook fixes, such as `http://` delivery, to an existing webhook. When the webhook is already current, the command prints `ERROR: ValidationError: No updates are to be performed.` and nothing changes.
+
+Console's `console-v1-<id>` webhook takes the same update. If it is deleted, Console creates it again within about 15 minutes, and the Rack's events do not reach Console until then.
 
 ## External Resources
 

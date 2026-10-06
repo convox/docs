@@ -231,15 +231,17 @@ By default, NLB target-group traffic is source-NAT'd to the NLB's VPC-internal I
 
 Targets accept the forwarded traffic through ingress rules sourced from the NLB security groups, which Convox adds to the ECS instance security group and to the security group of each Fargate or [Isolate](/reference/app-parameters/Isolate) Service. An App's listeners pick up a change to either parameter on the App's next release promote (`convox deploy` or `convox releases promote`). Compliance frameworks that require real client IPs (HIPAA §164.312(b), PCI-DSS 10.2.1) are satisfied by this configuration.
 
-This feature is **incompatible with a user-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot modify a security group it does not own. On Racks where `InstanceSecurityGroup` is set, enabling `NLBPreserveClientIP=Yes` is rejected at `rack params set`:
+On a Rack with a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), Convox does not change your security group. Add an ingress rule to it that allows all traffic (`--protocol all`) from the NLB security group, exported as `${Rack}:NLBSecurityGroup` or `${Rack}:NLBInternalSecurityGroup`. A rule for the listener port does not count, because tasks on the ECS instances listen on dynamic host ports. Requires rack version 20261005214736 or newer.
 
-```text
-cannot enable NLBPreserveClientIP on a rack with a user-supplied InstanceSecurityGroup; your instance SG must add an ingress rule from the NLB security group (exported as ${Rack}:NLBSecurityGroup) for the NLB listener ports before this feature can be enabled safely
-```
+While the NLB is enabled, the Rack refuses these commands until the rule exists:
 
-`NLBInternalPreserveClientIP=Yes` is rejected the same way. Operators on Racks with a custom InstanceSecurityGroup must add an ingress rule on their security group sourced from the Rack's NLB security group (exported as `${Rack}:NLBSecurityGroup` or `${Rack}:NLBInternalSecurityGroup`), allowing all protocols, before enabling preserve-client-IP. The inverse direction is also blocked: setting `InstanceSecurityGroup` while `NLBPreserveClientIP=Yes` is already in force is rejected unless the same call also disables preserve-client-IP.
+| Command | Group that needs the rule |
+|:--|:--|
+| `convox rack params set NLBPreserveClientIP=Yes` or `NLBInternalPreserveClientIP=Yes` | The current `InstanceSecurityGroup`, each time the parameter is set to `Yes` |
+| `convox deploy` or `convox releases promote` with `preserve_client_ip: true` on an `nlb:` port | The current `InstanceSecurityGroup`, for that port's NLB |
+| `convox rack params set InstanceSecurityGroup=<sg>` while preserve client IP is on, or while a deployed App sets `preserve_client_ip: true` | `<sg>`, even when the same command turns preserve client IP off |
 
-Per-port `preserve_client_ip: true` is also rejected at release promote on Racks with a custom InstanceSecurityGroup.
+Deployed listeners keep client IP preservation until their App's next release promote, so after turning it off, redeploy Apps with `nlb:` ports before changing `InstanceSecurityGroup`. `NLB=Yes` (or `NLBInternal=Yes`) is refused while that NLB's preserve parameter is `Yes`, because the new NLB security group does not exist yet: set the preserve parameter to `No` in the same command, add the rule, then set it back to `Yes`. Remove the rule before setting `NLB=No` or `NLBInternal=No`, or running `convox rack uninstall`; EC2 does not delete a security group that another group's rule references. See [Custom InstanceSecurityGroup](/reference/rack-parameters/NLBPreserveClientIP#custom-instancesecuritygroup) for the commands.
 
 ### Deletion protection
 
@@ -326,7 +328,9 @@ To fully disable NLB on a production Rack, run the following in order. Each step
    cannot disable NLB: apps myapp/web still declare public nlb ports; remove nlb: from their manifests and redeploy first
    ```
 
-3. **Flip the Rack parameters off**:
+   For a Service that declares only `nlb:` ports (no `port:`), follow [Removing ports from an NLB-only Service](#removing-ports-from-an-nlb-only-service) instead.
+
+3. **Flip the Rack parameters off**. On a Rack with a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), first remove any ingress rule on that group that references an NLB security group, or the update leaves that security group behind:
 
    ```bash
    $ convox rack params set NLB=No NLBInternal=No
@@ -340,11 +344,34 @@ Two Apps concurrently deploying with the same NLB listener port both pass releas
 
 ### Downgrade
 
-Before downgrading a Rack to a version that predates NLB support, remove every `nlb:` block and redeploy each App, then set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. The downgrade is not rejected while an NLB is enabled: the older template does not declare the NLB parameters or resources, so CloudFormation deletes the NLBs and their EIPs.
+Before downgrading a Rack to a version that predates NLB support, remove every `nlb:` block and redeploy each App, then set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. For a Service that declares only `nlb:` ports, see [Removing ports from an NLB-only Service](#removing-ports-from-an-nlb-only-service). The downgrade is not rejected while an NLB is enabled: the older template does not declare the NLB parameters or resources, so CloudFormation deletes the NLBs and their EIPs.
 
 ### NLB-only Services on EC2 launch type
 
 A Service that declares only `nlb:` ports (no `port:` field) and runs on a default EC2-launch Rack (no Fargate, no [Isolate](/reference/app-parameters/Isolate)) registers targets via the ECS service-linked role `AWSServiceRoleForECS`. AWS creates this role automatically on first ECS usage. If target registration fails on an NLB-only Service, confirm the role exists in the account. Fargate and Isolate Services use `awsvpc` mode and register targets by IP, so the role requirement does not apply.
+
+### Removing ports from an NLB-only Service
+
+A Service that declares only `nlb:` ports (no `port:`) cannot drop them in one deploy. If you delete the `nlb:` block and run `convox deploy --wait`, the deploy ends with `ERROR: rollback` and the App keeps running its previous Release with the NLB ports in place. Without `--wait` the deploy prints `OK` and the App rolls back afterward. The CloudFormation events for the Service's stack show an ECS error like `The container web did not have a container port 8080 defined`. Remove the ports in two deploys:
+
+1. Replace the `nlb:` block with a `port:` for the same container port, and deploy:
+
+   ```yaml
+   services:
+     web:
+       build: .
+       port: 8080
+   ```
+
+   The Service is now behind the Rack's ALB, which health-checks it over HTTP at the [health check](/application/health-checks) path (default `/`). The container must answer HTTP on that port with a status in [LoadBalancerSuccessCodes](/reference/app-parameters/LoadBalancerSuccessCodes) for this deploy to complete.
+
+   For a Service on the internal NLB (`scheme: internal`), also set `internal: true` in step 1 so the Service goes behind the Rack's internal ALB instead of the internet-facing one.
+
+2. Remove `port:` and deploy again.
+
+After step 1 the Service no longer references the NLB, so the [Disable procedure](#disable-procedure) and [Downgrade](#downgrade) can continue.
+
+On Services that run with [FargateServices](/reference/app-parameters/FargateServices) or [Isolate](/reference/app-parameters/Isolate), step 2 rolls back the same way; keep `port:` on those Services.
 
 ## See Also
 

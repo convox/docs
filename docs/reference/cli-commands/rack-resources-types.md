@@ -28,8 +28,12 @@ memcached
 mysql
 postgres
 redis
+s3
 sns
 sqs
+syslog
+valkey
+webhook
 ```
 
 ## See Also

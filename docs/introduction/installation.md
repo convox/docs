@@ -66,7 +66,7 @@ After installing Convox, you'll need to `convox login`:
 ```bash
 $ convox login console.convox.com
 Password: <your Console API key>
-Logged in successfully.
+Authenticating with console.convox.com... OK
 ```
 
 ## Updating the CLI
@@ -75,7 +75,7 @@ To update the CLI you can run `convox update`:
 
 ```bash
 $ convox update
-Updating convox: OK
+Updating to 20261005214736... OK
 ```
 
 ## See Also

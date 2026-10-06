@@ -5,7 +5,7 @@ description: "Export an App, including its Build and environment, to a tarball."
 
 # apps export
 
-Export an App to a tarball that includes its Build and environment variables. This is useful for migrating an App between Racks or creating a portable backup.
+Export an App to a tarball that includes its App parameters, Build and environment variables. The `Rack`, `LogBucket` and `ResourcePassword` parameters are left out. With CLI version 3.x, only `ResourcePassword` is left out. This is useful for migrating an App between Racks or creating a portable backup.
 
 ## Syntax
 

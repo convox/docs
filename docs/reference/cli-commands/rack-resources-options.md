@@ -23,12 +23,21 @@ $ convox rack resources options <type>
 
 ```bash
 $ convox rack resources options postgres
-NAME       DEFAULT      DESCRIPTION
-MultiAZ    false        Run across multiple availability zones
-Storage    20           Storage size in GB
-Class      db.t3.micro  Instance class
-Encrypted  true         Encrypt data at rest
-Version    13           PostgreSQL engine version
+NAME                        DEFAULT      DESCRIPTION
+AllocatedStorage            20           Allocated storage size (GB)
+AllowMajorVersionUpgrade    false
+AutoMinorVersionUpgrade     true
+BackupRetentionPeriod       1            The automatic RDS backup retention period, (default 1 day)
+Database                    app          Default database name
+DatabaseSnapshotIdentifier               ARN of database snapshot to restore
+Encrypted                   false        Encrypt database with KMS
+EngineVersion               17           Version of Postgres
+Family                      postgres17   Postgres version family
+InstanceType                db.t3.micro  Instance class for database nodes
+MaxConnections                           ParameterGroup max_connections value, i.e. '{DBInstanceClassMemory/15000000}'
+MultiAZ                     false        Multiple availability zone
+Password                    (generated)  Server password
+Username                    postgres     Server username
 ```
 
 ## See Also

@@ -7,6 +7,8 @@ description: "Install a new Rack on a cloud provider."
 
 Install a new Rack. The type specifies the cloud provider (e.g., `aws`). Parameters can be set during installation to configure the Rack infrastructure.
 
+The CLI saves the new Rack's API host and password on this machine. [racks](/reference/cli-commands/racks) then lists the Rack under its name, and `convox switch <name>` or `-r <name>` selects it (see [switch](/reference/cli-commands/switch#racks-installed-with-the-cli)). If the CLI is not logged in yet, it also logs in to the new Rack.
+
 ## Syntax
 
 ```bash
@@ -17,7 +19,7 @@ $ convox rack install <type> [Parameter=Value]...
 
 | Flag | Short | Description |
 |:-----|:------|:------------|
-| `--name` | `-n` | Rack name |
+| `--name` | `-n` | Rack name (default: `convox`) |
 | `--raw` | | Raw output |
 | `--version` | `-v` | Rack version |
 
@@ -25,13 +27,9 @@ $ convox rack install <type> [Parameter=Value]...
 
 ```bash
 $ convox rack install aws -n production InstanceType=t3.medium
-Installing Rack production...
-Creating CloudFormation stack...
-2025-01-15T12:00:00Z system/cloudformation aws/cfm production CREATE_IN_PROGRESS AWS::CloudFormation::Stack User Initiated
-2025-01-15T12:02:00Z system/cloudformation aws/cfm production CREATE_IN_PROGRESS AWS::EC2::VPC
-2025-01-15T12:05:00Z system/cloudformation aws/cfm production CREATE_IN_PROGRESS AWS::ECS::Cluster
-2025-01-15T12:10:00Z system/cloudformation aws/cfm production CREATE_COMPLETE AWS::CloudFormation::Stack
-Rack production installed successfully
+Preparing... OK
+Installing...  98.91% 7m17s
+Starting... OK, rack.production-1234567890.us-east-1.convox.site
 ```
 
 ## See Also

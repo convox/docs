@@ -28,6 +28,15 @@ $ convox rack resources create postgres MultiAZ=true -n shared-postgres --wait
 Creating resource... OK, shared-postgres
 ```
 
+Set the database version with `EngineVersion`. For `postgres`, an `EngineVersion` without `Family` also sets the matching `Family`. Requires rack version 20261005214736 or newer; on earlier Racks, pass `Family` with `EngineVersion`.
+
+```bash
+$ convox rack resources create postgres EngineVersion=16 -n reports-db --wait
+Creating resource... OK, reports-db
+```
+
+To restore a `postgres` or `mysql` Resource from `DatabaseSnapshotIdentifier`, also pass the snapshot's `EngineVersion`. Without it, the restore requests the default version shown by `convox rack resources options`.
+
 ## See Also
 
 - [rack resources delete](/reference/cli-commands/rack-resources-delete)

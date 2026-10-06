@@ -20,7 +20,7 @@ Each Rack creates a private network inside which it runs its servers and service
 
 ## S3 Buckets
 
-The Rack will create one S3 bucket to hold logs and rack settings information as well and one bucket for each new Application - used to store Release artifacts, CF Templates, etc.
+The Rack creates S3 buckets for its logs, its load balancer access logs and its settings, and one bucket for each new Application to store Release artifacts, CloudFormation templates and similar files.
 
 ## Rack Installation
 

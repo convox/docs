@@ -20,12 +20,16 @@ The Rack API, builds and the instance autoscaler run as one IAM role, `ApiRole`,
 | Policy | Grants |
 |:-------|:-------|
 | `PowerUserAccess` (AWS managed), or the Rack's `ApiPolicyScoped` when [ApiRoleScoped](/reference/rack-parameters/ApiRoleScoped) is `Yes` | Every AWS service except IAM, AWS Organizations and account management. `ApiPolicyScoped` limits this to the services the Rack uses |
-| `ApiPolicyV2` | IAM writes on roles, policies, instance profiles and users under the `/convox/` path in the Rack's own account; `iam:GetRole` and `iam:PassRole` on every role in the account; IAM server certificates |
+| `ApiPolicyV2` | IAM reads and writes on roles, policies, instance profiles and users under the `/convox/` path in the Rack's own account; deleting, and listing the policies of, roles outside `/convox/` whose ARN matches `role/<rack>-*-????????????`, and reading instance profiles whose ARN matches `instance-profile/<rack>-*-????????????`, the names CloudFormation generates for the Rack's stacks; `iam:GetRole` and `iam:PassRole` on every role in the account; `iam:GetPolicy` on the [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary) policy while it is set; IAM server certificates |
 | `CMKPolicy` | The Rack's KMS key |
 
 Its inline policies add `lambda:GetFunction`, read access to the Rack's own API secret in Systems Manager Parameter Store, Secrets Manager access to the Rack's own secrets, ECR image pushes and pulls, and ECR Public pulls.
 
 Every IAM role, policy, instance profile and user the Rack creates is under `/convox/`. To cap what those roles and users can do, including App roles that get grants from [IamPolicy](/reference/app-parameters/IamPolicy) or a Service's `policies`, set [PermissionsBoundary](/reference/rack-parameters/PermissionsBoundary).
+
+Deploys and parameter changes leave in place any policy added outside Convox to a role the Rack created. Deleting an App, a Service, a Timer or a Rack resource removes those policies from its roles: managed policies are detached and kept, and inline policies are deleted with the role. This requires rack version 20261005214736 or newer; on older Racks such a policy stops the delete.
+
+On rack version 20261005214736 or newer, when IAM refuses to create a role during `convox apps create` or `convox rack resources create`, the stack rolls back, the new App or Rack resource shows `failed`, and `convox apps delete` or `convox rack resources delete` removes it. On a Rack whose name is longer than 25 characters or contains `--`, some generated role names do not match `role/<rack>-*-????????????`, and the App or Rack resource can show `unknown` instead; see [Recovering a stuck rollback](/reference/rack-parameters/PermissionsBoundary#recovering-a-stuck-rollback).
 
 ## VPC Isolation
 

@@ -34,6 +34,16 @@ $ convox logs -a myapp --since 5m
 2025-01-15T12:00:12Z service/worker/4e5f6a7b Job complete id=8842 duration=2.1s
 ```
 
+## Saving Logs to a File
+
+With `--no-follow`, `convox logs` prints the logs from the `--since` window and exits. When the output is piped or redirected, the CLI removes ANSI color codes from each line:
+
+```bash
+$ convox logs -a myapp --since 1h --no-follow > myapp.log
+```
+
+Without `--no-follow`, the command keeps following new logs until interrupted, whether or not the output is piped. Requires CLI version 3.25.10 or newer, or 20261005214736 or newer, for logs that contain colored lines.
+
 ## See Also
 
 - [rack logs](/reference/cli-commands/rack-logs)

@@ -54,9 +54,11 @@ The internal NLB's DNS name is visible via `convox rack` once CloudFormation com
 
 ### Disable
 
-Before setting `NLBInternal=No`, remove any `nlb:` entries with `scheme: internal` from all deployed Apps and redeploy. The disable is refused with a list of blocking Apps otherwise.
+Before setting `NLBInternal=No`, remove any `nlb:` entries with `scheme: internal` from all deployed Apps and redeploy. The disable is refused with a list of blocking Apps otherwise. For a Service that declares only `nlb:` ports, see [Removing ports from an NLB-only Service](/networking/nlb#removing-ports-from-an-nlb-only-service).
 
 If [NLBInternalDeletionProtection](/reference/rack-parameters/NLBInternalDeletionProtection)=`Yes`, `NLBInternal=No` is also rejected pre-flight; disable deletion protection first, wait for the update to complete, then toggle `NLBInternal=No` in a follow-up call.
+
+On a Rack with a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), remove any ingress rule on that group that references the internal NLB security group before setting `NLBInternal=No`. EC2 does not delete a security group that another group's rule references, so the update would leave the internal NLB security group behind.
 
 ### Known Limitations
 

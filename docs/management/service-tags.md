@@ -41,6 +41,21 @@ When `TaskTags` is enabled, Convox configures two ECS properties on each Service
 
 This means every ECS task inherits the tags from its parent ECS Service, which include the App name, Service name, and other CloudFormation-generated tags.
 
+## Adding Custom Tags
+
+To add your own tags, such as a cost center or team, to one App, set the [Tags](/reference/app-parameters/Tags) App parameter. Convox adds them to the App's stack and resources, including its ECS Services, so with `TaskTags=Yes` the App's tasks carry them too. For Rack-wide tags, use the [Tags](/reference/rack-parameters/Tags) Rack parameter.
+
+```bash
+$ convox apps params set Tags=CostCenter=abc,Team=web -a myapp
+Updating parameters... OK
+$ convox apps wait myapp
+Waiting for app... OK
+$ convox restart -a myapp
+Restarting web... OK
+```
+
+Running tasks keep the tags they started with, so restart the App after each `Tags` change. Unlike `TaskTags`, `Tags` is set with the CLI only: a `Tags` entry under `params:` in `convox.yml` is ignored. `Tags` requires rack version 20261005214736 or newer.
+
 ## Viewing Tags in AWS
 
 After enabling `TaskTags` and deploying, tags appear on ECS tasks within a few minutes. You can verify them in the AWS Console:
@@ -63,10 +78,12 @@ This allows you to attribute infrastructure costs to specific applications and s
 
 - Task tags apply to Generation 2 Apps only. Generation 1 Apps do not support this feature.
 - [Timers](/application/timers) do not support tag propagation. Tasks launched by timers will not inherit Service tags.
+- Processes started with `convox run` do not carry Service or App tags.
 - Tag propagation applies to ECS tasks only. Other AWS resources (load balancers, S3 buckets) are tagged separately by CloudFormation.
 
 ## See Also
 
 - [App Parameters](/reference/app-parameters)
+- [Tags](/reference/app-parameters/Tags)
 - [Scaling](/scaling/scaling)
 - [Services](/application/services)

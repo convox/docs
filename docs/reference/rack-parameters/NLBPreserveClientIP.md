@@ -14,7 +14,7 @@ Forward the real client source IP to targets behind the public [NLB](/reference/
 
 ## Prerequisites
 
-This parameter is **incompatible with a Rack that sets a user-supplied [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup)**. Convox cannot add the required ingress rule to a security group it does not own. If your Rack uses a custom instance security group, add the ingress rule yourself (all protocols, sourced from `${Rack}:NLBSecurityGroup`) before enabling this parameter. See [Incompatibility with a custom InstanceSecurityGroup](#incompatibility-with-a-custom-instancesecuritygroup) below. Per-port `preserve_client_ip: true` on a Service is blocked on the same Racks.
+Racks that use the default instance security group need no setup. On a Rack that sets a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), add an ingress rule to that group allowing all traffic from the public NLB security group (exported as `${Rack}:NLBSecurityGroup`) before enabling this parameter. The Rack reads the group and accepts the change once the rule exists. Per-port `preserve_client_ip: true` on a Service needs the same rule. See [Custom InstanceSecurityGroup](#custom-instancesecuritygroup) below.
 
 ## Use Cases
 
@@ -33,15 +33,11 @@ Targets accept the forwarded traffic through ingress rules sourced from the NLB 
 
 The setting applies to every listener on the public NLB. An App's listeners pick up a change on the App's next release promote (`convox deploy` or `convox releases promote`). Per-port [preserve_client_ip:](/application/services#nlb) overrides the Rack default for a single listener.
 
-### Incompatibility with a custom InstanceSecurityGroup
+### Custom InstanceSecurityGroup
 
-Racks that set [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) to a security group you manage cannot enable `NLBPreserveClientIP=Yes`. The custom security group replaces `InstancesSecurity` on the ECS instances, so the Rack's NLB ingress rule does not reach them, and CloudFormation cannot attach rules to a security group Convox does not own. The Rack rejects the change:
+Requires rack version 20261005214736 or newer.
 
-```text
-cannot enable NLBPreserveClientIP on a rack with a user-supplied InstanceSecurityGroup; your instance SG must add an ingress rule from the NLB security group (exported as ${Rack}:NLBSecurityGroup) for the NLB listener ports before this feature can be enabled safely
-```
-
-The fix on Racks with a custom InstanceSecurityGroup is to add the ingress rule to your security group manually, sourced from the Rack's exported `${Rack}:NLBSecurityGroup`, before attempting to enable preserve-client-IP. Allow all protocols from that group: tasks on the ECS instances listen on dynamic host ports, so a rule for the listener port alone does not reach them. Example:
+A custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup) replaces `InstancesSecurity` on the ECS instances, so the Rack's NLB ingress rule does not reach them, and Convox does not change a security group it does not own. Add an ingress rule to your group that allows all traffic from the Rack's exported `${Rack}:NLBSecurityGroup`, then enable the parameter:
 
 ```bash
 $ aws ec2 authorize-security-group-ingress \
@@ -51,16 +47,50 @@ $ aws ec2 authorize-security-group-ingress \
       --query 'Stacks[0].Outputs[?OutputKey==`NLBSecurityGroup`].OutputValue' \
       --output text) \
     --protocol all
+$ convox rack params set NLBPreserveClientIP=Yes
+Updating parameters... OK
 ```
 
-The inverse direction is also blocked. Setting `InstanceSecurityGroup` on a Rack that does not have one while `NLBPreserveClientIP` is `Yes` is rejected unless the same `rack params set` call also sets `NLBPreserveClientIP=No`, because the new security group would not admit the forwarded traffic.
+Only a rule that allows all traffic (`--protocol all`) counts; the Rack does not accept a rule for a port or a port range. Tasks on the ECS instances listen on dynamic host ports, so a rule for the listener port alone does not reach them. Without the rule the Rack refuses the change and names both groups:
+
+```text
+preserve client IP on the public NLB needs an ingress rule on InstanceSecurityGroup sg-0123456789abcdef0 allowing all traffic from the NLB security group sg-0fedcba9876543210 (production:NLBSecurityGroup); add that rule and retry
+```
+
+While [NLB](/reference/rack-parameters/NLB) is `Yes`, the Rack checks your group every time this parameter is set to `Yes`, and on these commands:
+
+| Command | Result |
+|:--|:--|
+| `convox rack params set InstanceSecurityGroup=<sg>` while this parameter is `Yes`, or while a deployed App sets `preserve_client_ip: true` on a public `nlb:` port | Accepted only when `<sg>` has the rule, even when the same command sets `NLBPreserveClientIP=No` |
+| `convox deploy` or `convox releases promote` with `preserve_client_ip: true` on a public `nlb:` port | Accepted only when the group has the rule. See [Per-port enforcement](#per-port-enforcement) |
+
+Deployed listeners keep client IP preservation until their App's next release promote. After setting `NLBPreserveClientIP=No`, redeploy every App with public `nlb:` ports before changing `InstanceSecurityGroup`. Keep the rule in place while client IP preservation is in use; without it the NLB cannot reach tasks on the ECS instances.
+
+`NLB=Yes` is refused on a Rack with a custom InstanceSecurityGroup while this parameter is `Yes`, because the NLB security group does not exist yet:
+
+```text
+cannot enable NLB while NLBPreserveClientIP=Yes on a rack with a custom InstanceSecurityGroup; set NLBPreserveClientIP=No in this command, add an ingress rule to sg-0123456789abcdef0 allowing all traffic from the new production:NLBSecurityGroup, then set NLBPreserveClientIP=Yes
+```
+
+Run `convox rack params set NLB=Yes NLBPreserveClientIP=No`, wait for the update to complete, add the rule from the new `${Rack}:NLBSecurityGroup` export, then set `NLBPreserveClientIP=Yes`.
+
+Before setting `NLB=No` or running [rack uninstall](/reference/cli-commands/rack-uninstall), remove the rule from your group:
+
+```bash
+$ aws ec2 revoke-security-group-ingress \
+    --group-id sg-0123456789abcdef0 \
+    --source-group sg-0fedcba9876543210 \
+    --protocol all
+```
+
+EC2 does not delete a security group that another group's rule references. With the rule in place, `NLB=No` leaves the NLB security group behind, and an uninstall ends with the Rack stack in `DELETE_FAILED`.
 
 ### Per-port enforcement
 
-Release promote rejects a Release that sets `preserve_client_ip: true` on any `nlb:` port, public or internal, on a Rack with a custom InstanceSecurityGroup, whatever the value of this parameter:
+On a Rack with a custom InstanceSecurityGroup, release promote (`convox deploy` or `convox releases promote`) checks every `nlb:` port that sets `preserve_client_ip: true`, public or internal, whatever the value of this parameter. The Release is accepted once the group has the rule for that port's NLB (`${Rack}:NLBSecurityGroup` for `scheme: public`, `${Rack}:NLBInternalSecurityGroup` for `scheme: internal`), and refused without it:
 
 ```text
-service web nlb port 443: cannot set preserve_client_ip=true on a rack with a user-supplied InstanceSecurityGroup; your instance SG must add an ingress rule from the NLB security group (exported as ${Rack}:NLBSecurityGroup / ${Rack}:NLBInternalSecurityGroup) for the NLB listener ports before this feature can be enabled safely
+service web nlb port 443: preserve client IP on the public NLB needs an ingress rule on InstanceSecurityGroup sg-0123456789abcdef0 allowing all traffic from the NLB security group sg-0fedcba9876543210 (production:NLBSecurityGroup); add that rule and retry
 ```
 
 ## See Also

@@ -25,9 +25,11 @@ The value should be a valid AWS Security Group ID, for example:
 $ convox rack params set InstanceSecurityGroup=sg-0abc1234def56789a
 ```
 
-When this parameter is blank, Convox creates a default security group that allows all traffic from within the VPC. If you provide a custom security group, ensure it permits the necessary traffic for the ECS agent, load balancers, and inter-container communication.
+When this parameter is blank, Convox creates a default security group that allows all TCP and UDP traffic from the VPC CIDR, plus all traffic from the NLB security groups while an NLB is enabled. If you provide a custom security group, ensure it permits the necessary traffic for the ECS agent, load balancers, and inter-container communication.
 
 If you also need to customize the security group for build instances specifically, see [BuildInstanceSecurityGroup](/reference/rack-parameters/BuildInstanceSecurityGroup).
+
+On rack version 20261005214736 or newer, if the Rack uses an NLB with client IP preservation ([NLBPreserveClientIP](/reference/rack-parameters/NLBPreserveClientIP), [NLBInternalPreserveClientIP](/reference/rack-parameters/NLBInternalPreserveClientIP), or `preserve_client_ip: true` on a deployed `nlb:` port), the new group needs an ingress rule allowing all traffic from the NLB security group (`${Rack}:NLBSecurityGroup` or `${Rack}:NLBInternalSecurityGroup`), and the Rack refuses the change until the rule exists. Remove that rule before disabling the NLB or uninstalling the Rack. See [Custom InstanceSecurityGroup](/reference/rack-parameters/NLBPreserveClientIP#custom-instancesecuritygroup).
 
 ## See Also
 

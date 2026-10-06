@@ -20,7 +20,7 @@ ARN of an IAM managed policy that the Rack sets as the [permissions boundary](ht
 
 ## Additional Information
 
-The Rack's IAM permissions for managing roles, policies, instance profiles and users apply only to entities under the `/convox/` path in the Rack's own AWS account, which is where the Rack creates all of them. `iam:GetRole` and `iam:PassRole` cover every role in the account, so CloudFormation can create new roles and a user-supplied role such as a Generation 1 `TaskRole` keeps working. This parameter adds a boundary on top of that scope.
+The Rack's IAM permissions for managing roles, policies, instance profiles and users apply to entities under the `/convox/` path in the Rack's own AWS account, which is where the Rack creates all of them. Outside `/convox/`, the Rack can also delete roles whose ARN matches `role/<rack>-*-????????????`, and list their policies. These are the names CloudFormation generates for the Rack's stacks, and the grants let a stack roll back cleanly when IAM refuses to create one of its roles. `iam:GetRole` and `iam:PassRole` cover every role in the account, so CloudFormation can create new roles and a user-supplied role such as a Generation 1 `TaskRole` keeps working. This parameter adds a boundary on top of that scope.
 
 ### Where the boundary applies
 
@@ -52,12 +52,14 @@ Create the boundary policy at a path outside `/convox/`, so the Rack cannot chan
    $ convox rack params set PermissionsBoundary=arn:aws:iam::123456789012:policy/convox-boundary/rack-boundary --wait
    ```
 
-4. Deploy every App, and update every Rack resource, so their roles and users receive the boundary:
+4. Deploy every App, and update every `webhook`, `syslog`, `s3`, `sns` and `sqs` Rack resource, so their roles and users receive the boundary:
 
    ```bash
    $ convox deploy -a myapp
    $ convox rack resources update my-syslog
    ```
+
+   Database and cache Rack resources have no IAM role or user and need no update.
 
 5. Check that every role and user under `/convox/` in the account carries the boundary. In an account with more than one Rack, complete steps 3 and 4 on every Rack first. This lists the ones that do not. At this point it should return only the `ApiRole` of each Rack, plus any roles a v3 Rack or the Console's AWS integration created under `/convox/`, which no V2 Rack parameter can bound:
 
@@ -87,7 +89,7 @@ Create the boundary policy at a path outside `/convox/`, so the Rack cannot chan
    $ convox rack params set PermissionsBoundary= --wait
    ```
 
-3. Deploy every App and update every Rack resource, which removes the boundary from their roles and users. After this, `convox releases promote` of a Generation 1 Release that was first promoted while the parameter was set puts the boundary back on that App's roles. Use `convox releases rollback` or `convox deploy` instead.
+3. Deploy every App and update every `webhook`, `syslog`, `s3`, `sns` and `sqs` Rack resource, which removes the boundary from their roles and users. Database and cache Rack resources need no update. After this, `convox releases promote` of a Generation 1 Release that was first promoted while the parameter was set puts the boundary back on that App's roles. Use `convox releases rollback` or `convox deploy` instead.
 
 ### Refused updates
 
@@ -109,7 +111,7 @@ Updating parameters... ERROR: remove the permissions boundary from ApiRole first
 - App roles are capped by the boundary. Grants from [IamPolicy](/reference/app-parameters/IamPolicy) or a Service's [`policies`](/application/services#policies) beyond what the boundary allows stop applying after the App's next deploy.
 - `convox releases promote` of a Generation 1 Release that was first promoted before the parameter was set removes the boundary from that App's roles, and fails once `ApiRole` carries the boundary. `convox releases rollback` and `convox deploy` create a new Release, which gets the boundary.
 - A Generation 1 [`TaskRole`](/gen1/app-parameters#taskrole) outside `/convox/` must be allowed by an `iam:PassRole` statement in the boundary policy, or the App's next deploy fails. The reference policy below allows passing `/convox/` roles only.
-- CloudTrail records an `AccessDenied` for `iam:GetPolicy` on the boundary policy each time CloudFormation creates or updates a Rack or App role. The update still completes.
+- CloudTrail records an `AccessDenied` for `iam:ListEntitiesForPolicy` on the boundary policy on each stack update that creates or updates a Rack, App or Rack resource role. The update still completes.
 
 ### Recovering a stuck rollback
 
@@ -121,6 +123,12 @@ $ aws cloudformation continue-update-rollback --stack-name <rack>-<app>
 
 The Rack's stacks have no CloudFormation service role, so CloudFormation finishes the rollback with the administrator's permissions and the boundary can stay on `ApiRole`. Run it on the App stack, not on a nested Service stack. `convox apps` shows the App as `failed` until then.
 
+If an App or Rack resource shows `unknown` in `convox apps` or `convox rack resources` after its create, delete it with `convox apps delete` or `convox rack resources delete`. If that does not remove it, an IAM administrator deletes its stack with their own credentials:
+
+```bash
+$ aws cloudformation delete-stack --stack-name <rack>-<name>
+```
+
 ### Downgrading
 
 Rack versions older than this parameter restore the previous IAM policy and cannot remove a boundary left on a role. The Rack refuses the version change while the parameter is set:
@@ -130,11 +138,11 @@ $ convox rack update 20260826164715
 Updating to 20260826164715... ERROR: clear PermissionsBoundary before moving to a version without it
 ```
 
-Before moving to an older version, follow [Disabling the boundary](#disabling-the-boundary) in full, including the deploy of every App and the update of every Rack resource. The Rack checks only the parameter, not the roles.
+Before moving to an older version, follow [Disabling the boundary](#disabling-the-boundary) in full, including the App deploys and Rack resource updates in step 3. The Rack checks only the parameter, not the roles.
 
 ## Reference Boundary Policy
 
-This policy allows what a Rack and the roles it creates need. Outside `/convox/`, its only IAM writes are service-linked role creation and IAM server certificates. It allows no `sts:AssumeRole*`, AWS Organizations or account management action, so App grants of those actions from IamPolicy or `policies` stop applying under it. Replace `123456789012` with the account ID and `convox-boundary/rack-boundary` with the policy's own path and name; the `iam:PermissionsBoundary` condition must name this policy's ARN. In AWS GovCloud (US) the ARNs start with `arn:aws-us-gov:`.
+This policy allows what a Rack and the roles it creates need. It does not allow the Rack's deletes of roles outside `/convox/`. When IAM refuses to create a role, CloudFormation rolls the stack back with the reads in `IamRead` instead, so keep that statement. Outside `/convox/`, its only IAM writes are service-linked role creation and IAM server certificates. It allows no `sts:AssumeRole*`, AWS Organizations or account management action, so App grants of those actions from IamPolicy or `policies` stop applying under it. Replace `123456789012` with the account ID and `convox-boundary/rack-boundary` with the policy's own path and name; the `iam:PermissionsBoundary` condition must name this policy's ARN. In AWS GovCloud (US) the ARNs start with `arn:aws-us-gov:`.
 
 ```json
 {
