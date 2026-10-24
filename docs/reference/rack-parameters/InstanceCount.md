@@ -16,13 +16,13 @@ The number of EC2 instances in your Rack cluster. This parameter is only used fo
 
 - Increasing instance count to handle higher application workloads or run more containers
 - Setting to a higher value when deploying multiple Services that require dedicated instance capacity
-- Adjusting alongside [Autoscale](/reference/rack-parameters/Autoscale) to set a minimum floor for the cluster size
+- Setting the cluster size by hand on a Rack with [Autoscale](/reference/rack-parameters/Autoscale) set to `No`
 
 ## Additional Information
 
 When [HighAvailability](/reference/rack-parameters/HighAvailability) is set to `false`, this parameter is not used. Instead, the `NoHaInstanceCount` parameter controls the cluster size, which has a minimum value of `1`.
 
-If [Autoscale](/reference/rack-parameters/Autoscale) is enabled, the cluster may scale beyond this value based on workload demand. The `InstanceCount` effectively serves as the baseline number of instances.
+If [Autoscale](/reference/rack-parameters/Autoscale) is enabled, the autoscaler sets this parameter itself based on workload demand, with a minimum of `3`, and replaces a value you set on its next run. Set `Autoscale=No` to control the instance count by hand.
 
 ```bash
 $ convox rack params set InstanceCount=5

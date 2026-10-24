@@ -115,6 +115,13 @@ InstanceType              cache.t3.micro  The type of instance to use
 NumCacheClusters          1               The number of cache clusters for this replication group
 ```
 
+With `Engine=valkey`, also set `EngineVersion` to a Valkey version such as `8.1`, because the default `7.0` is a Redis version:
+
+```bash
+$ convox rack resources create redis Engine=valkey EngineVersion=8.1
+Creating resource... OK, redis-5182
+```
+
 ### valkey
 
 On AWS, creates an [ElastiCache](https://docs.aws.amazon.com/elasticache/) Valkey cluster.
@@ -129,6 +136,15 @@ EngineVersion             8.1             The version of the cache engine
 InstanceType              cache.t3.micro  The type of instance to use
 NumCacheClusters          1               The number of cache clusters for this replication group
 ```
+
+A `valkey` resource defaults to a Valkey version, so it needs no `EngineVersion`:
+
+```bash
+$ convox rack resources create valkey
+Creating resource... OK, valkey-3416
+```
+
+With `Encrypted=true`, a `valkey` or `redis` cache accepts only TLS connections, but `convox rack resources url` still prints a `redis://` URL. Configure the client for TLS, for example by using the `rediss://` scheme with the same host and port.
 
 > While memcached, redis and valkey are available as Rack Resources, there are advantages to using them as [App Resources](/application/resources) instead: configuration is version controlled in `convox.yml`, and App Resources are automatically available during [review workflows](/console/workflows#review-workflows).
 

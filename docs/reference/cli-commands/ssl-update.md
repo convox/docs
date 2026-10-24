@@ -5,7 +5,7 @@ description: "Update the certificate for an App endpoint."
 
 # ssl update
 
-Update the certificate for an App endpoint (generation 1 only). Associates a certificate with a specific Service port. Use this after importing a new certificate to bind it to your Service's HTTPS endpoint. The certificate id must be one that [`convox certs`](/reference/cli-commands/certs) lists. On rack version 20261005214736 or newer, any other id returns `ERROR: certificate not found` and changes nothing.
+Update the certificate for an App endpoint (generation 1 only). Associates a certificate with a specific Service port. Use this after importing a new certificate to bind it to your Service's HTTPS endpoint. The certificate id must be one that [`convox certs`](/reference/cli-commands/certs) lists as issued: a certificate that is `pending` or `failed`, or one Convox created for a Service `domain:`, cannot be applied. On rack version 20261005214736 or newer, any other id returns `ERROR: certificate not found` and changes nothing.
 
 > **Note:** Gen 2 Apps get certificates from each Service's `domain:` setting, or from `certificate:` on `nlb:` ports, in `convox.yml`. For a Gen 2 App this command returns `ERROR: command not valid for generation 2 applications`.
 

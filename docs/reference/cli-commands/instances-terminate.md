@@ -5,7 +5,7 @@ description: "Terminate an instance."
 
 # instances terminate
 
-Terminate an instance. The Rack autoscaler will automatically launch a replacement if needed. This is useful for recycling unhealthy instances or forcing fresh instance provisioning.
+Terminate an instance. The Rack's Auto Scaling group launches a replacement instance. This is useful for recycling unhealthy instances or forcing fresh instance provisioning.
 
 ## Syntax
 

@@ -5,7 +5,7 @@ description: "Display or update Rack scaling parameters."
 
 # rack scale
 
-Display or update Rack scaling parameters. When called without flags, displays the current scaling configuration including autoscale status, instance count, and instance type.
+Display or update Rack scaling parameters. When called without flags, displays the current scaling configuration including autoscale status, instance count, and instance type. `--count` sets [InstanceCount](/reference/rack-parameters/InstanceCount), which applies only to Racks with [HighAvailability](/reference/rack-parameters/HighAvailability) set to `true` and has a minimum of 3. On other Racks, set [NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) with `convox rack params set`, and the `Count` shown here is InstanceCount, not the number of instances. With [Autoscale](/reference/rack-parameters/Autoscale) enabled, the autoscaler replaces a count set with `--count` on its next run.
 
 ## Syntax
 
@@ -25,7 +25,7 @@ $ convox rack scale
 
 ```bash
 $ convox rack scale
-Autoscale  true
+Autoscale  Yes
 Count      3
 Status     running
 Type       t3.medium

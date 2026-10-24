@@ -65,7 +65,7 @@ If you see errors like `not enough memory available to start process` or your de
 
 **Solutions:**
 
-- Increase [InstanceCount](/reference/rack-parameters/InstanceCount) or use larger [InstanceType](/reference/rack-parameters/InstanceType)
+- Use a larger [InstanceType](/reference/rack-parameters/InstanceType), or with [Autoscale](/reference/rack-parameters/Autoscale) set to `No`, increase [InstanceCount](/reference/rack-parameters/InstanceCount) ([NoHaInstanceCount](/reference/rack-parameters/NoHaInstanceCount) on a Rack with [HighAvailability](/reference/rack-parameters/HighAvailability) set to `false`)
 - Reduce the `cpu` and `memory` values in your `convox.yml` service definitions
 - Enable [Autoscale](/reference/rack-parameters/Autoscale) to allow the cluster to grow automatically
 - Consider [FargateServices](/reference/app-parameters/FargateServices) to avoid instance capacity constraints entirely
@@ -128,6 +128,36 @@ $ convox registries add <server> <username> <password>
 ## Environment variable decryption errors
 
 If you see `failed decryption` errors, the Rack's KMS key cannot decrypt stored environment variables. This can happen if the KMS key was deleted or access was revoked. Check the Rack's KMS key status in the AWS KMS console.
+
+## Commands are slow or fail with ThrottlingException
+
+When AWS throttles a call, the Rack API retries it with short waits. If AWS keeps throttling the call for more than 21 to 42 seconds, the command fails with the AWS error, usually `ThrottlingException: Rate exceeded`, and `convox ps` can report `timeout`. To list the AWS calls the Rack API retried in the last hour:
+
+```bash
+$ convox rack logs --no-follow --since 1h --filter '"at=retry"'
+2026-10-21T21:09:37Z service/web/0a1b2c3d4e5f60718293a4b5c6d7e8f9 ns=aws at=retry service=ecs operation=DescribeTasks code=ThrottlingException status=400 attempt=1 delay=734
+```
+
+The inner double quotes are required because the filter contains `=`. Each line names the AWS service, the operation, the error, the retry number and the wait in milliseconds:
+
+| Lines | Meaning |
+|:------|:--------|
+| An occasional line on a Rack with no problems | A transient AWS error that was retried, for example a dropped connection |
+| `service=logs operation=FilterLogEvents` | Log readers on this Rack or other Racks in the account are being throttled. This slows only log reads |
+| `service=CredentialsEndpoint operation=GetCredentials` | The instance's ECS agent is limiting credential requests during a burst of Rack API requests |
+| Many lines for one service, or lines in the same minute as a slow command | The AWS API that slowed that command |
+
+With [LogDriver](/reference/rack-parameters/LogDriver) set to `Syslog`, the lines go to the syslog destination. With a blank `LogDriver`, they stay in the instance's Docker logs and do not appear in `convox rack logs`. Retry lines require rack version 20261021234916 or newer.
+
+## Rack logs say certificates need DNS records
+
+While certificates for your own domains are waiting for a DNS record, the Rack logs this line every hour. These are certificates that still use email validation, and certificates from `convox certs generate` whose records are not in place yet:
+
+```text
+2 certificates need DNS records: run convox certs dns
+```
+
+ACM stops renewing email-validated certificates on 2027-09-30. Run `convox certs dns`, add the records it lists, then run `convox certs migrate --wait`. See [Certificate DNS Validation](/deployment/certificate-dns-validation).
 
 ## My CLI commands take a long time to return
 

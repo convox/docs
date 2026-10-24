@@ -22,6 +22,8 @@ The number of EC2 instances in your non-High Availability Rack cluster. This par
 
 When [HighAvailability](/reference/rack-parameters/HighAvailability) is `true`, the [InstanceCount](/reference/rack-parameters/InstanceCount) parameter is used instead and `NoHaInstanceCount` is ignored.
 
+If [Autoscale](/reference/rack-parameters/Autoscale) is enabled, the autoscaler sets this parameter itself based on workload demand and replaces a value you set on its next run. Set `Autoscale=No` to control the instance count by hand.
+
 Non-HA Racks run with a minimum of 1 instance. While you can increase this value, keep in mind that non-HA mode does not provide the same redundancy guarantees as HA mode. For production workloads that require fault tolerance, consider enabling [HighAvailability](/reference/rack-parameters/HighAvailability) instead.
 
 ```bash
