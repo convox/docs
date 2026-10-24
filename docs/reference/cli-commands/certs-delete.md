@@ -5,7 +5,7 @@ description: "Delete an ACM certificate or IAM server certificate by its id."
 
 # certs delete
 
-Delete an ACM certificate in the Rack's region or an IAM server certificate in the Rack's AWS account. Pass the full certificate id printed by `convox certs generate` or listed by `convox certs`. A certificate still waiting for validation is not listed; delete it with the id `convox certs generate` printed.
+Delete an ACM certificate in the Rack's region or an IAM server certificate in the Rack's AWS account. Pass the full certificate id printed by `convox certs generate` or listed by `convox certs`. On rack version 20261021234916 or newer, `convox certs` also lists certificates still waiting for validation. On older racks it does not, so delete such a certificate with the id `convox certs generate` printed.
 
 An id that starts with `acm-` deletes that ACM certificate, whatever its key type. An `acm-` id that matches no certificate, such as a partial id, `acm-` alone, or a certificate that was already deleted, returns `ERROR: certificate not found` and deletes nothing. Any other id, including a name such as `acme-2019`, deletes the IAM server certificate with that exact name. Deleting an ECDSA or a 3072-bit or 4096-bit RSA certificate requires rack version 20261005214736 or newer.
 

@@ -90,8 +90,10 @@ The Convox CLI provides commands for managing your Racks, Apps, Builds, Services
 |:--------|:------------|
 | [certs](/reference/cli-commands/certs) | List certificates |
 | [certs delete](/reference/cli-commands/certs-delete) | Delete a certificate |
+| [certs dns](/reference/cli-commands/certs-dns) | List the DNS records for certificates |
 | [certs generate](/reference/cli-commands/certs-generate) | Generate a certificate |
 | [certs import](/reference/cli-commands/certs-import) | Import a certificate |
+| [certs migrate](/reference/cli-commands/certs-migrate) | Switch certificates to DNS validation |
 | [ssl](/reference/cli-commands/ssl) | List certificate associations for an App |
 | [ssl update](/reference/cli-commands/ssl-update) | Update certificate for an App |
 

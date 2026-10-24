@@ -41,9 +41,14 @@ You can request an SSL certificate for any domain you control using `convox cert
 ```bash
 $ convox certs generate foo.example.org
 Generating certificate... OK, acm-c28a4f6e0b37
+ZONE         NAME                                                TYPE   VALUE                                                              CHECK
+example.org  _6123456789abcdef0123456789abcdef.foo.example.org.  CNAME  _99dcba9876543210fedcba9876543210.ghijklmnop.acm-validations.aws.  missing
+Deploy the domain once convox certs shows acm-c28a4f6e0b37 as dns
 ```
 
-AWS Certificate Manager (ACM) issues the certificate once the domain is validated. `convox certs` does not list it until then, so keep the id the command prints. Each run requests a new certificate.
+Add the DNS records the command prints at your DNS provider and leave them in place. AWS Certificate Manager (ACM) issues the certificate once the records answer, and `convox certs` then shows it as `dns`. Apply it with `convox ssl update` only after that, because `convox ssl update` accepts only an issued certificate. Each run requests a new certificate. See [Certificate DNS Validation](/deployment/certificate-dns-validation) for the steps for each DNS provider.
+
+DNS validation requires rack version 20261021234916 or newer, and CLI version 3.25.12 or newer, or 20261021234916 or newer. With an older CLI, or against an older Rack, the certificate uses email validation. On a rack version older than 20261021234916, `convox certs` does not list the certificate until ACM issues it, so keep the id the command prints.
 
 #### Wildcard certificates
 
@@ -87,14 +92,14 @@ The Convox CLI includes commands that let you list, update, and remove SSL certi
 
 ### Listing Certificates
 
-You can see the IAM server certificates in your AWS account and the issued ACM certificates in the Rack's region with `convox certs`:
+You can see the IAM server certificates in your AWS account and the ACM certificates in the Rack's region with `convox certs`:
 
 ```bash
 $ convox certs
-ID                                DOMAIN                 EXPIRES
-acm-5d0c7e2b91f4                  example.org            2 months from now
-acm-c28a4f6e0b37                  foo.example.org        1 year from now
-cert-production-1758802512-04821  *.*.elb.amazonaws.com  5 days ago
+ID                                DOMAIN                 EXPIRES            STATUS
+acm-5d0c7e2b91f4                  example.org            2 months from now  imported
+acm-c28a4f6e0b37                  foo.example.org        1 year from now    dns
+cert-production-1758802512-04821  *.*.elb.amazonaws.com  5 days ago         imported
 ```
 
 Certificates imported with `convox certs import` or generated with `convox certs generate` have ids like `acm-c28a4f6e0b37`. The self-signed certificate the Rack uploads for `https` and `tls` ports is an IAM server certificate named `cert-<rack>-<unix time>-<number>`, and other IAM server certificates are listed by name.

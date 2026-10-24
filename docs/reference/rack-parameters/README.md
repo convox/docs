@@ -111,6 +111,7 @@ $ convox rack params set Foo=bar Baz=qux
 | [PrivateBuild](/reference/rack-parameters/PrivateBuild) | `No` | Place build instances in a private network |
 | [PruneOlderImagesCronRunFreq](/reference/rack-parameters/PruneOlderImagesCronRunFreq) | `daily` | Cron frequency for Docker image pruning |
 | [PruneOlderImagesInHour](/reference/rack-parameters/PruneOlderImagesInHour) | `96` | Prune Docker images older than this many hours |
+| [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) | `No` | Write ACM validation records into Route 53 zones in the Rack's AWS account |
 | [RouterInternalSecurityGroup](/reference/rack-parameters/RouterInternalSecurityGroup) | "" | Security groups for the internal router |
 | [RouterMitigationMode](/reference/rack-parameters/RouterMitigationMode) | `defensive` | Load balancer desync mitigation mode |
 | [RouterSecurityGroup](/reference/rack-parameters/RouterSecurityGroup) | "" | Custom security group for the Rack router |

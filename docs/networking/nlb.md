@@ -328,8 +328,6 @@ To fully disable NLB on a production Rack, run the following in order. Each step
    cannot disable NLB: apps myapp/web still declare public nlb ports; remove nlb: from their manifests and redeploy first
    ```
 
-   For a Service that declares only `nlb:` ports (no `port:`), follow [Removing ports from an NLB-only Service](#removing-ports-from-an-nlb-only-service) instead.
-
 3. **Flip the Rack parameters off**. On a Rack with a custom [InstanceSecurityGroup](/reference/rack-parameters/InstanceSecurityGroup), first remove any ingress rule on that group that references an NLB security group, or the update leaves that security group behind:
 
    ```bash
@@ -344,34 +342,11 @@ Two Apps concurrently deploying with the same NLB listener port both pass releas
 
 ### Downgrade
 
-Before downgrading a Rack to a version that predates NLB support, remove every `nlb:` block and redeploy each App, then set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. For a Service that declares only `nlb:` ports, see [Removing ports from an NLB-only Service](#removing-ports-from-an-nlb-only-service). The downgrade is not rejected while an NLB is enabled: the older template does not declare the NLB parameters or resources, so CloudFormation deletes the NLBs and their EIPs.
+Before downgrading a Rack to a version that predates NLB support, remove every `nlb:` block and redeploy each App, then set both `NLB=No` and `NLBInternal=No` and wait for the CloudFormation update to complete. The downgrade is not rejected while an NLB is enabled: the older template does not declare the NLB parameters or resources, so CloudFormation deletes the NLBs and their EIPs.
 
 ### NLB-only Services on EC2 launch type
 
 A Service that declares only `nlb:` ports (no `port:` field) and runs on a default EC2-launch Rack (no Fargate, no [Isolate](/reference/app-parameters/Isolate)) registers targets via the ECS service-linked role `AWSServiceRoleForECS`. AWS creates this role automatically on first ECS usage. If target registration fails on an NLB-only Service, confirm the role exists in the account. Fargate and Isolate Services use `awsvpc` mode and register targets by IP, so the role requirement does not apply.
-
-### Removing ports from an NLB-only Service
-
-A Service that declares only `nlb:` ports (no `port:`) cannot drop them in one deploy. If you delete the `nlb:` block and run `convox deploy --wait`, the deploy ends with `ERROR: rollback` and the App keeps running its previous Release with the NLB ports in place. Without `--wait` the deploy prints `OK` and the App rolls back afterward. The CloudFormation events for the Service's stack show an ECS error like `The container web did not have a container port 8080 defined`. Remove the ports in two deploys:
-
-1. Replace the `nlb:` block with a `port:` for the same container port, and deploy:
-
-   ```yaml
-   services:
-     web:
-       build: .
-       port: 8080
-   ```
-
-   The Service is now behind the Rack's ALB, which health-checks it over HTTP at the [health check](/application/health-checks) path (default `/`). The container must answer HTTP on that port with a status in [LoadBalancerSuccessCodes](/reference/app-parameters/LoadBalancerSuccessCodes) for this deploy to complete.
-
-   For a Service on the internal NLB (`scheme: internal`), also set `internal: true` in step 1 so the Service goes behind the Rack's internal ALB instead of the internet-facing one.
-
-2. Remove `port:` and deploy again.
-
-After step 1 the Service no longer references the NLB, so the [Disable procedure](#disable-procedure) and [Downgrade](#downgrade) can continue.
-
-On Services that run with [FargateServices](/reference/app-parameters/FargateServices) or [Isolate](/reference/app-parameters/Isolate), step 2 rolls back the same way; keep `port:` on those Services.
 
 ## See Also
 

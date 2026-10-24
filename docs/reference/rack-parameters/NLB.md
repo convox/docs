@@ -62,7 +62,7 @@ $ convox rack params -g nlb
 
 ### Disable
 
-Before setting `NLB=No`, remove the `nlb:` field from every Service in every App deployed on the Rack and redeploy each. The disable is refused with a list of blocking Apps otherwise. For a Service that declares only `nlb:` ports, see [Removing ports from an NLB-only Service](/networking/nlb#removing-ports-from-an-nlb-only-service). Apps with `nlb:` ports import the NLB's CloudFormation exports, and CloudFormation cannot remove an export that another stack imports.
+Before setting `NLB=No`, remove the `nlb:` field from every Service in every App deployed on the Rack and redeploy each. The disable is refused with a list of blocking Apps otherwise. Apps with `nlb:` ports import the NLB's CloudFormation exports, and CloudFormation cannot remove an export that another stack imports.
 
 If [NLBDeletionProtection](/reference/rack-parameters/NLBDeletionProtection)=`Yes`, `NLB=No` is also rejected pre-flight; disable deletion protection in an earlier `rack params set` call, wait for the update to complete, then toggle `NLB=No` in a follow-up call.
 

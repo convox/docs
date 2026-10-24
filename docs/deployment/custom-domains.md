@@ -27,9 +27,9 @@ services:
     port: 3000
 ```
 
-> Using a custom domain requires a valid SSL certificate for the domains being specified. If a single certificate does not already exist in the same region as the Rack and matching all the domains you specify for your Service, one will be automatically created. The domain owner will receive a validation email with a link that must be clicked to complete the process. This happens the first time you deploy your Service with the custom domain configuration.
+> Using a custom domain requires a valid SSL certificate for the domains being specified. If a single issued certificate with an RSA 1024-bit or 2048-bit key does not already exist in the same region as the Rack and matching all the domains you specify for your Service, one will be automatically created. See [SSL](/deployment/ssl) for the full rules. That certificate uses email validation: the domain owner will receive a validation email with a link that must be clicked to complete the process. This happens the first time you deploy your Service with the custom domain configuration.
 
-> You can [pre-generate your SSL certificate](/deployment/ssl#pre-generate-your-certificate) ahead of deploy time if you wish.
+> To use DNS validation instead, [pre-generate your SSL certificate](/deployment/ssl#pre-generate-your-certificate) with every domain the Service lists, add the DNS records it prints, and deploy once `convox certs` shows it as `dns`. ACM stops renewing email-validated certificates on 2027-09-30; see [Certificate DNS Validation](/deployment/certificate-dns-validation) to switch existing certificates.
 
 ## Dynamic Configuration
 
