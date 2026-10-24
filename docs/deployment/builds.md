@@ -5,6 +5,8 @@ description: "Create, inspect, export, and import application build artifacts on
 
 # Builds
 
+This page covers the V2 engine. V3 version: [Build](https://docs.convox.com/reference/primitives/app/build).
+
 When you deploy or build your application a "build" artifact is created. This consists of the Docker images that make up your application plus metadata stored in your Rack's database. Each build has a unique ID and is associated with one or more [Releases](/deployment/releases).
 
 Builds can either be created:

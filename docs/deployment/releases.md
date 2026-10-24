@@ -5,6 +5,8 @@ description: "Manage application Releases on Convox, including promotion, rollba
 
 # Releases
 
+This page covers the V2 engine. V3 version: [Release](https://docs.convox.com/reference/primitives/app/release).
+
 Every time you deploy an application or change its environment a new Release is created. You can promote any Release for an application to deploy it. Promoting a Release will cause a [rolling update](/deployment/rolling-updates) that gracefully deploys the desired Release.
 
 Releases will automatically be created:

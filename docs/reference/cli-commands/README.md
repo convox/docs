@@ -5,6 +5,8 @@ description: "Complete reference of Convox CLI commands for managing Racks, Apps
 
 # CLI Commands
 
+This page covers the V2 engine. V3 version: [CLI](https://docs.convox.com/reference/cli).
+
 The Convox CLI provides commands for managing your Racks, Apps, Builds, Services, Resources, and infrastructure. Run `convox help` to see all available commands, or `convox <command> -h` for help on a specific command.
 
 ## Authentication

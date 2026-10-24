@@ -5,6 +5,8 @@ description: "How Convox performs zero-downtime rolling deployments and automati
 
 # Rolling Updates
 
+This page covers the V2 engine. V3 version: [Rolling Updates](https://docs.convox.com/deployment/rolling-updates).
+
 When a Release is promoted, new processes are gracefully rolled out into production.
 
 If there are errors starting new processes, new processes are not [verified as healthy](/application/health-checks), or the rollout doesn't complete in 10 minutes, an automatic rollback is performed.

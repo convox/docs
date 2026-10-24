@@ -5,6 +5,8 @@ description: "Scale Convox applications and Racks with manual controls, service 
 
 # Scaling
 
+This page covers the V2 engine. V3 version: [Scaling](https://docs.convox.com/configuration/scaling).
+
 Convox allows you to scale your application's concurrency, memory allocation, and the resources available in the underlying Rack.
 
 ## Setting Initial Defaults

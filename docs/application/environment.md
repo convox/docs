@@ -5,6 +5,8 @@ description: "Manage environment variables for Convox applications, including gl
 
 # Environment
 
+This page covers the V2 engine. V3 version: [Environment Variables](https://docs.convox.com/configuration/environment).
+
 Convox applications are configured using environment variables.  You will need to [specify](#definition) your variables in your `convox.yml` to be available to your running application.  You can [set and unset](#setting-and-editing-your-environment-variables) them from the Convox CLI or web Console before or after any code deployments.  You can even control the [release](#promoting-your-environment-variable-changes) of your environmental changes.  The variables are stored securely and encrypted and only available to the specific application and services you require.
 
 ## Definition

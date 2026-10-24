@@ -5,6 +5,8 @@ description: "View, filter, and manage application and Rack logs in Convox, incl
 
 # Logs
 
+This page covers the V2 engine. V3 version: [Logging](https://docs.convox.com/configuration/logging).
+
 You can view the live logs for a Convox application using `convox logs`:
 
 ```bash

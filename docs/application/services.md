@@ -5,6 +5,8 @@ description: "Configure application services in convox.yml, including build sett
 
 # Services
 
+This page covers the V2 engine. V3 version: [Service](https://docs.convox.com/reference/primitives/app/service).
+
 A Service is a single container process in your application. Each Service you define under `services:` in `convox.yml` maps to a container that Convox builds (or pulls), runs, scales, and routes traffic to. A typical App has a `web` service for HTTP traffic plus any number of worker, agent, or internal Services.
 
 This page documents the keys you can set on a Service in gen2 (`convox.yml`), the current and only actively developed generation. gen1 (`docker-compose.yml`) is End-of-Life.
