@@ -5,6 +5,8 @@ description: "How to configure custom domains for your Convox Services, includin
 
 # Custom Domains
 
+This page covers the V2 engine. V3 version: [Custom Domains](https://docs.convox.com/deployment/custom-domains).
+
 ## Definition
 
 You can specify that your Service should listen on a custom domain:

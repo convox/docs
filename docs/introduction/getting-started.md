@@ -5,6 +5,8 @@ description: "Sign up for Convox, install the CLI, and deploy your first applica
 
 # Getting Started
 
+This page covers the V2 engine. V3 version: [Introduction](https://docs.convox.com/getting-started/introduction).
+
 Getting started with Convox is straightforward. The instructions below guide you through:
 
 * [Signing up](https://convox.com/signup)

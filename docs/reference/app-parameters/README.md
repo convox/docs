@@ -5,6 +5,8 @@ description: "Reference for all application-level parameters that configure Conv
 
 # App Parameters
 
+This page covers the V2 engine. V3 version: [App Parameters](https://docs.convox.com/configuration/app-parameters).
+
 An App parameter configures the behavior of a single App, such as its task launch type, networking, logging, and load balancer settings. You set App parameters with `convox apps params set ParameterName=Value`, scoped to one App rather than the whole Rack. App parameters are distinct from [Rack Parameters](/reference/rack-parameters), which configure shared infrastructure across every App on the Rack.
 
 ## Setting Parameters

@@ -5,6 +5,8 @@ description: "Configure HTTP health checks that determine deployment success for
 
 # Health Checks
 
+This page covers the V2 engine. V3 version: [Health Checks](https://docs.convox.com/configuration/health-checks).
+
 The Convox deployment process depends on application Health Checks to determine success.
 
 If the Process [exposes a port](/application/port) is it considered healthy after it passes a certain number of HTTP health checks.

@@ -5,6 +5,8 @@ description: "Define and configure network-attached dependencies such as databas
 
 # Resources
 
+This page covers the V2 engine. V3 version: [Resource](https://docs.convox.com/reference/primitives/app/resource).
+
 A resource is a network-attached dependency of your application.
 
 Resources are declared in `convox.yml`, the gen2 manifest format that is the current, actively-developed generation; the legacy gen1 format is End-of-Life and is not covered here.
