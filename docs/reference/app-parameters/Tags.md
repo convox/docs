@@ -46,7 +46,7 @@ Unlike App parameters that a Rack update adds, `Tags` does not need a deploy fir
 
 | Resource | When the tags apply |
 |:--|:--|
-| App stack and its resources: ECR repository, log group, settings bucket, IAM roles, timer launcher Lambda function, ACM certificates | During the `convox apps params set` update, with no new Release and no restart |
+| App stack and its resources: ECR repository, log group, settings bucket, IAM roles, timer launcher Lambda function (only when `FargateTimers` is `Yes` or `Spot`), ACM certificates | During the `convox apps params set` update, with no new Release and no restart |
 | Service, timer and resource stacks and their resources: ECS services, task definitions, target groups, timer rules, databases and caches | During the same update |
 | ECS tasks of Services | Only with [TaskTags](/reference/app-parameters/TaskTags) set to `Yes`, on tasks started after the update |
 
