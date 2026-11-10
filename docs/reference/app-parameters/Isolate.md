@@ -5,7 +5,7 @@ description: "Run application services in an isolated network configuration when
 
 # Isolate
 
-Isolated network configuration for application Services. When set to `Yes`, Services run on dedicated Fargate tasks with network-level isolation. Only takes effect when the App is running in a Private Rack.
+Isolated network configuration for application Services. Only takes effect when the App is running in a Private Rack.
 
 | Setting | Value |
 |:--|:--|
@@ -29,6 +29,8 @@ Note that Services using [FargateServices](/reference/app-parameters/FargateServ
 ```bash
 $ convox apps params set Isolate=Yes
 ```
+
+Before moving the Rack to a version older than 20261103122112, set `Isolate=No` on any App that has `Isolate=Yes` and an `internalAndExternal` Service. Otherwise the App's first deploy or promote on the older version removes the external router's access to that Service's processes. Its external domain stops answering, and the deploy does not finish for hours unless you cancel it with `convox apps cancel -a myapp`.
 
 ## See Also
 

@@ -1,11 +1,11 @@
 ---
 title: "Private"
-description: "Controls whether the application's ECS tasks are deployed to private subnets with no public IP."
+description: "Controls whether the application's Fargate and Isolate tasks run in private subnets with no public IP."
 ---
 
 # Private
 
-Private subnet placement for the application's ECS tasks. When set to `Yes`, Services run in private subnets with public IP assignment disabled. When set to `No`, Services run in public subnets with public IPs assigned.
+Private subnet placement for the application's tasks that have their own network interface: Services on Fargate or with [Isolate](/reference/app-parameters/Isolate), and timers on Fargate. When set to `Yes`, these tasks run in private subnets with public IP assignment disabled. When set to `No`, they run in public subnets with public IPs assigned. Services on EC2 without `Isolate` run on the Rack's instances, which are placed by the Rack's [Private](/reference/rack-parameters/Private) parameter.
 
 | Setting | Value |
 |:--|:--|
@@ -20,16 +20,19 @@ Private subnet placement for the application's ECS tasks. When set to `Yes`, Ser
 
 ## Additional Information
 
-This parameter is **independent of the Rack-level `Private` parameter**. Each App can override its networking posture individually. For example, a single App can be set to `Private=Yes` even if the Rack has `Private=No`, and vice versa.
+Each deploy or promote of a Generation 2 App sets this parameter to the Rack's [Private](/reference/rack-parameters/Private) value, so a value set with `convox apps params set` lasts only until the next deploy. To run one App with a different value from the Rack, set it under `params:` in `convox.yml`. See [Parameters Set From the Rack](/reference/app-parameters#parameters-set-from-the-rack).
 
 > This parameter controls task-level networking (subnet placement and public IP assignment). It does not affect load balancer scheme. To make a Service's load balancer internal, use the [`internal`](/application/services) attribute in `convox.yml`.
 
-When `Private=Yes`, ECS tasks are placed in the Rack's private subnets. These subnets typically route outbound traffic through a NAT gateway. Ensure your Rack has private subnets and NAT gateways configured before setting this parameter.
+When `Private=Yes`, these tasks are placed in the Rack's private subnets, which route outbound traffic through NAT gateways. A Rack has private subnets only when its [Private](/reference/rack-parameters/Private) or [PrivateBuild](/reference/rack-parameters/PrivateBuild) parameter is `Yes`. Without them, setting `Private: "Yes"` makes the deploy of an App with Fargate Services or Fargate timers roll back.
 
 The [Isolate](/reference/app-parameters/Isolate) parameter provides additional network isolation on top of Private mode.
 
-```bash
-$ convox apps params set Private=Yes
+For example, to run a Fargate App on a private Rack in public subnets:
+
+```yaml
+params:
+  Private: "No"
 ```
 
 ## See Also

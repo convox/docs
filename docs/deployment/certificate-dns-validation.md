@@ -5,16 +5,26 @@ description: "Switch a Rack's ACM certificates from email validation to DNS vali
 
 # Certificate DNS Validation
 
-AWS Certificate Manager (ACM) is ending email validation. On rack version 20261021234916 or newer, the Rack switches its ACM certificates to DNS validation in place. Each certificate keeps its ARN and expiry, nothing is reissued, and Apps keep serving HTTPS throughout. A certificate is switched only once its validation records answer in public DNS, so a certificate whose records are not in place yet stays on email validation and keeps working.
+AWS Certificate Manager (ACM) is ending email validation, where ACM sends a validation email for each domain in a certificate. A certificate that still uses email validation is not renewed after September 30, 2027, and expires at the end of the term it holds on that date. Its replacement is DNS validation: each domain name gets one DNS record, and ACM checks that record every time it renews the certificate.
+
+Rack version 20261021234916 and newer switch your Rack's ACM certificates to DNS validation without replacing them. Each certificate keeps its ARN and expiry date, and your Apps keep serving HTTPS during the switch. The Rack switches a certificate only after its DNS record is in place, so a certificate whose record you have not added yet keeps working on email validation.
+
+In short:
+
+1. Update the CLI and the Rack. Certificates for `convox.site` hostnames, which Convox assigns, need nothing more.
+2. Run `convox certs` to see which certificates still use email validation.
+3. Run `convox certs dns` to get the DNS records.
+4. Add the records at your DNS provider.
+5. Run `convox certs migrate --wait` to switch the certificates now. This step is optional: without it, the Rack switches each certificate within a few minutes of its record being in place.
 
 ## AWS Timeline
 
 | Date | Change |
 |:-----|:-------|
-| 2027-01-01 | Email validation is not offered in newly launched AWS Regions |
-| 2027-03-31 | ACM stops accepting new email-validated certificate requests |
-| 2027-09-30 | ACM stops renewing email-validated certificates |
-| 2028-03-15 | Certificate authorities can no longer use email validation for any public certificate |
+| January 1, 2027 | Email validation is not offered in newly launched AWS Regions |
+| March 31, 2027 | ACM stops accepting new email-validated certificate requests |
+| September 30, 2027 | ACM stops renewing email-validated certificates |
+| March 15, 2028 | Certificate authorities can no longer use email validation for any public certificate |
 
 See the [AWS announcement](https://aws.amazon.com/blogs/security/aws-certificate-manager-will-discontinue-email-validation-to-prove-domain-validation-for-certificates/) for details.
 
@@ -22,22 +32,25 @@ See the [AWS announcement](https://aws.amazon.com/blogs/security/aws-certificate
 
 | Certificate | Example | What you do |
 |:------------|:--------|:------------|
-| `convox.site` certificates for the Rack, its routers and `--wildcard-domain` Services | `*.myrack-router-123456789.us-east-1.convox.site` | Update the Rack. Convox publishes the records, and the Rack switches these certificates on its own a few minutes after the update |
-| Certificates for your own domains: Service `domain:`, `convox certs generate`, Gen 1 `convox ssl update` | `www.example.com` | Update the Rack, add one DNS record per domain name, then the Rack switches the certificate |
+| `convox.site` certificates for the Rack, its routers and `--wildcard-domain` Services | `*.myrack-router-123456789.us-east-1.convox.site` | Update the Rack. Convox publishes the DNS records, and the Rack switches these certificates on its own a few minutes after the update |
+| Certificates for your own domains: created for a Service `domain:`, requested with `convox certs generate`, or applied to Gen 1 Apps with `convox ssl update` | `www.example.com` | Update the Rack and add one DNS record per domain name. The Rack then switches the certificate |
 | Certificates imported with `convox certs import`, and IAM server certificates | any | Nothing. They do not use email or DNS validation |
-| ACM certificates in the region that the Rack does not use | any | Nothing on this Rack, which leaves them alone. `convox certs dns` names the ones still on email validation. Switch each one on the Rack that uses it, or in the [ACM console](#switching-in-the-acm-console) if something outside Convox uses it |
-
-Certificates the Rack creates itself use email validation: the ones it creates when the Rack is installed, when [Internal](/reference/rack-parameters/Internal) is enabled, when a `--wildcard-domain` Service is created, and when a Service `domain:` that no issued certificate covers is deployed. The Rack switches each one to DNS validation once ACM issues it and its records answer: on its own for `convox.site` certificates, and once you add the records for a Service `domain:`, as in [Adding the Records](#adding-the-records). For a new custom domain, request a DNS-validated certificate before you deploy, as described in [Adding a New Custom Domain](#adding-a-new-custom-domain).
+| ACM certificates in the Rack's region that this Rack does not use | any | Switch each one from the Rack that uses it, or in the [ACM console](#switching-in-the-acm-console) if something outside Convox uses it. This Rack leaves them alone, but `convox certs dns` lists the ones still on email validation |
 
 ## Before You Start
 
 | Requirement | Detail |
 |:------------|:-------|
-| Rack version | 20261021234916 or newer. Check with `convox rack`, update with `convox rack update` |
-| CLI version | 3.25.12 or newer, or 20261021234916 or newer. Update with `sudo convox update`. Older CLIs do not have `convox certs dns` or `convox certs migrate` |
-| HTTPS access to `certbot.convox.com` | The Rack publishes its `convox.site` records through Convox. If the Rack reaches the internet through [HttpProxy](/reference/rack-parameters/HttpProxy), the proxy must allow it |
-| Public DNS lookups | The Rack checks each record against public DNS: `1.1.1.1`, `8.8.8.8` and the zone's nameservers, on port 53. If it cannot reach them, it uses the VPC's DNS resolver instead |
-| IAM | The Rack's default IAM policies allow every call it makes. If an administrator restricts the Rack's `ApiRole` with a permissions boundary or a service control policy, it must allow `acm:UpdateCertificateOptions`, `acm:ListCertificateDomainValidations`, `acm:RequestCertificate`, `acm:AddTagsToCertificate` and `acm:DeleteCertificate`, plus the `route53` calls listed on [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation#permissions) if you enable that parameter |
+| Rack version | 20261021234916 or newer. Check with `convox rack`, and update with `convox rack update` |
+| CLI version | A 3.x CLI needs 3.25.12 or newer, and a date-versioned CLI needs 20261021234916 or newer. Update with `sudo convox update`. Older CLIs do not have `convox certs dns` or `convox certs migrate` |
+
+Most Racks need nothing else. If your Rack's outbound traffic or IAM permissions are restricted, it also needs:
+
+| Requirement | Detail |
+|:------------|:-------|
+| HTTPS access to `certbot.convox.com` | The Rack publishes its `convox.site` records through Convox. If the Rack reaches the internet through [HttpProxy](/reference/rack-parameters/HttpProxy), the proxy must allow this host |
+| DNS lookups on port 53 | The Rack checks each record against public DNS: `1.1.1.1`, `8.8.8.8` and the zone's nameservers. Without this access, it checks records through the VPC's DNS resolver instead. In that case, see [Delegated Subdomains and Private Zones](#delegated-subdomains-and-private-zones) if a private hosted zone for the domain is associated with the Rack's VPC |
+| IAM permissions | The Rack's default IAM policies already allow every call it makes. If a permissions boundary or a service control policy restricts the Rack's `ApiRole`, it must allow `acm:UpdateCertificateOptions`, `acm:ListCertificateDomainValidations`, `acm:RequestCertificate`, `acm:AddTagsToCertificate` and `acm:DeleteCertificate`. With [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation#permissions) enabled, it must also allow the `route53` calls listed there |
 
 ## Migrating
 
@@ -48,7 +61,7 @@ $ sudo convox update
 $ convox rack update --wait
 ```
 
-A few minutes after the update finishes, the Rack switches its `convox.site` certificates to DNS validation. There is nothing else to do for them.
+A few minutes after the update finishes, the Rack switches its `convox.site` certificates to DNS validation. You do not need to do anything else for them.
 
 ### 2. Check Certificate Status
 
@@ -62,7 +75,12 @@ acm-89ea927329d7                  *.myrack-router-123456789.us-east-1.convox.sit
 2 certificates use email validation, which stops renewing on 2027-09-30: run convox certs dns
 ```
 
-`dns` means the certificate uses DNS validation, and ACM renews it while it is in use and its DNS record stays in place. `email` means it still needs a DNS record. See [certs](/reference/cli-commands/certs#status) for every status.
+The `STATUS` column shows how each certificate is validated:
+
+- `dns`: the certificate uses DNS validation. ACM renews it while it is in use, as long as its DNS record stays in place.
+- `email`: the certificate still uses email validation and needs a DNS record.
+
+See [certs](/reference/cli-commands/certs#status) for every status.
 
 ### 3. List the DNS Records
 
@@ -76,15 +94,30 @@ example.org  _1123456789abcdef0123456789abcdef.shop.example.org.  CNAME  _eedcba
 When every record shows ok: convox certs migrate --wait
 ```
 
-Each record appears once, even when several certificates need it, and `example.com` and `*.example.com` share one record. Right after the Rack update, the command can print `N certificates are still being prepared, run again in a few minutes` while the Rack reads the records from ACM. `convox certs migrate` reads them at once.
+Each row is one DNS record the Rack's certificates need:
+
+| Column | Meaning |
+|:-------|:--------|
+| `ZONE` | The DNS zone the record goes in. This is usually your domain, such as `example.com`. A delegated subdomain shows as its own zone |
+| `NAME`, `TYPE`, `VALUE` | The record to create |
+| `CHECK` | Whether the record is in place: `missing` until you add it, then `ok`. See [Troubleshooting](#troubleshooting) for `wrong` and `unknown` |
+| `CERTIFICATES` | The certificates that need the record |
+
+When several certificates need the same record, it is listed once, and `CERTIFICATES` names all of them. `example.com` and `*.example.com` also share one record.
+
+Right after the Rack update, the command can print `N certificates are still being prepared, run again in a few minutes`. The Rack is still reading those certificates' records from ACM. Wait a few minutes, or run `convox certs migrate`, which reads them right away. You can run it before adding any records, because it switches only certificates whose records are in place.
 
 ### 4. Add the Records
 
-Add each record at your DNS provider as a `CNAME`, with the name and value exactly as shown, and leave it in place permanently. ACM checks the record again at every renewal, and a certificate whose record is removed stops renewing. Any TTL works.
+Add each record at your DNS provider as a `CNAME`. Most DNS dashboards add the zone to the name for you, so enter only the part of `NAME` before the zone, for example `_1123456789abcdef0123456789abcdef.shop` for the `example.org` zone. Use `VALUE` as the value. Any TTL works. [Adding the Records](#adding-the-records) has the steps for Route 53, Cloudflare and other providers.
 
-See [Adding the Records](#adding-the-records) for the steps for your DNS provider. Run `convox certs dns` again at any time: `CHECK` shows `ok` once a record answers.
+Leave the records in place permanently. ACM checks them again at every renewal, and a certificate whose record is removed stops renewing.
+
+Run `convox certs dns` again at any time. A record is in place once its `CHECK` shows `ok`.
 
 ### 5. Switch the Certificates
+
+This step is optional. Without it, the Rack switches each certificate on its own within a few minutes of its record being in place.
 
 ```bash
 $ convox certs migrate --wait
@@ -98,21 +131,23 @@ acm-0a1b2c3d4e5f  example.com       dns
 acm-1b2c3d4e5f6a  shop.example.org  dns
 ```
 
-`convox certs migrate` switches only certificates whose records already answer, so it is safe to run at any time. A certificate still waiting on a record is listed as `waiting for its DNS record (run convox certs dns)` and stays as it was. If you skip this step, the Rack switches each certificate on its own within a few minutes of its record answering.
+`convox certs migrate` switches only the certificates whose records are in place, so you can run it at any time. A certificate that is still waiting for its record shows `waiting for its DNS record (run convox certs dns)` and stays as it was.
 
-ACM can take up to 30 minutes to finish a switch, and `convox certs` shows the certificate as `migrating` until then. `--wait` waits up to 15 minutes. If it gives up with `ERROR: certificates did not finish switching`, the switch continues in the background; check `convox certs` again later. See [certs migrate](/reference/cli-commands/certs-migrate) for every result.
+`--wait` waits up to 15 minutes, but ACM can take up to 30 minutes to finish a switch. Until it finishes, `convox certs` shows the certificate as `migrating`. If `--wait` stops with `ERROR: certificates did not finish switching`, the switch keeps going in the background. Check `convox certs` again later. See [certs migrate](/reference/cli-commands/certs-migrate) for every result.
 
 ## Adding the Records
 
-| Where your DNS is | Section |
-|:------------------|:--------|
+| Where your DNS is hosted | Steps |
+|:-------------------------|:------|
 | Route 53, in the Rack's AWS account | [Route 53 in the Rack's AWS Account](#route-53-in-the-racks-aws-account) |
 | Route 53, in another AWS account | [Route 53 in Another AWS Account](#route-53-in-another-aws-account) |
 | Cloudflare | [Cloudflare](#cloudflare) |
 | Any other provider | [Other DNS Providers](#other-dns-providers) |
-| Managed by Terraform, external-dns or similar | [DNS Managed as Code](#dns-managed-as-code) |
+| Managed by Terraform, external-dns or a similar tool | [DNS Managed as Code](#dns-managed-as-code) |
 
-To import records from a file, save them with `--zone-file`. It prints every record grouped by zone, with absolute names and a TTL of 300 seconds:
+### Saving the Records to a File
+
+Many DNS providers can import records from a zone file. `--zone-file` prints every record in that format, grouped by zone, with full names and a TTL of 300 seconds:
 
 ```bash
 $ convox certs dns --zone-file > records.txt
@@ -123,58 +158,91 @@ _0123456789abcdef0123456789abcdef.example.com. 300 IN CNAME _fedcba9876543210fed
 _1123456789abcdef0123456789abcdef.shop.example.org. 300 IN CNAME _eedcba9876543210fedcba9876543210.bcdefghijk.acm-validations.aws.
 ```
 
+The file also includes records that already show `ok`. Many DNS providers reject an import that contains a record the zone already has, so remove those lines before you import.
+
 Import each zone's records into that zone only. To write one zone's records to their own file:
 
 ```bash
 $ awk -v zone=example.org '/^; zone / { z = $3; next } z == zone' records.txt > example.org.txt
 ```
 
-The file includes records that already show `ok`. Many DNS providers reject an import that contains a record the zone already has, so remove those lines first.
-
 ### Route 53 in the Rack's AWS Account
 
-When `convox certs dns` prints `<zone> is a Route 53 zone in this AWS account`, the Rack can add the records itself:
+If `convox certs dns` prints `<zone> is a Route 53 zone in this AWS account`, the Rack can write the records for you. Turn on [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) and run the migration:
 
 ```bash
 $ convox rack params set Route53CertificateValidation=Yes --wait
 $ convox certs migrate --wait
 ```
 
-`convox certs migrate` writes the missing records and switches each certificate once its record answers. The first run usually shows `publishing` until Route 53 serves the new records, and the switch follows within a few minutes. Without the command, the Rack does the same in the background every few minutes. The parameter also covers certificates you request later with `convox certs generate`.
+`convox certs migrate` writes the missing records and switches each certificate once its record is in place. The first run usually shows `publishing` until Route 53 serves the new records, and the switch follows within a few minutes. If you do not run the command, the Rack does the same in the background every few minutes. The parameter also covers certificates you request later with `convox certs generate`.
 
-The Rack writes only into a public hosted zone in its own AWS account that public DNS delegates to. It only creates records, never changes a record that has another value, and never deletes a record. It writes records only for certificates not yet on DNS validation, so if a record for a `dns` certificate goes missing, add it back by hand. See [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation).
+The Rack follows these rules when it writes records:
+
+- It writes only into a public hosted zone in its own AWS account, and only when that zone is the one the domain's public DNS is delegated to.
+- It only creates records. It never changes a record that has another value, and never deletes a record.
+- It writes records only for certificates not yet on DNS validation. If a record for a `dns` certificate goes missing, add it back yourself.
+
+See [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) for details.
 
 ### Route 53 in Another AWS Account
 
-The Rack cannot write to a hosted zone in another AWS account, so add the records with credentials for the account that holds the zone. In the Route 53 console, create each record in the hosted zone with **Record type** `CNAME`, **Record name** set to the part of `NAME` before the zone (for example `_1123456789abcdef0123456789abcdef.shop` in `example.org`), and **Value** set to `VALUE`.
+The Rack cannot write to a hosted zone in another AWS account, so add the records yourself with credentials for the account that holds the zone.
 
-With the AWS CLI, build a change batch from the zone file and apply it, once per zone. In this example `dns` is an AWS CLI profile for the account that holds the zone:
+In the Route 53 console, open the public hosted zone named in `ZONE`. ACM cannot see records in a private hosted zone. If the account has more than one public hosted zone with that name, use the one whose name servers match the output of `dig +short NS example.org`. Records in the other zone are never served. Create one record for each row with that `ZONE` whose `CHECK` is not `ok`:
 
-```bash
-$ convox certs dns --zone-file > records.txt
-$ aws route53 list-hosted-zones-by-name --dns-name example.org --query "HostedZones[?Name=='example.org.'].[Id,Config.PrivateZone]" --output text --profile dns
-$ awk -v zone=example.org '
-    BEGIN { printf "{\"Changes\":[" }
-    /^; zone / { inzone = ($3 == zone); next }
-    inzone { printf "%s{\"Action\":\"UPSERT\",\"ResourceRecordSet\":{\"Name\":\"%s\",\"Type\":\"CNAME\",\"TTL\":300,\"ResourceRecords\":[{\"Value\":\"%s\"}]}}", sep, $1, $5; sep = "," }
-    END { print "]}" }' records.txt > example.org.json
-$ aws route53 change-resource-record-sets --hosted-zone-id Z0123456789ABCDEFGHIJ --change-batch file://example.org.json --profile dns
-```
+| Field | Value |
+|:------|:------|
+| Record name | The part of `NAME` before the zone, for example `_1123456789abcdef0123456789abcdef.shop` in the `example.org` zone |
+| Record type | `CNAME` |
+| Value | `VALUE` |
 
-Use the id of the zone whose second column is `False`, without the `/hostedzone/` prefix. A zone showing `True` is private, and ACM cannot see records in it. If more than one zone shows `False`, use the one whose name servers in `aws route53 get-hosted-zone --id <id> --profile dns` match `dig +short NS example.org`, because records in the other zone are never served. `UPSERT` creates each record or updates it to the same value, so the batch is safe to apply again.
+With many records, the AWS CLI is faster. In the commands below, `dns` is an AWS CLI profile for the account that holds the zone. Repeat steps 2 to 4 for each zone.
+
+1. Save the records:
+
+   ```bash
+   $ convox certs dns --zone-file > records.txt
+   ```
+
+2. Find the hosted zone's id:
+
+   ```bash
+   $ aws route53 list-hosted-zones-by-name --dns-name example.org --query "HostedZones[?Name=='example.org.'].[Id,Config.PrivateZone]" --output text --profile dns
+   ```
+
+   Use the zone whose second column is `False`, which is the public zone, and drop the `/hostedzone/` prefix from its id. If more than one zone shows `False`, compare each one's name servers from `aws route53 get-hosted-zone --id <id> --profile dns` with `dig +short NS example.org`, as above.
+
+3. Build a change batch from the zone's records:
+
+   ```bash
+   $ awk -v zone=example.org '
+       BEGIN { printf "{\"Changes\":[" }
+       /^; zone / { inzone = ($3 == zone); next }
+       inzone { printf "%s{\"Action\":\"UPSERT\",\"ResourceRecordSet\":{\"Name\":\"%s\",\"Type\":\"CNAME\",\"TTL\":300,\"ResourceRecords\":[{\"Value\":\"%s\"}]}}", sep, $1, $5; sep = "," }
+       END { print "]}" }' records.txt > example.org.json
+   ```
+
+4. Apply it to the zone:
+
+   ```bash
+   $ aws route53 change-resource-record-sets --hosted-zone-id Z0123456789ABCDEFGHIJ --change-batch file://example.org.json --profile dns
+   ```
+
+`UPSERT` creates each record, or sets it to the value in the batch if it already exists, so you can apply the same batch again safely.
 
 ### Cloudflare
 
-Validation records must be **DNS only**. Cloudflare does not proxy CNAME records whose target is under `acm-validations.aws`, and a record that is not served as a plain CNAME never validates.
+Validation records must be **DNS only**. A proxied record is not served as a plain CNAME, and never validates.
 
 To import a zone's records:
 
-1. Write the zone's records to their own file, as shown in [Adding the Records](#adding-the-records), and remove any line for a record that already shows `ok`.
+1. Write the zone's records to their own file, as shown in [Saving the Records to a File](#saving-the-records-to-a-file), and remove any line for a record that already shows `ok`.
 2. In the Cloudflare dashboard, open the zone and go to **DNS** > **Records**.
 3. Choose **Import and Export**, then **Import DNS records**, and select the file.
 4. Clear **Proxy imported DNS records**, then import.
 
-To add a record by hand, choose **Add record** with:
+To add a record by hand, choose **Add record** and fill in:
 
 | Field | Value |
 |:------|:------|
@@ -184,7 +252,9 @@ To add a record by hand, choose **Add record** with:
 | Proxy status | DNS only |
 | TTL | Auto |
 
-If **CNAME flattening** is on for every CNAME record in the zone, or **Flatten** is on for the record, Cloudflare stops returning the CNAME and `convox certs dns` shows `missing`. Turn flattening off for these records. On a partial (CNAME) setup, add the records at the zone's authoritative DNS provider instead of in Cloudflare.
+Turn off CNAME flattening for these records. A flattened record stops returning the CNAME, so `convox certs dns` shows it as `missing`. Flattening can be on for every CNAME record in the zone (the zone's **CNAME flattening** setting) or for one record (the record's **Flatten** option), so check both.
+
+If the zone uses a Cloudflare partial (CNAME) setup, add the records at the DNS provider that hosts the zone instead of in Cloudflare.
 
 ### Other DNS Providers
 
@@ -193,42 +263,76 @@ The same rules apply at every provider:
 | Field | Rule |
 |:------|:-----|
 | Type | `CNAME` |
-| Name | Most dashboards add the zone to the name for you. Enter only the part of `NAME` before the zone, or the record ends up as `_0123456789abcdef0123456789abcdef.example.com.example.com` and shows `missing` |
+| Name | Enter only the part of `NAME` before the zone. Most dashboards add the zone for you, so entering the full name creates a record such as `_0123456789abcdef0123456789abcdef.example.com.example.com`, which shows `missing` |
 | Value | `VALUE`, including its leading underscore. Remove the trailing dot only if the provider rejects it |
 | TTL | Any. `300` matches the zone file |
 | Proxying, forwarding, flattening | Off |
 
-| Provider | Import from a zone file | Name field |
-|:---------|:------------------------|:-----------|
+| Provider | Importing a zone file | Name field |
+|:---------|:----------------------|:-----------|
 | GoDaddy | **DNS** > **Actions** > **Import Zone File**. The import fails if a record already exists | Part before the zone |
 | Namecheap | Not available. Add each record under **Advanced DNS** > **Host Records** | Part before the zone |
-| Google Cloud DNS | `gcloud dns record-sets import example.org.txt --zone=<managed-zone> --zone-file-format`. Fails if a record already exists. Never add `--delete-all-existing`, which replaces every record in the zone | Full name with trailing dot in `gcloud` |
-| Azure DNS | `az network dns zone import -g <resource-group> -n example.org -f example.org.txt` merges the records into the zone | Part before the zone, as in `az network dns record-set cname set-record -g <resource-group> -z example.org -n _1123456789abcdef0123456789abcdef.shop -c _eedcba9876543210fedcba9876543210.bcdefghijk.acm-validations.aws --ttl 300` |
+| Google Cloud DNS | `gcloud dns record-sets import example.org.txt --zone=<managed-zone> --zone-file-format`. The import fails if a record already exists. Never add `--delete-all-existing`, which replaces every record in the zone | Full name with trailing dot in `gcloud` |
+| Azure DNS | `az network dns zone import -g <resource-group> -n example.org -f example.org.txt` merges the records into the zone | Part before the zone (`-n` in the command below) |
 | DigitalOcean | Not available. Add each record under **Networking** > **Domains** | Part before the zone |
 | DNSimple | **DNS** > **Import**, then paste the file's lines | Part before the zone |
 
+To add one record with the Azure CLI:
+
+```bash
+$ az network dns record-set cname set-record -g <resource-group> -z example.org -n _1123456789abcdef0123456789abcdef.shop -c _eedcba9876543210fedcba9876543210.bcdefghijk.acm-validations.aws --ttl 300
+```
+
 ### DNS Managed as Code
 
-If Terraform, external-dns, DNSControl or another tool manages the zone, add the records to that tool's configuration, or its next run can remove them and the certificates stop renewing.
+If Terraform, external-dns, DNSControl or another tool manages the zone, add the records to that tool's configuration. Otherwise its next run can remove them, and the certificates stop renewing.
 
 ### Delegated Subdomains and Private Zones
 
-`ZONE` names the zone public DNS uses for the record. When a subdomain such as `shop.example.org` is delegated to its own nameservers, `ZONE` shows the subdomain, and the record belongs in that zone. ACM validates only through public DNS, so a record in a Route 53 private hosted zone or on an internal DNS server does not count. With split-horizon DNS, add the record to the public zone. If the Rack cannot reach public DNS on port 53 and the private zone is associated with the Rack's VPC, add the record to the private zone as well, because the Rack then checks records through the VPC's resolver.
+If a subdomain such as `shop.example.org` is delegated to its own nameservers, `ZONE` shows the subdomain, and the record goes in that zone.
+
+ACM checks records only through public DNS. A record in a Route 53 private hosted zone or on an internal DNS server does not count. With split-horizon DNS, add the record to the public zone.
+
+If the Rack cannot reach public DNS on port 53, it checks records through the VPC's DNS resolver instead. In that case, if a private hosted zone for the domain is associated with the Rack's VPC, add the record to the private zone as well, so the Rack can see it.
 
 ## Checking a Record
 
-`convox certs dns` asks the zone's authoritative nameservers, so it usually shows `ok` as soon as your DNS provider serves the record. See [certs dns](/reference/cli-commands/certs-dns#check-values) for when it checks through the VPC's resolver instead, and run `convox certs migrate` if a record you added still shows `missing`. To check from your own machine:
+`convox certs dns` usually asks the zone's own nameservers, so a record shows `ok` as soon as your DNS provider serves it. In some cases it checks through the VPC's resolver instead; see [certs dns](/reference/cli-commands/certs-dns#check-values) for when. `convox certs migrate` always asks the nameservers when it can reach them, so if a record you added still shows `missing`, run `convox certs migrate`.
+
+To check a record from your own machine:
 
 ```bash
 $ dig +short CNAME _1123456789abcdef0123456789abcdef.shop.example.org @1.1.1.1
 _eedcba9876543210fedcba9876543210.bcdefghijk.acm-validations.aws.
 ```
 
-On Windows, use `nslookup -type=CNAME <name> 1.1.1.1`. An empty answer means the record is not served yet, is proxied or flattened (both hide the CNAME), or a public resolver still holds an earlier "not found" answer for a while. If the record exists only at a name with the zone appended twice, such as `_1123456789abcdef0123456789abcdef.shop.example.org.example.org`, recreate it with the shorter name.
+On Windows, use `nslookup -type=CNAME <name> 1.1.1.1`.
+
+An empty answer means one of these:
+
+- The record is not served yet.
+- The record is proxied or flattened, which hides the CNAME.
+- A public resolver still holds an earlier "not found" answer for a while.
+- The record was created with the zone added twice, such as `_1123456789abcdef0123456789abcdef.shop.example.org.example.org`. Recreate it with the shorter name.
+
+## New Certificates Still Use Email Validation
+
+The Rack still requests a new certificate with email validation when:
+
+- the Rack is installed
+- [Internal](/reference/rack-parameters/Internal) is enabled
+- a `--wildcard-domain` Service is created
+- you deploy a Service `domain:` that no issued certificate covers
+
+Once ACM issues one of these certificates, the Rack switches it to DNS validation: a `convox.site` certificate on its own, and a certificate for your own domain once you add its DNS record (see [Adding the Records](#adding-the-records)).
+
+To skip email validation for a new custom domain, see [Adding a New Custom Domain](#adding-a-new-custom-domain).
 
 ## Adding a New Custom Domain
 
-A deploy uses an existing certificate only if ACM has issued it and it covers every domain the Service lists. Otherwise the deploy requests a new certificate with email validation. To use DNS validation for a new domain, request the certificate first:
+A domain that is already deployed does not need a new certificate. The migration switches the certificate it already uses.
+
+A deploy uses an existing certificate only if ACM has issued it and it covers every domain the Service lists. Otherwise the deploy requests a new certificate with email validation. To use DNS validation for a new domain, request the certificate before you deploy:
 
 1. Request a certificate with every domain the Service lists:
 
@@ -241,15 +345,15 @@ A deploy uses an existing certificate only if ACM has issued it and it covers ev
    Deploy the domain once convox certs shows acm-74ec8b405093 as dns
    ```
 
-2. Add the records that show `missing` within 72 hours, or ACM stops waiting and the certificate shows `failed`. A record that shows `ok` is already in place from an earlier certificate. With [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) set to `Yes`, the Rack adds them for zones in its AWS account.
-3. Wait until `convox certs` shows the certificate as `dns`. ACM can take up to 30 minutes after the records answer.
+2. Add the records that show `missing` within 72 hours. After that, ACM stops waiting and the certificate shows `failed`. A record that shows `ok` is already in place from an earlier certificate. With [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) set to `Yes`, the Rack adds the records for zones in its AWS account.
+3. Wait until `convox certs` shows the certificate as `dns`. ACM can take up to 30 minutes after the records are in place.
 4. Add the domains to the Service's `domain:` in `convox.yml` and deploy. The deploy uses the new certificate.
-
-A domain that is already deployed does not need a new certificate. The migration switches the certificate it already uses.
 
 ## Several Racks and AWS Accounts
 
-Run the same commands against each Rack with `-r <rack>`. A validation record belongs to one domain name in one AWS account and works in every region, so Racks in the same AWS account share records: once a record is in place, every certificate for that name in that account uses it. A Rack in another AWS account gets a different record for the same name, and both records can exist side by side.
+Run the same commands against each Rack with `-r <rack>`.
+
+A validation record belongs to one domain name and to the AWS account the Rack runs in, not the account that hosts your DNS. It works in every region. Racks in the same AWS account share records: once a record is in place, every certificate for that name in that account uses it. A Rack in another AWS account gets a different record for the same name, and both records can exist side by side.
 
 ## Gen 1 Apps
 
@@ -266,36 +370,37 @@ Updating certificate... OK
 
 | Command | Line | When |
 |:--------|:-----|:-----|
-| `convox rack logs` | `N certificates need DNS records: run convox certs dns` | Every hour while certificates the Rack uses for your own domains are waiting for a record |
+| `convox rack logs` | `N certificates need DNS records: run convox certs dns` | Every hour, while certificates the Rack uses for your own domains are waiting for a record |
 | `convox rack logs` | `certificate <id> (<domain>) switched to DNS validation` | When the Rack switches a certificate in the background. A switch made by `convox certs migrate` is not logged |
 | `convox logs -a <app>` | `certificate <id> (<domain>) needs a DNS record before 2027-09-30: run convox certs dns` | Every hour, for a certificate Convox created for one of the App's Services that is waiting for a record |
 | `convox logs -a <app>` | `certificate <id> (<domain>) switched to DNS validation` | When the Rack switches, in the background, a certificate Convox created for one of the App's Services |
 
 ## Troubleshooting
 
-| Symptom | Cause and fix |
-|:--------|:--------------|
-| `CHECK` shows `missing` | The record is not served yet, is in another zone than `ZONE`, has the zone appended twice, is proxied or flattened, or exists only in a private zone. Check it as shown in [Checking a Record](#checking-a-record) |
-| `CHECK` shows `wrong` | Another CNAME answers for the name. Usually a wildcard record on a parent name, such as `*.example.com`, answers because the validation record does not exist yet: add the validation record, which takes precedence over the wildcard. Otherwise the record has an old value, or its value lost the leading underscore. Correct it to `VALUE` |
-| `CHECK` shows `unknown` | The lookup failed or did not finish. Run `convox certs dns` again. If it persists, the zone's nameservers are not answering the Rack |
-| `N certificates are still being prepared` | The Rack has not read these certificates' records yet. Run `convox certs migrate`, or wait a few minutes |
-| `<id>: <error>` lines in `convox certs dns` | The Rack could not read that certificate or its records. Run `convox certs migrate` to try again |
-| A certificate from `convox certs generate` shows `failed` | ACM did not see its records within 72 hours, or a CAA record blocked it (next row). Add the records, run `convox certs generate` again, and remove the failed certificate with `convox certs delete` |
-| `error: validation failed: CAA_ERROR` | A CAA record on the domain does not allow Amazon to issue certificates. Add a CAA record that allows `amazon.com`, such as `example.com. CAA 0 issue "amazon.com"`, and an `issuewild` record for wildcard certificates if the domain has `issuewild` records. Then run `convox certs migrate` |
-| `convox certs` reports `convox.site` certificates still on email validation | Run `convox certs migrate` and read the result for those certificates. `error: Post "https://certbot.convox.com/validation": ...` means the Rack cannot reach Convox: allow outbound HTTPS from the Rack, or through its HttpProxy. A message that ends in `contact Convox support` needs Convox to act |
-| `ERROR: certificates did not finish switching` from `--wait` | ACM is still working, or a certificate ended with another result. Check `convox certs` later, and run `convox certs migrate` to see any certificate that is not `dns` or `migrating` |
-| `error: not used by this rack` | The named certificate is not one this Rack uses. Run the command against the Rack that uses it |
-| `ERROR: convox certs dns requires a rack on the latest release` | The Rack is older than 20261021234916. Run `convox rack update` |
-| Rack logs show `record <name> exists with another value, left alone` | With `Route53CertificateValidation=Yes`, a record with that name has another value. Correct it in Route 53 |
-| Rack logs show `route53 write <name>: <error>` | The Rack could not write the record, for example because IAM denied the call. See [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation#permissions) |
+| Symptom | Cause | Fix |
+|:--------|:------|:----|
+| `CHECK` shows `missing` | The record is not served yet, is in a different zone than `ZONE`, has the zone added twice, is proxied or flattened, or exists only in a private zone | Check the record as shown in [Checking a Record](#checking-a-record) |
+| `CHECK` shows `wrong`, and a parent name has a wildcard record such as `*.example.com` | The wildcard answers for the name because the validation record does not exist yet | Add the validation record, which takes precedence over the wildcard |
+| `CHECK` shows `wrong`, with no wildcard involved | The record has an old value, or its value lost the leading underscore | Correct its value to `VALUE` |
+| `CHECK` shows `unknown` | The lookup failed or did not finish | Run `convox certs dns` again. If it keeps happening, the zone's nameservers are not answering the Rack |
+| `N certificates are still being prepared` | The Rack has not read these certificates' records from ACM yet | Run `convox certs migrate`, or wait a few minutes |
+| `<id>: <error>` lines in `convox certs dns` | The Rack could not read that certificate or its records | Run `convox certs migrate` to try again |
+| A certificate from `convox certs generate` shows `failed` | ACM did not see its records within 72 hours, or a CAA record blocked it (next row) | Add the records, run `convox certs generate` again, and remove the failed certificate with `convox certs delete` |
+| `error: validation failed: CAA_ERROR` | A CAA record on the domain does not allow Amazon to issue certificates | Add a CAA record that allows `amazon.com`, such as `example.com. CAA 0 issue "amazon.com"`. If the domain has `issuewild` records, add an `issuewild` record for wildcard certificates too. Then run `convox certs migrate` |
+| `convox certs` shows `convox.site` certificates still on email validation | The Rack has not published or checked their records yet, publishing failed, or the switch failed, for example because IAM denied `acm:UpdateCertificateOptions` | Run `convox certs migrate` and read the result for those certificates. `error: Post "https://certbot.convox.com/validation": ...` means the Rack cannot reach Convox: allow outbound HTTPS from the Rack, or through its HttpProxy. A message that ends in `contact Convox support` needs Convox to act |
+| `ERROR: certificates did not finish switching` from `--wait` | ACM is still working, or a certificate ended with another result | Check `convox certs` later, and run `convox certs migrate` to see any certificate that is not `dns` or `migrating` |
+| `error: not used by this rack` | The named certificate is not one this Rack uses | Run the command against the Rack that uses it |
+| `ERROR: convox certs dns requires a rack on the latest release` | The Rack is older than 20261021234916 | Run `convox rack update` |
+| Rack logs show `record <name> exists with another value, left alone` | With `Route53CertificateValidation=Yes`, a record with that name already exists with another value | Correct the record in Route 53 |
+| Rack logs show `route53 write <name>: <error>` | The Rack could not write the record, for example because IAM denied the call | See [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation#permissions) |
 
 ## Switching in the ACM Console
 
-The ACM console can also switch an email-validated certificate: open the certificate, choose **Update validation method**, and add the records it shows. The Rack recognizes a certificate switched this way and shows it as `migrating`, then `dns`. If the records are not in place within 72 hours, the switch lapses, and the certificate stays on email validation and keeps working.
+You can also switch an email-validated certificate in the ACM console. Open the certificate, choose **Update validation method**, and add the records it shows. The Rack recognizes a certificate switched this way and shows it as `migrating`, then `dns`. If the records are not in place within 72 hours, the switch lapses, and the certificate stays on email validation and keeps working.
 
 ## Downgrading
 
-Certificates already switched stay on DNS validation and keep renewing on an older rack version. An older version does not declare [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation), so the downgrade drops it; set it again after you update back. Against an older Rack, `convox certs generate` requests email validation and prints no records.
+Certificates already switched stay on DNS validation and keep renewing on an older Rack version. Versions older than 20261021234916 do not have the [Route53CertificateValidation](/reference/rack-parameters/Route53CertificateValidation) parameter, so a downgrade removes it. Set it again after you update back. Against an older Rack, `convox certs generate` requests email validation and prints no records.
 
 ## See Also
 

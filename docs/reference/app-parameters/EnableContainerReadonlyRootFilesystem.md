@@ -34,6 +34,8 @@ Test this change in a staging environment before applying it to production.
 $ convox apps params set EnableContainerReadonlyRootFilesystem=Yes
 ```
 
+Each deploy or promote sets this parameter to the Rack's [EnableContainerReadonlyRootFilesystem](/reference/rack-parameters/EnableContainerReadonlyRootFilesystem) value. To keep it for one App, set it under `params:` in `convox.yml`. See [Parameters Set From the Rack](/reference/app-parameters#parameters-set-from-the-rack).
+
 ## See Also
 
 - [FargateServices](/reference/app-parameters/FargateServices)

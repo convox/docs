@@ -19,6 +19,29 @@ $ convox apps params set ParameterName=Value
 
 > **Note:** When a Rack update adds new App parameters, they become available for each App after its next deployment.
 
+To keep a value across deploys, set it under `params:` in `convox.yml`. The deploy that adds or changes it applies the value:
+
+```yaml
+params:
+  FargateServices: "Yes"
+```
+
+### Parameters Set From the Rack
+
+Each deploy or promote of a Generation 2 App sets these parameters to the Rack's value. A value set with `convox apps params set` lasts only until the App's next deploy or promote. To give one App a different value, set it under `params:` in `convox.yml`.
+
+| App parameter | Follows the Rack parameter |
+|:--------------|:---------------------------|
+| [ECSExec](/reference/app-parameters/ECSExec) | [ECSExec](/reference/rack-parameters/ECSExec) |
+| [EnableContainerReadonlyRootFilesystem](/reference/app-parameters/EnableContainerReadonlyRootFilesystem) | [EnableContainerReadonlyRootFilesystem](/reference/rack-parameters/EnableContainerReadonlyRootFilesystem) |
+| [LogDriver](/reference/app-parameters/LogDriver) | [LogDriver](/reference/rack-parameters/LogDriver) |
+| [PlaceLambdaInVpc](/reference/app-parameters/PlaceLambdaInVpc) | [PlaceLambdaInVpc](/reference/rack-parameters/PlaceLambdaInVpc) |
+| [Private](/reference/app-parameters/Private) | [Private](/reference/rack-parameters/Private) |
+| [SyslogDestination](/reference/app-parameters/SyslogDestination) | [SyslogDestination](/reference/rack-parameters/SyslogDestination) |
+| [SyslogFormat](/reference/app-parameters/SyslogFormat) | [SyslogFormat](/reference/rack-parameters/SyslogFormat) |
+
+Each deploy or promote also sets [LogBucket](/reference/app-parameters/LogBucket) to the Rack's log bucket unless `params:` in `convox.yml` sets it. [SecretsManagerEnv](/reference/app-parameters/SecretsManagerEnv) is on when either the App or the Rack sets it to `Yes`, unless `params:` in `convox.yml` sets it.
+
 ## Parameters
 
 | Parameter | Default | Description |
@@ -36,7 +59,7 @@ $ convox apps params set ParameterName=Value
 | [LoadBalancerAlgorithm](/reference/app-parameters/LoadBalancerAlgorithm) | `round_robin` | Load balancer routing algorithm |
 | [LoadBalancerGrpcSuccessCodes](/reference/app-parameters/LoadBalancerGrpcSuccessCodes) | `12` | GRPC health check success codes |
 | [LoadBalancerSuccessCodes](/reference/app-parameters/LoadBalancerSuccessCodes) | `200-399,401` | HTTP health check success codes |
-| [LogBucket](/reference/app-parameters/LogBucket) | "" | S3 bucket for ALB access logs |
+| [LogBucket](/reference/app-parameters/LogBucket) | Rack's log bucket | S3 bucket for the App settings bucket's access logs |
 | [LogDriver](/reference/app-parameters/LogDriver) | `CloudWatch` | Log driver for the application |
 | [LogRetention](/reference/app-parameters/LogRetention) | `7` | Days to retain logs |
 | [PlaceLambdaInVpc](/reference/app-parameters/PlaceLambdaInVpc) | `No` | Place Lambda functions inside the VPC |

@@ -28,6 +28,8 @@ The `rfc5424` format includes structured data fields and is the recommended form
 $ convox apps params set SyslogFormat=rfc3164
 ```
 
+Each deploy or promote sets this parameter to the Rack's [SyslogFormat](/reference/rack-parameters/SyslogFormat) value. To keep it for one App, set it under `params:` in `convox.yml`. See [Parameters Set From the Rack](/reference/app-parameters#parameters-set-from-the-rack).
+
 ## See Also
 
 - [SyslogDestination](/reference/app-parameters/SyslogDestination)

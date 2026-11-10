@@ -31,6 +31,8 @@ The destination must include the protocol prefix. Supported formats include:
 $ convox apps params set LogDriver=Syslog SyslogDestination=tcp+tls://logs.example.com:1234
 ```
 
+Each deploy or promote sets `LogDriver` and `SyslogDestination` to the Rack's values. To keep them for one App, set them under `params:` in `convox.yml`. See [Parameters Set From the Rack](/reference/app-parameters#parameters-set-from-the-rack).
+
 The syslog message format is controlled by the [SyslogFormat](/reference/app-parameters/SyslogFormat) parameter.
 
 ## See Also
